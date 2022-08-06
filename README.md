@@ -2,5 +2,7 @@
 
 ## altbilgi
 
-[lorem ipsum](http://google.com)
+deneme amaçlı yüklenmiştir
+
+[google linki](http://google.com)
 
