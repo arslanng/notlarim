@@ -58,3 +58,4 @@ console.log("hello word")
 //javascript kodu için renk düzenliyor
 ```
 
+`console.log("hello word")`
