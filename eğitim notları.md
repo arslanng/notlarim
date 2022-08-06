@@ -1,9 +1,22 @@
-markdown görüntülemeyi açmak için: ctrl+k, v
+# Eğitim Notları
 
+**[git cheat sheet](https://education.github.com/git-cheat-sheet-education.pdf)**
+
+
+
+**[Pro Git kitabı -tr-](https://git-scm.com/book/tr/v2)**
+
+**[lisans seçmek için](https://choosealicense.com/)**
+
+# Markdown
+
+[mardown kullanılabilen not uygulaması](https://www.notion.so/)
+
+markdown görüntülemeyi açmak için: ctrl+k, v
 
 **[markdown kısayolları](https://commonmark.org/help/)**
 
-# Markdown
+# başlık 1
 
 ## başlık 2
 
