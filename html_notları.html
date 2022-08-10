@@ -1,5 +1,14 @@
-<!--ilk dosyanın adı index.html olmalı-->
 <etiket>yazı</etiket> <!--örnek HTML etiket biçimi-->
+<!-- etiketi yazıp tab tuşuna basınca başlangıç ve bitiş işaretleri kendi açolıyor (yazım dili html seçildiyse) -->
+<!-- etiket + tab: <etiket> </etiket> -->
+
+<h2>html ileri okuma için</h2>
+
+<a href="https://www.w3schools.com/html/default.asp">"w3schools"</a> <!-- link kalıbı<a href="url">link text</a> -->
+
+<a href="https://html.com/">"htmk.com"</a>
+
+<!--ilk dosyanın adı index.html olmalı-->
 <h1>kodluyoruz</h1><!--örnek başlık-->
 <h1>Başlık 1</h1><!--başlıklar-->
 <h2>Başlık 2</h2>
@@ -9,3 +18,149 @@
 <h6>Başlık 6</h6>
 <!-- açıklama için bu kalıbı açmanın kısa yolu: ctrl+ö -->
 <!-- en çok kullanılan html etiketleri nelerdirden itibaren yazılı döküman okunacak -->
+<!-- kod olarak yazılan satırında ctrl+ö yaparsak açıklamaya çevirir -->
+
+<h2>paragraf kuralları</h2>
+<p>paragraf buraya geliyor
+    buraya istediğin kadar paragraf yazabilrsin
+    alt alta yazsan da yan yana alır. "Enter ile kodu aşağı almaz"
+</p> <!--açıklama örneğin içinde-->
+
+<p>Enter ile yeni paragraf açmaz. Her paragrafta yeniden paragraf etiketi açılmalı</p> <!--açıklama örneğin içinde-->
+
+<!-- paragraf içinde alt satıra yazılacaklar için <br> etiketi ile bölünme yapılabilir -->
+<p>Ne hasta bekler sabahı, <br> Ne taze ölüyü mezar.<br> Ne de şeytan, bir günahı,<br> Seni beklediğim kadar.</p>
+
+<h2>Listeler</h2>
+
+<h3>sıralı listeler</h3>
+<!-- ordered list (ol)-->
+<ol>
+    <li>liste öğesi </li><!--li: liste öğesi. ol içine li etiketi verildiğinde başına sıralı sayı ekler(1, 2, 3)-->
+    <li>liste öğesi </li>
+    <li>liste öğesi </li>
+</ol>
+
+<h3>sırasız listeler</h3>
+<!-- unordered list (ul)-->
+<ul>
+    <li>liste öğesi </li><!--li: liste öğesi. ul içine li etiketi verildiğinde başına nokta-->
+    <li>liste öğesi </li><!--girinti olması veya olmaması kodun fonksiyonu etkilemez-->
+    <li>liste öğesi </li>
+</ul>
+
+<h3>liste içinde liste</h3>
+<ul>
+    <li>liste öğesi</li>
+    <li>liste öğesi</li>
+    <li>liste öğesi <!--li etiketi içinde ol veya ul (isteğe veya gereğine bağlı) açılırsa altına li etiketiyle alt listeler oluşturulabilir-->
+        <ol>
+            <li>alt liste öğesi</li>
+            <li>alt liste öğesi</li>
+            <li>alt liste öğesi</li>
+        </ol>
+    </li>
+    <li>liste öğesi</li>
+</ul>
+
+<h2>emmet ile daha hızlı html yazmak</h2>
+<!-- etiket+tab da emmet :D -->
+<!-- emmet kullanılırken boşluk bırakılmaz -->
+<a href="https://docs.emmet.io/cheat-sheet/"><b> Emmet Cheat Sheet</b></a>
+
+<h3>></h3>
+<p> 
+    > eklersek içinde öğe koyar <b> ul>li</b>
+</p>
+
+<ul>
+    <li>Lorem, ipsum dolor.</li>
+</ul>
+
+<h3>+</h3>
+<p>
+     + eklersek kardeş element ekleriz <b> ul>li+li</b>
+</p>
+<ul>
+    <li>Lorem, ipsum dolor.</li>
+    <li>Lorem ipsum dolor sit.</li>
+</ul>
+
+
+<h3>^</h3>
+<p> içindeyken ^ eklersek üst seviyeye ekler <b> ul>li^p</b>  </p>
+<!-- kaç kez ^ eklersek o kadar seviye yükselir -->
+
+<ul>
+    <li>Lorem, ipsum.</li>
+</ul>
+<p>Lorem ipsum dolor sit amet.</p>
+
+<h3>*</h3>
+<p> * sonuna geldiğinin sayısını belirtir <b> ul>li*3</b> </p>
+
+<ul>
+    <li>Lorem, ipsum dolor.</li>
+    <li>Quos, nulla dolores.</li>
+    <li>Reiciendis, beatae esse.</li>
+</ul>
+
+<h3>lorem</h3>
+<p> lorem: rasgele metin oluşturur <b> p>lorem</b> </p>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis maiores, quia quae odio placeat a nisi commodi voluptatibus, error nihil ex totam culpa suscipit repellendus, quas excepturi eius vitae velit.</p>
+<p>loremin yanına sayı ekleyerek harf sayısı kısıtlanabilir <b>p>lorem3</b></p>
+<p>Lorem, ipsum dolor.</p>
+
+<h3>.</h3>
+<p>class oluşturmak içinmiş</p>
+<!-- h3.deneme>lorem1 --> <h3 class="deneme">Lorem.</h3>
+<p>nokta ile başlanırsa div etiketini açar</p>
+<!-- .deneme --> <div class="deneme"></div>
+
+<h3>#</h3>
+<p>id oluşturmak içinmiş</p>
+<!-- h3#deneme>lorem1 --> <h3 id="deneme">Lorem.</h3>
+
+
+<!-- h3.deneme#idolussun>lorem1 --> <h3 class="deneme" id="idolussun">Lorem.</h3>
+
+
+<!-- h2+p*4+h3+p*2+h3+p*2 -->
+<h2></h2>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<h3></h3>
+<p></p>
+<p></p>
+<h3></h3>
+<p></p>
+<p></p>
+
+<!-- ul>li^p+h2 -->
+<ul>
+    <li></li>
+</ul>
+<p></p>
+<h2></h2>
+
+<h2>görsellerle çalışmak</h2>
+<p>img etiketi: detay için kaynak koduna bak</p>
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">mozilla developer image bilgi sayfası</a>
+<img src="" alt="">
+<!-- src: source: kaynak. alt: alternative: görüntü çıkmadığında yazan yazı  -->
+<img src="" alt="" title="">
+<!-- title: resmin üzerine gelince çıkan yazı. (zorunlu değil) -->
+
+<h3>internetten kullanmak</h3> 
+<img src="https://tr.web.img2.acsta.net/pictures/14/06/17/10/53/275277.jpg" alt="sandman çizgi romanından bir görsel" title="sandman" width="600"> <!--width: yatay genişlik height: dikey uzunluk. biri verilirse diğeri ona oranlanır. ikisi de verilirse imajın en boy oranı bozulabilir-->
+
+<h3>lorem picsum</h3>
+<p>istenilen ölçüye uygun rasgele resim getiren bir web sitesi</p>
+
+<a href="https://picsum.photos/">lorem picsum</a>
+<img src="https://picsum.photos/600/300" alt=""> <!-- adresten sonraki ilk rakam en ikincisi boy. ikinci rakam olmazsa imaj kare oluyor -->
+
+<h3>klasörden kullanmak</h3>
+<img src="images/1.jpg" alt="siyah beyaz" width="600">
