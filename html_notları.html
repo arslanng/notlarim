@@ -1,6 +1,28 @@
-<etiket>yazı</etiket> <!--örnek HTML etiket biçimi-->
+
+<!DOCTYPE html>
+<html lang="tr"> <!-- site dilini belirler (tr, en vs) -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- meta kavramının açıklanması için meta başlığındaki linki inceleyin -->
+    <title>sekmedeki açıklama</title>
+</head>
+<body>
+    
+    </html><etiket>yazı</etiket> <!--örnek HTML etiket biçimi-->
 <!-- etiketi yazıp tab tuşuna basınca başlangıç ve bitiş işaretleri kendi açolıyor (yazım dili html seçildiyse) -->
 <!-- etiket + tab: <etiket> </etiket> -->
+
+<header>
+    <img src="https://picsum.photos/80">
+    <h1>test</h1>
+</header>
+<nav>
+    <a href="https://google.com">google</a>
+    </br>
+    <a href="https://picsum.photos.com/" style="color:red">picsum</a>
+</nav>
 
 <h2>html ileri okuma için</h2>
 
@@ -30,6 +52,10 @@
 
 <!-- paragraf içinde alt satıra yazılacaklar için <br> etiketi ile bölünme yapılabilir -->
 <p>Ne hasta bekler sabahı, <br> Ne taze ölüyü mezar.<br> Ne de şeytan, bir günahı,<br> Seni beklediğim kadar.</p>
+
+<p>bu derste <b>kalın</b>, <i>eğri (italik)</i> ve <u>altı çizili</u> yazmayı öğrendik <br>bir de alt satıra inmeyi </p>
+
+<div>
 
 <h2>Listeler</h2>
 
@@ -63,6 +89,83 @@
     <li>liste öğesi</li>
 </ul>
 
+<h3>stil örnekleri</h3>
+
+    <ol>
+        <li>standart sırasız liste<ul>
+            <li>elma</li>
+            <li>armut</li>
+            <li>kivi</li>
+            </ul></li>
+        <li>kare işaretli sırasız liste
+        <ul type="square">
+            <li>elma</li>
+            <li>armut</li>
+            <li>kivi</li>
+            </ul></li>
+        <li>çember işaretli sırasız liste
+        <ul type="circle">
+            <li>elma</li>
+            <li>armut</li>
+            <li>kivi</li>
+            </ul></li>
+        <li>daire işaretli sırasız liste
+        <ul type="disc">
+            <li>elma</li>
+            <li>armut</li>
+            <li>kivi</li>
+            </ul></li>
+        </ol>
+        <ul>
+            <li>standart sıralı liste<ol>
+                <li>birinci madde</li>
+                <li>ikinci madde</li>
+                <li>üçüncü madde</li>
+                </ol></li>
+            <li>roma rakamı ile liste
+            <ol type="I">
+                <li>birinci madde</li>
+                <li>ikinci madde</li>
+                <li>üçüncü madde</li>
+                </ol>
+            </li>
+            <li>küçük roma rakamı ile liste
+            <ol type="i">
+                <li>birinci madde</li>
+                <li>ikinci madde</li>
+                <li>üçüncü madde</li>
+                </ol>
+            </li>
+            <li>harf ile liste
+            <ol type="A">
+                <li>birinci madde</li>
+                <li>ikinci madde</li>
+                <li>üçüncü madde</li>
+                </ol>
+            </li>
+            <li>küçük harf ile liste
+            <ol type="a">
+                <li>birinci madde</li>
+                <li>ikinci madde</li>
+                <li>üçüncü madde</li>
+                </ol>
+            </li>
+            <li>roma rakamı ile 5 ten başlayan liste
+            <ol type="I" start="5">
+                <li>birinci madde</li>
+                <li>ikinci madde</li>
+                <li>üçüncü madde</li>
+                </ol>
+            </li>
+        </ul>
+        <dl>
+            <dt><b>tanım listesi</b></dt>
+            <dd>sözlük benzeri tanımları yapılabildiği liste stilidir. dl etiketi ile liste başlatılır. Dt etiketini içine tanımlanacak terim yazılır. </dd>
+            <dt><b>tanımın yazılması</b></dt>
+            <dd>dd etiketini içine tanım yazılır. </dd>
+        </dl>
+
+
 <h2>emmet ile daha hızlı html yazmak</h2>
 <!-- etiket+tab da emmet :D -->
 <!-- emmet kullanılırken boşluk bırakılmaz -->
@@ -79,7 +182,7 @@
 
 <h3>+</h3>
 <p>
-     + eklersek kardeş element ekleriz <b> ul>li+li</b>
+    + eklersek kardeş element ekleriz <b> ul>li+li</b>
 </p>
 <ul>
     <li>Lorem, ipsum dolor.</li>
@@ -154,7 +257,7 @@
 <!-- title: resmin üzerine gelince çıkan yazı. (zorunlu değil) -->
 
 <h3>internetten kullanmak</h3> 
-<img src="https://tr.web.img2.acsta.net/pictures/14/06/17/10/53/275277.jpg" alt="sandman çizgi romanından bir görsel" title="sandman" width="600"> <!--width: yatay genişlik height: dikey uzunluk. biri verilirse diğeri ona oranlanır. ikisi de verilirse imajın en boy oranı bozulabilir-->
+<img src="https://tr.web.img2.acsta.net/pictures/14/06/17/10/53/275277.jpg" alt="sandman çizgi romanından bir görsel" title="sandman" width="600"> <!--width: yatay genişlik height: dikey uzunluk. biri verilirse diğeri ona oranlanır. ikisi de verilirse imajın en boy oranı bozulabilir. rakam yerine 50% yazılabilir-->
 
 <h3>lorem picsum</h3>
 <p>istenilen ölçüye uygun rasgele resim getiren bir web sitesi</p>
@@ -164,3 +267,63 @@
 
 <h3>klasörden kullanmak</h3>
 <img src="images/1.jpg" alt="siyah beyaz" width="600">
+<!-- yüklenen image dozyası büyük olursa web sitesini ağırlaştırır -->
+
+    <h2>strong ve bold</h2>
+    <p>
+        <strong>strong</strong> ile yazılan hem bold olur hem de arama motoru için önemli hale geliyor
+        <br>
+        <b>b</b> ile yazılan sadece bold olur
+    </p>
+    <h2>button</h2>
+    <p>
+        <button>buton</button> eklemek için kullanılır. Henüz bu butonun bir işlevi yok.
+    </p>
+    <h2>iframe</h2>
+    <p>
+        iframe etiketi başka bir kaynaktan belge kopyalamak için kullanılır. 
+        <br>örn: youtube: vidoyu sağ tıklayıp yerleştirme kodunu kopyala dedikten sonra kendi dosyanızda istediğiniz yere ekleyebilirsiniz
+        
+        <iframe width="1280" height="720" src="https://www.youtube.com/embed/iOE1VwqgO2g" title="Yapay Zeka Sanatının Şafağı" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </p>
+    <h2>meta</h2>
+    <p>
+        meta kavramının anlaşılabilmesi için <a href="https://app.patika.dev/courses/html/baslik-etiketleri-kullanimi">okuyun</a>
+    </p>
+
+    <h2 style="color:red">estetik</h2>
+        <p> bu bölümde bazı kısımları farklı <a style="color:green">renkte</a> farklı <a style="font-size:200%">büyüklükte</a> ve farklı <a style="background-color:orange">arka plan rengi ile</a> yazmayı öğrendik</p>
+        <p style="width:10%">Bazı şeyleri daha dar alana yazabilirim</p>
+        <h3>style özelliğini etiket olarak kullanmak</h3>
+        <p>head alanının içine etiket olarak yazıldığında tüm sayfayı etkiler</p>
+    <article>
+		<h2>input kullanımı<h2>
+			<p style="color:red">lütfen adınızı yazın
+			<input type="text" placeholder="ad soyad"></p>
+	</article>
+    <article>
+        <h2>Kayan yazılar: Marquee Tag</h2>
+			<marquee>kayan yazı örneği</marquee>
+			<h3>Sınırlı alanlı kayan yazı</h3>
+			<marquee width="50%">sınırlı alanda kayıyorum</marquee>
+			<h3>farklı yöne kayan yazı <h3>
+			<marquee direction="right">tersten kayıyorum</marquee>
+			<h3>star wars yazısı</h3>
+			<marquee direction="up" height="200" bgcolor="black" style="color:white" width="50%"> uzun zaman önce <br> çok uzak bir galakside </marquee>
+			<h3>diğer özellikler</h3>
+			<marquee width="200" behavior="slide">kay ve dur</marquee>
+			</br>
+			<marquee width="200" behavior="alternate">ping pong</marquee>
+			</br>
+			<marquee width="200" scrolldelay="1000">gecikmeli yazı</marquee>
+			</br>
+			<marquee scrollamount="50">hızlı yazı</marquee>
+			</br>
+			<marquee width="200" loop="3">3 kere kay ve kaybol</marquee>
+			</br>
+			<marquee hspace="200" vspace="50">etrafı boşluklu yazı</marquee>
+		</article>
+    <footer>
+    	<p>dip not</p>
+	</footer>
+</body>
