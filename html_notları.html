@@ -16,7 +16,8 @@
 
 <header>
     <img src="https://picsum.photos/80">
-    <h1>test</h1>
+    <h1 id="baslik">test</h1>
+    <!-- id="baslik" kısmı aynı sayfada bağlantı bu noktaya oluşturabilmek için eklendi --> 
 </header>
 <nav>
     <a href="https://google.com">google</a>
@@ -191,7 +192,7 @@
 
 
 <h3>^</h3>
-<p> içindeyken ^ eklersek üst seviyeye ekler <b> ul>li^p</b>  </p>
+<p> içindeyken ^ eklersek üst seviyeye ekler <b> ul>li>lorem2^^p>lorem5></b>  </p>
 <!-- kaç kez ^ eklersek o kadar seviye yükselir -->
 
 <ul>
@@ -200,7 +201,7 @@
 <p>Lorem ipsum dolor sit amet.</p>
 
 <h3>*</h3>
-<p> * sonuna geldiğinin sayısını belirtir <b> ul>li*3</b> </p>
+<p> * sonuna geldiğinin sayısını belirtir <b> ul>li*3>lorem3 </b> </p>
 
 <ul>
     <li>Lorem, ipsum dolor.</li>
@@ -248,6 +249,24 @@
 <p></p>
 <h2></h2>
 
+
+<!-- ul>li#idNo$*3 -->
+<ul>
+    <li id="idNo1"></li>
+    <li id="idNo2"></li>
+    <li id="idNo3"></li>
+</ul>
+
+<h3>$</h3>
+<p>$ işareti sıralı artış sağlar</p>
+
+<!-- ol>li*3>lorem$ -->
+<ol>
+    <li>Lorem.</li>
+    <li>Corrupti, ipsa!</li>
+    <li>Culpa, sit eveniet.</li>
+</ol>
+
 <h2>görsellerle çalışmak</h2>
 <p>img etiketi: detay için kaynak koduna bak</p>
 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">mozilla developer image bilgi sayfası</a>
@@ -256,20 +275,45 @@
 <img src="" alt="" title="">
 <!-- title: resmin üzerine gelince çıkan yazı. (zorunlu değil) -->
 
+<!-- alt ve title SEO için önemlidir -->
+
 <h3>internetten kullanmak</h3> 
 <img src="https://tr.web.img2.acsta.net/pictures/14/06/17/10/53/275277.jpg" alt="sandman çizgi romanından bir görsel" title="sandman" width="600"> <!--width: yatay genişlik height: dikey uzunluk. biri verilirse diğeri ona oranlanır. ikisi de verilirse imajın en boy oranı bozulabilir. rakam yerine 50% yazılabilir-->
+
+
 
 <h3>lorem picsum</h3>
 <p>istenilen ölçüye uygun rasgele resim getiren bir web sitesi</p>
 
-<a href="https://picsum.photos/">lorem picsum</a>
+<a href="https://picsum.photos/">lorem picsum</a><br>
 <img src="https://picsum.photos/600/300" alt=""> <!-- adresten sonraki ilk rakam en ikincisi boy. ikinci rakam olmazsa imaj kare oluyor -->
 
 <h3>klasörden kullanmak</h3>
-<img src="images/1.jpg" alt="siyah beyaz" width="600">
+<img src="images/1.jpg" alt="siyah beyaz" width="600" border="30">
 <!-- yüklenen image dozyası büyük olursa web sitesini ağırlaştırır -->
+<!-- "../" üst dizine çıkmak için kullanılır. ne kadar kullanılırsa o kadar üst dizine çıkılır. <img src="../../images/ornek.jpg"/> -->
+<!-- border: etrafına pixel değerinde sınır çizer -->
+<br/>
+<img src="images/1.jpg" alt="siyah beyaz" width="600" border="30" align="right">
+<!-- align sayfadaki konumu belirler -->
 
-    <h2>strong ve bold</h2>
+<h3>görsele link vermek</h3>
+<p>link için görünecek metin kısmına resim için gereken kod yazılır</p>
+<a href="https://picsum.photos/"><img src="https://picsum.photos/200/300" alt="lorem picsum" title="lorem picsum"></a>
+
+<h3>map ve area</h3>
+<p>görselin farklı alanlarına farklı linkler eklemek için kullanılır. Detayı için googlelamak önerilir</p>
+<h3>onload eventi kullanımı</h3>
+<p>resim yüklendiğinde çalışacak fonksiyonu belirlemek için kullanılır.</p>
+<h3>Picture elementi kullanmak</h3>
+<p>farklı şartlarda farklı görselleri yüklemek için kullanılabilir. Örnek olarak ekran boyutu değiştiğinde görselin değişmesi sağlanabilir</p>
+
+<picture>
+    <source srcset="https://image.freepik.com/free-photo/selective-focus-shot-brown-cat-posing-camera_181624-25909.jpg"media="(min-width: 600px)">
+    <img src="https://image.freepik.com/free-photo/white-cat-lies-woman-s-knees_8353-539.jpg" alt="">
+</picture>
+
+<h2>strong ve bold</h2>
     <p>
         <strong>strong</strong> ile yazılan hem bold olur hem de arama motoru için önemli hale geliyor
         <br>
@@ -323,6 +367,35 @@
 			</br>
 			<marquee hspace="200" vspace="50">etrafı boşluklu yazı</marquee>
 		</article>
+        <h2>linklerle çalışmak</h2>
+    <h3>başka bir sayfaya git</h3>
+    <a href="http://kodluyoruz.com">buraya gidilecek</a>
+    <!-- aynı sayfada açar -->
+    <br>
+    <a href="http://kodluyoruz.com" target="_blank">buraya gidilecek (yan sekmede)</a>
+    <!-- yeni sekmede açar -->
+    <h3>aynı projeye referans vermek</h3>
+    <a href="iletisim.html">
+        iletişim sayfasına git
+    </a>
+    <h3>aynı sayfada bir yere link vermek</h3>
+    <p>link verilecek yere ID atanması gerekiyor. ID ye href ile ulaşmak için başına # konulur</p>
+    <a href="#baslik">en başa dön</a>
+    <h3>mail at</h3>
+    <a href="mailto:drmuratgokduman@gmail.com">
+        drmuratgokduman.gmail.com
+    </a>
+    <h3>telefon et</h3>
+    <a href="tel:+905059569847">
+        tel no
+    </a>
+    <h2>Blok ve İnline element</h2>
+    <dl>
+        <dt>BLOK ELEMENT</dt>
+        <dd>bulunduğu satırın tamamını kaplar</dd>
+        <dt>INLINE ELEMENT</dt>
+        <dd>bulunduğu kadar alan kaplar</dd>
+    </dl>
     <footer>
     	<p>dip not</p>
 	</footer>
