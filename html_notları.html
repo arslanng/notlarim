@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr"> <!-- site dilini belirler (tr, en vs) -->
 <head>
@@ -7,118 +6,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- meta kavramının açıklanması için meta başlığındaki linki inceleyin -->
     <title>sekmedeki açıklama</title>
+    <style>
+    /* buraya yazılan özellik tüm sayfayı etkiler */
+    h1
+    {
+        font-style: italic;
+    }
+    </style>
 </head>
 <body>
     
     </html><etiket>yazı</etiket> <!--örnek HTML etiket biçimi-->
-<!-- etiketi yazıp tab tuşuna basınca başlangıç ve bitiş işaretleri kendi açolıyor (yazım dili html seçildiyse) -->
-<!-- etiket + tab: <etiket> </etiket> -->
+    <!-- etiketi yazıp tab tuşuna basınca başlangıç ve bitiş işaretleri kendi açılıyor (yazım dili html seçildiyse) -->
+    <!-- etiket + tab: <etiket> </etiket> -->
 
 <header>
     <img src="https://picsum.photos/80">
-    <h1 id="baslik">test</h1>
+    <h1 id="baslik">HTML Eğitimi</h1>
     <!-- id="baslik" kısmı aynı sayfada bağlantı bu noktaya oluşturabilmek için eklendi --> 
-</header>
-<nav>
-    <a href="https://google.com">google</a>
-    </br>
-    <a href="https://picsum.photos.com/" style="color:red">picsum</a>
+    <nav>
+        <a href="iletisim.html"><button>iletişim</button></a>
+        <ul><strong>İçindekiler</strong>
+            <li>
+                <a href="#basliklar">Başlıklar</a>
+            </li>
+            <li>
+                <a href="#paragraflar">Paragraf Kuralları</a>
+                
+            </li>
+            <li>
+                <a href="#listeler">Listeler</a>
+            </li>
+        <li>
+            <a href="#emmet">Emmet ile daha hızlı html yazmak</a>
+        </li>
+        <li>
+            <a href="#gorsel">Görsellerle çalışmak</a>
+        </li>
+        <li>
+            <a href="#button">Button</a>
+        </li>
+        <li>
+            <a href="#iframe">iframe</a>   
+        </li>
+        <li>
+            <a href="#meta">meta</a>
+        </li>
+        <li>
+            <a href="#style">Estetik</a>
+        </li>
+        <li>
+            <a href="#input">input kullanımı</a>
+        </li>
+        <li>
+            <a href="#marquee">Kayan yazılar: Marquee Tag</a>
+        </li>
+        <li>
+            <a href="#link">Linklerle Çalışmak</a>
+        </li>
+        <li>
+            <a href="#BlokVeInline">Blok ve İnline Element</a>
+        </li>
+        <li>
+            <a href="#etiket">Etiket Özellikleri</a>
+        </li>
+        <li>
+            <a href="#semantic">Semantic(Anlamlandırılmış) HTML Etiketleri</a>
+        </li>
+    </ul>
+    <hr>  
 </nav>
+</header>
+    
+<h1>Faydalı siteler</h1>
+<a href="https://picsum.photos.com/" style="color:red">picsum</a>
 
-<h2>html ileri okuma için</h2>
-
-<a href="https://www.w3schools.com/html/default.asp">"w3schools"</a> <!-- link kalıbı<a href="url">link text</a> -->
-
-<a href="https://html.com/">"htmk.com"</a>
-
-<a href="http://www.99lime.com/_bak/topics/you-only-need-10-tags/">İhtiyacın olacak 10 element</a>
+<h1>html ileri okuma için</h1>
+<ul>
+        <li>
+            <a href="https://www.w3schools.com/html/default.asp" target="_blank">"w3schools"</a> <!-- link kalıbı<a href="url">link text</a> -->
+        </li>
+        <li>
+            <a href="https://html.com/" target="_blank">"html.com"</a>
+        </li>
+        <li>
+            <a href="http://www.99lime.com/_bak/topics/you-only-need-10-tags/" target="_blank">İhtiyacın olacak 10 element</a>
+        </li>
+        <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img" target="_blank">mozilla developer image bilgi sayfası</a>
+        </li>
+        <li>
+            <a href="https://htmlreference.io/" target="_blank">htmlreference.io</a>
+        </li>
+        <li>
+            <a href="https://emmet.io/" target="_blank">emmet.io</a>
+        </li>
+    </ul>
 
 <!--ilk dosyanın adı index.html olmalı-->
-<h1>kodluyoruz</h1><!--örnek başlık-->
-<h1>Başlık 1</h1><!--başlıklar-->
-<h2>Başlık 2</h2>
-<h3>Başlık 3</h3>
-<h4>Başlık 4</h4>
-<h5>Başlık 5</h5>
-<h6>Başlık 6</h6>
-<!-- açıklama için bu kalıbı açmanın kısa yolu: ctrl+ö -->
-<!-- en çok kullanılan html etiketleri nelerdirden itibaren yazılı döküman okunacak -->
-<!-- kod olarak yazılan satırında ctrl+ö yaparsak açıklamaya çevirir -->
-
-<h2>paragraf kuralları</h2>
-<p>paragraf buraya geliyor
+<h1 id="basliklar">Başlıklar</h1><!--örnek başlık-->
+    <h1>Başlık 1</h1><!--başlıklar-->
+    <h2>Başlık 2</h2>
+    <h3>Başlık 3</h3>
+    <h4>Başlık 4</h4>
+    <h5>Başlık 5</h5>
+    <h6>Başlık 6</h6>
+    <!-- açıklama için bu kalıbı açmanın kısa yolu: ctrl+ö -->
+    <!-- en çok kullanılan html etiketleri nelerdirden itibaren yazılı döküman okunacak -->
+    <!-- kod olarak yazılan satırında ctrl+ö yaparsak açıklamaya çevirir -->
+    
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    
+<h1 id="paragraflar">paragraf kuralları</h1>
+    <p>paragraf buraya geli yor
     buraya istediğin kadar paragraf yazabilrsin
     alt alta yazsan da yan yana alır. "Enter ile kodu aşağı almaz"
-</p> <!--açıklama örneğin içinde-->
+    </p> <!--açıklama örneğin içinde-->
 
-<p>Enter ile yeni paragraf açmaz. Her paragrafta yeniden paragraf etiketi açılmalı</p> <!--açıklama örneğin içinde-->
+    <p>Enter ile yeni paragraf açmaz. Her paragrafta yeniden paragraf etiketi açılmalı</p> <!--açıklama örneğin içinde-->
 
-<!-- paragraf içinde alt satıra yazılacaklar için <br> etiketi ile bölünme yapılabilir -->
-<p>Ne hasta bekler sabahı, <br> Ne taze ölüyü mezar.<br> Ne de şeytan, bir günahı,<br> Seni beklediğim kadar.</p>
+    <!-- paragraf içinde alt satıra yazılacaklar için <br> etiketi ile bölünme yapılabilir -->
+    <p>Ne hasta bekler sabahı, <br> Ne taze ölüyü mezar.<br> Ne de şeytan, bir günahı,<br> Seni beklediğim kadar.</p>
 
-<p>bu derste <b>kalın</b>, <i>eğri (italik)</i> ve <u>altı çizili</u> yazmayı öğrendik <br>bir de alt satıra inmeyi </p>
+    <p>bu derste <b>kalın</b>, <i>eğri (italik)</i> ve <u>altı çizili</u> yazmayı öğrendik <br>bir de alt satıra inmeyi <br>Alternatif olarak <strong>strong</strong> ve <em>em</em> etiketleri de kullanılabilir.</p>
 
+    <h2>blockquote</h2>
+        <blockquote cite="https://app.patika.dev/courses/html/diger-html-etiketleri-hakkinda">Alıntı yapmak için kullanılır</blockquote>
+
+    <h2>Strong ve Bold</h2>
+        <p>
+            <strong>strong</strong> ile yazılan hem bold olur hem de arama motoru için önemli hale geliyor
+            <br>
+            <b>b</b> ile yazılan sadece bold olur
+        </p>
+
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    
 <div>
+<h1 id="listeler">Listeler</h1>
 
-<h2>Listeler</h2>
-
-<h3>sıralı listeler</h3>
-<!-- ordered list (ol)-->
-<ol>
-    <li>liste öğesi </li><!--li: liste öğesi. ol içine li etiketi verildiğinde başına sıralı sayı ekler(1, 2, 3)-->
-    <li>liste öğesi </li>
-    <li>liste öğesi </li>
-</ol>
-
-<h3>sırasız listeler</h3>
-<!-- unordered list (ul)-->
-<ul>
-    <li>liste öğesi </li><!--li: liste öğesi. ul içine li etiketi verildiğinde başına nokta-->
-    <li>liste öğesi </li><!--girinti olması veya olmaması kodun fonksiyonu etkilemez-->
-    <li>liste öğesi </li>
-</ul>
-
-<h3>liste içinde liste</h3>
-<ul>
-    <li>liste öğesi</li>
-    <li>liste öğesi</li>
-    <li>liste öğesi <!--li etiketi içinde ol veya ul (isteğe veya gereğine bağlı) açılırsa altına li etiketiyle alt listeler oluşturulabilir-->
+    <h2>sıralı listeler</h2>
+        <!-- ordered list (ol)-->
         <ol>
-            <li>alt liste öğesi</li>
-            <li>alt liste öğesi</li>
-            <li>alt liste öğesi</li>
+            <li>liste öğesi </li><!--li: liste öğesi. ol içine li etiketi verildiğinde başına sıralı sayı ekler(1, 2, 3)-->
+            <li>liste öğesi </li>
+            <li>liste öğesi </li>
         </ol>
-    </li>
-    <li>liste öğesi</li>
-</ul>
 
-<h3>stil örnekleri</h3>
+    <h2>sırasız listeler</h2>
+        <!-- unordered list (ul)-->
+        <ul>
+            <li>liste öğesi </li><!--li: liste öğesi. ul içine li etiketi verildiğinde başına nokta-->
+            <li>liste öğesi </li><!--girinti olması veya olmaması kodun fonksiyonu etkilemez-->
+            <li>liste öğesi </li>
+        </ul>
 
-    <ol>
-        <li>standart sırasız liste<ul>
-            <li>elma</li>
-            <li>armut</li>
-            <li>kivi</li>
-            </ul></li>
-        <li>kare işaretli sırasız liste
-        <ul type="square">
-            <li>elma</li>
-            <li>armut</li>
-            <li>kivi</li>
-            </ul></li>
-        <li>çember işaretli sırasız liste
-        <ul type="circle">
-            <li>elma</li>
-            <li>armut</li>
-            <li>kivi</li>
-            </ul></li>
-        <li>daire işaretli sırasız liste
-        <ul type="disc">
-            <li>elma</li>
-            <li>armut</li>
-            <li>kivi</li>
-            </ul></li>
-        </ol>
+    <h2>liste içinde liste</h2>
+        <ul>
+            <li>liste öğesi</li>
+            <li>liste öğesi</li>
+            <li>liste öğesi <!--li etiketi içinde ol veya ul (isteğe veya gereğine bağlı) açılırsa altına li etiketiyle alt listeler oluşturulabilir-->
+                <ol>
+                    <li>alt liste öğesi</li>
+                    <li>alt liste öğesi</li>
+                    <li>alt liste öğesi</li>
+                </ol>
+            </li>
+            <li>liste öğesi</li>
+        </ul>
+
+    <h2>stil örnekleri</h2>
+
+        <ol>
+            <li>standart sırasız liste<ul>
+                <li>elma</li>
+                <li>armut</li>
+                <li>kivi</li>
+                </ul></li>
+            <li>kare işaretli sırasız liste
+            <ul type="square">
+                <li>elma</li>
+                <li>armut</li>
+                <li>kivi</li>
+                </ul></li>
+            <li>çember işaretli sırasız liste
+            <ul type="circle">
+                <li>elma</li>
+                <li>armut</li>
+                <li>kivi</li>
+                </ul></li>
+            <li>daire işaretli sırasız liste
+            <ul type="disc">
+                <li>elma</li>
+                <li>armut</li>
+                <li>kivi</li>
+                </ul></li>
+            </ol>
         <ul>
             <li>standart sıralı liste<ol>
                 <li>birinci madde</li>
@@ -161,202 +248,231 @@
                 </ol>
             </li>
         </ul>
+            
         <dl>
             <dt><b>tanım listesi</b></dt>
             <dd>sözlük benzeri tanımları yapılabildiği liste stilidir. dl etiketi ile liste başlatılır. Dt etiketini içine tanımlanacak terim yazılır. </dd>
             <dt><b>tanımın yazılması</b></dt>
             <dd>dd etiketini içine tanım yazılır. </dd>
         </dl>
+    
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    
+<h1 id="emmet">Emmet ile daha hızlı html yazmak</h1>
+    <!-- etiket+tab da emmet :D -->
+    <!-- emmet kullanılırken boşluk bırakılmaz -->
+    <a href="https://docs.emmet.io/cheat-sheet/" target="_blank"><b> Emmet Cheat Sheet</b></a>
+
+    <h2>></h2>
+        <p> 
+        > eklersek içinde öğe koyar <b> ul>li</b>
+        </p>
+
+        <ul>
+            <li>Lorem, ipsum dolor.</li>
+        </ul>
+
+    <h2>+</h2>
+        <p>
+            + eklersek kardeş element ekleriz <b> ul>li+li</b>
+        </p>
+        <ul>
+            <li>Lorem, ipsum dolor.</li>
+            <li>Lorem ipsum dolor sit.</li>
+        </ul>
 
 
-<h2>emmet ile daha hızlı html yazmak</h2>
-<!-- etiket+tab da emmet :D -->
-<!-- emmet kullanılırken boşluk bırakılmaz -->
-<a href="https://docs.emmet.io/cheat-sheet/"><b> Emmet Cheat Sheet</b></a>
+    <h2>^</h2>
+        <p> içindeyken ^ eklersek üst seviyeye ekler <b> ul>li>lorem2^^p>lorem5></b>  </p>
+        <!-- kaç kez ^ eklersek o kadar seviye yükselir -->
 
-<h3>></h3>
-<p> 
-    > eklersek içinde öğe koyar <b> ul>li</b>
-</p>
+        <ul>
+            <li>Lorem, ipsum.</li>
+        </ul>
+        <p>Lorem ipsum dolor sit amet.</p>
 
-<ul>
-    <li>Lorem, ipsum dolor.</li>
-</ul>
+    <h2>*</h2>
+        <p> * sonuna geldiğinin sayısını belirtir <b> ul>li*3>lorem3 </b> </p>
 
-<h3>+</h3>
-<p>
-    + eklersek kardeş element ekleriz <b> ul>li+li</b>
-</p>
-<ul>
-    <li>Lorem, ipsum dolor.</li>
-    <li>Lorem ipsum dolor sit.</li>
-</ul>
+        <ul>
+            <li>Lorem, ipsum dolor.</li>
+            <li>Quos, nulla dolores.</li>
+            <li>Reiciendis, beatae esse.</li>
+        </ul>
 
+    <h2>lorem</h2>
+        <p> lorem: rasgele metin oluşturur <b> p>lorem</b> </p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis maiores, quia quae odio placeat a nisi commodi voluptatibus, error nihil ex totam culpa suscipit repellendus, quas excepturi eius vitae velit.</p>
+        <p>loremin yanına sayı ekleyerek harf sayısı kısıtlanabilir <b>p>lorem3</b></p>
+        <p>Lorem, ipsum dolor.</p>
 
-<h3>^</h3>
-<p> içindeyken ^ eklersek üst seviyeye ekler <b> ul>li>lorem2^^p>lorem5></b>  </p>
-<!-- kaç kez ^ eklersek o kadar seviye yükselir -->
+    <h2>.</h2>
+        <p>class oluşturmak içinmiş</p>
+        <!-- h2.deneme>lorem1 --> <h2 class="deneme">Lorem.</h2>
+        <p>nokta ile başlanırsa div etiketini açar</p>
+        <!-- .deneme --> <div class="deneme"></div>
 
-<ul>
-    <li>Lorem, ipsum.</li>
-</ul>
-<p>Lorem ipsum dolor sit amet.</p>
-
-<h3>*</h3>
-<p> * sonuna geldiğinin sayısını belirtir <b> ul>li*3>lorem3 </b> </p>
-
-<ul>
-    <li>Lorem, ipsum dolor.</li>
-    <li>Quos, nulla dolores.</li>
-    <li>Reiciendis, beatae esse.</li>
-</ul>
-
-<h3>lorem</h3>
-<p> lorem: rasgele metin oluşturur <b> p>lorem</b> </p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis maiores, quia quae odio placeat a nisi commodi voluptatibus, error nihil ex totam culpa suscipit repellendus, quas excepturi eius vitae velit.</p>
-<p>loremin yanına sayı ekleyerek harf sayısı kısıtlanabilir <b>p>lorem3</b></p>
-<p>Lorem, ipsum dolor.</p>
-
-<h3>.</h3>
-<p>class oluşturmak içinmiş</p>
-<!-- h3.deneme>lorem1 --> <h3 class="deneme">Lorem.</h3>
-<p>nokta ile başlanırsa div etiketini açar</p>
-<!-- .deneme --> <div class="deneme"></div>
-
-<h3>#</h3>
-<p>id oluşturmak içinmiş</p>
-<!-- h3#deneme>lorem1 --> <h3 id="deneme">Lorem.</h3>
+    <h2>#</h2>
+        <p>id oluşturmak içinmiş</p>
+        <!-- h2#deneme>lorem1 --> <h2 id="deneme">Lorem.</h2>
 
 
-<!-- h3.deneme#idolussun>lorem1 --> <h3 class="deneme" id="idolussun">Lorem.</h3>
+        <!-- h2.deneme#idolussun>lorem1 --> <h2 class="deneme" id="idolussun">Lorem.</h2>
+
+    <h2>Örnekler</h2>
+        <p>Açıklamalar kaynak kodun içerisinde</p>
+        <!-- h2+p*4+h2+p*2+h2+p*2 -->
+        <h2></h2>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <h2></h2>
+        <p></p>
+        <p></p>
+        <h2></h2>
+        <p></p>
+        <p></p>
+
+        <!-- ul>li^p+h2 -->
+        <ul>
+            <li></li>
+        </ul>
+        <p></p>
+        <h2></h2>
 
 
-<!-- h2+p*4+h3+p*2+h3+p*2 -->
-<h2></h2>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<h3></h3>
-<p></p>
-<p></p>
-<h3></h3>
-<p></p>
-<p></p>
+        <!-- ul>li#idNo$*3 -->
+        <ul>
+            <li id="idNo1"></li>
+            <li id="idNo2"></li>
+            <li id="idNo3"></li>
+        </ul>
 
-<!-- ul>li^p+h2 -->
-<ul>
-    <li></li>
-</ul>
-<p></p>
-<h2></h2>
+        <h2>$</h2>
+        <p>$ işareti sıralı artış sağlar</p>
 
+        <!-- ol>li*3>lorem$ -->
+        <ol>
+            <li>Lorem.</li>
+            <li>Corrupti, ipsa!</li>
+            <li>Culpa, sit eveniet.</li>
+        </ol>
+    
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    
+<h1 id="gorsel">Görsellerle çalışmak</h1>
+    <p>img etiketi: detay için kaynak koduna bak</p>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">mozilla developer image bilgi sayfası</a>
+    <img src="" alt="">
+    <!-- src: source: kaynak. alt: alternative: görüntü çıkmadığında yazan yazı  -->
+    <img src="" alt="" title="">
+    <!-- title: resmin üzerine gelince çıkan yazı. (zorunlu değil) -->
 
-<!-- ul>li#idNo$*3 -->
-<ul>
-    <li id="idNo1"></li>
-    <li id="idNo2"></li>
-    <li id="idNo3"></li>
-</ul>
+    <!-- alt ve title SEO için önemlidir -->
 
-<h3>$</h3>
-<p>$ işareti sıralı artış sağlar</p>
-
-<!-- ol>li*3>lorem$ -->
-<ol>
-    <li>Lorem.</li>
-    <li>Corrupti, ipsa!</li>
-    <li>Culpa, sit eveniet.</li>
-</ol>
-
-<h2>görsellerle çalışmak</h2>
-<p>img etiketi: detay için kaynak koduna bak</p>
-<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">mozilla developer image bilgi sayfası</a>
-<img src="" alt="">
-<!-- src: source: kaynak. alt: alternative: görüntü çıkmadığında yazan yazı  -->
-<img src="" alt="" title="">
-<!-- title: resmin üzerine gelince çıkan yazı. (zorunlu değil) -->
-
-<!-- alt ve title SEO için önemlidir -->
-
-<h3>internetten kullanmak</h3> 
-<img src="https://tr.web.img2.acsta.net/pictures/14/06/17/10/53/275277.jpg" alt="sandman çizgi romanından bir görsel" title="sandman" width="600"> <!--width: yatay genişlik height: dikey uzunluk. biri verilirse diğeri ona oranlanır. ikisi de verilirse imajın en boy oranı bozulabilir. rakam yerine 50% yazılabilir-->
+    <h2>internetten kullanmak</h2> 
+        <img src="https://tr.web.img2.acsta.net/pictures/14/06/17/10/53/275277.jpg" alt="sandman çizgi romanından bir görsel" title="sandman" width="600"> <!--width: yatay genişlik height: dikey uzunluk. biri verilirse diğeri ona oranlanır. ikisi de verilirse imajın en boy oranı bozulabilir. rakam yerine 50% yazılabilir-->
 
 
 
-<h3>lorem picsum</h3>
-<p>istenilen ölçüye uygun rasgele resim getiren bir web sitesi</p>
+    <h3>lorem picsum</h3>
+    <p>istenilen ölçüye uygun rasgele resim getiren bir web sitesi</p>
 
-<a href="https://picsum.photos/">lorem picsum</a><br>
-<img src="https://picsum.photos/600/300" alt=""> <!-- adresten sonraki ilk rakam en ikincisi boy. ikinci rakam olmazsa imaj kare oluyor -->
+    <a href="https://picsum.photos/">lorem picsum</a><br>
+    <img src="https://picsum.photos/600/300" alt=""> <!-- adresten sonraki ilk rakam en ikincisi boy. ikinci rakam olmazsa imaj kare oluyor -->
 
-<h3>klasörden kullanmak</h3>
-<img src="images/1.jpg" alt="siyah beyaz" width="600" border="30">
-<!-- yüklenen image dozyası büyük olursa web sitesini ağırlaştırır -->
-<!-- "../" üst dizine çıkmak için kullanılır. ne kadar kullanılırsa o kadar üst dizine çıkılır. <img src="../../images/ornek.jpg"/> -->
-<!-- border: etrafına pixel değerinde sınır çizer -->
-<br/>
-<img src="images/1.jpg" alt="siyah beyaz" width="600" border="30" align="right">
-<!-- align sayfadaki konumu belirler -->
+    <h2>klasörden kullanmak</h2>
+        <img src="images/1.jpg" alt="siyah beyaz" width="600" border="30">
+        <!-- yüklenen image dozyası büyük olursa web sitesini ağırlaştırır -->
+        <!-- "../" üst dizine çıkmak için kullanılır. ne kadar kullanılırsa o kadar üst dizine çıkılır. <img src="../../images/ornek.jpg"/> -->
+        <!-- border: etrafına pixel değerinde sınır çizer -->
+        <br/>
+        <img src="images/1.jpg" alt="siyah beyaz" width="600" border="30" align="right">
+        <!-- align sayfadaki konumu belirler -->
 
-<h3>görsele link vermek</h3>
-<p>link için görünecek metin kısmına resim için gereken kod yazılır</p>
-<a href="https://picsum.photos/"><img src="https://picsum.photos/200/300" alt="lorem picsum" title="lorem picsum"></a>
+    <h2>görsele link vermek</h2>
+        <p>link için görünecek metin kısmına resim için gereken kod yazılır</p>
+        <a href="https://picsum.photos/"><img src="https://picsum.photos/200/300" alt="lorem picsum" title="lorem picsum"></a>
 
-<h3>map ve area</h3>
-<p>görselin farklı alanlarına farklı linkler eklemek için kullanılır. Detayı için googlelamak önerilir</p>
-<h3>onload eventi kullanımı</h3>
-<p>resim yüklendiğinde çalışacak fonksiyonu belirlemek için kullanılır.</p>
-<h3>Picture elementi kullanmak</h3>
-<p>farklı şartlarda farklı görselleri yüklemek için kullanılabilir. Örnek olarak ekran boyutu değiştiğinde görselin değişmesi sağlanabilir</p>
+    <h2>map ve area</h2>
+        <p>görselin farklı alanlarına farklı linkler eklemek için kullanılır. Detayı için googlelamak önerilir</p>
+    <h2>onload eventi kullanımı</h2>
+        <p>resim yüklendiğinde çalışacak fonksiyonu belirlemek için kullanılır.</p>
+    <h2>Picture elementi kullanmak</h2>
+        <p>farklı şartlarda farklı görselleri yüklemek için kullanılabilir. Örnek olarak ekran boyutu değiştiğinde görselin değişmesi sağlanabilir</p>
 
-<picture>
-    <source srcset="https://image.freepik.com/free-photo/selective-focus-shot-brown-cat-posing-camera_181624-25909.jpg"media="(min-width: 600px)">
-    <img src="https://image.freepik.com/free-photo/white-cat-lies-woman-s-knees_8353-539.jpg" alt="">
-</picture>
-
-<h2>strong ve bold</h2>
-    <p>
-        <strong>strong</strong> ile yazılan hem bold olur hem de arama motoru için önemli hale geliyor
-        <br>
-        <b>b</b> ile yazılan sadece bold olur
-    </p>
-    <h2>button</h2>
+        <picture>
+        <source srcset="https://image.freepik.com/free-photo/selective-focus-shot-brown-cat-posing-camera_181624-25909.jpg"media="(min-width: 600px)">
+        <img src="https://image.freepik.com/free-photo/white-cat-lies-woman-s-knees_8353-539.jpg" alt="">
+        </picture>
+    
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+       
+<h1 id="button">Button</h1>
     <p>
         <button>buton</button> eklemek için kullanılır. Henüz bu butonun bir işlevi yok.
     </p>
-    <h2>iframe</h2>
+        
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    
+<h1 id="iframe">iframe</h1>
     <p>
         iframe etiketi başka bir kaynaktan belge kopyalamak için kullanılır. 
         <br>örn: youtube: vidoyu sağ tıklayıp yerleştirme kodunu kopyala dedikten sonra kendi dosyanızda istediğiniz yere ekleyebilirsiniz
-        
-        <iframe width="1280" height="720" src="https://www.youtube.com/embed/iOE1VwqgO2g" title="Yapay Zeka Sanatının Şafağı" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </p>
-    <h2>meta</h2>
+    </p>    
+    <iframe width="1280" height="720" src="https://www.youtube.com/embed/iOE1VwqgO2g" title="Yapay Zeka Sanatının Şafağı" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+    
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    
+
+<h1 id="meta">meta</h1>
     <p>
         meta kavramının anlaşılabilmesi için <a href="https://app.patika.dev/courses/html/baslik-etiketleri-kullanimi">okuyun</a>
     </p>
-
-    <h2 style="color:red">estetik</h2>
+    
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    
+<h1 id="style" style="color:red">Estetik</h1>
         <p> bu bölümde bazı kısımları farklı <a style="color:green">renkte</a> farklı <a style="font-size:200%">büyüklükte</a> ve farklı <a style="background-color:orange">arka plan rengi ile</a> yazmayı öğrendik</p>
         <p style="width:10%">Bazı şeyleri daha dar alana yazabilirim</p>
-        <h3>style özelliğini etiket olarak kullanmak</h3>
+    <h2>style özelliğini etiket olarak kullanmak</h2>
         <p>head alanının içine etiket olarak yazıldığında tüm sayfayı etkiler</p>
-    <article>
-		<h2>input kullanımı<h2>
-			<p style="color:red">lütfen adınızı yazın
-			<input type="text" placeholder="ad soyad"></p>
-	</article>
-    <article>
-        <h2>Kayan yazılar: Marquee Tag</h2>
-			<marquee>kayan yazı örneği</marquee>
-			<h3>Sınırlı alanlı kayan yazı</h3>
-			<marquee width="50%">sınırlı alanda kayıyorum</marquee>
-			<h3>farklı yöne kayan yazı <h3>
-			<marquee direction="right">tersten kayıyorum</marquee>
-			<h3>star wars yazısı</h3>
-			<marquee direction="up" height="200" bgcolor="black" style="color:white" width="50%"> uzun zaman önce <br> çok uzak bir galakside </marquee>
-			<h3>diğer özellikler</h3>
+        
+        <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    
+<h1 id="input">input kullanımı<h1>
+        <p style="color:red">lütfen adınızı yazın
+        <input type="text" placeholder="ad soyad"></p>
+	
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+            
+<h1 id="marquee">Kayan yazılar: Marquee Tag</h1>
+    <marquee>kayan yazı örneği</marquee>
+    <h2>Sınırlı alanlı kayan yazı</h2>
+        <marquee width="50%">sınırlı alanda kayıyorum</marquee>
+    <h2>farklı yöne kayan yazı <h2>
+        <marquee direction="right">tersten kayıyorum</marquee>
+    <h2>star wars yazısı</h2>
+        <marquee direction="up" height="200" bgcolor="black" style="color:white" width="50%"> uzun zaman önce <br> çok uzak bir galakside </marquee>
+    <h2>diğer özellikler</h2>
 			<marquee width="200" behavior="slide">kay ve dur</marquee>
 			</br>
 			<marquee width="200" behavior="alternate">ping pong</marquee>
@@ -368,30 +484,41 @@
 			<marquee width="200" loop="3">3 kere kay ve kaybol</marquee>
 			</br>
 			<marquee hspace="200" vspace="50">etrafı boşluklu yazı</marquee>
-		</article>
-        <h2>linklerle çalışmak</h2>
-    <h3>başka bir sayfaya git</h3>
-    <a href="http://kodluyoruz.com">buraya gidilecek</a>
-    <!-- aynı sayfada açar -->
-    <br>
-    <a href="http://kodluyoruz.com" target="_blank">buraya gidilecek (yan sekmede)</a>
-    <!-- yeni sekmede açar -->
-    <h3>aynı projeye referans vermek</h3>
-    <a href="iletisim.html">
-        iletişim sayfasına git
-    </a>
-    <h3>aynı sayfada bir yere link vermek</h3>
-    <p>link verilecek yere ID atanması gerekiyor. ID ye href ile ulaşmak için başına # konulur</p>
-    <a href="#baslik">en başa dön</a>
-    <h3>mail at</h3>
-    <a href="mailto:drmuratgokduman@gmail.com">
-        drmuratgokduman.gmail.com
-    </a>
-    <h3>telefon et</h3>
-    <a href="tel:+905059569847">
-        tel no
-    </a>
-    <h2>Blok ve İnline element</h2>
+            
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+            
+<h1 id="link">Linklerle Çalışmak</h1>
+    <h2>başka bir sayfaya git</h2>
+        <a href="http://kodluyoruz.com">buraya gidilecek</a>
+        <!-- aynı sayfada açar -->
+        <br>
+        <a href="http://kodluyoruz.com" target="_blank">buraya gidilecek (yan sekmede)</a>
+        <!-- yeni sekmede açar -->
+    <h2>aynı projeye referans vermek</h2>
+        <a href="iletisim.html">
+            iletişim sayfasına git
+        </a>
+    <h2>aynı sayfada bir yere link vermek</h2>
+        <p>link verilecek yere ID atanması gerekiyor. ID ye href ile ulaşmak için başına # konulur</p>
+        <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+    <h2>mail at</h2>
+        <a href="mailto:drmuratgokduman@gmail.com">
+            drmuratgokduman.gmail.com
+        </a>
+    <h2>telefon et</h2>
+        <a href="tel:+905059569847">
+            tel no
+        </a>
+    
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+            
+<h1 id="BlokVeInline">Blok ve İnline Element</h1>
     <dl>
         <dt>BLOK ELEMENT</dt>
         <dd>bulunduğu satırın tamamını kaplar</dd>
@@ -409,7 +536,53 @@
     <hr>
     <p>Blok ve inline listesi için <a href="https://htmlreference.io/" target="_blank">tıklayınız</a></p>
     <hr>
-    <footer>
-    	<p>dip not</p>
-	</footer>
+        
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+            
+<h1 id="etiket">Etiket Özellikleri</h1>
+    <p>özellik_adı="özellik" kalıbı ile etiketin içine yazılır</p>
+    
+    <h2>ID</h2>
+        <p>içine dahil olduğu etiketin benzersiz olduğunu gösterir <br> birden fazla, aralarında boşluk olan kelime <strong>kullanılamaz</strong> <br> ID bir etikette sadece bir tane olur. Bir kodda tek bir etikete verilir.
+        </p>
+    <h2>CLASS</h2>
+        <p>Sınıflandırma için kullanılır. Özellik atamak için kullanılabilir</p>
+    <h2>Yazana özel etiket özellikleri</h2>
+        <p>html için anlamı olmayan, kodu yazanın daha sonra anlam kazandıracağı (javascript vs ile) etiket özellikleridir. <br> <strong>data</strong>-bizim_eklediğimiz_özellik kalıbi ile yazılır.</p>
+            
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+
+<h1 id="semantic">Semantic(Anlamlandırılmış) HTML Etiketleri</h1>
+    <dl> div ile aynı görevi gören ancak sitemizdeki yerine göre adlandırılmış etiketlerdir. Kodu anlamayı kolaylaştırır</dl>
+    <dt><b></b><b>Header</b></dt>
+        <dd>ilgili bölümün br başlık olduğunu belirtir</dd>
+    <dt><b>Nav</b></dt>
+        <dd>Linkler için ayrılmış bölümdür. Linkleri buraya yazmak zorunlu <strong>değildir</strong></dd>
+    <dt><b>Section</b></dt>
+        <dd>Dökümanı bölmek için kullanılır</dd>
+    <dt><b>Figure</b></dt>
+        <dd>İçeriğinde resim, gösterim, diyagram, kod listeleri vs. gibi nesnelerin olduğunu belirtir. Ana akış ile ilgili olsa da, konumu ana akıştan tamamen bağımsızdır. Çıkarılırsa dokümanın akışını engellemez.</dd>
+    <dt><b>Figcaption</b></dt>
+        <dd>Figure içeriğine başlık koymak için kullanılır</dd>
+    <dt><b>Aside</b></dt>
+        <dd> başka bazı içerikleri tanımlar. İçeriği, üst içerik hakkında olmalıdır.
+        </dd>
+    <dt><b>Article</b></dt>
+        <dd>bir makale elementidir. Bir makale web sayfasının geri kalanından bağımsız olarak dağıtılabilmelidir. <br>
+        Genelde bu elementin kullanabildiği yerler forum mesajları, blog gönderileri, haber metinleri, yorumlar gibi makale içeren metinlerdir.</dd>
+    <dt><b>Aside</b></dt>
+        <dd>Yan sütunda yer alması planlanan yan bilgiler buraya alınır</dd>
+    <dt><b>Footer</b></dt>
+        <dd>doküman ya da kısım için alt bilgilerini belirtir. <br> Genelde dokümanın yazarını, telif haklarını, kullanım gizliği, iletisim vs. gibi bilgileri içerir ve bir dokümanda bir kereden fazla kullanılabilir.</dd>
+<footer>
+    <hr>
+    <p>dip not</p>
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>
+</footer>
 </body>
