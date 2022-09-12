@@ -1,0 +1,27 @@
+/* genel */
+h1,h2,h3,h4,h5,h6{
+    color: #202020;
+}
+p{
+    color: green
+}
+
+/* class -> .text-red {} */
+.text-red{
+    color:red;
+}
+.fs-14{
+    font-size: 14px;
+}
+.fs-20{
+    font-size: 20px;
+}
+.fs-30{
+    font-size: 30px;
+}
+/* id -> #id-bilgisi {} */
+#last_p{
+    border: 2px solid purple;
+    color:#202020;
+    font-size: 35px;
+}

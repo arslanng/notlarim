@@ -1,0 +1,21 @@
+h2{
+    color: lightblue; 
+    font-style: italic;
+    text-transform: uppercase; 
+    /* tüm karakterleri büyük yaptık */
+    font-family: 'Times New Roman', Times, serif;
+    /* bilgisayarda varsa Times New Roman, o yoksa Times, o da yoksa serif gösterilir */
+    font-size: 25px;
+}
+body{
+    background-color: black;
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    /* 'Dancing Script' google font içerisinden seçildi. Düzgün çalışması için index.html <head> içine ekleme yapıldı. Diğer sayfalarda yazı tipi cursive oldu */
+    font-size: 150%;
+}
+/* açıklamalar buraya yazılıyor */
+/* aktif kullanılmayan ama silmek istemediğimz kodları açıklama haline getirebilriz */
+/* bölümleri ayırmak için de kullanılabilir */
+/******************bu bölümün sonu ******************************/
+ /* etikete eklenen her şey içindeki etiketleri de etkiler */

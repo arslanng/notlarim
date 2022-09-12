@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- meta kavramının açıklanması için meta başlığındaki linki inceleyin -->
     <title>sekmedeki açıklama</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
     /* buraya yazılan özellik tüm sayfayı etkiler */
-    h1
-    {
+    h1 {
         font-style: italic;
+    }
+    
+    td {
+    border: 1px solid #333;
     }
     </style>
 </head>
@@ -25,7 +29,14 @@
     <h1 id="baslik">HTML Eğitimi</h1>
     <!-- id="baslik" kısmı aynı sayfada bağlantı bu noktaya oluşturabilmek için eklendi --> 
     <nav>
-        <a href="iletisim.html"><button>iletişim</button></a>
+        <ul>
+            <li>
+                <a href="index.html"><button>Ana Sayfa</button></a>
+            </li>
+            <li>
+                <a href="iletisim.html"><button>iletişim</button></a>
+            </li>
+        </ul>
         <ul><strong>İçindekiler</strong>
             <li>
                 <a href="#basliklar">Başlıklar</a>
@@ -60,6 +71,9 @@
         </li>
         <li>
             <a href="#marquee">Kayan yazılar: Marquee Tag</a>
+        </li>
+        <li>
+            <a href="#tablo">Kayan yazılar: Tablo</a>
         </li>
         <li>
             <a href="#link">Linklerle Çalışmak</a>
@@ -488,7 +502,29 @@
     <button>
         <a href="#baslik">en başa dön</a>
     </button>
-            
+
+<h1 id="tablo">Tablolar</h1>
+<!-- dış sınırlar head>style içine yazıldı -->
+<table>
+    <tr>
+      <th>FirstName</th>
+      <th>LastName</th>
+      <th>Age<th>
+    </tr>
+    <tr>
+      <td>Murat</td>
+      <td>Gokduman</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>Bora</td>
+      <td>Gokduman</td>
+      <td>4</td>
+  </table>
+  <br>
+    <button>
+        <a href="#baslik">en başa dön</a>
+    </button>      
 <h1 id="link">Linklerle Çalışmak</h1>
     <h2>başka bir sayfaya git</h2>
         <a href="http://kodluyoruz.com">buraya gidilecek</a>
