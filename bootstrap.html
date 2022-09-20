@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- CSS linki olarak bootsrap v5.4 linki verildi -->
+</head>
+<body>
+    <!-- nav start -->
+    <nav class="container">
+        <ul class="row" style="list-style: none;">
+            <div class="col">
+
+                <li><button style="width: 120px">
+                    <a href="index.html">Anasayfa</a>
+                </button></li>
+                <li><button style="width: 120px">
+                    <a href="html_notları.html">HTML Notları</a>
+                </button></li>
+                <li><button style="width: 120px">
+                    <a href="iletisim.html">İletişim</a>
+                </button></li>
+            </div>
+        </ul>
+    </nav>
+    <!-- nav end -->
+
+    <!-- Content start -->
+    <section class="container">
+        <article class="row">
+            <h1>Bootstrap Benzeri IU Kütüphaneleri</h1>
+            <ul>
+                <li><button><a target="_blank" href="https://get.foundation/">Foundation</a></button></li>
+                <li><button><a target="_blank" href="https://semantic-ui.com/">Semantic UI</a></button></li>
+                <li><button><a target="_blank" href="https://tailwindcss.com/">tailwind</a></button></li>
+            </ul>
+        </article>
+    </section>
+    <section class="container">
+<!-- Bootstrap tanımları -->
+        <article class="row">
+            <div class="col-12">
+
+                <h1>Bootstrap Nedir</h1>
+                <p> <a target="_blank" href="https://getbootstrap.com/">Bootstrap</a> dünyanın en popüler, açık kaynak kodlu, ücretsiz, farklı cihazlar için responsive tasarıma duyarlı bir CSS Framework(kütüphane)'üdür. <br>
+                    
+                İçerisinde mevcut olan sayısız tablo, grafik, ikon, carousel, navigasyon gibi pek çok hazır tasarım sayesinde sitenizi kolayca tasarlayabilirsiniz. <br>
+            
+                Ayrıca Bootstrap‘in kullandığı Grid (Izgara) sistemi ile sitenizi istediğiniz bölümde konumlandırabilirsiniz. Bu özellik, ekranı dilediğiniz ölçüde bölüp, ayırdığınız bu kısımlara kolayca müdahale etmenizi sağlamaktadır.</p>
+                <h2>bootstrap 4 vs 5</h2>
+                <p>4 de kullanılan (l) left yerini (s) starta, (r) right yerini (e) end e bıraktı</p>
+            </div>
+        </article>
+        <h1>12'lik Grid Sistemini Anlamak</h1>
+        <article class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
+<!-- SMall ekranda 12, MiDium ekranda 6, LarGe ekranda 4 kolon kapla -->
+<!-- kodu küçükten büyüğe doğru okur. md yazılmazsa Midium kısmında da sm kodu geçerli kalır -->
+                <h2>Kapsayıcı (.container)</h2>
+                <p>Container: Sayfanın belirli bir kısmını kaplar. İçeriğin sayfanın istenilen tarafında (genelde orta hatta) tutulmasını sağlar. <br>Sayfanın tamamını kaplayan containerlara container-fluid (akışkan konteynır) denir</p>
+                
+                <h2>Izgara sistemi</h2>
+                <p>Bölümlerin hayali olarak bölünmesini sağlar <br>Örnek için: <a href="https://960.gs/" target="_blank">960.gs</a></p>
+                <p>Bootstrap <strong>12lik sistem</strong> kullanır</p>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                
+                <h3>Satırlar(.row)</h3>
+                <p>12lik sistemi bölebilmek için kullanılır</p>
+                <h3>Kolonlar(col-)</h3>
+                <p>12lik gridin her bir parçası</p>
+                <dl>
+                    <dt><strong>Kolon genişliği: div.class="col-..."</strong></dt>
+                    <dd>col(kolon genişliği)</dd>
+                    <dd>col-5: 5li kolon</dd>
+                    <dd>col-12: tam satır kolon</dd>
+                    <dd>col: 1li kolon</dd>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                    <dt><strong>Satırda kolon sıralaması: div class="col-1 order-3"</strong></dt>
+                    <dd>order-(sıra numarası)</dd>
+                    <dd>order-1: birinci sıra</dd>
+                    <dd>order-5: 5. sıra</dd>
+                    <dd>order-2: 2. sıra</dd>
+                    <dt><strong>Kolonlar arası boşluk: div.class="col ms-auto"</strong></dt>
+                    <dd>ms-auto: başlangıç yönünde (standartta solda) boşluk</dd>
+                    <dd>me-auto: bitiş yönünde (standartta sağda) boşluk</dd>
+                </dl>
+            </div>
+        </article>
+        <hr>
+    </section>
+    <!-- bootsrap örnekleri -->
+    <section>
+        <article>
+            <div class="container">
+                <h1>Bootstrap Örnekleri</h1>
+                <div class="row text-danger">
+                    <h2>Ekran Çözünürlüğüne Göre Kolon Ayarlamak</h2>   
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 bg-primary">Lorem, ipsum.</div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 bg-secondary">Ex, labore.</div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 bg-success">Iusto, recusandae.</div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 bg-danger">Odit, facilis.</div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 bg-warning">Facere, hic.</div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 bg-info">Vitae, accusamus.</div>
+                </div>
+                <hr>
+            </div>
+        </article>
+    </section>
+    <main class="container">
+        <h1>Satır Blokları (Row) Kullanımı</h1>
+        <section class="row">
+            <section class="col-sm-8">
+                <article class="row">
+                    <h2>Lorem.</h2>
+                    <div class="col-sm-8 bg-primary">
+                        <h3>Lorem ipsum dolor sit.</h3>
+                        <p>Lorem ipsum dolor sit.</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <img class="w-100" src="https://picsum.photos/id/14/400/300" alt="">
+                        <!-- .w-100 ve .img-flued görselin kendisine verilen sınırdan taşmamasını sağlar-->
+                    </div>  
+                </article>
+                <article class="row mt-3">
+                    <div class="col-sm-8 bg-primary">
+                        <h3>Lorem ipsum dolor sit.</h3>
+                        <p>Lorem ipsum dolor sit.</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <img class="w-100" src="https://picsum.photos/id/15/400/300" alt="">
+                    </div>  
+                </article>
+                <article class="row mt-3">
+                    <div class="col-sm-8 bg-primary">
+                        <h3>Lorem ipsum dolor sit.</h3>
+                        <p>Lorem ipsum dolor sit.</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <img class="w-100" src="https://picsum.photos/400/300" alt="">
+                    </div>  
+                </article>
+            </section>
+            <aside class="col-sm-4 bg-info">
+                <ul>
+                    <li>Lorem, ipsum.</li>
+                    <li>Ad, inventore!</li>
+                    <li>Fugiat, amet?</li>
+                    <li>Laudantium, omnis.</li>
+                </ul>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem voluptate ipsa minus esse nulla in consequatur, modi iste quasi explicabo blanditiis, veritatis nisi eveniet possimus sit tenetur dolore minima ipsam!</p>
+            </aside>
+        </section>
+    </main>
+    <!-- Content end -->
+
+    <!-- footer start -->
+    <footer class="container">
+        <hr>
+        <h1>footer</h1>
+        <p>Buraya açıklama gelecek</p>
+        <br><hr>
+    </footer>
+    <!-- footer end -->
+</body>
+</html>

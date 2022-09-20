@@ -150,7 +150,7 @@ a:hover{
 .left-bar{
     width: 200px;
     float: left;
-    border-radius: ;
+    border-radius: 10px;
 }
 
 .content{
