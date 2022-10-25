@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>JS</title>
+    <style>
+        /*navbar linklerde hover arkaplanı değiştirmek için */
+        ul.dropdown-menu>li>a:hover{
+          background-color: black;
+  
+        }
+        /* Başlıklarda h1 hep büyük h2 baş harfi büyük olsun */
+        h1{
+            text-transform: uppercase;
+        }
+        h2{
+            text-transform: capitalize;
+        }
+        h2>code{
+            text-transform: none;
+        }
+      </style>
+</head>
+<body>
+    <!-- nav start -->
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark sticky-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">JavaScript Notları</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Ana Sayfa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="html_notları.html">HTML Notları</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="bootstrap.html">Bootstrap Notları</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="iletisim.html">İletişim</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Renk Paleti Seçmek
+                </a>
+                <ul class="dropdown-menu bg-secondary bg-opacity-75">
+                  <li><a class="dropdown-item text-light" href="https://colorhunt.co/" target="_blank">ColorHunt</a></li>
+                  <li><a class="dropdown-item text-light" href="https://flatuicolors.com/" target="_blank">Flat UI Colors</a></li>
+                  </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <!-- nav end -->
+    <!-- content start -->
+    <div class="container">
+        <div class="row">
+                <h1>Değişkenler</h1>
+                <p>Değişken nedir: en basit tabirle değerleri hafızada tutmak için kullanılan yapılardır.</p>
+                <ul>Değişken isimlendirmede dikkat etmemiz gerekenler şunlardır.
+                    <li>Değişken isimleri harf, _ veya $ işareti ile başlayabilir. Fakat ES5 (ECMAScript 5) birlikte gelen özellikle UNICODE kodları kullanılırken kaçış karakteri olarak kullanılan \ işareti ilk karakter olarak kullanılabilir.</li>
+                    <li>İlk harften sonra değişken isimlerinde rakamlar da kullanılabilir. $ ve _ dışında başka noktalama işaretleri kullanılamaz</li>
+                    <li>Değişken ismindeki harfler arasında boşluk kullanılamaz.</li>
+                </ul>
+            <div class="col-sm-6">
+                <h2>var ile tanımlama (eski metot)</h2>
+                <p><code>var DegiskenAdi = Deger</code></p>
+                <p>Daha sonra bu değer kullanılacağında tanımlanan <code>DegiskenAdi</code> doğrudan <code>Deger</code>'i tanımlar. Bu şekilde kullanıldığında <code>Deger</code> tanımda güncellendiğinde <code>DegiskenAdi </code></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                
+                <h2>let ile tanımlamak</h2>
+                <p>önce tanımlanacak değer adı verilir. Sonra değer atanır <br><code>let FullName; <br> FullName = "Murat Gokduman"</code></p>
+                <p>bu tanımlama tek seferde de yapılabilir. <br><code>let FullName = "Murat Gökduman";</code></p>
+                <p>değer ile yapılacak işlem tanımlamadan önce yapılırsa sistem hata verir. <br><code>console.log(Fulname) <br> let FullName = "Murat Gökduman";</code><br>sonuç: <br><code>Uncaught ReferenceError: Cannot access 'FullName' before initialization <br>
+                    at 02-degisken-tanimlama.js:5:13</code><br>
+                    <code>var</code> ile yazsaydık bu hatayo göremezdik.</p>
+                    <p>Standart yazılım mantığında sıralı okuma vardır. Bu nedenle tanımlama değerin kullanılacağı yerden önce alınmalı</p>
+            </div>
+            <div class="col">
+
+                <p>let ile yapılan tanımlamadaki değer daha aşağıda değiştirilebilir <br>
+                    <code>let password;<br>
+                        password = 1234 <br>
+                        console.log(password) <br>
+                        password = 4321 <br>
+                        console.log(password)</code><br>
+                        Örnek sonuç konsolda: <br><code>1234 <br>4321</code></p>
+            </div>
+            <div class="col">
+
+                <p>Daha önce girilen değer değiştirilebildiği gibi, değere ekleme de yapılabilmektedir. <br>
+                    <code>let adres;<br>
+                        adres = "23 nisan mah."; <br>
+                        console.log(adres); <br>
+                        adres = adres + " Köroğlu cad" <br>
+                        console.log(adres); <br>
+                    </code>
+                            sonuç: <br>
+                <code>
+                    23 Nisan <br>
+                    23 Nisan Köroğlu cad
+                </code> <br>
+                aynı işlem için <br>
+                <code>
+                    let adres;
+                    adres = "23 nisan mah."; <br>
+                    console.log(adres); <br>
+                    adres += " Köroğlu cad" <br>
+                    console.log(adres); <br>
+                </code>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+
+            <h2>const ile tanımlamak</h2>
+            <p>değişmemesini istediğimiz bilgiler için kullanılır. <br>
+                değişken ile değer tek seferde yazılır. Tanımlanan bilgi daha sonra başka bir satırda değişmez. <br>
+                <code>
+                    const serverPassword = "1234"
+                    console.log(serverPassword)
+                </code><br>
+                sonuç: <code>
+                    1234
+                </code></p>
+        </div>
+    </div>
+    <div class="container">
+        
+        <h1>Sayı veri türü ve temel aritmetik işlemler</h1>
+        <p>JS içerisinde sayı verisi değişkene yazılırken değişken türü belirtmeye gerek yoktur.
+            <br><code>let x = 5;</code><br>
+        </p>
+        <p>işlem önceliği matematikteki gibidir</p>
+        <div class="row">
+            <div class="col">
+
+                <h2>toplama ve çıkartma</h2>
+                <p>değeri tanımladıktan sonra aşağıdaki ifadelerin hepsi değeri a kadar arttırır <br>
+                    <code>
+                        x = x+a <br>
+                        x += a <br>
+                        x ++               
+                    </code> ise 1 arttırır<br>
+                    aşağıdaki ifadeler ise a kadar azaltır <br>
+                    <code>
+                        x = x - a; <br>
+                        x -= a; <br>
+                        x --; 
+                    </code> ise 1 azaltır
+                </p>
+            </div>
+            <div class="col">
+
+                <h2>çarpma ve bölme</h2>
+                <p>değer tanımlandıktan sonra <br>
+                    <code>
+                        x = x * a; <br>
+                        x *= a; <br>
+                    </code> x değerini a katına çıkartır <br>
+                    <code> 
+                        x = x/a; <br>
+                        x /= a;</code><br>
+                        x değerini a ya böler</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                
+                <h2>mod alma</h2>
+                <p>% işareti ile yapılır <br>
+                    <code>
+                        x = x % a;  <br>
+                    </code>değerinde x a ya bölündüğünde kalan değeri alır.</p>
+            </div>
+            <div class="col">
+
+                <h2>Üs alma</h2>
+                <p><code>
+                    x = x ** a <br>
+                </code>x in a üssünü verir</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                
+                <h2>Aşağı ve yukarı yuvarlama</h2>
+                <p>burada<code>
+                    Math
+                </code> kütüphanesini kullanacağız. <br>
+                <code>
+                    Math.floor(x.3)
+                </code>ibareinde değer aşağı yuvarlanır ve sonuç x çıkar. <br>
+                <code>
+                    Math.ceil(x.3)
+                </code>ibaresinde değer yukarı yuvarlanır ve sonuç x+1 çıkar <br>
+                <code>
+                    Math.round(x.3)
+                </code>ibaresinde değer yakın değere yuvarlanır. 0.5 i 1 e tamamlar. daha küçük küsüratları aşağı yuvarlar</p>
+            </div>
+            <div class="col">
+
+                <h2>Sayısal ibareyi metin olarak aktarma ve bunu geri çevirmek</h2>
+                <p>" " içine yazılan sayısal değerler metin olarak algılanır. <br> Daha önce metin olarak saklanan değer Number() içine yazılarak tekrar sayı özelliği alabilir.
+                    <code>
+                        let x = "11";
+                    </code>olarak tanımlandığında 11 metin özelliği kazanır. <br>
+                    <code>
+                        let y = Number(x);
+                    </code> yazıldığında ise 11 tekrar sayısal özellik kazanır</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Boolean Veri Türü ile Çalışmak</h1>
+        <p><code>true</code> veya <code>false</code> olarak sonuç verir. İçeriğinde değer varsa <code>true</code>, yoksa <code>false</code> değerini alır. <br>Aşağıdaki değerler <code>false</code> olarak değerlendirilir. <br>
+        <code>
+            0, -0, null, false, Nan, undefied, ("")
+        </code></p>
+        <p>Koşul durumlarında ise koşul karşılanıyor ise <code>true</code> karşılanmıyorsa <code>false</code> değerini alır.</p>
+
+    </div>
+    <div class="container">
+        <h1>Veri türünü öğrenme <code>typeof()</code></h1>
+        <p><code>
+            console.log(typeof(değişken))
+        </code>yazdığımızda konsolda veri türü yazar</p>
+        <h1>Veri türü değiştirme</h1>
+        <p>explicit ve implicit olarak 2 farklı dönüşüm türü vardır. <strong>explicit</strong> metodlarla yapılan dönüşüm türüdür. <strong>implicit</strong> ise operatörlerle veya JavaScriptin kendisinin yaptığı dönüşümdür.</p>
+        <div class="row">
+            <div class="col">
+
+                
+                <h2>Veriden sayıyı çekmek <code>parsInt()</code></h2>
+                <p><code>
+                    let number1 = "12px"
+                </code> yazımında değişken string (metin) olarak değer alır. <br>
+            <code>
+                number1 = parseInt(number1)
+            </code> yazıldığında değişken tam sayı olarak değiştirilir.</p>
+            <p><code>Number</code> değişkenin içinde sayı harici bir şey var ise sayıya dönüşümü gerçekleştiremezken <code>parseInt</code> sayı ile başlayan değişkeni, devamında başka birşey de yazsa tam sayıya dönüştürebilir. <code>parseFluat</code> değer tam sayı değilse de dönüşümü gerçekleştirir. <br>Örnek: <br>
+                <code>
+                    let number1 = "12.2px"; <br>
+                    number1 = parseInt(number1) <br>
+                    console.log(number1)
+                </code><br>sonuç: 12 <br>
+                <code>
+                    let number1 = "12.2px"; <br>
+                    number1 = parseFluat(number1) <br>
+                    console.log(number1)
+                </code><br>sonuç: 12.2 <br>
+                <code>
+                    let number1 = "12.2px"; <br>
+                    number1 = Number(number1) <br>
+                    console.log(number1)
+                </code><br>sonuç: NaN <br>
+                <code>
+                    let number1 = "12.2"; <br>
+                    number1 = Number(number1) <br>
+                    console.log(number1)
+                </code><br>sonuç: 12.2 <br>
+            </p>
+        </div>
+        <div class="col">
+
+            <h2>sayısı metne çevirme <code>.toString</code></h2>
+            <p><code>
+                let number2 = 12; <br>
+                number2 = number2.toString
+            </code><br>veya <br><code>
+                let number2 = String(12)
+            </code>explicit<br>veya <br><code>
+                let number2 = "12"
+            </code>implicit<br>veya <br><code>
+                let number2 = 12 + ""
+            </code>implicit <br>
+            Tüm değerler bu iki yöntemle string olarak yazılabilir <br>
+            Sembollerde ise sadece explicit yöntem işe yaramaktadır.</p>
+            <h2>mantıksal ifadeye çevirme <code>Boolean</code></h2>
+            <p>Boolean içi dolu olan veya şartlı ifadeye uyan tüm tanımlarda <code>true</code> verir</p>
+            <p>Şartlı ifadeye uymayan, boş olan veya yapısı gereği boş algıladığı tüm durumlara [(''), (0) ,(-0), (NaN), (null), (undefined), (false)] <code>false</code> verir</p>
+            <p>içinde boş küme belirtenler de dahil herhangi bir sembol varsa <code> true </code>verir</p>
+            <p> <code>||</code> ilk bulduğu true değeri döner. <br>true bulamazsa en son bulduğu false döner</p>
+            <p> <code>&&</code> ilk bulduğu false değeri döner <br> false bulamazsa son bulduğu true değeri döner</p>
+        </div>
+    </div>
+        <h2>Nesneler için tip zorlama (Type Coercion)</h2>
+        <ol>Primitif tipler için:
+            <li>Eğer değer(input) primitif ise herhangi bir işlem yapma, dön.</li>
+            <li>input.toString() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
+            <li>input.valueOf() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
+            <li>Ne input.toString() ne de input.valueOf() primitif sonuç vermiyorsa; TypeError fırlat.</li>
+        </ol>
+        <ol>Referans tipler için:
+            <li>input.toString() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
+            <li>input.valueOf()metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
+            <li>Ne input.toString() ne deinput.valueOf() primitif sonuç vermiyorsa; TypeError fırlat.</li>
+        </ol>
+        <p>Detaylı örnekler için <a href="https://app.patika.dev/courses/javascript/degisken-turunu-kontrol-etmek-ve-degisken-turunu-degistirmek">tıklayınız</a></p>
+    </div>
+    <div class="container">
+        <h1>Template Literals Kullanımı</h1>
+        <p>Template Literals (önceki adıyla Template Strings), kod okunabilirliği ve yazım kolaylığı sağlayan ES6 ile gelmiş bir string yazma şeklidir.</p>
+        <p>Yazılacak bilginin <strong>backtick</strong> içine yazılması gerekmektedir. Bu şekilde birden fazla satıra bilgi yazılabilir.</p>
+        <p>backtick <i class="text-info">alt gr + ,</i> ile yazılır.</p>
+        <p>String bilgi doğrudan eklenir. değişkenler <code>${}</code> içine yazılır.</p>
+        <p>Örnekleri 02-degisken-tanimlama.js klasöründe. Detaylı açıklama için <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals"></a>tıklayınız</p>
+
+    </div>
+    <div class="container">
+        <h1>String veri türü işlemleri</h1>
+        
+        <h2>karakter sayısı<code>.length</code></h2>
+        <p><code>console.log(email.length)</code></p>
+        
+        <h2>ilk karakteri bulma</h2>
+        <p><code>console.log(email[0])</code><br>
+        <code>console.log(email.charAt(0))</code> JS de ilk karakter 0 olarak alınır. Kaçıncı karakter isteniyorsa 0 yerine yazılabilir.</p>
+        
+        <h2>Büyük ve Küçük Harfe Çevirme</h2>
+        <p><code>email = email.toUpperCase() <br>
+        console.log(email)</code> tamamı <strong>büyük</strong> harfe çevrildi ve yazdırıldı.</p>
+        <p><code>email = email.toLowerCase() <br>
+        console.log(email)</code> tamamı <strong>küçük</strong> harfe çevrildi ve yazdırıldı.</p>
+        
+        <h2>Sting İçinde Arama ve Yerini Bulma</h2>
+        <p><code>console.log(email.search("@"))</code>@ işaretinin kaçıncı sırada olduğunu verir. <br>
+        olmayan bir şey aratırsak değeri <code>-1</code> olarak verir.</p>
+        <p>.indexOf ve .search ikisi de arama yapmak için kullanılabilir ancak bazı farkları vardır. <br>
+        <strong>search</strong> büyük-küçük harf duyarlılığı olmadan sonuç verir. Bazı özel karakterlerde sonuç vermemektedir. <br>
+        <strong>indexOf</strong> spesifik olarak istenilen karakteri bulur. Büyük-küçük harf duyarlıdır. Başlangıç noktası seçilebilir. Boş bırakılırsa başlangıçtan itibaren arar <br>
+        <code>
+            console.log(email.indexOf(".", 5))
+        </code>5 ten sonraki noktayı bulur <br>
+        <strong>lastIndexOf</strong> eşleşen son değeri gösterir</p>
+        <h2>Belli Bir Yere Kadar Olanı Almak <code>.slice</code></h2>
+        <p><code>console.log(email.slice(0,10))</code> 0 dan 10 a kadarı alır <br>
+        <code>console.log(email.slice(15))</code> 15 ve sonrasını alır <br>
+        <code>console.log(email.slice(email.search("@")+1))</code>@ işaretinden sonrasını alır. <br>
+        <code>console.log(email.slice(email.search("@")+1,(email.indexOf(".")))</code>@ işareti ile nokta arasındaki kısmı verir.</p>
+        
+        <h2>Değiştirmek <code>.replace</code></h2>
+        <p>Değişikliğin kalıcı olması için değiştirilen bilgiye ya da yeni bir değişkene set edilmesi gerekir. <br>
+        <code>
+            email = email.replace("gmail.com", "renault.com"); <br>
+            console.log(email)
+        </code>çıktı olarak drmuratgokduman@renault.com verir</p>
+        
+        <h2>İstediğim bilgi var mı <code>.includes</code></h2>
+        <p>istediğim bilgi ilgili değişkende var mı? <code>true</code> veya <code>false</code> verir. <br>
+        <code>
+            email.includes("@");
+        </code>çıktı olarak true verir.</p>
+        
+        <h2>Bununla başladı mı? <code>.startsWith</code> Bununla bitti mi? <code>.endsWith</code></h2>
+        <p>bir bilginin başında ve sonunda olan bilgilerin doğruluğunu sorgulamak için kullanılır.<code>true</code> veya <code>false</code> verir. <br>
+        <code>
+            email.startsWith("drmuratgokduman");
+        </code> çıktı olarak <code>true</code> verir. <br>
+        <code>
+            email.endsWith("hotmail.com");
+        </code> çıktı olarak <code>false</code> verir.</p>
+        
+        <h2>Belirli bir sıradaki veriyi çekmek</h2>
+        <p><code>.charAt()</code> değişkendeki parantez içindeki indeks numarasının denk geldiği veriyi gösterir. <br>
+        <code>.charCodeAt()</code> değişkendeki parantez içindeki index numarasının denk geldiği verinin Unicode numarasını gösterir.</p>
+
+        <h2>Metni Diziye Çevirme <code>.split</code></h2>
+        <p>Metni belirtilen karakterden bölerek diziye çevirir <br>
+        <code>
+            let isim = ‘Oguz,Kamer’; <br>
+            let isimler = isim.split(’,'); <br>
+            console.log(isimler);
+        </code> Çıktısı: 'Oğuz', 'Kamer'</p>
+    </div>
+    <div class="container">
+        <h1>DOM (Document Object Model)</h1>
+        <p>Document Object Model, programların ve komut dosyalarının bir belgenin içeriğine, yapısına ve stiline dinamik olarak erişmesine ve güncellemesine izin veren bir platform ve dilden bağımsız bir arayüzdür.</p>
+        <p>DOM, mantıksal bir ağaç içeren bir belgeyi temsil eder. Ağacın her dalı bir düğümde biter ve her düğüm nesneler içerir. DOM yöntemleri, ağaca programlı erişime izin verir. Onlarla belgenin yapısını, stilini veya içeriğini değiştirebilirsiniz.</p>
+        <p>DOM hiyerarşik yerleşimi kullanabildiği gibi ID özelliğini de kullanabilir.</p>
+
+    </div>
+    
+
+    <!-- content end -->
+    <!-- footer start -->
+    <!-- footer end -->
+    <!-- script -->
+    <script src="js/01-hello-world.js"></script>
+    <script src="js/02-degisken-tanimlama.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    
+</body>
+</html>
