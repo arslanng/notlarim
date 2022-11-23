@@ -4,227 +4,143 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anasayfa</title>
-    <link rel="stylesheet" href="css/style.css"> <!-- css özellikleri için style.css linki atandı -->
-    <!-- aşağıdaki üç satır google font üzerinden "Dancing Script" fontu için eklendi -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <style>
-        h2{
-            color: darkblue; 
-        }
-    </style>
+    <title>AnaSayfam | Murat GÖKDUMAN</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-    <header>
-        <h1>Ana Sayfa</h1>
-    </header>
-    <!-- nav start -->
-    <nav>
-        <ul>
-            <li><button>
-                <a href="html_notları.html">HTML Notları</a>
-            </button></li>
-            <li><button>
-                <a href="iletisim.html">İletişim</a>
-            </button></li>
-            <li><button>
-                <a href="bootstrap.html">Bootstrap</a>
-            </button></li>
-            <li><button>
-                <a href="js.html">JavaScript</a>
-            </button></li>
-        </ul>
-    </nav>
-    
-    <!-- nav end -->
-    
-    <!-- content start -->
-    <section>
-        <article>
-            <h1>Faydalı siteler</h1>
-            <ul>
-                <li><a href="https://www.w3schools.com/css/css_syntax.ASP">w3schhools CSS syntax</a></li>
-                <li><a href="https://colorhunt.co/">colorhunt</a></li>
-                <li><a href="https://css-tricks.com/">css-tricks.com</a></li>
-                <li><a href="https://www.google.com/search?q=css+awards&rlz=1C1GCEB_enPL937PL937&oq=css+awa&aqs=chrome.0.0i512j69i57j0i22i30l8.5000j1j4&sourceid=chrome&ie=UTF-8">CSS Awards</a></li>
-                <li><a href="https://www.google.com/search?q=css+shadow+generator&safe=active&rlz=1C1GCEB_enPL937PL937&sxsrf=ALiCzsb2uN7r_zLUMlS9JyC8XE4Ag7j2kQ%3A1663164799646&ei=f-EhY7uLJ6eOi-gPz9Sw2AE&ved=0ahUKEwj7xtfYu5T6AhUnxwIHHU8qDBsQ4dUDCA4&uact=5&oq=css+shadow+generator&gs_lcp=Cgdnd3Mtd2l6EAMyBQgAEIAEMgUIABDLATIFCAAQywEyBggAEB4QFjIGCAAQHhAWMgYIABAeEBYyBggAEB4QFjIGCAAQHhAWMgYIABAeEBYyBggAEB4QFjoKCAAQRxDWBBCwAzoHCAAQsAMQQzoICAAQHhAWEApKBAhBGABKBAhGGABQ6QJYrxRg9RVoAXABeACAAboBiAGcCpIBAzEuOZgBAKABAcgBCsABAQ&sclient=gws-wiz">CSS Shadow Generator</a></li>
-            </ul>
-        </article>
-        <article>
-            <h1 style="font-size: 30px">CSS</h1>
-            <p><span style="color: red; font-style: italic;"> Cascading Style Sheets</span> (Basamaklı Stil Şablonları ya da Basamaklı Biçim Sayfaları, bilinen kısa adıyla CSS), HTML'e ek olarak metin ve format biçimlendirme alanında fazladan olanaklar sunan bir işaretleme dilidir.</p>
-            <p>İnternet sayfaları için genelgeçer şablonlar hazırlama olanağı verdiği gibi, bağımsız olarak harflerin stilini, yani renk, yazı tipi, büyüklük gibi özelliklerini değiştirmek için de kullanılabilir. Bu tekniğin en önemli özelliği kullanımındaki esnekliktir.</p>
-            <p>Bir Web sayfası içerisinde birbiriyle uyumlu birkaç renk ve birkaç yazı tip kullanılır ve bunları her sayfada ayrı ayrı tekrar belirtmek yerine CSS yardımıyla bir sefer tanımlayıp bütün Web sayfalarında ortak olarak kullanılabilir. Böylece sayfaların hafızadaki boyutu epey küçüldüğü gibi güncelleme yapmak da kolaylaşır.</p>
-            <p>CSS kodları, HTML kodlarının içine yazılabildiği gibi harici bir CSS dosyası oluşturularak da işlem yaptırılabilir. Türüne göre <xmp><BODY></xmp> veya <xmp><HEAD></xmp> bölümlerinde yer alabilirler. Ayrıca <xmp><link rel="stylesheet" type="text/css" href="style.css" /> </xmp> koduyla CSS dosyası çalışma sayfasına eklenebilir. Onları ayrı dosyada veya dosyalarda saklamak, onları değişik HTML sayfalarınca kullanılmasını sağlar, aynı sayfanın değişik aygıtlara göre formatlandırılmasını kolaylaştırır, sunumla yapıyı ayırarak değişiklik yapılmasını ekonomikleştirir.</p>
-            <p>Kaynak: <a href="https://tr.wikipedia.org/wiki/CSS">CSS Wiki</a></p>
-        </article>
-    </section>
-    <section>
-        <h1>CSS türleri</h1>
-        <p>Sistem önce eksternal CSS'i sonra internal CSS'i en son inline CSS'i okur. Son okuduğunu geçerli kılar.</p>
-        <article>
-            <h2>İnline CSS</h2>
-            <p>İnline css etiketin içine style özelliği ekenerek kullanılır. Örneği yukarıda ve <span style="color: blue; font-size:15px; background-color:antiquewhite">bu cümlenin kaynak kodunda</span></p>
-            <p>Genelde tek bir yerde değişiklik yapmak için veya planlanan değişikliği bir yerde denemek için kullanılır</p>
-        </article>
-        <article>
-            <h2>İnternal CSS</h2>
-            <p>head etiketinin içinde style etiketi açılarak CSS kuralları ile yazılır.</p>
-            <p>etiket_adı {} şeklinde yazılır. Örnek kaynak kodunda</p>
-            <p>Yapılan işlem bütün sayfayı etkiler</p>
-        </article>
-        <article>
-            <h2>Eksternal CSS</h2>
-            <p>lokal veya online CSS dosyasını kullanır</p>
-            <p>head etiketi içinde link verilerek kullanılır. Örnek kaynak kodunda</p>
-            <p>link ile bağlanan bütün html dosyalarını etkiler</p>
-        </article>
-    </section>
-    <section>
-        <article>
-            <h1>CSS Seçiciler</h1>
-            <p>özellik atanacak html etiketinin seçilmesini sağlarlar</p>
-            <p>Tam liste: <a class="link1" href="https://www.w3schools.com/cssref/css_selectors.asp">css_selectors</a></p>
-            <a href="https://css-tricks.com/almanac/selectors/">css-tricks.com|selectors</a>
-            <h2>Genel seçici: *</h2>
-            <p>tüm etiketlere CSS uygular</p>
-            <h2>Element Seçiciler</h2>
-            <p>İlgili etikete özellik uygular</p>
-            <h2>Sınıf seçiciler: .sınıf</h2>
-            <p>İlgili sınıfa etiket uygular</p>
-            <h3>iki veya daha fazla sınıfın kesişimine özellik atamak</h3>
-            <p>sınıflar yazılırken aralarında boşluk olmadan yazılırsa (<span class="sinif1">.sinif1</span><span class="sinif2">.sınıf2</span>) aynı anda <span class="sinif1 sinif2"> iki sınıfı da alan etikete</span> ek özellik kazandırır. <br>Sınıflar aralarında boşluk ile yazılırsa (.sınıf1 .sınıf2) <span class="sinif1">alt etiket ilişkisinde olan durumlarda, <span class="sinif2">kesişim</span> olduğunda</span> ek özellik kazanırlar <br>Boşluk ile ayrıldığı durumda hiyerarşide sıralama önemlidir (ilk etikete .sinif1 alt etikete .sinif2 gelmeli).</p>
-            <h2>Id seçici: #</h2>
-            <p>Tek bir etikete atanmış <span id="essiz-element"> eşsiz elemente</span> özellik atamaya yarar.</p>
-            <h2>Özellik Seçici [ozellik_adi]</h2>
-            <p>Belirli bir <span ozellik="">özellik atanmış elemente</span> CSS uygular. Özelliğin içi boş olsa, özellik adı anlamsız olsa da da farketmez</p>
-            <h3>.sinif_adi[ozellik_adi]</h3>
-            <p>sinif_adi classında ozellik_adi içeren etikete CSS uygular</p>
-            <h3>etiket[ozellik_adi="ozellik"]</h3>
-            <p>ozellik_adi özelliği ozellik olan etikete CSS uygular</p>
-            <h3>etiket[ozellik_adi<b>~</b>=ozellik]</h3>
-            <p>ozellik_adi özelliğinde ozellik <b>bulunan</b> etikete CSS uygular</p>
-            <h3>etiket[ozellik_adi<b>^</b>=ozellik]</h3>
-            <p>ozellik_adi özelliği ozellik ile <b>başlayan</b> etikete CSS uygular</p>
-            <h3>etiket[ozellik_adi<b>$</b>=ozellik]</h3>
-            <p>ozellik_adi özelliği ozellik ile <b>biten</b> etikete CSS uygular</p>
-            <h2>Grup seçiciler</h2>
-            <p>birden fazla etikete aynı CSS uygulanaksa virgül ile ayırıp yan yana yazabiliriz</p>
-            <p>Bir sınıfa ait bir etiket grubuna ulaşmak için etiket.sinif_adi kalıbını kullanabiliriz</p>
-            <h2>Çocuk seçiciler</h2>
-            <p>Hiyerarşideki yerine göre HTML seçmek için kullanılır.</p>
-            <p>Örneği yukarıda h3>b{color: red} olarak CSS içine yazıldı</p>
-            <h2>Torun-Soy Seçiciler</h2>
-            <p>Bir kapsayıcı etiket içinde başka bir etiket grubununun tamamını seçmek için etiketler aralarında boşluk ile yazılır ((div p)div içindeki tüm p ler)</p>
-            <h2>Genel kardeş seçiciler</h2>
-            <p>Aynı seviyedeki bir etiketten sonra gelen diğer etiketi seçmek için arasına <b>~</b> eklenir (etiket1~etiket2)</p>
-            <p>etiket2, etiket1 den sonra gelmeli ve aynı etiketin içinde aynı hiyerarşik seviyede olmalı. Araya başka etiketler girebilir</p>
-            <h2>Bitişik Kardeş Seçiciler</h2>
-            <p>Aynı seviyedeki bir etiketten sonra bitişikteki diğer etiketi seçmek için arasına <b>+</b> eklenir (etiket1+etiket2)</p>
-            <p></p>
-            <h2>Sahte Sınıf Seçiciler</h2>
-            <p>selector:psedo_class</p>
-            <h3>:link</h3>
-            <p>Daha önce açılmamış linke CSS uygulanır</p>
-            <h3>:hover</h3>
-            <p>Seçici ile işaretlenen etiketin üzerine mouse ile gelindiğinde CSS uygalanır ve mouse üzerinde değilken etki kaybolur.</p>
-            <h3>:active</h3>
-            <p>Mouse ile tıklandığında CSS uygulanır. Tıklama kaldırıldığında etki kaybolur.</p>
-            <h3>:first-child</h3>
-            <p>İlk child etikete CSS uygulanır.</p>
-            <h3>:last-child</h3>
-            <p>Son child etikete CSS uygular.</p>
-            <h3>::first-letter</h3>
-            <p>Blok seviyesinde bir etiketteki ilk harfe CSS uygular. <b>span</b> blok seviyesinde bir etiket olmadığından bu pseudo class uygulanamaz."</p>
-            <h3>::first-line</h3>
-            <p id="first-line">Blok seviyesinde bir etiketin <br> ilk satırına <br> CSS uygular.</p>
-            <h3>::before</h3>
-            <p id="before">Belirtilen etiketin önüne CSS uygular. <br>Genelde metin eklemek için kullanılır</p>
-            <h3>::after</h3>
-            <p id="after">Belirtilen etiketin sonuna CSS uygular. Kullanımı ::before ile aynıdır.</p>                        
-        </article>
-        <article>
-            <h1>Kutu elementleri</h1>
-            <img src="https://raw.githubusercontent.com/Kodluyoruz/taskforce/main/css/css-kutu-ozelliklerimargin%2C-padding%2C-width%2C-height-kullanimi/figures/boxmodel_.png" alt="">
-            <h2>margin</h2>
-            <p>kutular arası mesafe</p>
-            <h2>padding</h2>
-            <p>Kutu sınırının içeriğe mesafesi</p>
-            <h2>Width ve Heigt</h2>
-            <p>width: genişlik <b>height: yükseklik</b></p>
-            <h2>Örnek:</h2>
-            <div class="box bg-red">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quam repellat maiores corporis totam tempora saepe ut quo omnis, labore dolores iste dolorem odio. Id dolore nemo exercitationem dolorem dicta!</p>
-            </div>
-            <div class="box bg-yellow">
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div>
-            <div class="clearfix"></div>
-            <div>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-                <p class="float-left">Lorem ipsum dolor sit amet.</p>
-            </div>
-            <div class="clearfix"></div>
-            <div class="container bg-yellow">
-                <div class="left-bar bg-red">
-                    <h1>Left Bar</h1>
-                    <ul>
-                        <li>Lorem.</li>
-                        <li>Odio.</li>
-                        <li>Amet!</li>
-                        <li>Facere!</li>
-                        <li>Iusto.</li>
-                        <li>Ab.</li>
-                        <li>Ipsam!</li>
-                        <li>Ratione.</li>
-                        <li>Maxime.</li>
-                        <li>Earum?</li>
+    <!-- Navbar Start -->
+    <div class="nav bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Murat GÖKDUMAN</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#" target="_blank">Hakkımda</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Faydalı Web Siteleri
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="https://12ft.io/" target="_blank">12ft: Paywall Bariyerler için</a></li>
+                          <li><a class="dropdown-item" href="https://www.netlify.com/" target="_blank">Netify: Free Hosting</a></li>
+                          <li><a class="dropdown-item" href="https://podcast.adobe.com/" target="_blank">Adobe - Shasta: Ses Kalitesini Arttırma</a></li>
+                          <li><a class="dropdown-item" href="https://dev.to/dhiwise/advanced-javascript-design-patterns-4k8l" target="_blank">dev.to - Advanced JavaScript Design Patterns</a></li>
+                          <li><a class="dropdown-item" href="https://www.16personalities.com/" target="_blank">16personalities.com</a></li>
+                          </ul>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Eğitim Notları
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                          <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                          <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                          <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                          <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                          </ul>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          FrontEnd Web Siteleri
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="https://getbootstrap.com/" target="_blank">Bootstrap</a></li>
+                          <li><a class="dropdown-item" href="https://developer.mozilla.org/en-US/" target="_blank">Modzilla Developer</a></li>
+                          <li><a class="dropdown-item" href="https://www.w3schools.com/" target="_blank">w3schools</a></li>
+                          <li><a class="dropdown-item" href="https://picsum.photos/" target="_blank">Picsum Photos</a></li>
+                          <li><a class="dropdown-item" href="https://html.com/" target="_blank">html.com</a></li>
+                          <li><a class="dropdown-item" href="https://htmlreference.io/" target="_blank">HTML Referansları</a></li>
+                          <li><a class="dropdown-item" href="https://emmet.io/" target="_blank">Emmet</a></li>
+                          <li><a class="dropdown-item" href="https://colorhunt.co/" target="_blank">Color Hunt</a></li>
+                          <li><a class="dropdown-item" href="https://flatuicolors.com/" target="_blank">Flat IU Colors</a></li>
+                          <li><a class="dropdown-item" href="https://codepen.io/" target="_blank">Code Pen</a></li>
+                          </ul>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Bora için
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="https://www.bilimokulu.com/" target="_blank">Bilim Okulu</a></li>
+                          
+                          </ul>
+                      </li>
                     </ul>
+                  </div>
                 </div>
-                <div class="content bg-green">
-                    <h1>Content</h1>
-                    <p>Lorem ipsum dolor sit.</p>
-                    <div class="card">
-                        <h2>Lorem, ipsum.</h2>
-                        <p>Lorem ipsum dolor sit.</p>
-                    </div>
-                    <div class="card">
-                        <h2>Id, aliquid.</h2>
-                        <p>Magnam illo iure blanditiis.</p>
-                    </div>
-                    <div class="card">
-                        <h2>Rem, modi!</h2>
-                        <p>Sequi saepe iure voluptatibus.</p>
-                    </div>
+              </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- İçerik Start -->
+    <div class="container">
+      <div class="row">
+        
+        <!-- sağ menü start-->
+        <div class="col-lg-2 my-5 notDefteri">
+          <!-- uyarı -->
+          <div id="uyari"></div>
+          <!-- liste -->
+          <div class="">
+            <h3 class="text-center">Not Defteri</h3>
+            <div id="list">
+              <!-- <li class="list-group-item">
+                <div class="row">
+                  <div class="col-1">
+
+                    
+                    <input class="form-check-input" type="checkbox" value="" id="">
+                  </div>
+                  <div class="col-10">
+
+                    <label class="form-check-label ps-1" for="flexCheckDefault" style="max-width:260px; overflow: auto;">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore, consequuntur odit 
+                    </label>
+                  </div>
+                  <div class="col-1">
+
+                    <button type="button" class="btn-close ms-auto" onclick="notuSil()"></button>
+                  </div>
                 </div>
+              </li> -->
             </div>
-            <div class="clearfix"></div>
-            <div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam illum, dolorem facere quia quo quod labore, illo quam, id ex pariatur sed omnis itaque eligendi inventore natus atque maxime voluptatum!</p>
+          </div>
+          <!-- input -->
+          <form action="" id="form">
+            <div class="mt-2">
+              <input class="form-control" type="text" name="not" id="not">
             </div>
-        </article>
-        <article>
-            <h1>CSS Öğrenmek İçin Kaynak Bulmak</h1>
-            <p>Herhangi bir sitede herhangi bir bölümü sağ tıklayıp incele diyebiliriz</p>
-            <p><button class="patika-button">deneme
-                <img class="patika-img" src="https://patika-prod.s3.eu-central-1.amazonaws.com/staticFiles/coin.gif" alt="coin">
-            </button></p>
+            <!-- butonlar -->
+            <div class="mt-2 d-flex">
+              <button type="submit" class="btn btn-outline-dark flex-fill col-6">Gönder</button>
+              <button type="reset" class="btn btn-outline-danger flex-fill col-6">İptal</button>
+              
+            </div>
+          </form>
+          <div class="mt-2 d-flex">
+            <button class="btn btn-danger flex-fill" id="listeSifirla">Listeyi Sıfırla</button>
+          </div>
 
-        </article>
-    </section>
-    <!-- content end -->
 
+
+        </div>
+        
+        <!-- sağ menü end-->
+      </div>
+    </div>
+    <!-- İçerik End -->
     <!-- footer start -->
     <!-- footer end -->
+    <!-- JS -->
+    <script src="js/list.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

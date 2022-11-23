@@ -1,408 +1,2255 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title>JS</title>
     <style>
         /*navbar linklerde hover arkaplanı değiştirmek için */
-        ul.dropdown-menu>li>a:hover{
-          background-color: black;
-  
+        ul.dropdown-menu>li>a:hover {
+            background-color: black;
+
         }
+
         /* Başlıklarda h1 hep büyük h2 baş harfi büyük olsun */
-        h1{
+        h1 {
             text-transform: uppercase;
         }
-        h2{
+
+        h2 {
             text-transform: capitalize;
         }
-        h2>code{
+
+        code {
             text-transform: none;
         }
-      </style>
+    </style>
 </head>
-<body>
+
+<body class="fs-5">
     <!-- nav start -->
-    <nav class="navbar navbar-dark navbar-expand-lg bg-dark sticky-top">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark sticy-top">
         <div class="container">
-          <a class="navbar-brand" href="#">JavaScript Notları</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Ana Sayfa</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="html_notları.html">HTML Notları</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="bootstrap.html">Bootstrap Notları</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="iletisim.html">İletişim</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Renk Paleti Seçmek
-                </a>
-                <ul class="dropdown-menu bg-secondary bg-opacity-75">
-                  <li><a class="dropdown-item text-light" href="https://colorhunt.co/" target="_blank">ColorHunt</a></li>
-                  <li><a class="dropdown-item text-light" href="https://flatuicolors.com/" target="_blank">Flat UI Colors</a></li>
-                  </ul>
-              </li>
-            </ul>
-          </div>
+            <a class="navbar-brand" href="#">JavaScript Notları</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="html_notları.html">HTML Notları</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="bootstrap.html">Bootstrap Notları</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="iletisim.html">İletişim</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Renk Paleti Seçmek
+                        </a>
+                        <ul class="dropdown-menu bg-secondary bg-opacity-75">
+                            <li><a class="dropdown-item text-light" href="https://colorhunt.co/"
+                                    target="_blank">ColorHunt</a></li>
+                            <li><a class="dropdown-item text-light" href="https://flatuicolors.com/"
+                                    target="_blank">Flat UI Colors</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <!-- nav end -->
     <!-- content start -->
     <div class="container">
         <div class="row">
-                <h1>Değişkenler</h1>
-                <p>Değişken nedir: en basit tabirle değerleri hafızada tutmak için kullanılan yapılardır.</p>
-                <ul>Değişken isimlendirmede dikkat etmemiz gerekenler şunlardır.
-                    <li>Değişken isimleri harf, _ veya $ işareti ile başlayabilir. Fakat ES5 (ECMAScript 5) birlikte gelen özellikle UNICODE kodları kullanılırken kaçış karakteri olarak kullanılan \ işareti ilk karakter olarak kullanılabilir.</li>
-                    <li>İlk harften sonra değişken isimlerinde rakamlar da kullanılabilir. $ ve _ dışında başka noktalama işaretleri kullanılamaz</li>
-                    <li>Değişken ismindeki harfler arasında boşluk kullanılamaz.</li>
+            <!-- sol bar start -->
+            <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top" style="height: fit-content;">
+                <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
+                <h2 class="text-center">Konu Listesi </h2>
+                <ul class="list-group list-group-flush" style="max-height: 400px; overflow: auto;">
+                    <li class="list-group-item noFilter text-primary" onclick="filtre('noFilter')">Tümünü göster</li>
+                    <li class="list-group-item" onclick="filtre('degiskenler')">Değişkenler</li>
+                    <li class="list-group-item" onclick="filtre('sayi')">Sayı veri türü ve temel aritmetik işlemler</li>
+                    <li class="list-group-item" onclick="filtre('boolean')">Boolean Veri Türü ile Çalışmak</li>
+                    <li class="list-group-item" onclick="filtre('veriTuru')">Veri türünü öğrenme</li>
+                    <li class="list-group-item" onclick="filtre('templateLiterals')">Template Literals Kullanımı</li>
+                    <li class="list-group-item" onclick="filtre('string')">String veri türü işlemleri</li>
+                    <li class="list-group-item" onclick="filtre('dom')">DOM</li>
+                    <li class="list-group-item" onclick="filtre('prompt')"><code>prompt</code> ile kullanıcıdan bilgi
+                        almak.</li>
+                    <li class="list-group-item" onclick="filtre('liste')">Liste İçerisindeki Öğeye Erişmek ve Yeni Öğe
+                        Eklemek</li>
+                    <li class="list-group-item" onclick="filtre('domCss')">DOM'a CSS Class Bilgisi Eklemek veya Çıkarmak
+                    </li>
+                    <li class="list-group-item" onclick="filtre('mantiksal')">Karşılaştırma Operatörleri ve Mantıksal
+                        Operatörler</li>
+                    <li class="list-group-item" onclick="filtre('if')">Koşul Yapısı Kullanımı</li>
+                    <li class="list-group-item" onclick="filtre('fonksiyonlar')">Fonksiyonlar</li>
+                    <li class="list-group-item" onclick="filtre('paramReturn')">Parametre ve Return</li>
+                    <li class="list-group-item" onclick="filtre('fatArrow')">Fat Arrow</li>
+                    <li class="list-group-item" onclick="filtre('domEvent')">DOM Event</li>
+                    <li class="list-group-item" onclick="filtre('localStorage')"><code>localStorage</code> ile Veri
+                        Eklemek, Düzenlemek ve Silme</li>
+                    <li class="list-group-item" onclick="filtre('form')">Form ve Form Submit Yönetimi</li>
+                    <li class="list-group-item" onclick="filtre('input')">Input içerisinden Değer Almak</li>
+                    <li class="list-group-item" onclick="filtre('array')">Dizi (Array) Oluşturmak ve Dizi İçindeki Elemanlara Ulaşmak</li>
+                    <li class="list-group-item" onclick="filtre('array2')">Diziye Yeni Eleman Eklemek, Çıkartmak ve Güncellemek</li>
+                    <li class="list-group-item" onclick="filtre('array3')">Array (Dizi) Metotlarının Kullanımı ve Array içinde Array Oluşturma</li>
+                    <li class="list-group-item" onclick="filtre('for')">For Döngüsü Kullanımı</li>
+                    <li class="list-group-item" onclick="filtre('break')"><code>break</code> ve <code>continue</code> Kullanımı</li>
+                    <li class="list-group-item" onclick="filtre('while')"><code>while</code> Döngüsü</li>
+                    <li class="list-group-item" onclick="filtre('forEach')"><code>forEach</code> ile Array içerisindeki Öğelerin Çağrılması</li>
+                    <li class="list-group-item" onclick="filtre('filterArray')"><code>.filter</code> ile Array İçerisinde Sadece İstenilen Bilgilerin Yeni Listeye Eklenmesi</li>
+                    <li class="list-group-item" onclick="filtre('map')"><code>.map</code> ile Array İçerisideki Yapının Değiştirilerek Yeni Liste Oluşturulması</li>
+                    <li class="list-group-item" onclick="filtre('obj1')">Object (Nesne) Nedir? Nasıl Oluşturulur?</li>
+                    <li class="list-group-item" onclick="filtre('obj2')">Object Anahtar (Key) ve Değer (Value) Yapısının Kullanımı/Erişimi</li>
+                    <li class="list-group-item" onclick="filtre('obj3')">Nesnelere Nasıl Metot Ekleriz?</li>
+                    <li class="list-group-item" onclick="filtre('prototype')">Prototype Konusu ve Prototype Yöntemi</li>
+                    <li class="list-group-item" onclick="filtre('destructuring')">Object ve Array Destructuring Kullanımı</li>
+                    <li class="list-group-item" onclick="filtre('try_catch')">Try ve Catch Kullanımı (Hata Yönetimi)</li>
+                    <li class="list-group-item" onclick="filtre('fetchAPI')">Fetch API ile Çalışmak</li>
                 </ul>
-            <div class="col-sm-6">
-                <h2>var ile tanımlama (eski metot)</h2>
-                <p><code>var DegiskenAdi = Deger</code></p>
-                <p>Daha sonra bu değer kullanılacağında tanımlanan <code>DegiskenAdi</code> doğrudan <code>Deger</code>'i tanımlar. Bu şekilde kullanıldığında <code>Deger</code> tanımda güncellendiğinde <code>DegiskenAdi </code></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
 
-                
-                <h2>let ile tanımlamak</h2>
-                <p>önce tanımlanacak değer adı verilir. Sonra değer atanır <br><code>let FullName; <br> FullName = "Murat Gokduman"</code></p>
-                <p>bu tanımlama tek seferde de yapılabilir. <br><code>let FullName = "Murat Gökduman";</code></p>
-                <p>değer ile yapılacak işlem tanımlamadan önce yapılırsa sistem hata verir. <br><code>console.log(Fulname) <br> let FullName = "Murat Gökduman";</code><br>sonuç: <br><code>Uncaught ReferenceError: Cannot access 'FullName' before initialization <br>
-                    at 02-degisken-tanimlama.js:5:13</code><br>
-                    <code>var</code> ile yazsaydık bu hatayo göremezdik.</p>
-                    <p>Standart yazılım mantığında sıralı okuma vardır. Bu nedenle tanımlama değerin kullanılacağı yerden önce alınmalı</p>
             </div>
-            <div class="col">
+            <!-- sol bar end -->
+            <!-- orta menü start -->
+            <div class="col-9">
+                <div class="row yazi degiskenler">
+                    <div class="py-5">
+                        <h1>Değişkenler</h1>
+                        <p>Değişken nedir: en basit tabirle değerleri hafızada tutmak için kullanılan yapılardır.</p>
+                        <ul class="ps-5">Değişken isimlendirmede dikkat etmemiz gerekenler şunlardır.
+                            <li>Değişken isimleri harf, _ veya $ işareti ile başlayabilir. Fakat ES5 (ECMAScript 5)
+                                birlikte gelen özellikle UNICODE kodları kullanılırken kaçış karakteri olarak kullanılan
+                                \ işareti ilk karakter olarak kullanılabilir.</li>
+                            <li>İlk harften sonra değişken isimlerinde rakamlar da kullanılabilir. $ ve _ dışında başka
+                                noktalama işaretleri kullanılamaz</li>
+                            <li>Değişken ismindeki harfler arasında boşluk kullanılamaz.</li>
+                        </ul>
+                    </div>
+                    <div class="pb-5">
+                        <h2>var ile tanımlama (eski metot)</h2>
+                        <p><code>var DegiskenAdi = Deger</code></p>
+                        <p>Daha sonra bu değer kullanılacağında tanımlanan <code>DegiskenAdi</code> doğrudan
+                            <code>Deger</code>'i tanımlar. Bu şekilde kullanıldığında <code>Deger</code> tanımda
+                            güncellendiğinde <code>DegiskenAdi </code></p>
+                    </div>
+                    <div class="row pb-5">
+                        <div class="col">
+                            <h2>let ile tanımlamak</h2>
+                            <p>önce tanımlanacak değer adı verilir. Sonra değer atanır
+                                <br><code>let FullName; <br> FullName = "Murat Gokduman"</code></p>
+                            <p>bu tanımlama tek seferde de yapılabilir.
+                                <br><code>let FullName = "Murat Gökduman";</code></p>
+                            <p>değer ile yapılacak işlem tanımlamadan önce yapılırsa sistem hata verir.
+                                <br><code>console.log(Fulname) <br> let FullName = "Murat Gökduman";</code><br>sonuç:
+                                <br><code>Uncaught ReferenceError: Cannot access 'FullName' before initialization <br>
+                                at 02-degisken-tanimlama.js:5:13</code><br>
+                                <code>var</code> ile yazsaydık bu hatayo göremezdik.
+                            </p>
+                            <p>Standart yazılım mantığında sıralı okuma vardır. Bu nedenle tanımlama değerin
+                                kullanılacağı yerden önce alınmalı</p>
+                        </div>
+                        <div class="col">
 
-                <p>let ile yapılan tanımlamadaki değer daha aşağıda değiştirilebilir <br>
-                    <code>let password;<br>
-                        password = 1234 <br>
-                        console.log(password) <br>
-                        password = 4321 <br>
-                        console.log(password)</code><br>
-                        Örnek sonuç konsolda: <br><code>1234 <br>4321</code></p>
-            </div>
-            <div class="col">
+                            <p>let ile yapılan tanımlamadaki değer daha aşağıda değiştirilebilir <br>
+                                <code>let password;<br>
+                                    password = 1234 <br>
+                                    console.log(password) <br>
+                                    password = 4321 <br>
+                                    console.log(password)</code><br>
+                                Örnek sonuç konsolda: <br><code>1234 <br>4321</code>
+                            </p>
+                            <p>Daha önce girilen değer değiştirilebildiği gibi, değere ekleme de yapılabilmektedir. <br>
+                                <code>let adres;<br>
+                                    adres = "23 nisan mah."; <br>
+                                    console.log(adres); <br>
+                                    adres = adres + " Köroğlu cad" <br>
+                                    console.log(adres); <br>
+                                </code>
+                                sonuç: <br>
+                                <code>
+                                23 Nisan <br>
+                                23 Nisan Köroğlu cad
+                            </code> <br>
+                                aynı işlem için <br>
+                                <code>
+                                let adres;
+                                adres = "23 nisan mah."; <br>
+                                console.log(adres); <br>
+                                adres += " Köroğlu cad" <br>
+                                console.log(adres); <br>
+                            </code>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="pb-5">
 
-                <p>Daha önce girilen değer değiştirilebildiği gibi, değere ekleme de yapılabilmektedir. <br>
-                    <code>let adres;<br>
-                        adres = "23 nisan mah."; <br>
-                        console.log(adres); <br>
-                        adres = adres + " Köroğlu cad" <br>
-                        console.log(adres); <br>
+                        <h2>const ile tanımlamak</h2>
+                        <p>değişmemesini istediğimiz bilgiler için kullanılır. <br>
+                            değişken ile değer tek seferde yazılır. Tanımlanan bilgi daha sonra başka bir satırda
+                            değişmez. <br>
+                            <code>
+                                const serverPassword = "1234"
+                                console.log(serverPassword)
+                            </code><br>
+                            sonuç: <code>
+                                1234
+                            </code>
+                        </p>
+                    </div>
+                </div>
+                <div class="row pt-5 yazi sayi">
+
+                    <h1>Sayı veri türü ve temel aritmetik işlemler</h1>
+                    <p>JS içerisinde sayı verisi değişkene yazılırken değişken türü belirtmeye gerek yoktur.
+                        <br><code>let x = 5;</code><br>
+                    </p>
+                    <p>işlem önceliği matematikteki gibidir</p>
+                    <div class="row">
+                        <div class="col">
+
+                            <h2>toplama ve çıkartma</h2>
+                            <p>değeri tanımladıktan sonra aşağıdaki ifadelerin hepsi değeri a kadar arttırır <br>
+                                <code>
+                                    x = x+a <br>
+                                    x += a <br>
+                                    x ++               
+                                </code> ise 1 arttırır<br>
+                                aşağıdaki ifadeler ise a kadar azaltır <br>
+                                <code>
+                                    x = x - a; <br>
+                                    x -= a; <br>
+                                    x --; 
+                                </code> ise 1 azaltır
+                            </p>
+                        </div>
+                        <div class="col">
+
+                            <h2>çarpma ve bölme</h2>
+                            <p>değer tanımlandıktan sonra <br>
+                                <code>
+                                    x = x * a; <br>
+                                    x *= a; <br>
+                                </code> x değerini a katına çıkartır <br>
+                                <code>
+                                    x = x/a; <br>
+                                    x /= a;</code><br>
+                                x değerini a ya böler
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+
+
+                            <h2>mod alma</h2>
+                            <p>% işareti ile yapılır <br>
+                                <code>
+                                    x = x % a;  <br>
+                                </code>değerinde x a ya bölündüğünde kalan değeri alır.
+                            </p>
+                        </div>
+                        <div class="col">
+
+                            <h2>Üs alma</h2>
+                            <p><code>
+                                x = x ** a <br>
+                            </code>x in a üssünü verir</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+
+
+                            <h2>Aşağı ve yukarı yuvarlama</h2>
+                            <p>burada<code>
+                                Math
+                            </code> kütüphanesini kullanacağız. <br>
+                                <code>
+                                Math.floor(x.3)
+                            </code>ibareinde değer aşağı yuvarlanır ve sonuç x çıkar. <br>
+                                <code>
+                                Math.ceil(x.3)
+                            </code>ibaresinde değer yukarı yuvarlanır ve sonuç x+1 çıkar <br>
+                                <code>
+                                Math.round(x.3)
+                            </code>ibaresinde değer yakın değere yuvarlanır. 0.5 i 1 e tamamlar. daha küçük küsüratları
+                                aşağı yuvarlar
+                            </p>
+                        </div>
+                        <div class="col">
+
+                            <h2>Sayısal ibareyi metin olarak aktarma ve bunu geri çevirmek</h2>
+                            <p>" " içine yazılan sayısal değerler metin olarak algılanır. <br> Daha önce metin olarak
+                                saklanan değer Number() içine yazılarak tekrar sayı özelliği alabilir.
+                                <code>
+                                    let x = "11";
+                                </code>olarak tanımlandığında 11 metin özelliği kazanır. <br>
+                                <code>
+                                    let y = Number(x);
+                                </code> yazıldığında ise 11 tekrar sayısal özellik kazanır
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5 yazi boolean">
+                    <h1>Boolean Veri Türü ile Çalışmak</h1>
+                    <p><code>true</code> veya <code>false</code> olarak sonuç verir. İçeriğinde değer varsa
+                        <code>true</code>, yoksa <code>false</code> değerini alır. <br>Aşağıdaki değerler
+                        <code>false</code> olarak değerlendirilir. <br>
+                        <code>
+                        0, -0, null, false, Nan, undefied, ("")
                     </code>
-                            sonuç: <br>
-                <code>
-                    23 Nisan <br>
-                    23 Nisan Köroğlu cad
-                </code> <br>
-                aynı işlem için <br>
-                <code>
-                    let adres;
-                    adres = "23 nisan mah."; <br>
-                    console.log(adres); <br>
-                    adres += " Köroğlu cad" <br>
-                    console.log(adres); <br>
-                </code>
-                </p>
-            </div>
-        </div>
-        <div class="row">
+                    </p>
+                    <p>Koşul durumlarında ise koşul karşılanıyor ise <code>true</code> karşılanmıyorsa
+                        <code>false</code> değerini alır.</p>
 
-            <h2>const ile tanımlamak</h2>
-            <p>değişmemesini istediğimiz bilgiler için kullanılır. <br>
-                değişken ile değer tek seferde yazılır. Tanımlanan bilgi daha sonra başka bir satırda değişmez. <br>
-                <code>
-                    const serverPassword = "1234"
-                    console.log(serverPassword)
-                </code><br>
-                sonuç: <code>
-                    1234
-                </code></p>
-        </div>
-    </div>
-    <div class="container">
-        
-        <h1>Sayı veri türü ve temel aritmetik işlemler</h1>
-        <p>JS içerisinde sayı verisi değişkene yazılırken değişken türü belirtmeye gerek yoktur.
-            <br><code>let x = 5;</code><br>
-        </p>
-        <p>işlem önceliği matematikteki gibidir</p>
-        <div class="row">
-            <div class="col">
+                </div>
+                <div class="row pt-5 yazi veriTuru">
+                    <h1>Veri türünü öğrenme <code>typeof()</code></h1>
+                    <p><code>
+                        console.log(typeof(değişken))
+                    </code>yazdığımızda konsolda veri türü yazar</p>
+                    <h1>Veri türü değiştirme</h1>
+                    <p>explicit ve implicit olarak 2 farklı dönüşüm türü vardır. <strong>explicit</strong> metodlarla
+                        yapılan dönüşüm türüdür. <strong>implicit</strong> ise operatörlerle veya JavaScriptin
+                        kendisinin yaptığı dönüşümdür.</p>
+                    <div class="row">
+                        <div class="col">
 
-                <h2>toplama ve çıkartma</h2>
-                <p>değeri tanımladıktan sonra aşağıdaki ifadelerin hepsi değeri a kadar arttırır <br>
+
+                            <h2>Veriden sayıyı çekmek <code>parsInt()</code></h2>
+                            <p><code>
+                                let number1 = "12px"
+                            </code> yazımında değişken string (metin) olarak değer alır. <br>
+                                <code>
+                            number1 = parseInt(number1)
+                        </code> yazıldığında değişken tam sayı olarak değiştirilir.
+                            </p>
+                            <p><code>Number</code> değişkenin içinde sayı harici bir şey var ise sayıya dönüşümü
+                                gerçekleştiremezken <code>parseInt</code> sayı ile başlayan değişkeni, devamında başka
+                                birşey de yazsa tam sayıya dönüştürebilir. <code>parseFluat</code> değer tam sayı
+                                değilse de dönüşümü gerçekleştirir. <br>Örnek: <br>
+                                <code>
+                                let number1 = "12.2px"; <br>
+                                number1 = parseInt(number1) <br>
+                                console.log(number1)
+                            </code><br>sonuç: 12 <br>
+                                <code>
+                                let number1 = "12.2px"; <br>
+                                number1 = parseFluat(number1) <br>
+                                console.log(number1)
+                            </code><br>sonuç: 12.2 <br>
+                                <code>
+                                let number1 = "12.2px"; <br>
+                                number1 = Number(number1) <br>
+                                console.log(number1)
+                            </code><br>sonuç: NaN <br>
+                                <code>
+                                let number1 = "12.2"; <br>
+                                number1 = Number(number1) <br>
+                                console.log(number1)
+                            </code><br>sonuç: 12.2 <br>
+                            </p>
+                        </div>
+                        <div class="col">
+
+                            <h2>sayısı metne çevirme <code>.toString</code></h2>
+                            <p><code>
+                            let number2 = 12; <br>
+                            number2 = number2.toString
+                        </code><br>veya <br><code>
+                            let number2 = String(12)
+                        </code>explicit<br>veya <br><code>
+                            let number2 = "12"
+                        </code>implicit<br>veya <br><code>
+                            let number2 = 12 + ""
+                        </code>implicit <br>
+                                Tüm değerler bu iki yöntemle string olarak yazılabilir <br>
+                                Sembollerde ise sadece explicit yöntem işe yaramaktadır.</p>
+                            <h2>mantıksal ifadeye çevirme <code>Boolean</code></h2>
+                            <p>Boolean içi dolu olan veya şartlı ifadeye uyan tüm tanımlarda <code>true</code> verir</p>
+                            <p>Şartlı ifadeye uymayan, boş olan veya yapısı gereği boş algıladığı tüm durumlara [(''),
+                                (0) ,(-0), (NaN), (null), (undefined), (false)] <code>false</code> verir</p>
+                            <p>içinde boş küme belirtenler de dahil herhangi bir sembol varsa <code> true </code>verir
+                            </p>
+                            <p> <code>||</code> ilk bulduğu true değeri döner. <br>true bulamazsa en son bulduğu false
+                                döner</p>
+                            <p> <code>&&</code> ilk bulduğu false değeri döner <br> false bulamazsa son bulduğu true
+                                değeri döner</p>
+                        </div>
+                    </div>
+                    <h2>Nesneler için tip zorlama (Type Coercion)</h2>
+                    <ol>Primitif tipler için:
+                        <li>Eğer değer(input) primitif ise herhangi bir işlem yapma, dön.</li>
+                        <li>input.toString() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
+                        <li>input.valueOf() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
+                        <li>Ne input.toString() ne de input.valueOf() primitif sonuç vermiyorsa; TypeError fırlat.</li>
+                    </ol>
+                    <ol>Referans tipler için:
+                        <li>input.toString() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
+                        <li>input.valueOf()metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
+                        <li>Ne input.toString() ne deinput.valueOf() primitif sonuç vermiyorsa; TypeError fırlat.</li>
+                    </ol>
+                    <p>Detaylı örnekler için <a
+                            href="https://app.patika.dev/courses/javascript/degisken-turunu-kontrol-etmek-ve-degisken-turunu-degistirmek">tıklayınız</a>
+                    </p>
+                </div>
+                <div class="row pt-5 yazi templateLiterals">
+                    <h1>Template Literals Kullanımı</h1>
+                    <p>Template Literals (önceki adıyla Template Strings), kod okunabilirliği ve yazım kolaylığı
+                        sağlayan ES6 ile gelmiş bir string yazma şeklidir.</p>
+                    <p>Yazılacak bilginin <strong>backtick</strong> içine yazılması gerekmektedir. Bu şekilde birden
+                        fazla satıra bilgi yazılabilir.</p>
+                    <p>backtick <i class="text-info">alt gr + ,</i> ile yazılır.</p>
+                    <p>String bilgi doğrudan eklenir. değişkenler <code>${}</code> içine yazılır.</p>
+                    <p>Örnekleri 02-degisken-tanimlama.js klasöründe. Detaylı açıklama için <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals"></a>tıklayınız
+                    </p>
+
+                </div>
+                <div class="row pt-5 yazi string">
+                    <h1>String veri türü işlemleri</h1>
+
+                    <h2>karakter sayısı<code>.length</code></h2>
+                    <p><code>console.log(email.length)</code></p>
+
+                    <h2>ilk karakteri bulma</h2>
+                    <p><code>console.log(email[0])</code><br>
+                        <code>console.log(email.charAt(0))</code> JS de ilk karakter 0 olarak alınır. Kaçıncı karakter
+                        isteniyorsa 0 yerine yazılabilir.
+                    </p>
+
+                    <h2>Büyük ve Küçük Harfe Çevirme</h2>
+                    <p><code>email = email.toUpperCase() <br>
+                    console.log(email)</code> tamamı <strong>büyük</strong> harfe çevrildi ve yazdırıldı.</p>
+                    <p><code>email = email.toLowerCase() <br>
+                    console.log(email)</code> tamamı <strong>küçük</strong> harfe çevrildi ve yazdırıldı.</p>
+
+                    <h2>Sting İçinde Arama ve Yerini Bulma</h2>
+                    <p><code>console.log(email.search("@"))</code>@ işaretinin kaçıncı sırada olduğunu verir. <br>
+                        olmayan bir şey aratırsak değeri <code>-1</code> olarak verir.</p>
+                    <p>.indexOf ve .search ikisi de arama yapmak için kullanılabilir ancak bazı farkları vardır. <br>
+                        <strong>search</strong> büyük-küçük harf duyarlılığı olmadan sonuç verir. Bazı özel
+                        karakterlerde sonuç vermemektedir. <br>
+                        <strong>indexOf</strong> spesifik olarak istenilen karakteri bulur. Büyük-küçük harf duyarlıdır.
+                        Başlangıç noktası seçilebilir. Boş bırakılırsa başlangıçtan itibaren arar <br>
+                        <code>
+                        console.log(email.indexOf(".", 5))
+                    </code>5 ten sonraki noktayı bulur <br>
+                        <strong>lastIndexOf</strong> eşleşen son değeri gösterir
+                    </p>
+                    <h2>Belli Bir Yere Kadar Olanı Almak <code>.slice</code></h2>
+                    <p><code>console.log(email.slice(0,10))</code> 0 dan 10 a kadarı alır <br>
+                        <code>console.log(email.slice(15))</code> 15 ve sonrasını alır <br>
+                        <code>console.log(email.slice(email.search("@")+1))</code>@ işaretinden sonrasını alır. <br>
+                        <code>console.log(email.slice(email.search("@")+1,(email.indexOf(".")))</code>@ işareti ile
+                        nokta arasındaki kısmı verir.
+                    </p>
+
+                    <h2>Değiştirmek <code>.replace</code></h2>
+                    <p>Değişikliğin kalıcı olması için değiştirilen bilgiye ya da yeni bir değişkene set edilmesi
+                        gerekir. <br>
+                        <code>
+                        email = email.replace("gmail.com", "renault.com"); <br>
+                        console.log(email)
+                    </code>çıktı olarak drmuratgokduman@renault.com verir
+                    </p>
+
+                    <h2>İstediğim bilgi var mı <code>.includes</code></h2>
+                    <p>istediğim bilgi ilgili değişkende var mı? <code>true</code> veya <code>false</code> verir. <br>
+                        <code>
+                        email.includes("@");
+                    </code>çıktı olarak true verir.
+                    </p>
+
+                    <h2>Bununla başladı mı? <code>.startsWith</code> Bununla bitti mi? <code>.endsWith</code></h2>
+                    <p>bir bilginin başında ve sonunda olan bilgilerin doğruluğunu sorgulamak için
+                        kullanılır.<code>true</code> veya <code>false</code> verir. <br>
+                        <code>
+                        email.startsWith("drmuratgokduman");
+                    </code> çıktı olarak <code>true</code> verir. <br>
+                        <code>
+                        email.endsWith("hotmail.com");
+                    </code> çıktı olarak <code>false</code> verir.
+                    </p>
+
+                    <h2>Belirli bir sıradaki veriyi çekmek</h2>
+                    <p><code>.charAt()</code> değişkendeki parantez içindeki indeks numarasının denk geldiği veriyi
+                        gösterir. <br>
+                        <code>.charCodeAt()</code> değişkendeki parantez içindeki index numarasının denk geldiği verinin
+                        Unicode numarasını gösterir.
+                    </p>
+
+                    <h2>Metni Diziye Çevirme <code>.split</code></h2>
+                    <p>Metni belirtilen karakterden bölerek diziye çevirir <br>
+                        <code>
+                        let isim = ‘Oguz,Kamer’; <br>
+                        let isimler = isim.split(’,'); <br>
+                        console.log(isimler);
+                    </code> Çıktısı: 'Oğuz', 'Kamer'
+                    </p>
+                </div>
+                <div class="row pt-5 yazi dom">
+                    <h1>DOM (Document Object Model)</h1>
+                    <p>Document Object Model, programların ve komut dosyalarının bir belgenin içeriğine, yapısına ve
+                        stiline dinamik olarak erişmesine ve güncellemesine izin veren bir platform ve dilden bağımsız
+                        bir arayüzdür.</p>
+                    <p>DOM, mantıksal bir ağaç içeren bir belgeyi temsil eder. Ağacın her dalı bir düğümde biter ve her
+                        düğüm nesneler içerir. DOM yöntemleri, ağaca programlı erişime izin verir. Onlarla belgenin
+                        yapısını, stilini veya içeriğini değiştirebilirsiniz.</p>
+                    <p>DOM hiyerarşik yerleşimi kullanabildiği gibi ID özelliğini de kullanabilir.</p>
+
+                    <h2>DOM içerisinden Etiket ve ID ile Öğe Seçimi</h2>
+                    <p>önce eşitleme yapalım <br>
+                        <code>
+                            let title = document.getElementById('title') 
+                        </code>
+                        ID bilgisi title olan elementi title değişkenine bağladık. <br>
+                        <code>
+                            title.innerHTML = "Yeni Başlık"; 
+                        </code>
+                        title başlığının inner HTML özelliğine yeni bir tanımlama yaptık. <br>
+                        <code>
+                            console.log(title.innerHTML);
+                        </code>
+                        Konsolda ve ID bilgisinin HTML yansımasında değişiklik yaptık.
+                    </p>
+                    <p>Kaynak koduna bakarsanız aşağıdaki metnin orjinal innerHTML bilgisinin "DOM içerisinden Etiket ve
+                        ID ile Öğe Seçimi" olduğunu görebilirsiniz.</p>
+
+                    <h4 id="title">DOM içerisinden Etiket ve ID ile Öğe Seçimi</h4>
+
+                    <p><code>document.getElementById('title')</code> kalıbı yerine
+                        <code>document.querySelector('#title')</code> kalıbı da kullanılabilir</p>
+
+                    <p><code>document.querySelector("")</code> kalıbı hiyerarşik yapıdan nesne seçmek için de
+                        kullanılır. <br>
+                        <code>
+                        let link = document.querySelector("ul#list>li>a")
+                    </code> ile list ID sine sahip ul'nin li>a elementi seçildi <br>
+                        <code>
+                        link.innerHTML += " değişti";
+                    </code> ile sonuna "değişti" eklendi <br>
+                        <code>
+                        link.style.color = "red";    
+                    </code> ile rengi kırmızı yapıldı <br>
+                        <code>
+                        link.classList.add("btn");    
+                    </code> ile class bilgisine "btn" eklendi. <br>
+                        değişen üstteki satır ile aynı kalan aşağıdaki satır örneği anlamamızı sağlar.
+                    </p>
+
+                    <ul id="list">
+                        <li>
+                            <a href="#">Link bilgisi</a>
+                        </li>
+                        <li>
+                            <a href="#">Link bilgisi</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row pt-5 yazi prompt">
+                    <h1><code>prompt</code> ile kullanıcıdan bilgi almak.</h1>
+                    <p>
+                        <code>
+                            let promptName = prompt("lütfen adınızı yazınız:","buraya yazılacak");
+                        </code> ile bilgi istenir ve promtName değişkenine kaydedilir. <br>
+                        <code>
+                            let promptDeneme = document.querySelector("#promptDeneme");
+                        </code> ile değiştirilecek bilgi değişkene atanır. <br>
+                        <code>
+                            promptDeneme.innerHTML = `${promptDeneme.innerHTML} ${promptName}`;
+                        </code> istenen bilgi backtick ile düzenlenir. istenilirse style vs. atanabilir.
+                    </p>
+                    <p id="promptDeneme">Gelen bilgi buraya gelecek:</p>
+                </div>
+                <div class="row pt-5 yazi liste">
+                    <h1>Liste İçerisindeki Öğeye Erişmek ve Yeni Öğe Eklemek</h1>
+
+                    <h2>Listedeki ilk ve son ögeyi değiştirmek</h2>
+                    <p>
+                        <code>
+                            let FirstChild = document.querySelector("ul#list1>li:first-child");
+                        </code> ile listenin ilk ögesi seçilir. <br>
+                        <code>
+                            FirstChild.innerHTML = `İlk öge değişti`; 
+                        </code> ile değiştirilir. İstenilirse örnekteki gibi span etiketi ve style eklenerek rengi
+                        değiştirilir. <br>
+                        <code>
+                            let LastChild = document.querySelector("ul#list1>li:last-child");
+                        </code> ile son öge seçilir ve aynı methot ile değiştirilir.
+
+                    </p>
+
+                    <h2>Öge Eklemek</h2>
+                    <p>Önce listeyi tanımlıyoruz. <br>
+                        <code>
+                            let ulDOM = document.querySelector("ul#list1");
+                        </code> <br>
+                        Sonra eklenecek liste ögesini tanımlıyoruz. <br>
+                        <code>
+                            let liDOM = document.createElement("li"); <br>
+                            liDOM.innerHTML = "Bunu ben ekledim";
+                        </code> <br>
+                    </p>
+                    <p>
+
+                        <code>.append</code> ile eklersek nesne en sona ekleniyor. <br>
+                        <code>
+                            ulDOM.append(liDOM);
+                        </code> <br>
+                    </p>
+                    <p>
+
+                        <code>.prepend</code> ile eklersek listenin en başına ögeyi ekliyor. <br>
+                        <code>
+                            ulDOM.prepend(liDOM);
+                        </code>
+                    </p>
+
+                    <ul id="list1">
+                        <li>Lorem.</li>
+                        <li>Eaque!</li>
+                        <li>Similique!</li>
+                        <li>Voluptates.</li>
+                        <li>Tempora!</li>
+                    </ul>
+                </div>
+                <div class="row pt-5 yazi domCss">
+                    <h1>DOM'a CSS Class Bilgisi Eklemek veya Çıkarmak</h1>
+                    <p>
+                        <code>
+                            let denemeH3 = document.querySelector(".deneme-h3");
+                        </code> ile deneme-h3 klası seçilir. <br>
+                        <code>
+                            denemeH3.classList.add("text-primary", "bg-dark", "boş-klass");
+                        </code> ile <strong>"text-primary", "bg-dark", "boş-klass"</strong> klasları eklenir. <br>
+                        <code>
+                            denemeH3.classList.remove("bg-dark", "boş-klass", "olmayan-klass")
+                        </code> ile <strong>bg-dark", "boş-klass", "olmayan-klass"</strong> klasları kaldırılır.
+                        olmayan bir şeyi kaldırmak istediğimizde hata vermez.
+                    </p>
+                    <p>
+                        <code>
+                            denemeH3.classList.item(0);
+                        </code> sıralamadaki ilk klası çağırır.
+                    </p>
+                    <p>
+                        <code>
+                            denemeH3.classList.contains('warning');
+                        </code> <strong>warning</strong> klasının varlığını sorgular. çıktı true/false cinsinden
+                        alınır.
+                    </p>
+                    <p>
+                        <code>
+                            denemeH3.classList.toggle("text-primary");
+                        </code> klass varsa siler, yoksa ekler. Tek seferde tek klass için kullanılır.
+                    </p>
+
+                    <p>
+                        <code>
+                            denemeH3.classList.replace("boş-klass", "yerine-gelen-klass");
+                        </code> bir klası başka bir klas ile değiştirir.
+                    </p>
+                    <p>
+                        <code>
+                            denemeH3.classList.length;
+                    </code> kaç adet klass olduğunu verir.
+                    </p>
+
+                    <h3 class="deneme-h3">Class bilgisi eklemeyi denediğimiz başlık</h3>
+                </div>
+                <div class="row pt-5 yazi mantiksal">
+                    <h1>Karşılaştırma Operatörleri ve Mantıksal Operatörler</h1>
+
+                    <h2>Karşılaştırma Operatörleri</h2>
+                    <h3>Eşitse <code>==</code></h3>
+                    <p>iki değerin eşitliğin değerlendirir ve çıktı olarak true/false verir <br>
+                        <code>
+                        var a = 10; <br>
+                        var b = "10"; <br>
+                        console.log(a==b)
+                    </code> çıktısı true
+                    </p>
+
+                    <h3>türü ve değeri eşitse <code>===</code></h3>
+                    <p><code>
+                        var a = 10; <br>
+                        var b = "10"; <br>
+                        console.log(a==b)
+                    </code> çıktısı true</p>
+
+                    <h3>Eşit değilse <code>!=</code> ve <code>!==</code></h3>
+                    <p><code>
+                        console.log(a!=b)
+                    </code> çıktısı false</p>
+                    <p><code>
+                        console.log(a!==b)
+                    </code> çıktısı true</p>
+
+
+                    <h3>küçükse <code><</code></h3>
+                    <p><code>
+                        console.log(a < b)
+                    </code> çıktısı false</p>
+
+                    <h3>küçük veya eşitse se <code><=</code></h3>
+                    <p><code>
+                        console.log(a <= b)
+                    </code> çıktısı true</p>
+
+                    <h3>büyükse <code>></code></h3>
+                    <p><code>
+                        console.log(a > b)
+                    </code> çıktısı false</p>
+
+                    <h3>küçük veya eşitse se <code><=</code></h3>
+                    <p><code>
+                        console.log(a >= b)
+                    </code> çıktısı true</p>
+
+                    <h2>Mantıksal Operatörler</h2>
+                    <h3>ve <code>&&</code></h3>
+                    <p>birbirine bağladığı her karşılaştırma true ise true verir.</p>
+
+                    <h3>veya <code>||</code></h3>
+                    <p>birbirine bağladığı değerlerden biri true ise true verir.</p>
+
+                    <h3>değil <code>!</code></h3>
+                    <p>dahil olduğu ifadenin değerini tersine çevirir</p>
+
+                </div>
+                <div class="row pt-5 yazi if">
+                    <h1>Koşul Yapısı Kullanımı <code>if / else</code></h1>
+                    <p>eğer kullanıcı bilgisi varsa konsola yazdır. <br>
+                        <code>
+                        if(userName.leight > 0){console.log(userName)};
+                    </code> if içindeki yapı true ise süslü parantezdeki fonksiyon çalışır. yapı false ise hiçbir şey
+                        olmaz. <br>
+                        if içindeki koşul herhangi bir değer olduğunda true vereceğinden parantez içine
+                        <code>userName.leight</code> yerine <code>userName</code> yazılabilir.<br>
+                        eğer kullanıcı adı varsa konsola yazdır. şart saplanmıyorsa konsola "kullanıcı adı yok" yazdır.
+                        <br>
+                        <code>
+                        if(userName.leight > 0){console.log(userName)} <br>
+                        else{conslole.log("kullanıcı adı yok")};
+                    </code>if içindeki yapı true ise süslü parantezdeki fonksiyon çalışır. yapı false ise else içindeki
+                        fonksiyon çalışır.
+                    </p>
+
+                    <h2>Çoklu Koşul</h2>
+                    <p id="Ehliyet">Ehiyet alabilir miyim? = Örnek propt ile yapıldığından js dosyasından kapatıldı.</p>
+
+                    <h3><code>if/else</code> ile çoklu koşul</h3>
+                    <p><code>
+                        let userName = prompt("Lütfen adınızı giriniz") <br>
+                        let age = prompt("lütfen yaşınızı giriniz") <br>
+                        let infoEhliyet = document.querySelector("#Ehliyet")
+                    </code> ile tanımlar yapılır. <br>
+                        <code>
+                        if (userName && age >= 18){ <br>
+                            infoEhliyet.innerHTML = "ehliyet alabilir" <br>
+                        } else if (!userName){ <br>
+                            infoEhliyet.innerHTML = "kullanıcı adı girilmedi" <br>
+                        } else if (userName && !(age >= 18)){ <br>
+                            infoEhliyet.innerHTML = "Yaşın tutmuyor"
+                        }
+                    </code> ile koşul belirtilir.
+                    </p>
+                    <h3><code>switch</code> ile çoklu koşul</h3>
+                    <p>mantıksal ifadelerde çalışmıyor. String veri tipi eşitlik durumlarında sonuç veriyor</p>
+                    <p>
+                        <code>
+                            let hava = "Gunesli"; 
+                        </code> ile değişken atanır. <br>
+                        <code>
+                            switch(hava) { <br>
+                                case "Yagmurlu": 
+                        </code> ile ilk case atanır. <br>
+                        <code>
+                            console.log("Semsiyeni yanina almayi unutma");
+                        </code> ile çıktısı alınır.
+                        <code>
+                            break;
+                        </code> ile bir sonraki case e geçilir.
+                        <code>
+                            case "Bulutlu": <br>
+                            console.log("Disari cik"); <br>
+                            break; <br>
+                            case "Karlı": <br>
+                            console.log("Kalin giyin"); <br>
+                            break; <br>
+                            case "Firtinali": <br>
+                            console.log("Bir süre disari cikma"); <br>
+                            break; <br>
+                            default:
+                        </code> ile diğer değerlere uymayan durumlar için sonuç alır <br>
+                        <code>
+                            console.log("Bilinmeyen hava durumu:" , hava); <br>
+                        }
+                        </code>
+                    </p>
+                    <h2>Ternary Operatör ( Koşul ? Doğruysa : Yanlışsa) ile If Kullanımı</h2>
+                    <p><code>
+                        let userName = prompt("Lütfen adınızı giriniz") <br>
+                        let age = prompt("lütfen yaşınızı giriniz") <br>
+                        let infoEhliyet = document.querySelector("#Ehliyet")
+                    </code> ile tanımlar yapılır. <br>
+                        <code>
+                        infoEhliyet.innerHTML = (userName && age >= 18 ? "ehliyet alabilir" : "ehliyet alamaz");
+                    </code> ? öncesine koşul yazılır. ? sonrası ilk kısım mantıksal ifade true ise ikinci kısım false
+                        ise aktifleşir
+                    </p>
+                    <h2>Bölüm Sonu Egzersizi</h2>
+                    <p id="not">
+                        Buraya not bilgisi gelecek. Bilgi prompt ile alındığından, fonksiyon JS içinden kapatıldı
+                    </p>
+                </div>
+                <div class="row pt-5 yazi fonksiyonlar">
+                    <h1>Fonksiyonlar</h1>
+                    <p>Fonksiyonlar adından anlaşılacağı gibi belli bir amacı gerçekleştirmek için oluşturulmuş
+                        yapılardır.</p>
+                    <p>Fonksiyonu oluşturmak çalışması için yeterli değildir. Fonksiyonu adıyla çağırmak gerekir. <br>
+                        <code>myFunction()</code> fonksiyon adının yanına muhakkak () konulur. () içine varsa parametre
+                        konulur yoksa boş bırakılır.
+                    </p>
+
+                    <h2>Fonksiyonu Adlandırmak</h2>
+                    <p>function ibaresinden sonra fonksiyon adı yazılır. Bir fonksiyonu adı varsa bunlara
+                        Normal-Adlandırılmış Fonksiyonlar (Regular/Named Functions) deriz. <br>
+                        Önemli olan kodun okunabilirliği açısından fonksiyonu işlevine uygun bir biçimde adlandırmaktır,
+                        dahası bu bir işlevi belirttiği için fonksiyon adımız bir eylem olmalıdır. Bunun için bazı ön
+                        ekler kullanabiliriz. <br>
+                        Örneğin değer almak istediğimiz bir fonksiyon adında ön ek olarak <strong>get</strong>
+                        kullanabiliriz.
+                        Bununla birlikte şunu da unutmamalıyız istendiğinde adı olmayan anonim bir fonksiyon da
+                        kullanılabilir. Aşağıda bu fonksiyon türünden bahsediliyor</p>
+
+                    <p><code>function fonksiyonAdi (parametreler){işlev}</code></p>
+
+                    <h2>Anonim fonksiyonların (Anonymous Functions)</h2>
+                    <p>kendine ait bir adı yoktur. Bir değişkene tanımlanır.</p>
+
+                    <p><code>let degiskenAdi = function(parametre){işlev}</code></p>
+
+                    <h2>Değer Döndüren Fonksiyonlar <code>return</code></h2>
+                    <p>Bazen fonksiyonun geriye göndereceği değeri ekrana çıktı vermek yerine bir değişken ya da başka
+                        bir fonksiyonda daha sonra kullanmamız gerekebilir. Bu gibi durumlarda fonksiyon gövdesinde
+                        return ifadesini kullanırız.</p>
+
+                    <h2>Lokal ve Global Değişkenler</h2>
+                    <p>Fonksiyonun içinde belirtilen değişkenler <strong>lokal değişken</strong> adını alır ve sadece o
+                        fonksiyonda çalışır.</p>
+                    <p>Fonksiyonun dışında belirtilen değişkenler <strong>global değişken</strong> adını alır ve tüm
+                        sayfada çalışır.</p>
+
+                    <h2>Callback Fonksiyonlar ve Asenkron Çalışma</h2>
+                    <p>JavaScript asenkron yapıdaki bir programlama dilidir. Senkron dediğimiz kavram şunu ifade
+                        etmektedir: kodumuz yukarıdan aşağı doğru sırayla işlenir ve bir satırdaki işlem bitmeden bir
+                        sonraki satıra geçilmez. Asenkron yapıda ise fonksiyonların birbirlerini beklemelerine gerek
+                        yoktur.</p>
+
+                    <p><code>
+                        function topla(sayi1, sayi2) {
+                            return sayi1 + sayi2;
+                        }; <br>
+                        
+                        var sonuc = topla(10,20);
+                    </code>30 döner <br>
+                        <code>
+                        function carp(sayi1, sayi2) {
+                            sayi1 * sayi2;
+                            }; <br>
+                            
+                            result=carp(10,20);
+                    </code>return olmadığı için undefined döner
+                    </p>
+                    <h2>Arrow Functions</h2>
+                    <p><code>
+                        const carpim = (sayi1, sayi2) => sayi1 * sayi2;
+                    </code> <br> ile aşağıdaki fonksiyon aynı anlama gelir <br>
+                        <code>
+                        const carpim = function(sayi1, sayi2){ <br>
+                        return sayi1*sayi2; }
+                    </code>
+                    </p>
+                    <p><code>const helloWorld = () => console.log('Hello World');</code><br>
+                        = <br>
+                        <code>
+                        const helloWorld = function(){<br>
+                        console.log('Hello World')}
+                    </code>
+                    </p>
+                    <p><code>
+                        let experience = prompt('Kac yillik gelistirici tecrubeniz var', 4);
+                        <br>
+                        const developer =
+                        experience > 5 <br>
+                        ? () => alert('Bir cok konuyu biliyorum') <br>
+                        : () => alert('Hicbir sey bilmiyorum:)'); <br>
+                        developer();<br>
+                    </code>= <br>
+                        <code>
+                        if(experience > 5){ <br>
+                            allert('Bir cok konuyu biliyorum') <br>
+                        } else { <br>
+                            alert('Hicbir sey bilmiyorum:)'); <br>
+                        } <br>
+                    </code>
+                    </p>
+
+                    <h2>Recursion</h2>
+                    <p>Kısaca bir fonksiyon kendisini tekrar çağırıyor ise biz buna recursion diyoruz.</p>
+                    <p>Örnek: a,b değerleri a üssü b: recursion olmadan <br>
+                        <code>
+                        function pow(a,b){<br>
+                        let result = 1 <br>
+                        for(i = 0, i < b, i++ ){<br>
+                        result *= a; } <br>
+                        return result;
+                        } <br>
+                    </code><br>
+                        resursion ile: <br>
+                        <code>
+                        function pow(a,b){<br>
+                        if(b==1){<br>
+                        return a; <br>
+                        }else{ <br>
+                        return a*pow(a,b-1); <br>
+                        }}
+                    </code>
+                    </p>
+                    <p>Detay okuma için <a href="https://javascript.info/recursion">tıklayınız</a></p>
+                </div>
+                <div class="row pt-5 yazi paramReturn">
+                    <h1>Parametre ve Return</h1>
+                    <h2>parametre</h2>
+                    <p>Parametre, fonksiyonun çağırıldığı durumlarda, içindeki değişkene değer atanabilmesini sağlar</p>
+                    <p><strong>default parametre</strong> fonkisyon çağırılırken parametre atanmaması durumunda atanacak
+                        parametreyi belirtir. Atanması şart değildir. <br>
+                        <code>
+                        function myFunction(parametre = "defaultParametre")
+                    </code>
+                    </p>
+
+                    <p id="test" onclick="degistir('#test' , 'noldu bea')">Tıkla ve değişsin</p>
+
+                    <h2>Return</h2>
+                    <p>bir fonksiyonun işlem sonunda javascript içinde bir sonuç vermesi için <code>return</code>
+                        kullanılır</p>
+                </div>
+                <div class="row pt-5 yazi fatArrow">
+                    <h1>Fat Arrow <code>=> </code>ile fonksiyon yazmak</h1>
+                    <p>versiyon 1<code>
+                        const fonksiyonAdiV1 = (parametre) => {fonksiyonun islevi}
+                    </code> <br>
+                        versiyon 2<code>
+                        const fonksiyonAdiV2 = parametre => fonksiyonun islevi
+                    </code>bu yazım tek parametre ve tek işlem varsa işler <br>
+                        birden fazla parametre var ise parametreler () içine alınmalı. birden fazla işlem varsa işlemler
+                        {} içine alınmalı</p>
+                    <h2>fat arrow içinde "this" keyword</h2>
+                    <p>this içinde yer aldığı nesneyi temsil eder. nesne içinde fonksiyonda this kullanıldığıda
+                        geleneksel fonksiyonda nesneyi, fat arrowda globali refere eder</p>
+                </div>
+                <div class="row pt-5 yazi domEvent">
+                    <h1>DOM Event</h1>
+                    <p>event listesi için <a href="https://www.w3schools.com/jsref/dom_obj_event.asp">tıklayınız</a> ya
+                        da <a href="https://developer.mozilla.org/en-US/docs/Web/Events">tıklayınız</a></p>
+                    <p>event js nin html kodunu dinleyip, burada yapılan işleme göre fonksiyon tetikleme işlemidir. 3
+                        farklı yoldan event eklenebilir.</p>
+
+                    <h2>1. Metot</h2>
+                    <p>js içinde: <br>
+                        <code>element.addEventListener(event, function);</code><br>
+                        örnek: id bilgisi buton olan etikete tıklandığıda aktif olan fonksiyon atandı <br>
+                        <code>const buton = document.querySelector("#buton");</code> id si buton olan element seçildi
+                        <br>
+                        <code>buton.addEventListener('click' , function()</code> click eventi ile tetiklenen fonksiyon
+                        eklendi. <br>
+                        <code>
+                        {
+                        alert("Buton Tıklandı");
+                            })</code>
+                    </p>
+                    <h2>2. Metot</h2>
+                    <p>js içinde: fonksiyon adı event içine yazılıp fonksiyon ayrı yazılabilir.<br>
+                        <code>element.addEventListener(event, functionName);
+                    </code><br>
+                        yukarıdaki örneğin aynısı: <br>
+                        <code>const buton = document.querySelector("#buton");</code> id si buton olan element seçildi
+                        <br>
+                        <code>buton.addEventListener('click' , functionName)</code> click eventi ile tetiklenen
+                        fonksiyon adı eklendi. <br>
+                        <code>function functionName()
+                        {
+                        alert("Buton Tıklandı");
+                            })</code>
+                    </p>
+
+                    <h2>3. Metot</h2>
+                    <p><code>element.event = function(){fonksiyon içeriği};</code></p>
+
+
+                    <h3>Ödev</h3>
+                    <div class="d-flex">
+                        <div id="yellow"
+                            style="width:70px; height:70px;border-radius:50%; margin:15px; background-color:yellow;">
+                        </div>
+                        <div id="purple"
+                            style="width:70px; height:70px;border-radius:50%; margin:15px; background-color:rebeccapurple">
+                        </div>
+                    </div>
+
+                    <h2>Mouse Etkinliği</h2>
+                    <p>Mouse tıklaması ile gerçekleşen etkinliktir. <br>
+                        <code>dblclick</code> çift tıklama <br>
+                        <code>click</code> tıklama <br>
+                        vs
+                    </p>
+
+                    <h2>Klavye Etkinliği</h2>
+                    <p>Klavyeden herhangi bir tuşa tıklanması sonucu gerçekleşen etkinliklerdir.</p>
+
+                    <h2>Form Etkinlikleri</h2>
+                    <div id="kutu">
+                        <form action="#" id="selectColor">
+                            <label id="label">Choose a color</label>
+                            <select id="select">
+                                <option value="red">RED</option>
+                                <option value="blue">BLUE</option>
+                                <option value="purple">PURPLE</option>
+                                <option value="orange">ORANGE</option>
+                                <option value="pink">PINK</option>
+                            </select>
+                            <p id="secim">Seçimim: </p>
+                        </form>
+                    </div>
+                    <h1>Kabarcıklanma Etkinliği(Event Bubbling) ve Yakalama Etkinliği(Event Capturing)</h1>
+
+                    <h2>Kabarcıklanma Etkinliği(Event Bubbling)</h2>
+                    <p>İç içe elementlerde ,örneğin üzerine tıklanan bir eleman kendisini kapsayan elemanı da yazar.
+                        Adeta bir sabun köpürmesi mantığıyla dıştaki hedef elemente kadar ilerler.</p>
+
+                    <p>Bu örnek yukarıdaki form ile yapılmıştır. Tıklanan ögenin neyin içinde olduğunu verir <br>
+                        örnek konsolda. </p>
+
+                    <h2>2.Yakalama Etkinliği(Event Capturing)</h2>
+                    <p>İç içe elementlerde, Örneğin üzerine tıklanan bir eleman kendisinin içindeki elemanı da yazar.
+                        Kabarcıklanma etkinliğinin tam tersi şeklinde çalışır. Hedef dıştan içe doğrudur. Bir önceki
+                        örnekteki çıktının tam tersi olarak ; ekran çıktısı çerçeve form seklindedir.</p>
+                    <p>Kullanım şekli: <br>
+                        <code>
+                        element.addEventListener(event, function, useCapture);
+                    </code>useCapture parametresi "True" ve "False" değerleri almaktadır. Diğer tüm kullanımı
+                        kabarcıklanma etkinliği ile aynıdır.
+                    </p>
+
+                    <h2><code>event.stopPropagation()</code></h2>
+                    <p>Bir etkinliğin özelliğini durdurmak için kullanılır. Bir fonksiyon parametresi olarak girilen
+                        "event" e bu etkinlik atanarak kullanılır.
+                        <br>Kullanımı:
+                        <br><code>event.stopPropagation();</code>
+                    </p>
+
+                    <h2><code>event.preventDefault()</code></h2>
+                    <p>Bir HTML elementinin varsayılan eylemini tamamen engellemek için bu eylem kullanılır. Bir
+                        fonksiyon parametresi olarak girilen "event" e bu etkinlik atanarak kullanılır.</p>
+                </div>
+                <div class="row pt-5 yazi localStorage">
+                    <h1><code>localStorage</code> ile Veri Eklemek, Düzenlemek ve Silme</h1>
+
+                    <h2>Local Storage Nedir?</h2>
+                    <p>HTML 5 ile birlikte web sayfaları veriyi yerel (local) veya tarayıcı (browser) içinde
+                        saklayabilir hale gelmiştir. Bu sayede eskiden cookie’ler ile yaptığımız işlemler daha güvenli
+                        ve daha hızlı şekilde yapılabilir hale gelmiştir. <br>
+                        Veriler key/value şeklinde saklanmaktadır ve web sayfaları sadece kendi oluşturdukları verilere
+                        erişebilmektedir.</p>
+
+                    <h2>Nasıl Kullanılır?</h2>
+                    <p>HTML 5 ile tarayıcılar iki tane yerel kayıt türünü desteklemektedir.
+                    <ul class="ms-4">
+                        <li>localStorage</li>
+                        <li>sessionStorage</li>
+                    </ul>
+                    </p>
+                    <p>
+                        <strong>localStorage</strong> kayıtları zaman aşımı olmaksızın tutarken
+                        <strong>sessionStorage</strong> kayıtları oturum sonlanana kadar ya da veri kaybolana kadar
+                        tutmaktadır. Ancak LocalStorage ve SessionStorage <strong>kullanıcı tarafından kolayca
+                            okunabilir</strong> ve değiştirilebilir, bu sebeple uygulama içerisindeki güvenlik ile
+                        ilgili verilerin depolanmaması gerekmektedir. LocalStorage ve SessionStorage sayfalar arasındaki
+                        ve client işlemleri arasındaki <strong>hassas olmayan verilerin taşınmasında</strong> tercih
+                        edilmektedir.
+                    </p>
+
+                    <h2>Veri Ekleme</h2>
+                    <p><code>
+                        window.localStorage.setItem("key", "value");
+                    </code> ilki ‘key’ yani anahtar adı ikincisi ise ‘value’ yani o anahtara karşılık gelen değeri
+                        ifade etmektedir.</p>
+                    <p>Eğer daha önce belirttiğiniz bir anahtarı kullanırsanız kaydetmek için veri eski kaydın üzerine
+                        yazılacaktır.</p>
+                    <p>Verileri kaydederken <strong>sadece string</strong> biçiminde kayıt yapıldığını bilmemiz
+                        gerekmektedir. Karmaşık bir veriyi kaydetmek istediğinizde toString() metodu çalıştırılmalı ve
+                        üretilen değer kaydedilmelidir. Json verisini kaydetmek içinse JSON.stringify() metodu
+                        kullanılmalıdır.</p>
+
+                    <h2>Veri Okuma</h2>
+                    <p><code>
+                        window.localStorage.getItem("key");
+                    </code>Eğer veri daha önce kaydedilmeyen bir veriyi okumaya çalıştığımızda null değeri geri
+                        dönmektedir.</p>
+
+                    <h2>Veri Silme</h2>
+                    <p><code>
+                        localStorage.removeItem("key");
+                    </code> sadece verilen anahtarı ve değerini siler.
+                        <code>
+                        localStorage.clear();
+                    </code>tüm verileri siler
+                    </p>
+
+                    <h2>Örnek uygulama</h2>
+                    <p>
+                        <button id="arttir">Arttır</button>__
+                        <span id="counter">100</span>
+                        __<button id="azalt">Azalt</button>
+                    </p>
+
+                    <h2><code>localStorage</code> İçine Farklı Türde Veriler Eklemek</h2>
+                    <p>Local Storage içine aldığı yapıları string olarak kaydeder. Kompleks olmayan yapılar geri
+                        alınırken istenilen dosya türüne dönüştürülebilir.</p>
+                    <p>kompleks veriler için <code>JSON.stringify()</code> ile kod önce stringe çevirilir daha sonra
+                        <code>JSON.parse()</code> ile veri tekrar eski haline getirilir.</p>
+                    <p><code>
+                        localStorage.setItem("sayaç", JSON.stringify(userInfo)) <br>
+                        JSON.parse(localStorage.getItem("sayaç"))
+                    </code></p>
+                </div>
+                <div class="row pt-5 yazi form">
+                    <h1>Form ve Form Submit Yönetimi</h1>
+                    <p>Form içinde bulundurduğu form elementlerinin name'leri sayesinde değerlerini alıp bu değerlerle
+                        işlem yapmanıza olanak sağlayan bir yapıdır.</p>
+                    <p>Genellikle backend'e istek yapılacağı zaman kullanılır.(Veri göndermek gibi)</p>
+                    <p>En önemli parametresi method parametresidir. Method, "post" veya "get" olmak üzere iki türlü
+                        değer alabilir.</p>
+                    <p><strong>GET Methodu:</strong> Form verilerini URL üzerinden gönderir. Get metodu önemsiz
+                        verilerde kullanılmalıdır, kullanıcı adı, şifre gibi bilgilerin bu method ile gönderilmesi uygun
+                        değildir.</p>
+
+                    <h2>Temel Input Tipleri</h2>
+
+                    <h3><code>input type="text"</code></h3>
+                    <p>klasik textbox kullanımı</p>
+                    <input type="text" name="" placeholder="yer tutucu">
+
+                    <h3><code>input type="password"</code></h3>
+                    <p>Şifre tipinde veri girişi için kullanılır. Textbox’a girilen ifadeler “*” şeklinde gizlenerek
+                        gösterilir.</p>
+                    <input type="password" name="" placeholder="şifre">
+
+                    <h3><code>input type="radio"</code></h3>
+                    <p>Radio button tipinde, istenilen verileri seçmek için geliştirilen giriş yöntemidir.</p>
+                    <p><input type="radio" name=""> beni seç <br>
+                        <input type="radio" name=""> beni seç
+                    </p>
+
+                    <h3><code>input type="checkbox"</code></h3>
+                    <p>Checkbox tipinde, onay gerektiren durumlarda kullanılması için geliştirilen giriş yöntemidir.</p>
+                    <p><input type="checkbox" name=""> Beni seç ya da vazgeç<br>
+                        <input type="checkbox" name=""> Beni seç ya da vazgeç
+                    </p>
+
+                    <h3><code>input type="button"</code></h3>
+                    <p>Klasik buton oluşturur. Varsayılan olarak herhangi bir işlem yapmaz. JavaScript vb. programlama
+                        dilleri ile birlikte işlevsel hale gelir.</p>
+                    <p><input type="button" value="buton"></p>
+
+                    <h3><code>input type="submit"</code></h3>
+                    <p>Form içerisindeki elementlere girilen verileri, gönderme işlemini yapar. action ile açılacak yeni
+                        sayfaya veya mevcut sayfanın kendisine, get veya post metoduna göre değişecek şekilde veri
+                        gönderme işlevini gerçekleştirir. methot="get" kullanılmışsa action durumunda göre sayfanın
+                        adres çubuğundaki url’in sonunda, methot="post" kullanılmışsa sayfanın arka planında veriler
+                        saklanır.</p>
+                    <p><input type="submit" value="submit"></p>
+
+                    <h3><code>input type="reset"</code></h3>
+                    <p>Buton tipinde bir nesne oluşturur. Form içerisindeki elementlere veriler girilmiş halde iken
+                        reset’e tıklandığında görünen tüm verileri temizler ve elementleri ilk haline getirir.</p>
+                    <p><input type="reset" value="reset"></p>
+
+                    <h3><code>input type="color"</code></h3>
+                    <p>Renk çeşitlerini tasarımcıya sunan ve seçimini sağlayan giriş tipidir.</p>
+                    <p><input type="color" name="" id="" placeholder="color" style="max-width:50px;"></p>
+
+                    <h3><code>input type="date"</code></h3>
+                    <p>Tarayıcıda tarih gösterimini sağlayan tiptir. gg.aa.yyyy varsayılan formatında görünür.</p>
+                    <p><input type="date" name="" id=""></p>
+
+                    <h3><code>input type="email"</code></h3>
+                    <p>Sadece e-mail girişi yapabilmek için kullanılır. E-mail formatı dışındaki girişlerde, düzgün veri
+                        girişi yapılması gerektiği yönünde uyarı vermektedir. Safari dışındaki tüm tarayıcılar
+                        desteklemektedir.</p>
+                    <p><input type="email" name="" id=""></p>
+
+                    <h3><code>input type="number"</code></h3>
+                    <p>Sadece sayı girişi yapabilmek için kullanılır. Sayı dışındaki girişlerde, düzgün veri girişi
+                        yapılması gerektiği yönünde uyarı vermektedir. Safari dışındaki tüm tarayıcılar
+                        desteklemektedir.</p>
+                    <p><input type="number" name="" id=""></p>
+
+                    <h3><code>input type="range"</code></h3>
+                    <p>Bir aralık belirtmemiz gerektiğinde, bu giriş tipini kullanmamız gerekmektedir. Dizi şeklinde
+                        veri gösterimi yapar. min="başlangıç değer" ve max="son değer" ile aralık belirlemesi yapılır.
+                        Tüm tarayıcılar tarafından desteklenmektedir.</p>
+                    <p><input type="range" name="" id="" min="0" max="100"></p>
+
+                    <h3><code>input type="search"</code></h3>
+                    <p>Arama yapmamızı sağlayan giriş tipidir. Aktif olacak form içerisinde, girilecek olan veri aranır.
+                        Sadece Google Chrome ve Safari tarafından desteklenmektedir.</p>
+                    <p><input type="search" name="" id=""></p>
+
+                    <h3><code>input type="time"</code></h3>
+                    <p>Tarayıcıda saat gösterimini sağlayan tiptir. hh.mm varsayılan formatında görünür. Element
+                        üzerinde saat belirlemesi yapılması mümkündür. İnternet Explorer ve Mozilla Firefox dışındaki
+                        tarayıcılar tarafından desteklenmektedir.</p>
+                    <p><input type="time" name="" id=""></p>
+
+                    <h2><code>onSubmit</code> ve <code>onChange</code> Eventleri</h2>
+                    <p><strong>onSubmit</strong> Form submit olduğu anda ne yapacağını söyleyeceğimiz event'tir.</p>
+                    <p><strong>onChange</strong> Form'un içindeki form elementlerinin(input) value'su her değiştiğinde
+                        bu değişen value'yu bizim her defasında elde etmemize olanak sağlayan eventtir.</p>
+
+                    <h2>Örnek uygulamalar:</h2>
+
+                    <h3>Birinci Örnek:</h3>
+                    <form id="userForm" method="get">
+                        <!-- method="get" sistem varsayılanı. yazılmasa da olur. bu yöntemle formdaki bilgi adres satırına yansır. -->
+                        <!-- method="post" ile gönderilen bilgi adres satırına yansımaz -->
+                        <input type="number" name="score" id="score">
+                        <button type="reset">Reset</button>
+                        <button type="submit" class="btn btn-success">Gönder</button>
+                        <p>Reset butonu girilen veriyi göndermez. formu temizler</p>
+                        <p>button type="submit" her tıklandığında sayfayı yeniler. Bunu engellemek için javascript
+                            tarafına aşağıdaki tanım ve kod yazılır.
+                            <code>
+                                let formDOM = document.querySelector("#userForm") <br>
+                                formDOM.addEventListener("submit", formSubmit) <br>
+                                function formSubmit(event){ <br>
+                                event.preventDefault()
+                            </code> event.preventDefault() eventin default ayarını iptal eder. <br>
+                            <code>}</code>
+                        </p>
+                    </form>
+
+                    <h3>İkinci Örnek</h3>
+                    <form id="ornekForm" method="post">
+                        <input type="text" id="usernameOrnek" name="usernameOrnek"
+                            placeholder="Kullanıcı adınızı giriniz" />
+                        <input type="password" id="passwordOrnek" name="passwordOrnek"
+                            placeholder="Şifrenizi giriniz." />
+                        <button type="submit">Giriş</button>
+                    </form>
+
+                    <h2>Form Özellikleri</h2>
+
+                    <h3><code>action</code></h3>
+                    <p>Formunuzu submit ettikten sonra nasıl bir aksiyon alacağını belirlersiniz. Genellikle formlarda
+                        gönderi işlemi tamamlandıktan sonra form datası server'a gönderilir. Fakat server haricinde
+                        kendimiz bu form datasını başka bir dosyaya atayabiliriz. Örneğimizde görüleceği gibi dosyamız
+                        "script.js" adlı bir dosyaya gönderiliyor. Form datasının yönetimi bundan sonra bu dosya
+                        üzerinden yürütülür.</p>
+
+                    <p><code>
+                        form action="/script.js"
+                    </code></p>
+
+                    <h3><code>method</code></h3>
+                    <p>Form datanızın hangi methodla gönderileceğine karar verir. "Get" veya "Post" request olarak. Bu
+                        özellik verilmemesi durumunda default olarak "Get" methodu formunuza atanır.</p>
+
+                    <p><code>
+                        form action="/script.js" method="get" <br>
+                        form action="/script.js" method="post"
+                    </code></p>
+
+                    <h3><code>autocomplete</code></h3>
+                    <p>Ingilizce isminden de anlaşılacağı üzere formunuzda otomatik tamamlama özelliğini açıp veya
+                        kapatmak için işinize yarar. Bu özelliği açmak daha önceki entry'lerinize göre formun tamamlama
+                        yapmasını sağlayacaktır.</p>
+
+                    <p><code>
+                        form action="/script.js" autocomplete="on"
+                    </code></p>
+
+                    <h3><code>novalidate</code></h3>
+                    <p>Aktif olduğu sürece gönderdiğiniz form datanızın otomatik olarak doğrulanmamasını söyler.</p>
+
+                    <p><code>
+                        form action="/my_script.js" novalidate
+                    </code></p>
+
+                    <h2>input özellikleri</h2>
+
+                    <h3><code>fname</code></h3>
+                    <p>Görünecek olan yazıyı belirler. Bu yazı, adete bir html etiketi gibi görünür.</p>
+
+                    <h3><code>type</code></h3>
+                    <p>Bu kısımda formunuzun text/numerik bir form olacağına karar verirsiniz.</p>
+
+                    <h3><code>name</code></h3>
+                    <p>Input'unuzun name özelliğini belirlersiniz. Genelde isimlendirme küçük harf verilir backend
+                        kısmına uygun olması için</p>
+
+                    <h3><code>value</code></h3>
+                    <p>Input'taki aktif görünecek olan yazı için verilir. Örnek olarak butonların üzerindeki yazı gibi
+                        düşünebiliriz.</p>
+
+                </div>
+                <div class="row pt-5 yazi input">
+                    <h1><code>input</code> içerisinden Değer Almak</h1>
+                    <p>input etiketinde name bilgisi olmak zorunda.</p>
+
+
+                    <h2>Örnek 1</h2>
+                    <p>FORM VE FORM SUBMİT YÖNETİMİ konusundaki örnek 1 alınmışır ve ekleme yapılmıştır.
+                        <code>
+                            let formDOM = document.querySelector("#userForm") <br>
+                            formDOM.addEventListener("submit", formSubmit) <br>
+                            function formSubmit(event){ <br>
+                            event.preventDefault() </code> buraya kadarı önceki açıklamada<code></code> <br><br>
+                        let infoScoreDOM = document.querySelector("#score") </code>input DOM seçildi. <br><code>
+                            console.log(infoScoreDOM.value) </code>input DOM value konsola yazdırıldı <br><code>
+                            localStorage.setItem("score", infoScoreDOM.value) </code>input DOM value lokal depoya
+                        kaydedildi. <br>
+                        <code>}</code>
+                    </p>
+
+                    <h2>Örnek 2</h2>
+                    <form action="" method="post" id="ornekForm2">
+                        <p>
+                            Name: <br> <input type="text" name="fname" id="fname" size="15"> <br>
+                            Age: <br> <input type="number" name="age" id="age" size="3"> <br>
+                            E-Mail: <br> <input type="email" name="email" id="email" size="25"> <br><br>
+                            <input type="submit" value="submit">
+                        </p>
+                    </form>
+
+                    <h2>Bölüm Sonu Egzersizi</h2>
+                    <div id="alert"></div>
+
+                    <div class="col-sm-8 offset-sm-2">
+                        <form action="" id="userForm2">
+                            <div class="mb-3">
+                                <label class="form-label" for="username2">Kullanıcı Adı: </label>
+                                <!-- <label> HTML öğesi, bir kullanıcı arabirimindeki bir öğenin başlığını temsil eder. for="id" ile arabirimin id'si ile eşleşir -->
+                                <input class="form-control" type="text" name="username2" id="username2">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="score2">Not bilgisi: </label>
+                                <input class="form-control" type="number" name="score2" id="score2">
+                            </div>
+                            <div class="mb-3">
+                                <button type="reset" class="btn btn-danger">Sıfırla</button>
+                                <button type="submit" class="btn btn-success">Gönder</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-8 offset-sm-2 my-4">
+                        <ul class="list-group" id="userList2">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                              Örnek liste elemanı
+                              <span class="badge bg-primary rounded-pill">14</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-danger mt-5" id="listeSifirla">Listeyi Sıfırla</button>
+                    </div>
+
+                </div>
+                <div class="row pt-5 yazi array">
+                    <h1>Dizi (Array) Oluşturmak ve Dizi İçindeki Elemanlara Ulaşmak</h1>
+                    <p>array(dizi) tanımı birden çok value(değer) saklamamızı sağlar. Bu diziler içinde string, number, boolean, object, tipinde veriler saklanabilir. Diziler de object(nesne) tipindedir. <br>
+                        <code>
+                            let diziAdi = ["istenilen", "değerler"]
+                        </code>
+                    </p>
+                    <p>
+                        diğer değişkenlerde olduğu gibi, dizi let ile tanımlanırsa içeriği daha sonra değiştirilebilir. const ile tanımlanırsaa değiştirilemez.
+                    </p>
+                    
+                    <h2>Dizi İçerisindeki Elemanlara Erişim</h2>
+                    <p>ilk elemanın index değeri <strong>0</strong>'dır <br>
+                        <code>
+                            diziAdi[0]
+                        </code> ile ilk değere ulaşılır.
+                    </p>
+                    <p>
+                        dizi uzunluğu için <code>diziAdi.length</code> ifadesi kullanılır.
+                    </p>
+                    <p>Son elemana ulaşmak için: <br>
+                        <code>
+                            diziAdi[diziAdi.length - 1]
+                        </code> kullanılır.
+                    </p>
+                    <p>Bir dizi içinde başka bir dizi varsa ve onun elemanına ulaşmak gerekiyorsa önce iç dizinin ana dizideki yeri sonra da iç dizide istenen elemanın yeri yazılır. <br>
+                    örnek dizi: <code>let ornekDizi = [1, 2, ["aslı", "kerem"], 4, 5]</code> <br>
+                    Bu dizide <code>"aslı"</code> değerine ulaşmak için: <br>
+                        <code>
+                            ornekDıze[2][0]
+                        </code> yazılır.
+                    </p>
+                    
+                    <h3><code>.forEach</code> fonksiyonu</h3>
+                    <p>dizideki her bir değere işlem yapmak için kullanılır.
+                        <code>
+                            diziAdi.forEach((item, index) => { <br>
+                            console.log(item, index); <br>
+                            });
+                        </code> ile her item index bilgisi ile konsola yazıldı.
+                    </p>
+
+                    <h2>Bu array mi?</h2>
+                    <p>
+                        <code>
+                            typeof(diziAdi)
+                        </code> sorgulanan veri dizi ise object çıktısı verir. <br>
+                        <code>
+                            Array.isArray(diziAdi)
+                        </code> sorgulanan veri dizi ise true verir.
+                    </p>
+                </div>
+                <div class="row pt-5 yazi array2">
+                    <h1>Diziye Yeni Eleman Eklemek, Çıkartmak ve Güncellemek</h1>
+                    
+                    <h2>diziye eleman eklemek</h2>
+                    <p></p>
+
+                    <h3><code>push()</code> Metodu</h3>
+                    <p>var olan dizinin sonuna eleman ekler <br>
+                        <code>
+                            diziAdi.push("eklenecek öge")
+                        </code>
+                    </p>
+
+                    <h3><code>unshift()</code> Metodu</h3>
+                    <p>var olan dizinin başına eleman ekler <br>
+                        <code>
+                            diziAdi.unshift("eklenecek öge")
+                        </code>
+                    </p>
+
+                    <h2>Diziden eleman silmek</h2>
+                    
+                    <h3><code>pop()</code> Metodu</h3>
+                    <p>dizinin son elemanını siler <br>
+                        <code>
+                            diziAdi.pop("eklenecek öge")
+                        </code>
+                    </p>
+                    
+                    <h3><code>shift()</code> Metodu</h3>
+                    <p>dizinin ilk elemanını siler <br>
+                        <code>
+                            diziAdi.pop("eklenecek öge")
+                        </code>
+                    </p>
+
+                    <h2><code>splice()</code> Metodu</h2>
+                    <p>Metodun ilk parametresi işlemin yapılacağı index numarasını, ikinci parametre ise kaç elemanın silineceğini belirtir.</p>
+                    <p>ilk iki parametreden sonra yazılan tüm parametreleri ilk parametrede atıfta bulınılan yere ekler. Kendisinden sonra gelenleri kaydırır.</p>
+                    <p><code>splice()</code> ile silinen kısım başka bir değişkene dizi olarak eklenebilir.</p>
+                    <p>örnek dizi: <code>let ornekDizi = [1, 2, 3, 4, 5]</code><br>
+                        <code>
+                            let ayrılanDizi = ornekDizi.splice(3, 1, "dört", "dört buçuk") <br>
+                            console.log(ornekDizi)
+                        </code> 1, 2, 3, "dört", dört buçuk", 5<br>
+                        <code>
+                            cosole.log(ayrılanDizi)
+                        </code> 4
+                    </p>
+                </div>
+                <div class="row pt-5 yazi array3">
+                    <h1>Array (Dizi) Metotlarının Kullanımı ve Array içinde Array Oluşturma
+                    </h1>
+
+                    <h2>Array içinde Array oluşturmak</h2>
+                    <p>öge eklemek ile aynı yöntemle (<code>unshift</code> ve <code>push</code> ile) array içine array eklenebilir</p>
+
+                    <h2>Array içinden öge ayırmak <code>.splice()</code></h2>
+                    <p>parantez içine ögenin konumu ve virgülden sonra kaç veri taşınacağı yazılır. <br>
+                        <code>
+                            let diziAdi = [1, 2, 3, 4, 5, 6] <br>
+                            let yeniDizi = diziAdi.splice(2, 3) <br>
+                            console.log(diziAdi)
+                        </code> [1, 2, 6] <br>
+                        <code>
+                            console.log(yeniDizi)
+                        </code> [3, 4, 5]   
+                    </p> 
+
+                    <h2>Değer array içinde var mı? <code>.includes()</code></h2>
+                    <p> parantez içine aranacak değer yazılır. <br>
+                        <code>diziAdi.includes("arananDeger")</code> Boolean (true/false) olarak çıktı alınır.
+                    </p>
+                    <h2>Array içindeki ögenin index bilgisini bulmak <code>.indexOf</code></h2>
+                    <p> parantez içine aranacak değer yazılır. <br>
+                        <code>
+                            let diziAdi = [1, 2, 3, 4, 5, 6] <br>
+                            diziAdi.indexOf(3)
+                        </code> 2 değerini verir. <br> olmayan bir değer arandığında -1 verir.
+                    </p>
+
+                    <h2>Array Kopyalamak</h2>
+                    <p>Daha önce oluşturduğumuz array yapısını doğrudan <code>let kopyaDizi = diziAdi</code> olarak başka bir değişkene atadığımızda ve yeni array üzerinde değişiklik yaptığımızda eski array de birebir bu değişiklikten etkileniyor. Bu JS in verileri saklarken tasarrufa giden yapısından kaynaklanıyor.</p>
+                    <p>Orjinalin kopyadan etkilenmemesi için:</p>
+                    
+                    <h3> <code>.slice()</code></h3>
+                    <p> Parantez içerisine ise kopyalamak istediğimiz elemanların aralığını başlangıç ve bitiş indeksleri olacak şekilde iki parametre olarak giriyoruz. Bitiş indeksindeki değer aralığa dahil değildir.
+                    <br>
+                    Bu metot uygulandığı dizinin orijinal halini değiştirmiyor bu yüzden yeni oluşacak diziyi farklı bir değişkende saklıyoruz.
+                    <br>
+                    parantez boş burakılırsa arrayı olduğu gibi kopyalar.
                     <code>
-                        x = x+a <br>
-                        x += a <br>
-                        x ++               
-                    </code> ise 1 arttırır<br>
-                    aşağıdaki ifadeler ise a kadar azaltır <br>
+                        let kopyaDizi = diziAdi.slice()
+                    </code> olarak tanımlama yapılır.</p>
+
+                    <h3> <code>= [...diziAdi]</code></h3>
+                    <p>es6 ile birlikte aşağıdaki yöntem de kullanılabilir.<br>
+                        <code>
+                            let kopyaDizi = [...diziAdi] veya
+                        </code>
+                        <br>
+                        veya
+                        <br>
+                        <code>
+                            let [...kopyaDizi] = diziAdi
+                        </code>
+                    </p>
+
+                    <h2 id="arrayDestruction">Array destructuring</h2>
+                    <p>Array içindeki değerleri değişkenlere atamak için klasik yöntem: <br>
+                        <code>
+                            let degiskenAdi1 = arrayAdi[0]
+                        </code> şeklinde tek tek yazılır.
+                    </p>
+                    <p>ES6 ile birlikte birden fazla değeri değişkene atamak için: <br>
+                        <code>
+                            let [degisken1, degisken2, degisken3, ...kalanArray]
+                        </code> ile ilk 3 değer değişken adlarına atndı. kalan değerler için kalanArray adında yeni bir array yaratıldı.
+                    </p>
+
+                    <h2>Array birleştirme</h2>
+                    <h3><code>.concat()</code></h3>
+                    <p>parantez içine sona değerleri eklenecek olan array girilir.
+                        <code>
+                            let birlesenDizi = diziAdi1.concat(diziAdi2)
+                        </code>
+                    </p>
+
+                    <h3><code>let birlesenDizi = [...diziAdi1, ...diziAdi2]</code></h3>
+                    <p>
+                        <code>
+                            let birlesenDizi = [...diziAdi1, ...diziAdi2]       
+                        </code> <br> birleştirme işlemi sırasında array olmayan veriler de yeni oluşaka arraye eklenebilir: <br>
+                        <code>
+                            let birlesenDizi = [...diziAdi1, ...diziAdi2, "yeni eleman"]       
+                        </code>
+                    </p>
+
+                    <h2>Array içindeki bilgiyi String'e çevirmek</h2>
+                    <p>
+                        <code>
+                            diziAdi.toString()
+                        </code> değerleri aralarına "," koyarak stringe çevirir. <br>
+                        <code>
+                            diziAdi.join()
+                        </code> değerlerin arasına konulmasını istediğimiz şeyi parantez içine yazabiliriz. Hiçbirşey yazmazsak "," ile ayırır. 
+                    </p>
+
+                    <h2><code>.some</code></h2>
+                    <p>dizi içinde bir koşulu sağlayan değer olma durumunu gösterir. Bir koşula true verirse durur ve çıktı olarak true verir. Bütün seride false verirse çıktı olarak false verir. <br>
+                        <code>
+                            const sayilar = [4,5,6]; <br>
+                            const sonuc1 = sayilar.some(function(sayi) { <br>
+                                return sayi > 5 ; <br>
+                            });
+                        </code> beşten büyük değer dizide olduğundan çıktı olarak true verir.
+                        <code>
+                            const sayilar = [4,5,6]; <br>
+                            const sonuc1 = sayilar.some(function(sayi) { <br>
+                                return sayi > 8 ; <br>
+                            });
+                        </code> sekizden büyük değer dizide olmadığından çıktı olarak false verir.
+                    </p>
+
+                    <h2><code>.every()</code></h2>
+                    <p><code>.some</code> gibi çalışır. tüm dize için koşul doğru ise true verir. biri için bile uymuyorsa fonksiyon durur ve false verir.</p>
+                    
+                    <h2><code>.find()</code></h2>
+                    <p>Bu metot belirtilen koşula uyum sağlayan dizi elemanını bulmamızı sağlar Diğer metotların aksine find metodu elemanın kendisini döner. Koşulu sağlayan birden fazla eleman varsa, bulduğu ilk elemanı döner.Koşulu sağlayan bir eleman bulamazsa undefined döner.</p>
+                    <p>Örnek: <br>
+                        <code>
+                            const array1 = [5, 12, 8, 130, 44]; <br>
+                            const found = array1.find(element => element > 10); <br>
+                            console.log(found); <br>
+                        </code>expected output: 12 <br>
+                        ileri okuma için <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find">developer.mozilla.org -> Array/find</a>
+                    </p>
+
+                    <h2><code>.sort()</code></h2>
+                    <p>Bu metot, dizi içerisindeki elemanları sıralamaya yarar. Orijinal dizi sıralanmış şekilde döner. (Yani dizi mutate eder.) Eğer parametre olarak bir fonksiyon verilmezse dizi elemanları string'e çevrilir ve UTF-16 değerlerine göre sıralanır. Artan veya azalan olarak sıralamak için farklı bir yol izlenmelidir.
+                        <code>
+                            const sayilar = [3,5,2,10,4]; <br>
+                            sayilar.sort(function(a,b) { <br>
+                            return b-a; <br> büyükten küçüğe sıralar. tersi için <code>a-b</code> yazılmalı
+                            }); <br>
+                            console.log(sayilar);                       
+                        </code> // Çıktı olarak [10, 5, 4, 3, 2] alırız. <br>
+                        ileri okuma için <a href="https://www.w3schools.com/js/js_array_sort.asp">w3schools - js.array_sort</a>
+                    </p>
+
+                    <h2><code>.reduce()</code></h2>
+                    <p>Bu metot dizimizi yalnızca bir değere indirger. Parantez içerisine parametre olarak bir fonksiyon ve accumulator'ün (toplayıcının) başlangıç değeri girilir. Bu metot orijinal diziyi değiştirmez. (Mutate etmez.)</p>
+                    <p><strong>ben bunu anlamadım ama örnek kopyalanabilir :)</strong></p>
+                    <p>
+                        <code>
+                            const sayilar = [10,20,30];
+                        </code><br>
+                        // Dizi içindeki sayıları toplayarak indirgeyecek bir fonksiyon yazalım:
+                        <code><br>
+                            function indirgeyici (akumulator, sayi) { <br>
+                            return akumulator + sayi; <br>
+                            }
+                        </code><br>
+                        // Bu fonksiyonu ve toplamaya 0'dan başlayacağımızı belirten 0 sayısını metodumuza parametre olarak girelim ve sonucu bir değişkende tutalım:
+                        <code><br>
+                            const sonuc1 = sayilar.reduce(indirgeyici,0); <br>
+                            console.log(sonuc1);
+                        </code><br>
+                        0 + 10 + 20 + 30 = 60 olacağından çıktı olarak 60 bekleriz. <br>
+                        Eğer akümülatorümüzü 0 yerine 5'den başlatsaydık çıkabilecek sonucu görelim:
+                        <code><br>
+                            const sonuc2 = sayilar.reduce(indirgeyici, 5); <br>
+                            console.log(sonuc2);
+                        </code><br>
+                        // 5 + 10 + 20 + 30 = 65 olacağından çıktı olarak 65 bekleriz.
+                    </p>
+                </div>
+                <div class="row pt-5 yazi for">
+                    <h1>For Döngüsü Kullanımı</h1>
+                    <p>Bir for döngüsü, belirtilen koşul doğru olduğu sürece komutların çalıştırılmasını sağlar. Koşul sağlanmazsa döngü çalışmayı durdurur.</p>
+                    <p>
+                        <code>
+                            for(başlangıç ataması; koşul; döngü sonunda çalışacak ifade){koşul doğru ise çalışacak fonksiyon}
+                        </code>
+                    </p>
+                    <p>örnek: <br>
+                        <code>for(var i=10; i>=0; i--)</code> (atanan değer i = 10; i 0 dan büyük veya eşitse fonksiyon çalışır; her döngünün sonunda i bir eksilir) <br><code>{ <br>
+                        console.log(i)</code> ilk değerden başlayarak koşul sağlandığı sürece bütün "i" değerleri konsola yazdırılır. <br>
+                        <code>}</code> çıktı: 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
+                    </p>
+                </div>
+                <div class="row pt-5 yazi break">
+                    <h1><code>break</code> ve <code>contiune</code> Kullanımı</h1>
+                    <p><strong>Break:</strong> burada dur <br>
+                    <strong>Continue:</strong> bunu atla</p>
+
+                    <h2>Break:</h2>
+                    <p>break ifadesi içinde bulunduğu döngüyü sonlandırmak için kullanılır. Dış döngü varsa işlemeye devam eder.</p>
+
+                    <h2>Etiketli Break:</h2>
+                    <p>Devamına etiketini aldığı döngüyü sonlandırır.</p>
+                    <p>Örnek:
+                        <code>
+                            cikis_etiketi: for (var i = 0; i <= 5; i++) { <br>
+                                for (var j = 0; j <= 50; j++) { <br>
+                                  if (j == 9) { <br>
+                                    break cikis_etiketi; <br>
+                                  } <br>
+                                  console.log("iç döngüden j :" + j); <br>
+                                } <br>
+                               } <br>
+                        </code> iç döngü 9'a eşitlendiğinde dış döngü durur. break etiket olmadan yazılsaydı, iç döngü 9'a geldiğinde durur ve bunu dış döngü kadar (5 kez) tekrarlardı.
+                    </p>
+
+                    <h2>Continue:</h2>
+                    <p>İçinde bulunduğu döngüde kendisine tanımlanan şarta denk geldiğinde işlem yapmayıp sonraki ifadeden devam edilmesini sağlar.</p>
+
+                    <h2>Etiketli Continue:</h2>
+                    <p>Devamına etiketini aldığı döngüye etki eder.</p>
+                </div>
+                <div class="row pt-5 yazi while">
+                    <h1><code>while</code> Döngüsü</h1>
+                    <p>While döngüsü parametre olarak verilen koşul devam ettiği sürece çalışır.</p>
+                    <p>
+                        <code>
+                            while(koşul){yapılacak işlem;}
+                        </code>
+                    </p>
+                    <p>Örnek: <br>
+                        <code>
+                            var degisken = 1;
+                        </code> ile değişken tanımlanır. <br>
+                        <code>
+                            while(degisken <= 10){ 
+                        </code> ile koşul belirtilir. <br>
+                        <code>
+                            console.log("değişkenin değeri: " + degisken); <br>
+                            degisken ++ ;
+                        </code> ile yapılacak işlem tanımlanır. <br>
+                        <code>
+                        }
+                        </code> çıktı 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 <br>
+                        degisken'in değeri ilem sonunda 11 olur. 
+                    </p>
+                </div>
+                <div class="row pt-5 yazi forEach">
+                    <h1><code>forEach</code> ile Array içerisindeki Öğelerin Çağrılması</h1>
+                    <p>Listedeki her bir ögeye tek tek işlem yapar ve ayrı ayrı çıktı verir. Listenin kendisini değiştirmez (fonksiyon içinde arrayi etkileyen bir kod eklenmediyse -aşağıda örneği var-). <br>
+                        <code>
+                            diziAdi.forEach(function(value, index, array){"istenilen fonksiyon"})
+                        </code> fonksiyon içindeki ilk parametre dizideki değeri, ikinci parametre değerin indeksini verir. üçüncü bir parametre atanırsa o da arrayin kendisini döndürür. <br>
+                        Örnek: Array'in kendisini değiştirmek:
+                        <code>
+                            PRODUCTS.forEach((product, index, array) => {array[index] = product + "111"})
+                        </code>PRODUCTS arrayi içindeki her bir maddeye 111 verisi eklenir. <br>
+                        Örnek: Array'de yapılan değişikliği başka bir array'e kaydetmek: <br>
+                        <code>
+                            const number = [4, 11, 9]; <br>
+                            const newArray = [];
+                        </code> ile arrayler tanımlanır. <br>
+                        <code>
+                            number.forEach(x => newArray.push(x*3))
+                        </code> ile newArray e değerler 3 katı olarak eklenir.
+                    </p>
+                </div>
+                <div class="row pt-5 yazi filterArray">
+                    <h1><code>.filter</code> ile Array İçerisinde Sadece İstenilen Bilgilerin Yeni Listeye Eklenmesi</h1>
+                    <p>filter metodu bir dizi içerisindeki belirli bir koşulu sağlayan elemanlar ile yeni bir dizi oluşturmamıza dolayısıyla dizi elemanlarını filtrelememize yarıyor. <br>
+                    Yeni oluşacak diziyi bir değişkende saklıyoruz. Orijinal dizi bozulmuyor. <br>
+                    örnek: <br>
+                        <code>
+                            const sayilar = [1,2,3,4,5]; <br>
+                            const filtrelenmisSayilar = sayilar.filter(function(sayi) { <br>
+                            return sayi >3; <br>
+                            }); <br>
+                            console.log(filtrelenmisSayilar); 
+                        </code>
+                        // Orijinal diziyi 3'ten büyük olan sayılar için filtrelediğimizde yeni oluşacak dizi [4,5] olacaktır.
+                        <code>
+                            console.log(sayilar);
+                        </code>
+                        // Orijinal dizi bozulmayacağından çıktıda [1,2,3,4,5] olarak görürüz. <br>
+                    </p>
+                    <p>        
+                        Örnek 2: <br>
+                        <code>
+                            const users = [ <br>
+                            {fullName: "Mehmet Veli", isActive: false}, <br>
+                            {fullName: "Ali Duran", isActive: true}, <br>
+                            {fullName: "Ahmet Yılmaz", isActive: true}, <br>
+                            {fullName: "Oğuz Şahin", isActive: false}, <br>
+                            ]
+                        </code> ile ilk array tanımlanır. <br>
+                        içinden isActive bilgisi true olanları almak için: <br>
+                        <code>
+                            const activeUsers = users.filter(user => user.isActive)
+                        </code> <br>
+                        içinden isActive bilgisi false olanları almak için: <br>
+                        <code>
+                            const pasiveUsers = users.filter(user => user.isActive === false)
+                        </code>
+                    </p>
+                </div>
+                <div class="row pt-5 yazi map">
+                    <h1><code>.map</code> ile Array İçerisideki Yapının Değiştirilerek Yeni Liste Oluşturulması</h1>
+                    <p>forEach ile yeni liste elde edemezken map ile yeni bir liste elde edebiliriz.</p>
+                    <p>Map metodu da forEach gibi kendisine verilen fonksiyonu dizinin her elemanı için uygular fakat forEach'ten farklı olarak sonucu yeni bir dizide tutar. Orijinal dizi olduğu gibi kalır. <br>
+                        <code>
+                            let degisenDizi = diziAdi.map(function(değer){"istenilen fonksiyon"})
+                        </code> <br> 
+                    fonksiyondan return ile sonuç alınır. sonuçlar yeni diziye kaydedilir.
+                    </p>
+                    <p>
+                        <code>
+                            array.map( function(value, index, array), this){return "istenilen işlem"}
+                        </code> <br>
+                        <strong>array</strong>: Üzerinde işlem yapılacak olan diziyi belirtir. Bu dizinin her bir elemanı map metotunun içinde belirleyeceğimiz işleme tabi tutulacaktır. <br>
+                        <strong>value</strong>: Üzerinde işlem yapılan dizi değerini belirtir. <br>
+                        <strong>array</strong>: Üzerinde işlem yapılan diziye erişimi sağlar <br>
+                        <strong>this</strong>: Kullanımı zorunlu değildir(opsiyoneldir). this değişkenine iletilecek olan değeri belirtir. <br>
+
+                    </p>
+                    <p>Örnek:  Bir dizinin tüm elemanlarını 2 ile çarpan fonksiyon
+                        <code>
+                            const sayilar = [2, 3, 4, 5, 10] <br>
+                            const yeniArray = sayilar.map(deger => { <br>
+                                return deger * 2 <br>
+                            })
+                        </code> tek işlem varsa return kullanmadan da yazılabilir. <br>
+                        <code>
+                            const yeniArray = sayilar.map(deger => deger * 2)
+                        </code>
+                    </p>
+                    <p> Örnek: array den obje oluşturma:
+                        <code>
+                            const USERS = ["AYSE", "MehMet", "TugCE", "“AkSEL"]
+                            const USERS_OBJ = USERS.map(item => { <br>
+                                return{userName: item, shortName: `${item[0]}.`, newName: `${item[0].toUpperCase()}${item.slice(1).toLowerCase()}`} <br>
+                            })
+                        </code> returndan sonraki köşeli parantez oluşturduğumuz şeyin obje olduğunu belirtiyor. <br>
+                        normalde tek bir işlem yapılacaksa süslü paranteze ve return almaya gerek olmaz ancak objeler de köşeli parantez içinde olduğundan, süslü parantez ve return kodun karışmasını engeller. <br>Obje oluşturma tek işlem ise süslü parantez ve return yerine obşe normal paranteze alınabilir. <br>
+                        <code>
+                            const USERS = ["AYSE", "MehMet", "TugCE", "“AkSEL"]
+                            const USERS_OBJ = USERS.map(item => ( <br>
+                                {userName: item, shortName: `${item[0]}.`, newName: `${item[0].toUpperCase()}${item.slice(1).toLowerCase()}`} <br>
+                            ))
+                        </code>
+
+                    </p>
+                    
+                </div>
+                <div class="row pt-5 yazi obj1">
+                    <h1>Object (Nesne) Nedir? Nasıl Oluşturulur?</h1>
+                    <p>Objeler, içerisinde birden fazla değeri depolayan yapılardır. Property olarak bilinen bu değerler primitive(String,number, boolean vb.) veya başka objeler olabilirler ve her bir değer string veya sembol ile isimlendirilebilir.</p>
+                    <p>Objeler değiştirilebilen veri tiplerindendir. İçerdiği propertyler, objenin kendisi const keyword ile atanmış olsa bile değiştirilebilirler. Fakat primitive değerlerden farklı olarak objeler, referans yoluyla değiştirilirler ve değişen obje, yeni bir hafıza adresine sahip olur. Çünkü primitive değerlerin aksine objeler, JavaScript istemcisinin belleğinde, sahip oldukları değerlerle değil, sistemin atadığı hafıza adresleriyle kayıtlıdırlar. Bunun ayrımını aşağıdaki örnekte şöyle görebiliriz. <br>
+                    aynı değerlere sahip 2 primitive veri tipi: <br>
                     <code>
-                        x = x - a; <br>
-                        x -= a; <br>
-                        x --; 
-                    </code> ise 1 azaltır
-                </p>
-            </div>
-            <div class="col">
-
-                <h2>çarpma ve bölme</h2>
-                <p>değer tanımlandıktan sonra <br>
+                        let mesaj = "merhaba"; <br>
+                        let başkaBirMesaj = "merhaba"; <br>
+                        console.log(mesaj == başkaBirMesaj); 
+                    </code> çıktı: true <br>
+                        aynı değerlere, farklı memory adresslere sahip 2 obje: <br>
                     <code>
-                        x = x * a; <br>
-                        x *= a; <br>
-                    </code> x değerini a katına çıkartır <br>
-                    <code> 
-                        x = x/a; <br>
-                        x /= a;</code><br>
-                        x değerini a ya böler</p>
+                        let obje = { <br>
+                        mesaj:"merhaba" <br>
+                        } <br>
+                        let başkaBirObje = { <br>
+                        mesaj:"merhaba" <br>
+                        } <br>
+                        console.log(obje == başkaBirObje);
+                    </code>çıktı: false <br>
+                    Bu örnekte görüldüğü gibi, aynı primitive değerlere sahip olan “mesaj” ve “başkaBirMesaj” isimli değişkenler eşit kabul ediliyor. Fakat “obje” ve “başkaBirObje” isimli objeler de bire bir aynı değerleri barındırmalarına rağmen eşit kabul edilmiyorlar. Çünkü bu iki obje, arka planda göremediğimiz iki ayrı hafıza adresiyle tanınıyorlar, bu yüzden içerikleri aynı olsa da farklı kabul ediliyorlar.</p>
+
+                    <h2>Obje Oluşturmak</h2>
+                    <p>Objeler üç şekilde oluşturulabilir. Object literal, new Object keyword’ü ve Object.create() fonksiyonuyla. <br>
+                    Object literal ve new Object yöntemleri, normal bir objeyi oluştururken kullanılan yöntemlerdir. <br> 
+                    Object.create() yöntemi ise, mevcut bir objeden kalıtım yoluyla bazı bilgiler alarak yeni bir obje oluşturmaya yarar.</p>
+                    
+                    <h3>Object Literals</h3>
+                    <p> {} kullanılarak değişkene tanımlanır. key-value çiftleri "," ile ayrılır. <br>
+                        <code>
+                            let newObject = { <br>
+                                key1: value1, <br>
+                                key2: value2 <br>
+                            } 
+                        </code>
+                    </p>
+
+                    <h3>New Keyword ile Obje Oluşturmak</h3>
+                    <p> 
+                        <code>
+                            let newObject = new Object() <br>
+                            newObject.key1 = value1; <br>
+                            newObject.key2 = value2; 
+                        </code>
+                    </p>
+
+                    <h3><code>Object.create</code> ile Obje Oluşturmak</h3>
+                    <p>Başka bir objeden katılım alarak obje oluşturmak için kullanılır <br>
+                        <code>
+                            let newObject = Object.create(null); 
+                        </code> hiçbir katılım almaz. <br>
+                        <code>
+                            let newObject = Object.create(Object.prototype);
+                        </code> object literal ve new object keyword ile oluşturulan objelerin prototiplerini parametre olarak aldığı için, onlar gibi çalışır. <br>
+                        <code>
+                            let newObject = Object.create(oldObject);
+                        </code> daha önce tanımlanan oldObject objesindeki değerleri alır. Bir nevi objeyi kopyalar.
+                    </p>
+                    <h2>Key'i silmek</h2>
+                    <p><code>delete(newObject.keyName)</code></p>
+                </div>
+                <div class="row pt-5 yazi obj2">
+                    <h1>Object Anahtar (Key) ve Değer (Value) Yapısının Kullanımı/Erişimi</h1>
+                    <p>key string veri tipinde olmalı. value herhangi bir veri tipinde olabilir.</p>
+                    <p>bir value'ya ulaşılmak istendiğinde: <br>
+                        <code>
+                            objectName.keyName
+                        </code>
+                        <br>veya<br>
+                        <code>
+                            objectName["keyName"]
+                        </code> bu yazımda keyName birden fazla kelime içerebilir veya karakter dışında bir değerle başlayabilir. Bunu yapabilmek için de tanımlarken "" içine yazılır.
+                    </p>
+
+                    <h2>Computed property kullanımı</h2>
+                    <p>fonksiyonla obje oluştururken key değerini değişken olarak belirlemek için fonksiyon içinde [] içine yazılır. <br>
+                        <code>
+                            function objeYapma(x, y){<br>
+                            return{ <br>
+                            [x]: y <br>
+                            } <br>
+                            }
+                        </code> fonksiyonu tanımlandığında: <br>
+                        <code>
+                            objeYapma("name", "murat")
+                        </code> <br> cikti olarak:
+                        <code>
+                            {name: "murat"}
+                        </code> alır
+                    </p>
+
+                    <h2>Kompleks Objeler Kullanımı</h2>
+                    <p> İlgili veriye ulaşılana kadar "." konularak devam edilir.
+                        <code>
+                            let state = { <br>
+                                users:[ <br>
+                                    {name: "Brock", age: 25, favoriteColor: "red"}, <br>
+                                    {name: "Jessie", age: 17, favoriteColor: "yellow"}, <br>
+                                    {name: "James", age: 41, favoriteColor: "blue"}, <br>
+                                    {name: "Winnie", age: 18, favoriteColor: "purple"} <br>
+                                ], <br>
+                                settings:{ <br>
+                                    version: "1.0.5", <br>
+                                    DNS: "105.xx.xx.xx", <br>
+                                    website: "https://www.example.com/" <br>
+                                }, <br>
+                                banList: ["Ash", "Angelica", "Tom", "Jerry"] <br>
+                            } 
+                        </code> olarak tanımlanmış bir object için: <br>
+                    "banList" propertysinde 3. elemana ulaşmak istersek: <br>
+                        <code>state.banList[2]</code> <br>
+                    "settings"lerdeki "website" değerine ulaşmak istersek: <br>
+                        <code>state.settings.website</code> <br>
+                    "user"larda James'in en sevdiği rengi öğrenmek istersek: <br>
+                        <code>state.users[2].favoriteColor</code>
+                    </p>
+                    
+                    <h2>JSON Veri Tipini Obje Olarak Kullanmak</h2>
+                    <p><strong>Henüz json dersini görmedim</strong></p>
+                    <p>Değişmeyen ve statik olarak kullanmanız gereken verileri JSON derslerinde de anlatıldığı gibi ".json "dosya eklentisi ile bir dizinde kaydedip uygulamanızda bu değişmeyen verilerden yararlanmak isteyebilirsiniz. Projenizde JSON dosyalarıyla çalışabilmeniz için önce onu dosyada import etmeniz ve obje şekline çevirmeniz gerekmektedir. Bu işlem çok basit bir şekilde yapılabilir.</p>
+
+                    <h2>Obje Metodları</h2>
+                    <h3><code>Object.keys(objName)</code></h3>
+                    <p>Key’lerden oluşan bir array döner</p>
+
+                    <h3><code>Object.values(objName)</code></h3>
+                    <p>Value’lardan oluşan bir array döner</p>
+                    
+                    <h3><code>Object.entries(objName)</code></h3>
+                    <p>[key, value] çiftlerinden oluşan bir array döner</p>
+
+                    <h2>JSON Metodları</h2>
+                    <p>Objeyi stringe çevirmek ve daha sonra json ile tekrar çekebilmek için: <br>
+                    <code>JSON.stringify(objectName)</code></p>
+                </div>
+                <div class="row pt-5 yazi obj3">
+                    <h1>Nesnelere Nasıl Metot Ekleriz?</h1>
+                    <p>
+                        <code>
+                            var person = {
+                                name: 'Rumeysa', <br>
+                                surname: 'Turgut', <br>
+                                age: 23, <br>
+                                city: 'Istanbul', <br>
+                                introduce: function () {  </code>introduce keyine fonksiyon atadık.<code><br>
+                                    console.log(`My name is ${this.name} ${this.surname}, I'm ${this.age} yo.`); </code>this içinde olduğu objeyi referans verir.<code> <br>
+                                }, <br>
+                            };    <br>
+                        </code>
+                    </p>
+                    <p>metot tanımlanırken function() anahtar kelimesi kullanılarak yapılabileceği gibi EcmaScript6'nın arrow function yönteminin söz diziminden yararlanarak yapmak da mümkündür. Fakat burada dikkat edilmesi gereken noktalardan biri arrow functionlar this erişimine sahip değildir.</p>
+                    <p>Önceden oluşturulmuş objeye fonksiyon eklemek için: <br>
+                        <code>
+                            nesneİsmi.eklenecekMetotİsmi = function()
+                        </code>
+                    </p>
+                </div>
+                <div class="row pt-5 yazi prototype">
+                    <h1>Prototype Konusu ve Prototype Yöntemi</h1>
+                    <p>JavaScript'te fonksiyonlar da dahil olmak üzere çok tanımlama bir objedir. Bu obje tabanlı yapısı sayesinde fonksiyonları, başka fonksiyonlara parametre olarak verebilir ayrıca bir fonksiyon da döndürebiliriz.</p>
+                    <p>Fonksiyonlar JavaScript dilinde, Function sınıfının birer objeleridir. ileri okuma için <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function?retiredLocale=tr">tıklayınız</a> <br>
+                    Üstelik bu sınıfın bir kurucusu(constructor) ve diğer bütün objeler gibi inherit ettiği bir prototype bile var. <br>
+                        <code>
+                            const fonksiyonAdi = () => {console.log("Merhaba Kodluyoruz")} <br>
+                            console.log(fonksiyonAdi.name);
+                        </code> çıktı: "fonksiyonAdi"
+                    </p>
+                    <p>
+                        Öyleyse JavaScript'te fonksiyonların da birer obje olduğunu öğrendik. Peki daha önce öğrendiğimiz şekilde bu js fonksiyonlarına birer yeni özellik ekleyebilir miyiz? <br>
+                            <code>
+                                function Insan(isim,yas) { <br>
+                                    this.isim = isim; <br>
+                                    this.yas = yas; <br>
+                                  }
+                            </code> ile obje yapan bir fonksiyonu tanımladık. <br>
+                        Yukarıda gördüğünüz yapının adı JavaScript Object Constructor. <br>
+                        Bu obje şablonu bir sınıf olarak adlandırılır. <br>
+                        <strong>new</strong> anahtar kelimesi ile bu şablondan obje yapılabilir. <br>
+                            <code>
+                                const ali = new Insan("ali",21); <br>
+                                console.log(ali.yas);
+                            </code> çıktı: 21
+                    </p>
+                    <p>Peki sınıflarda bu durum nasıl oluyor? Sınıf olarak belirlediğimiz şablona tanımı değiştirmeden nasıl fonksiyon veya özellik ekleyebiliriz?
+                    <br>
+                    İşte bu durumla karşılaştığımızda da prototype özelliği karşımıza çıkar. Peki prototype nedir?
+                    <br>
+                    Prototype, sınıflara JavaScript tarafından otomatik olarak eklenen bir objedir. Eklenmek burada çok doğru bir tabir değil. Aslında bütün objeler tarafından miras alınan bir özelliktir. Bu özelliği de "proto" key'i ile ekler. Bu prototype alanı içinde hem o objeyi kurduğumuz Sınıfın kurucu fonksiyonuna hem de proto objesine erişebiliriz. Bu prototype özelliğini kullanarak hem sınıfa hem objeye ihtiyacımız olan fonksiyonu ekleyebiliriz. Bu kısımların detayları JavaScript'te nesneye yönelik programlama konusuna ait olduğu için kapsamı genişletmeden birkaç örnek vererek konuyu tamamlayalım :</p>
+                    <p>Sınıfa Prototype yardımıyla fonksiyon eklemek : <br>
+                        <code>
+                            Insan.prototype.yeniFonksiyon = () => {console.log("Merhaba Kodluyoruz")} <br>
+                            const ayse = new Insan("ayşe",22); <br>
+                            ayse.yeniFonksiyon();
+                        </code> cıktı: "Merhaba Kodluyoruz"
+                    </p>
+                    <p> Objeye prototype yardımıyla fonksiyon eklemek: <br>
+                        <code>
+                            ayse.__proto__.enYeniFonksiyon = () => {console.log("Tekrar Merhaba Kodluyoruz!")} <br>
+                            ayse.enYeniFonksiyon();
+                        </code> çıktı: "Tekrar Merhaba Kodluyoruz!"
+                    </p>
+                    <p>Her iki yöntemle de yapılan ekleme bu sınıfa ait tüm objeleri etkiler.</p>
+                </div>
+                <div class="row pt-5 yazi destructuring">
+                    <h1>Object ve Array Destructuring Kullanımı</h1>
+                    <p>Destructuring bir obje veya bir array içinden her bir elemanın alınıp bir değişken içine kaydedilmesi işlemidir.</p>
+                    <p>
+                        <code>
+                            const objeAdi = { <br>
+                            key1: value1, <br>
+                            key2: value2, <br>
+                            key3: value3, <br>
+                            key4: value4 <br>
+                         }
+                        </code>
+                    </p>
+                    <p>Bir objedeki değeri bir değişkene atamak için klasik yöntem: <br>
+                        <code>
+                            const degisken1 = objeAdi.key1
+                        </code> <br>
+                    Erişmek istediğimiz değer sayısı çok fazla ise bu yöntemle çok uzun sürer. Bunun yerine destructuring kullanılabilir: <br>
+                        <code>
+                            const {key1, key2, key3, key4} = objeAdi
+                        </code> <br> bu durumda değerler key isimleri ile çağırılabilir.
+                    </p>
+
+                    <h2>Fonksiyona Parametre Girerken Destructuring</h2>
+                    <p>
+                        <code>
+                            const cikarma = ( { sayi1, sayi2 } ) => {  </code>Bu satira dikkat<code><br>
+                            return sayi1 - sayi2;  <br>
+                            } <br>
+                            const sayilar = { </code>Obje oluşturulur<code> <br>
+                                sayi2: 3, <br>
+                                sayi1: 5 <br>
+                            } <br>
+                            cikarma(sayilar); 
+                        </code> çıktı olarak 2 alınır. <br>
+                    çıkarma fonksiyonunun parametresine dikkat edin. orada süslü parantezler {} bir objeyi temsil etmez, destructuring işlemini temsil eder. Yani çıkarma fonksiyonuna gelen sayılar objesinin içinde sayi1 ve sayi2 property'leri bulunup parçalanıp fonksiyon içinde kullanılabilir hale gelecektir. Destructuring işlemi sırasında sıralama önemsizdir, yani fonksiyonu şu şekilde yazmış olsaydık da bir şey değişmeyecekti. <br>
+                        <code>
+                            const cikarma = ( { sayi2, sayi1 } ) => { 
+                                }
+                        </code>
+                    </p> 
+                    <p>fonksiyon için tanımlanan değerlerden biri eksikse fonksiyon NaN (Not a Number) döner <br>
+                    bölme işleminde bölen değer 0 veya hiçbir şey içermeyen null veya undefined olursa bölme işlemi tanımsız olur. Bu durumda da fonksiyon NaN döner. <br>
+                    Bunu önlemek için değişkene default değer atanabilir. <br>
+                        <code>
+                            const bolme = ( { sayi1, sayi2 = 1} ) => { </code>sayi2 için 1 default atandı<code> <br>
+                            return sayi1 / sayi2; <br>
+                            } <br>
+                            const sayilar = { <br>
+                            sayi1: 8 </code>ikinci sayı yok<code> <br>
+                            } <br>
+                            bolme(sayilar); <br> 
+                        </code> bu sefer sonuc 8, NaN degil. Fonksiyonda belirtilmediği sürece sayi2 1 olarak alınır.
+
+                    <h2>Destructuring sırasında değişken adını key adından farklı oluşturmak</h2>
+                    <p>standart destructuring sırasında değişken adı olarak key adı atanır. Farklı bir değişken atamak için destructuring sırasında belirtilmelidir.
+                        <code>
+                            const {key1, key2, key3, key4} = objeAdi <br>
+                            const {key1: yeniDegisken1, key2, key3: yeniDegisken3, key4} = objeAdi
+                        </code> value1 değerini alan değişkenin adı yeniDegisken1 olarak, value3 değerini alan değişkenin adı yeniDegisken3 olarak atandı.
+                    </p>
+
+                    <h2>Rest Operator</h2>
+                    </p>
+                    <p>fonksiyonda destructuring işleminde elde edilenden daha fazla değer kullanılmak istenirse "//ReferenceError: sayi3 is not defined" gibi bir hata alınır. Bunu engellemek için kullanılmayan özellikler başka bir obje içine alınabilir ve oradan dönderilebilir.</p>
+                    <p>
+                        <code>
+                            const{key1, key2, ...newObj} = objeAdi
+                        </code> yazıldığında objeAdi objesindeki key1 ve key2 haricindeki değerler newObj adında başka bir objeye kopyalanır.
+                    </p>
+                    <p>
+                        <code>
+                            const{...newObj} = objeAdi <br> veya
+                            let newObj = {...objeAdi}
+                        </code> yazıldığında objeAdi objesi newObj adı ile kopyalanır.
+                    </p>
+                    <p>Bu metod obje birleştirme ve yeni eleman ekleme için de kullanılabilir.
+                        <code>
+                            let yepyeniObj = {...newObj, ...objeAdi, key5: value5}
+                        </code> yepyeniObj ile 2 obje birleştirilip 1 de ilave değer atandı. Aynı key değerine sahip farklı value'lar olduğunda yazılma sırası önemli. Okumaya soldan başladığı için en sağda kalan bilgi en güncel olarak yeni obje içine kaydedilir.
+                    </p>
+
+                    <p><strong>Array destructuring işlemi array içinde anlatıldı: <a href="#arrayDestruction" onclick="filtre('array3')">tıklayınız</a></strong></p>
+                </div>
+                <div class="row pt-5 yazi try_catch">
+                    <h1>Try ve Catch Kullanımı (Hata Yönetimi)</h1>
+                    <p>try...catch ifadesini basitçe ifade edersek; Herhangi bir iş yaparken bir hatayla karşılaşılma durumunun ele alınması anlamına gelmektedir.
+                    <br>
+                    try anahtar kelimesi kodları çalışma zamanında test etmek için kullanılırken, catch anahtar kelimesi ise çalışma zamanında hata çıkması durumunda bu hataları yakalamak için kullanılır.
+                        <code>
+                            try { 
+                        </code>
+                    Çalıştırılacak kodlar <br>
+                        <code>
+                        }catch(hata) { 
+                        </code>
+                    Hata yakalandığında çalışacak kodlar <br>
+                        <code>}finally {</code>
+                    try tamamlandıktan sonra hata olsada olmasada çalışacak olan kodlar. <br>
+                        <code>}</code> <br>
+                    catch bloğunda yazılmış olan hata değişkeni oluşacak istisnayı taşıyacak olan değişken adıdır. Buraya herhangi bir isim verilebilir fakat yaygın olarak exceptionın ilk harfi olan e, err gibi ifadelerle isimlendirilir.
+                    </p>
+
+                    <h2>Throw İle İstisnalar Oluşturma</h2>
+                    <p>throw ifadesi bize özel hatalarımızı oluşturmanıza olanak tanır. Teknik olarak throw ile bir istisna (hata) atılabilir.</p>
+                    <p>Örnek
+                        <code>
+                            <input type="text" id="dogumTarihi" />
+                            <button onclick="valid()">Gönder</button>
+                        </code> <br>
+                        JS kodu: <br>
+                        <code>
+                            function valid(){ <br>
+                            try { <br>
+                            if (document.querySelector("#dogumTarihi").value == "") { <br>
+                            throw 'Doğum tarihini boş geçemezsiniz'; <br>
+                            }; <br>
+                            }catch(err) { <br>
+                            alert(err); <br>
+                            }
+                            }
+                        </code>
+                    </p>
+                    <p>Örnek: HackerRank <br>
+                        Bu örnekte gelen veri string ise tersten yazılışı çıktı olarak verilir. Veri string değil ise bizim atadığımız hata kodunu verir. Not: veri s değişkeni ile geliyor.<br>
+                        <code>
+                            function reverseString(s) { <br>
+                            try { <br>
+                            if (typeof(s) != "string") throw "s.split is not a function"; <br>
+                            let dizi = s.split("") <br>
+                            let newDizi = [] <br>
+                            for(let i=dizi.length-1 ;i>-1; i-- ){ <br>
+                            let item = dizi[i] <br>
+                            newDizi.push(item)
+                                
+                            } 
+                            console.log(newDizi.join("")) <br>
+                            } catch(err) { <br>
+                            console.log(err); <br>
+                            console.log(s) <br>
+                            } 
+                            }
+                        </code>
+                    </p>
+                </div>
+                <div class="row pt-5 yazi fetchAPI">
+                    <h1>Fetch API ile Çalışmak</h1>
+                    <p>Fetch API ile yapabildiğimiz şey bir veri sunucudan geldikten sonra işlem yapabilmektir. </p>
+
+                    <h2>Fetch Interfaces</h2>
+                    <p>
+                        <strong>fetch()</strong>, bu yöntem bir kaynak almak için kullanılır.
+                        <strong>Headers</strong>, response/request başlıklarını temsil ederek bunları sorgulamanıza ve sonuçlara bağlı olarak farklı eylemler gerçekleştirmenize olanak tanır.
+                        <strong>Request</strong>, bir kaynak talebini temsil eder.
+                        <strong>Response</strong>, bir isteğe verilen yanıtı temsil eder.
+                    </p>
+
+                    <h2>Temel Fetch Kullanımı</h2>
+                    <p>Fetch API’ yi kullanmak için fetch metoduna istek yapacağımız url’ i parametre olarak vermek gerekiyor. <br>
+                        <code>fetch(url);</code>
+                    fetch() metodundan sonra, metodun sonuna then() promise metodunu ekleriz:
+                        <code>.then(function() {
+                        })</code>
+                    </p>
+
+                    <h2>JSON kullanımı (örnek için gerekli)</h2>
+                    <p>Obje oluştumak için {} kullanılır. key string olarak "" içine yazılır. Son key: value çiftinin sonuna virgül konulmaz.</p>
+                    <p>json dosyasında açıklama satırı olduğunda hata veriyor.</p>
+
+                    <h2>Örnekler:</h2>
+                    <p> Lokal .json dosyasından veri çekmek
+                        <code>
+                            fetch("data/settings.json").then( <br>
+                            response => { <br>
+                            return response.json() <br>
+                            }).then(responseJson=>{ <br>
+                            console.log(responseJson) <br>
+                            console.log(responseJson.userName)
+                            })
+                        </code>
+                    </p>
+                    <p>API üzerinden (online json serverdan) veri çekmek <br>
+                        kullanılan online server: <a href="https://jsonplaceholder.typicode.com/">https://jsonplaceholder.typicode.com/</a><br>
+                        <code>
+                            fetch("https://jsonplaceholder.typicode.com/posts").then( <br>
+                            response => response.json() <br>
+                            ).then( <br>
+                            responseJson => { <br>
+                            console.log(responseJson[0]) <br>
+                            responseJson.forEach(item => { <br>
+                            console.log(item.id, item.title) <br>
+                            let liDOM = document.createElement("li") <br>
+                            liDOM.innerHTML = `<strong>item id:</strong> ${item.id} <strong>item title:</strong> ${item.title}` <br>
+                            userListDOM.appendChild(liDOM) <br>
+                            }) <br>
+                            })
+                        </code> <br>
+                        API üzerinden çelilen veri:
+                        <ul
+                        style="height: 200px; overflow: auto;" 
+                        id="userListFetch"></ul>
+                    </p>
+                    <p>Hata yakalamak:
+                        <code>
+                            .catch((err) => console.log(err))
+                        </code> kodun en sonuna eklenir.
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-
-                
-                <h2>mod alma</h2>
-                <p>% işareti ile yapılır <br>
-                    <code>
-                        x = x % a;  <br>
-                    </code>değerinde x a ya bölündüğünde kalan değeri alır.</p>
-            </div>
-            <div class="col">
-
-                <h2>Üs alma</h2>
-                <p><code>
-                    x = x ** a <br>
-                </code>x in a üssünü verir</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-
-                
-                <h2>Aşağı ve yukarı yuvarlama</h2>
-                <p>burada<code>
-                    Math
-                </code> kütüphanesini kullanacağız. <br>
-                <code>
-                    Math.floor(x.3)
-                </code>ibareinde değer aşağı yuvarlanır ve sonuç x çıkar. <br>
-                <code>
-                    Math.ceil(x.3)
-                </code>ibaresinde değer yukarı yuvarlanır ve sonuç x+1 çıkar <br>
-                <code>
-                    Math.round(x.3)
-                </code>ibaresinde değer yakın değere yuvarlanır. 0.5 i 1 e tamamlar. daha küçük küsüratları aşağı yuvarlar</p>
-            </div>
-            <div class="col">
-
-                <h2>Sayısal ibareyi metin olarak aktarma ve bunu geri çevirmek</h2>
-                <p>" " içine yazılan sayısal değerler metin olarak algılanır. <br> Daha önce metin olarak saklanan değer Number() içine yazılarak tekrar sayı özelliği alabilir.
-                    <code>
-                        let x = "11";
-                    </code>olarak tanımlandığında 11 metin özelliği kazanır. <br>
-                    <code>
-                        let y = Number(x);
-                    </code> yazıldığında ise 11 tekrar sayısal özellik kazanır</p>
-            </div>
+            <!-- orta menü end -->
+            <!-- sağ bar start -->
+            <!-- sağ bar end -->
         </div>
     </div>
-    <div class="container">
-        <h1>Boolean Veri Türü ile Çalışmak</h1>
-        <p><code>true</code> veya <code>false</code> olarak sonuç verir. İçeriğinde değer varsa <code>true</code>, yoksa <code>false</code> değerini alır. <br>Aşağıdaki değerler <code>false</code> olarak değerlendirilir. <br>
-        <code>
-            0, -0, null, false, Nan, undefied, ("")
-        </code></p>
-        <p>Koşul durumlarında ise koşul karşılanıyor ise <code>true</code> karşılanmıyorsa <code>false</code> değerini alır.</p>
-
-    </div>
-    <div class="container">
-        <h1>Veri türünü öğrenme <code>typeof()</code></h1>
-        <p><code>
-            console.log(typeof(değişken))
-        </code>yazdığımızda konsolda veri türü yazar</p>
-        <h1>Veri türü değiştirme</h1>
-        <p>explicit ve implicit olarak 2 farklı dönüşüm türü vardır. <strong>explicit</strong> metodlarla yapılan dönüşüm türüdür. <strong>implicit</strong> ise operatörlerle veya JavaScriptin kendisinin yaptığı dönüşümdür.</p>
-        <div class="row">
-            <div class="col">
-
-                
-                <h2>Veriden sayıyı çekmek <code>parsInt()</code></h2>
-                <p><code>
-                    let number1 = "12px"
-                </code> yazımında değişken string (metin) olarak değer alır. <br>
-            <code>
-                number1 = parseInt(number1)
-            </code> yazıldığında değişken tam sayı olarak değiştirilir.</p>
-            <p><code>Number</code> değişkenin içinde sayı harici bir şey var ise sayıya dönüşümü gerçekleştiremezken <code>parseInt</code> sayı ile başlayan değişkeni, devamında başka birşey de yazsa tam sayıya dönüştürebilir. <code>parseFluat</code> değer tam sayı değilse de dönüşümü gerçekleştirir. <br>Örnek: <br>
-                <code>
-                    let number1 = "12.2px"; <br>
-                    number1 = parseInt(number1) <br>
-                    console.log(number1)
-                </code><br>sonuç: 12 <br>
-                <code>
-                    let number1 = "12.2px"; <br>
-                    number1 = parseFluat(number1) <br>
-                    console.log(number1)
-                </code><br>sonuç: 12.2 <br>
-                <code>
-                    let number1 = "12.2px"; <br>
-                    number1 = Number(number1) <br>
-                    console.log(number1)
-                </code><br>sonuç: NaN <br>
-                <code>
-                    let number1 = "12.2"; <br>
-                    number1 = Number(number1) <br>
-                    console.log(number1)
-                </code><br>sonuç: 12.2 <br>
-            </p>
-        </div>
-        <div class="col">
-
-            <h2>sayısı metne çevirme <code>.toString</code></h2>
-            <p><code>
-                let number2 = 12; <br>
-                number2 = number2.toString
-            </code><br>veya <br><code>
-                let number2 = String(12)
-            </code>explicit<br>veya <br><code>
-                let number2 = "12"
-            </code>implicit<br>veya <br><code>
-                let number2 = 12 + ""
-            </code>implicit <br>
-            Tüm değerler bu iki yöntemle string olarak yazılabilir <br>
-            Sembollerde ise sadece explicit yöntem işe yaramaktadır.</p>
-            <h2>mantıksal ifadeye çevirme <code>Boolean</code></h2>
-            <p>Boolean içi dolu olan veya şartlı ifadeye uyan tüm tanımlarda <code>true</code> verir</p>
-            <p>Şartlı ifadeye uymayan, boş olan veya yapısı gereği boş algıladığı tüm durumlara [(''), (0) ,(-0), (NaN), (null), (undefined), (false)] <code>false</code> verir</p>
-            <p>içinde boş küme belirtenler de dahil herhangi bir sembol varsa <code> true </code>verir</p>
-            <p> <code>||</code> ilk bulduğu true değeri döner. <br>true bulamazsa en son bulduğu false döner</p>
-            <p> <code>&&</code> ilk bulduğu false değeri döner <br> false bulamazsa son bulduğu true değeri döner</p>
-        </div>
-    </div>
-        <h2>Nesneler için tip zorlama (Type Coercion)</h2>
-        <ol>Primitif tipler için:
-            <li>Eğer değer(input) primitif ise herhangi bir işlem yapma, dön.</li>
-            <li>input.toString() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
-            <li>input.valueOf() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
-            <li>Ne input.toString() ne de input.valueOf() primitif sonuç vermiyorsa; TypeError fırlat.</li>
-        </ol>
-        <ol>Referans tipler için:
-            <li>input.toString() metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
-            <li>input.valueOf()metodunu çağır(Call). Eğer sonuç primitif ise dön.</li>
-            <li>Ne input.toString() ne deinput.valueOf() primitif sonuç vermiyorsa; TypeError fırlat.</li>
-        </ol>
-        <p>Detaylı örnekler için <a href="https://app.patika.dev/courses/javascript/degisken-turunu-kontrol-etmek-ve-degisken-turunu-degistirmek">tıklayınız</a></p>
-    </div>
-    <div class="container">
-        <h1>Template Literals Kullanımı</h1>
-        <p>Template Literals (önceki adıyla Template Strings), kod okunabilirliği ve yazım kolaylığı sağlayan ES6 ile gelmiş bir string yazma şeklidir.</p>
-        <p>Yazılacak bilginin <strong>backtick</strong> içine yazılması gerekmektedir. Bu şekilde birden fazla satıra bilgi yazılabilir.</p>
-        <p>backtick <i class="text-info">alt gr + ,</i> ile yazılır.</p>
-        <p>String bilgi doğrudan eklenir. değişkenler <code>${}</code> içine yazılır.</p>
-        <p>Örnekleri 02-degisken-tanimlama.js klasöründe. Detaylı açıklama için <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals"></a>tıklayınız</p>
-
-    </div>
-    <div class="container">
-        <h1>String veri türü işlemleri</h1>
-        
-        <h2>karakter sayısı<code>.length</code></h2>
-        <p><code>console.log(email.length)</code></p>
-        
-        <h2>ilk karakteri bulma</h2>
-        <p><code>console.log(email[0])</code><br>
-        <code>console.log(email.charAt(0))</code> JS de ilk karakter 0 olarak alınır. Kaçıncı karakter isteniyorsa 0 yerine yazılabilir.</p>
-        
-        <h2>Büyük ve Küçük Harfe Çevirme</h2>
-        <p><code>email = email.toUpperCase() <br>
-        console.log(email)</code> tamamı <strong>büyük</strong> harfe çevrildi ve yazdırıldı.</p>
-        <p><code>email = email.toLowerCase() <br>
-        console.log(email)</code> tamamı <strong>küçük</strong> harfe çevrildi ve yazdırıldı.</p>
-        
-        <h2>Sting İçinde Arama ve Yerini Bulma</h2>
-        <p><code>console.log(email.search("@"))</code>@ işaretinin kaçıncı sırada olduğunu verir. <br>
-        olmayan bir şey aratırsak değeri <code>-1</code> olarak verir.</p>
-        <p>.indexOf ve .search ikisi de arama yapmak için kullanılabilir ancak bazı farkları vardır. <br>
-        <strong>search</strong> büyük-küçük harf duyarlılığı olmadan sonuç verir. Bazı özel karakterlerde sonuç vermemektedir. <br>
-        <strong>indexOf</strong> spesifik olarak istenilen karakteri bulur. Büyük-küçük harf duyarlıdır. Başlangıç noktası seçilebilir. Boş bırakılırsa başlangıçtan itibaren arar <br>
-        <code>
-            console.log(email.indexOf(".", 5))
-        </code>5 ten sonraki noktayı bulur <br>
-        <strong>lastIndexOf</strong> eşleşen son değeri gösterir</p>
-        <h2>Belli Bir Yere Kadar Olanı Almak <code>.slice</code></h2>
-        <p><code>console.log(email.slice(0,10))</code> 0 dan 10 a kadarı alır <br>
-        <code>console.log(email.slice(15))</code> 15 ve sonrasını alır <br>
-        <code>console.log(email.slice(email.search("@")+1))</code>@ işaretinden sonrasını alır. <br>
-        <code>console.log(email.slice(email.search("@")+1,(email.indexOf(".")))</code>@ işareti ile nokta arasındaki kısmı verir.</p>
-        
-        <h2>Değiştirmek <code>.replace</code></h2>
-        <p>Değişikliğin kalıcı olması için değiştirilen bilgiye ya da yeni bir değişkene set edilmesi gerekir. <br>
-        <code>
-            email = email.replace("gmail.com", "renault.com"); <br>
-            console.log(email)
-        </code>çıktı olarak drmuratgokduman@renault.com verir</p>
-        
-        <h2>İstediğim bilgi var mı <code>.includes</code></h2>
-        <p>istediğim bilgi ilgili değişkende var mı? <code>true</code> veya <code>false</code> verir. <br>
-        <code>
-            email.includes("@");
-        </code>çıktı olarak true verir.</p>
-        
-        <h2>Bununla başladı mı? <code>.startsWith</code> Bununla bitti mi? <code>.endsWith</code></h2>
-        <p>bir bilginin başında ve sonunda olan bilgilerin doğruluğunu sorgulamak için kullanılır.<code>true</code> veya <code>false</code> verir. <br>
-        <code>
-            email.startsWith("drmuratgokduman");
-        </code> çıktı olarak <code>true</code> verir. <br>
-        <code>
-            email.endsWith("hotmail.com");
-        </code> çıktı olarak <code>false</code> verir.</p>
-        
-        <h2>Belirli bir sıradaki veriyi çekmek</h2>
-        <p><code>.charAt()</code> değişkendeki parantez içindeki indeks numarasının denk geldiği veriyi gösterir. <br>
-        <code>.charCodeAt()</code> değişkendeki parantez içindeki index numarasının denk geldiği verinin Unicode numarasını gösterir.</p>
-
-        <h2>Metni Diziye Çevirme <code>.split</code></h2>
-        <p>Metni belirtilen karakterden bölerek diziye çevirir <br>
-        <code>
-            let isim = ‘Oguz,Kamer’; <br>
-            let isimler = isim.split(’,'); <br>
-            console.log(isimler);
-        </code> Çıktısı: 'Oğuz', 'Kamer'</p>
-    </div>
-    <div class="container">
-        <h1>DOM (Document Object Model)</h1>
-        <p>Document Object Model, programların ve komut dosyalarının bir belgenin içeriğine, yapısına ve stiline dinamik olarak erişmesine ve güncellemesine izin veren bir platform ve dilden bağımsız bir arayüzdür.</p>
-        <p>DOM, mantıksal bir ağaç içeren bir belgeyi temsil eder. Ağacın her dalı bir düğümde biter ve her düğüm nesneler içerir. DOM yöntemleri, ağaca programlı erişime izin verir. Onlarla belgenin yapısını, stilini veya içeriğini değiştirebilirsiniz.</p>
-        <p>DOM hiyerarşik yerleşimi kullanabildiği gibi ID özelliğini de kullanabilir.</p>
-
-    </div>
-    
-
     <!-- content end -->
     <!-- footer start -->
     <!-- footer end -->
     <!-- script -->
-    <script src="js/01-hello-world.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    <script src="js/task.js"></script>
     <script src="js/02-degisken-tanimlama.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    
+
 </body>
+
 </html>

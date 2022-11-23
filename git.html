@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>git</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- navBar start -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand ms-5" href="#"><code>git</code> Notları</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Ana Sayfa</a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li> -->
+              <!-- <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li> -->
+            </ul>
+            <form class="d-flex me-5" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    <!-- navBar end-->
+    <!-- content start -->
+    <div class="container gitTemel">
+        <div class="row pt-5 yazi temel_komutlar">
+            <h1>GIT Temel Komutları</h1>
+
+            <h2><code>git init</code></h2>
+            <p>Henüz versiyon kontrolü altında olmayan bir projenin dizininde, boş bir git deposu oluşturmak için kullanılır.</p>
+
+            <h2><code>git config</code></h2>
+            <p>GIT’in bir çok konfigürasyon ve ayarı vardır, bunlardan ikisi user.name ve user.email olanıdır. Bu ayarları yapılandırmak için aşağıdaki komutları kullanırız. GIT'i ilk kurduğumuzda genellikle aldığımız ilk hata bu configurasyon ayarlarını yapmadığımız için gelir. Burada yazdığınız isim ve email ileride GitHub benzeri bir plat forma commit attığınızda da görüneceği için bunu bilerek isimlendirme yapmak yararlı olur. Ayrıca görüldüğü gibi bu ayarlar <code>--global</code> yani sistem genelinde geçerli ayarlardır. Proje bazlı bu ayarları değiştirebiliriz. <br>
+                <code>
+                    $ git config --global user.name "Name Surname" <br>
+                    $ git config --global user.email "test@email.com"
+                </code> <br>
+            Bu ayarların bütününü görüntülemek için: <br>
+                <code>
+                    $ git config --list
+                </code> <br>
+            Not: Eğer windows işletim sistemi kullanıyorsanız, böyle bir hata ile karşılaşabilirsiniz. <br>
+                <code>
+                    warning: LF will be replaced by CRLF in kaynak/dosya/yolu
+                </code> <br>
+            Bu hatanın çözümü için aşağıdaki komutu kullanabilirsiniz. <br>
+                <code>
+                    $ git config core.autocrlf true
+                </code>
+            </p>
+
+            <h2><code>git add</code></h2>
+            <p>Yeni eklenen veya üzerinde değişiklik yapılan dosyaları staged ortamına göndermek için kullanılır. <br>
+                <code>
+                    $ git add dosya veya klasor_name
+                </code> <br>
+            projedeki tüm dosyaları eklemek için: <br>
+                <code>
+                    $ git add .
+                </code> <br>
+            </p>
+
+            <h2><code>git rm</code></h2>
+            <p>Staged ortamına eklenmiş bir dosyanın takibinin bırakılması yani untracked (izlenmeyen) hale getirilmesi sağlayan komuttur.
+                <code>
+                    $ git rm  --cached dosya veya klasor_name
+                </code>
+            Dosyayı klasörden silmek istiyorsak eğer, aşağıdaki komutu kullanılırız.
+                <code>
+                    $ git rm dosya veya klasor_name
+                </code>
+            </p>
+
+            <h2><code>git status</code></h2>
+            <p>git status üzerinde çalışılan projenin o anki durumu hakkında bilgi verir. Yapılan değişiklikler, eklenen ve silinen dosyalar gibi bilgiler listelenir. <br>
+                <code>
+                    $ git status
+                </code>
+            </p>
+
+            <h2><code>git commit</code></h2>
+            <p>
+            Commit, staged ortamına alınan dosyaların Local Repository’e gönderilmesidir. En iyi uygulama yöntemi her kayıt sırasında yapılan değişiklikleri açıklayıcı bir mesaj eklemektir. Ayrıca her commit benzersiz bir kimliğe (unique ID) sahip olur. Bu sayede eski bir commit'e geri dönebilirsiniz ve herhangi bir kayıp yaşama ihtimaliniz kalmaz. <br>
+                <code>
+                    $ git commit -m "ilk commit mesajı"
+                </code> <br>
+            Buradaki -m (message) mesaj anlamındadır.
+            </p>
+
+            <h2><code>git log</code></h2>
+            <p>Projedeki commit geçmişini görüntülememizi sağlar. Bütün commit'ler, id'si, yazarı, tarihi ve mesajı ile beraber listelenir.
+                <code>
+                    $ git log
+                </code>
+            </p>
+
+            <h2><code>git branch</code></h2>
+            <p>
+            Local veya remote repository üzerinde yeni bir branch (dal) eklemek, silmek veya listelemek için kullanılır. <br>
+            Projenize yeni bir branch eklemek için; <br>
+                <code>
+                    $ git branch branch_name
+                </code> <br>
+            *Tüm uzak ve yerel branch'lari listelemek için;
+                <code>
+                    $ git branch -a
+                </code> <br>
+            Bir branch'ı silmek için;
+                <code>
+                    $ git branch -d branch_name
+                </code>
+            </p>
+
+            <h2><code>git checkout</code></h2>
+            <p>
+            Branch’ler arası veya commit'ler arası geçiş yapmak istediğimizde kullanılır. <br>
+            Mevcutta var olan branch'a geçiş yapmak için; <br>
+                <code>
+                    $ git checkout branch_name
+                </code> <br>
+            Yeni bir branch oluşturup, bu branch'a geçiş yapmak için; <br>
+                <code>
+                    $ git checkout -b branch_name
+                </code> <br>
+            Commitler arası geçiş yapmak için: (Eski bir versiyona dönmek istediğimiz zaman) <br>
+                <code>
+                    $ git checkout commit_ID
+                </code>
+            </p>
+
+            <h2><code>git merge</code></h2>
+            <p>
+            Başka bir branch'da olan değişiklikleri, bulunduğumuz branch ile birleştirmek istediğimizde kullanılır. <br>
+                <code>
+                    $ git merge <branch_name>
+                </code>
+            </p>
+
+            <h2><code>git clone</code></h2>
+            <p>
+            Mevcut bir Remote Repository'de bulunan dosyaların bilgisayarımızda bir kopyasının oluşturulmasını sağlar. <br>
+                <code>
+                    $ git clone <remote_URL>
+                </code>
+            </p>
+
+            <h2><code>git push</code></h2>
+            <p>
+            Projemizde aldığımız commit'leri, remote repository'e gönderir. <br>
+                <code>
+                    $ git push origin master
+                </code> <br>
+            Burada bahsi geçen origin remote repository’nin kök dizinini belirtir ve sabit bir isimdir. master ise sizin çalıştığınız branch (dal)’ı belirtir. <br>
+            Henüz remote repository’niz yoksa aşağıdaki komut ile local deponuzu uzak sunucudaki depoya bağlayabilirsiniz. <br>
+                <code>
+                    $ git remote add origin http://uzak_deponun_adresi.git
+                </code>
+            </p>
+
+            <h2><code>git diff</code></h2>
+            <p>
+            Repository üzerinde yapılan değişikliklerden sonra dosyalar arasında oluşan farklılıkları göterir. <br>
+            Çalışma dizini ile repository (HEAD) arasındaki farklılıkları görmek için: <br>
+                <code>
+                    $ git diff HEAD
+                </code> <br>
+            İki commit arasındaki farklılıkları görmek için: <br>
+                <code>
+                    $ git diff <commit_id_1>..<commit_id_2>
+                </code> <br>
+            Çalışma dizini ve staged ortamı arasındaki farkları görmek için: <br>
+                <code>
+                    $ git diff --staged
+                </code>                
+            </p>
+        </div>
+        <div class="row pt-5 yazi gitignore">
+            <h1><code>.gitignore</code> Dosyası Ne İşe Yarar? Nasıl Kullanırız?</h1>
+
+            <h2>.gitignore Dosyası Ne İşe Yarar? Nasıl Kullanırız?</h2>
+            <p> local çalışma alanındaki takip edilmesini istemediğin, takım arkadaşların için gerekmeyen dosyaların varsa veya bu dosyaların boyutu reponuza atmanıza gerek olmayacak kadar büyük ölçekli ise .gitignore dosyası içinde belirtilir</p>
+            <p>.gitignore içinde belirtilenler lokal veya online yedeklenmez.</p>
+
+            <h2>Nasıl oluşturulur?</h2>
+            <p><strong>VSC içinde</strong> yeni dosya denilip adı .gitignore olarak yazılır.
+            <br><strong>Terminelde:</strong><br>
+                <code>
+                    $ echo some-text or nothing > .gitignore 
+                </code>
+            </p>
+
+            <h2>Nasıl çalışır, nasıl kullanılmalı?</h2>
+            <p>her satırına takip edilmesini istemediğimiz dosyaları veya dizinleri yazarak göz ardı edebiliriz. <br>
+            Tabii bu dosyaları yazarken bize kolaylık sağlayan bazı formatlar var. İşte onlar: <br>
+                <code>*.idea</code> uzantısı idea olanlar izlenmez <br>
+                <code>logo.jpg</code> adı logo.jpg olan dosyay izlenmez <br>
+                <code>img/</code> img isimli klasör izlenmez <br>
+                <code>!files/example.txt</code> files klasöründe example.txt dışındakiler izlenmez <br>
+                Daha öncesinde `files` klasörü `.gitignore` dosyasına eklenmişse sonrasında ise `!`  içerisindeki dosya ile işlem yapmak işe yaramayacaktır.
+            </p>
+            <p>
+                daha önce git e eklenmiş bir dosya .gitignore dosyasına yazılsa da git edilmeye devam eder. Bu durumu düzeltmek için: <br>
+                    <code>
+                        $ git rm --cached FILENAME
+                    </code>
+            </p>
+
+            <h2>global <code>.gitignore</code></h2>
+            <p>Belli dosyalarımı her seferinde .gitignore dosyasına eklememek bunu tek seferde halletmek için: <br>
+            Windows kullanıcısı iseniz C:\Users\{myusername}\ adresine giderek .gitignore_global dosyası oluşturup içerisine global olmasını istediğiniz dosyaları ekledikten sonra git bash terminalinizi açarak aşağıdakı komut ile konfigürasyon sağlayabilirsiniz.
+                <code>
+                    $ git config --global core.excludesfile "%USERPROFILE%\.gitignore"
+                </code> <br>
+            Dosyanızın doğru çalıştığını kontrol etmek için ise aşağıdaki komutu çalıştırarak aşağıdaki çıktıyı aldığınızda sorunsuz çalıştırabilmişsinizdir. (Aşağıdaki kodu kopyala yapıştır yapmadan önce kullanıcı adını değiştirin.) <br>
+                <code>
+                    $ git config --global core.excludesfile
+                    > C:/Users/user-name/.gitignore_global  
+                </code>
+            </p>
+            <p>Kullandığımız yazılım diline uygun hazır git ignore dosyalari için <a href="https://github.com/github/gitignore/tree/main/Global">tıklayınız</a></p>
+
+        </div>
+        <div class="row pt-5 yazi gitHub">
+            <h1>GitHub'a Projemizin Eklenmesi</h1>
+            <p>github üyeliği alınır ve yeni repo açılır.</p>
+            <p>
+                <code>git init</code> ile lokal boş repo oluşturulur. <br>
+                <code>git add dosya_adi</code> ile versiyon kontrolü yapılacak dosyalar eklenir. <br>
+                <code>git commit -m "ilk yorum"</code> ile veri lokal repoya gönderilir.
+                <code>git branch -M main</code> ile main isimli branch oluşturulur.
+                <code>git remote add origin 'repo-link'</code> ile online repo yeri tanıtılır.
+                <code>git push -u origin main</code> ile hazırlana dosyalar online repoya gönderilir.
+
+            </p>
+        </div>
+
+        
+    </div>
+    <div class="container ileriGit">
+        <div class="row pt-5 yazi commit">
+            <h1>Commit, Diff, Log, Amend</h1>
+            
+            <h2>Mevcut commit içine bilgi eklemek</h2>
+            <p>
+                <code>git add</code> ile dosyalar eklenir. <br>
+                <code>git commit --amend</code> ile bir önceki commit içine değişiklikler eklendi <br>
+                <code>git commit --amend -m "bu mesaj amend ile eklendi"</code> ile önceki commitin mesajı değiştirildi.
+
+            </p>
+        </div>
+    </div>
+    <!-- content end -->
+
+    <!-- js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
