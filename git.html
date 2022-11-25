@@ -295,10 +295,29 @@
                 <code>git stash</code> son committen itibaren yapmış olduğumuz tüm değişiklikler geçici olarak stashte saklanır. <br>
                 <code>git stash list</code> stashler listelenir. <br>
                 <code>git stash clear</code> stashleri siler. <br>
-                <code>git stash pop</code> stashteki verileri ekler <br>
+                <code>git stash pop</code> stashteki verileri ekler ve stash silinir<br>
+                <code>git stash apply "stashID"</code>  stashIDdeki veriyi ekler. Stash silinmez.
             </p>
-            <p>Lorem, ipsum.</p>
+        </div>
+        <div class="row pt-5 yazi merge">
+            <h1>Merge, Rebase, Conflict </h1>
 
+            <h2>Merge</h2>
+            <p>
+                <code>git merge  "eklenecekBranch"</code> mevcut branch içine eklenecekBranch eklenir. Bunu için her iki dalın ortak commiti sistem tarafından bulunur. her iki banchin son comitindeki değişiklikleri aktif olan branche uygular. "eklenecekBranch" commitlerini loga taşır.<br>
+                <code>git merge --squash "eklenecekBranch"</code> işlem sonrasında commit yapılmasına izin verir. Bu sayede mesaj yazılabilir. "eklenecekBranch" commitlerini loga taşımaz.
+            </p>
+
+            <h2>Rebase</h2>
+            <p>
+                <code>git rebase "eklenecekBranch"</code> "eklenecekBranch" eklenir. commitler de loga eklenir. logda merge görünmez.
+            </p>
+
+            <h2>Conflict</h2>
+            <p>
+                Aynı dosya içinde farklı branclerde değişiklik yapıldıysa merge işleminde çakışma hatası verir. Bu durmuda VSC her iki veriyi de gösterip karar vermeni ister. <br>
+                <code>git merge --abort</code> kesişim yaşanan merge işlemi iptal edilir.
+            </p>
         </div>
     </div>
     <!-- content end -->
