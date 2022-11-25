@@ -268,9 +268,36 @@
             <p>
                 <code>git add</code> ile dosyalar eklenir. <br>
                 <code>git commit --amend</code> ile bir önceki commit içine değişiklikler eklendi <br>
-                <code>git commit --amend -m "bu mesaj amend ile eklendi"</code> ile önceki commitin mesajı değiştirildi.
-
+                <code>git commit --amend -m "bu mesaj amend ile eklendi"</code> ile önceki commitin mesajı değiştirildi. <br>
+                <code>git revert "commitID"</code> commitID en az ilk yedi rakam ile yazılırsa o commit silinir ve silinen commit son commit ise dosyalardaki değişiklikler geri alınır. git log ile açılan commit listesinde silinen commit için revert commit açılır. <br>
+                <code>gir reset --hard "commitID"</code> commitID en az ilk yedi rakam ile yazılırsa o commite kadar olan tüm commitler silinir. log dan da silinir. <br>
+                <code>git diff eskiCommitID..dahaYeniCommitID dosyaAdi</code> ile dosyaAdi dosyasında eskiCommit ten dahaYeniCommit e kadar olan değişiklikler gösterilir. <br> Örnek:
+                <code>git diff 5a754111..dbae00da index.html</code> <br>
+                <code>git diff eskiCommitID..dahaYeniCommitID</code> ile de genel olarak commitler arası değişiklikler görülebilir
             </p>
+        </div>
+        <div class="row pt-5 yazi branch">
+            <h1>Branch İşlemleri ve Stash Kavramı</h1>
+            
+            <h2>Branch</h2>
+            <p>Bir ekip ile beraber çalışıyorsanız sizden beklenen değişiklikleri oluşturacağınız yeni bir branch (dal) üzerinde yaparsınız. Daha sonrasında bu oluşturduğunuz branch’ i ana branch olan master ile birleştirirsiniz.</p>
+            <p>
+                <code>git branch</code> bu repoda varolan branchleri gösterir. <br>
+                <code>git branch branchAdi</code> branchAdi adında bir branch oluşturur ama mevcut branchde kalmaya devam eder. <br>
+                <code>git checkout branchAdi</code> branchAdi adındaki branche geçer. <br>
+                <code>git checkout -b branchAdi</code> branchAdi adında branch oluşturup ona geçer. <br>
+                <code>git branch -D branchAdi</code> branchAdi adındaki branchi siler 
+            </p>
+
+            <h2>Stash</h2>
+            <p>Bazen Commit işlemi yaptıktan sonra yüzlerce satır komut yazarsınız. Sonra birden yazdığınız kodlardan önceki versiyon üzerinde değişiklik yapmanız gerekebilir. Bu durumda bu yazdığınız komutları bir yere saklamanız gerekir. İşte bu tarz senaryolarda git stash bizi çok önemli bir sorundan kurtarıyor.</p>
+            <p>
+                <code>git stash</code> son committen itibaren yapmış olduğumuz tüm değişiklikler geçici olarak stashte saklanır. <br>
+                <code>git stash list</code> stashler listelenir. <br>
+                <code>git stash clear</code> stashleri siler. <br>
+                <code>git stash pop</code> stashteki verileri ekler <br>
+            </p>
+
         </div>
     </div>
     <!-- content end -->
