@@ -61,6 +61,289 @@
         </p>
 
       </div>
+      <div class="row">
+        <h1>SQL kodları</h1>
+        <p>
+          ortam: pgAdmin 4 <br>
+          database->database_name->Schemas->tables->film(sağ klik)->query tool
+        </p>
+        <p>
+          SQL komutlarının büyük harf - küçük harf duyarlılıkları yoktur.
+        <p>
+        <p>
+          SQL boşlukları yok sayar. Kodun devamını alt satıra da yazabiliriz.
+        </p>
+        <p>Başına iki adet eksi işareti konulan satır yorum satırı olarak algılanır. <br> <code>--buraya yorum yazılabilir.</code> <br> Satır içinde ctrl + ö ile satır yorum satırına dönüştürülür</p>
+      </div>     
+      <div class="row">
+        <h1><code>SELECT</code></h1>
+        <p>
+          query (sorgu) <br>
+          <code>SELECT title FROM film;</code>: film tablosundaki title kolonunu seç
+
+        </p>
+        <p>
+          <code>
+            SELECT title, description FROM film;
+          </code> film tablosundaki title kolonunu ve description kolonunu seç
+        </p>
+        <p>
+          <code>
+            SELECT * FROM film;
+          </code> film tablosundaki tüm kolonları seç
+        </p>
+        
+      </div>
+      <div class="row">
+        <h1><code>WHERE</code></h1>
+        <p>
+          filtreleme işlemi.
+        </p>
+        <p>
+          <code>
+            SELECT * FROM film WHERE replacement_cost = 12.99;
+          </code> film tablosunda replacement_cost = 12.99; olan filmleri listele.
+        </p>
+        <p>
+          WHERE sorgusunda string bir koşul kullanılacaksa tek tırnak içine alınır. <br>
+          <code>
+            SELECT * FROM actor WHERE first_name = 'Penelope'
+          </code> <br>
+          sorgu büyük-küçük harf duyarlıdır.
+        </p>
+        <h2>Karşılaştırma Operatörleri</h2>
+        
+        <p>
+          datatype < datatype → boolean	Less than <br>
+          datatype > datatype → boolean	Greater than <br>
+          datatype <= datatype → boolean	Less than or equal to <br>
+          datatype >= datatype → boolean	Greater than or equal to <br>
+          datatype = datatype → boolean	Equal <br>
+          datatype <> datatype → boolean	Not equal <br>
+          datatype != datatype → boolean	Not equal <br>
+        </p>
+
+        <h2>Mantıksal Operatörler</h2>
+        <p>and, or, not</p>
+        
+        <h3><code>AND</code></h3>
+        <p>
+          her iki yanındaki koşul da doğru ise true döner.
+        </p>
+        <p>
+          <code>
+            SELECT * FROM actor WHERE first_name = 'Penelope' AND last_name = 'Pinkett'
+          </code> adı Pnelope, soyadı Pinkett olanları döner.
+        </p>
+
+        <h3><code>OR</code></h3>
+        <p>
+          İki yanındakilerden biri doğru ise true döner
+        </p>
+        <p>
+          <code>
+            SELECT * FROM actor WHERE first_name = 'Penelope' OR first_name = 'Bob'
+          </code> adı Penelope veya Bob olanları döner.
+        </p>
+        <p>AND sorgusundan sonra OR eklenirse AND koşuluna uyan listeye OR dan sonraki koşula uyan listeyi ekler.</p>
+
+        <h3><code>NOT</code></h3>
+        <p>
+          başına yazıldığı koşula uymayanları listeler.
+        </p>
+        <p>
+          <code>
+            SELECT * FROM film WHERE NOT rental_rate = 4.99
+          </code> rental_rate = 4.99 olmayanları listeler.
+        </p>
+        <p>AND veya OR ile konulan koşulun tamamınına uymayan durum isteniyorsa koşul parantez içine alınır</p>
+        <p>
+          <code>
+            SELECT * FROM film WHERE NOT (rental_rate = 4.99 AND replacement_cost = 20.99)
+          </code> parantez içindeki koşula uymayanları listeler.
+        </p>
+      </div>
+      <div class="row">
+        <h1>BETWEEN ve IN</h1>
+        
+        <h2><code>WHERE</code> columnName <code>BETWEEN ... AND ...</code></h2>
+        <p>
+          Aralık belirtmek için kullanılır. sınırlar dahil aralığı verir.</p>
+        <p>
+          <code>
+            SELECT title, length FROM film WHERE length BETWEEN 90 AND 120
+          </code> <br>ile <br>
+          <code>
+            SELECT title, length FROM film WHERE length >= 90 AND length <= 120
+          </code> ifadesi aynı sonucu verir.
+        </p>
+
+        <h2><code>WHERE</code> columnName <code>IN (..,..,..)</code></h2>
+        <p>
+          kolondaki birden fazla spesifik değeri bulmak için kullanılır
+        </p>
+        <p>
+          <code>
+            SELECT title, length FROM film WHERE length IN (40,50,60)
+          </code> <br>ile <br>
+          <code>
+            SELECT title, length FROM film WHERE length = 40 OR length = 50 OR length = 60
+          </code> ifadesi aynı sonucu verir
+        </p>
+      </div>
+      <div class="row">
+        <h1>LIKE ve ILIKE</h1>
+
+        <h2><code>WHERE</code> columnName <code>LIKE ..%</code></h2>
+        <p>
+          Bir kısmına göre getirmek istediğimiz veriler için kullanılır. İstediğimiz kısmı yazar kalan yere % koyarız.
+        </p>
+        <p>
+          <code>
+            SELECT * FROM customer WHERE last_name LIKE '%av%'
+          </code> soyadında 'av' olanları listeler.
+        </p>
+        <p>
+          <code>
+            SELECT * FROM customer WHERE last_name LIKE 'Av%'
+          </code> soyadı 'Av' ile başlayanları listeler.
+        </p>
+        <p>
+          Büyük-küçük harfe duyarlıdır. Duyarlı olmaması için <code>ILIKE </code> kullanılır.
+        </p>
+        <p>
+          Sadece tek bir karakter için yer tutucu gerektiğinde alt çizgi "_" kullanılır.
+          'J_an' bize ilk harfi "J" ikinci harfi herhangi bir karakter ve devamı "an" olan verileri ifade eder.
+        </p>
+        <p>
+          <code>
+            LIKE
+          </code> yerine
+          <code>
+            ~~
+          </code> kullanılabilir.
+        </p>
+        <p>
+          <code>
+            ILIKE
+          </code> yerine
+          <code>
+            ~~*
+          </code> kullanılabilir.
+        </p>
+        <p>
+          <code>
+            NOT LIKE
+          </code> yerine
+          <code>
+            !~~
+          </code> kullanılabilir.
+        </p>
+        <p>
+          <code>
+            NOT ILIKE
+          </code> yerine
+          <code>
+            !~~*
+          </code> kullanılabilir.
+        </p>
+      </div>
+      <div class="row">
+        <h1>DISTINCT ve COUNT</h1>
+
+        <h2><code>SELECT DISTINCT</code> columnName</h2>
+        <p>
+          Bir sütundaki distinct (farklı) ifadeleri görmek için kullanılır.
+        </p>
+        <p>
+          <code>
+            SELECT DISTINCT rental_rate FROM film
+          </code> rental_rate kolonunda kaç farklı ifade olduğunu ve bunların ne olduğunu verir.
+        </p>
+        <p>
+          <code>
+            SELECT DISTINCT
+          </code> ifadesinden sonra birden fazla kolon adı girilirse, kolonların eşleşmesinde farklı olan kombinasyonları gösterir.
+        </p>
+
+        <h2><code>SELECT COUNT(*)</code></h2>
+        <p>
+          Koşulu sağlayan değerleri sayar.
+        </p>
+        <p>
+          <code>
+            SELECT COUNT(*) FROM actor WHERE first_name = 'Penelope'
+          </code> 'Penelope' adındaki aktörlerin sayısını verir.
+        </p>
+        <p>
+          COUNT() parantezinin içine kolon adı yazılabilir ancak "*" konulması ile değişiklik oluşturmaz. içerik boş bırakılır veya kolon adı ve * değerinden başka bir şey yazılırsa kod hata verir.
+        </p>
+        <p>
+          <code>
+            SELECT COUNT(DISTINCT first_name) FROM actor
+          </code> actor tablosunda kaç farklı first_name verisi olduğunu sayar.
+        </p>
+        <p>
+          <code>
+            SELECT COUNT(DISTINCT(first_name, last_name)) FROM actor
+          </code> actor tablosunda kaç farklı first_name last_name ikilisi olduğunu sayar.
+        </p>
+      </div>
+      <div>
+        <h1>PSQL</h1>
+        <p>
+          postgreSQL in termina arayüzü
+        </p>
+        <p>
+          Ortam: <br>
+          başlat -> cmd -> psql
+        </p> ile varsayılan kullanıcıya ulaşırız ki bizim qspl altındaki kullanıcı adımız farklı. ctrl + c ile geri dönebiliriz.
+        <p>
+          <code>psql</code> yerine <code>psql -U postgres</code> yazarak postgres kullanıcısına ulaşabiliriz. Sonra da şifremizi gireriz. 
+        </p>
+        <p>
+          ekranda yazan <code>postgres=#</code> varsayılan veri tabanı olan postgres veri tabanında olduğumuzu gösterir.
+        </p>
+        <p>
+          help komutu ile yapabileceklerimizin bir listesi açılır. <br>
+          <code>\copyright for distribution terms</code> <br>
+          <code>\h for help with SQL commands</code> <br>
+          <code>\? for help with psql commands</code> <br>
+          <code>\g or terminate with semicolon to execute query</code> <br>
+          <code>\q to quit</code>
+        </p>
+        <p>
+          <code>\h</code> ile tüm sql komutları listelenir.
+        </p>
+        <p>
+          <code>\?</code> ile psql komutları ile ilgili bilgi var.
+        </p>
+        <p>
+          ctrl + c ile geri çıkılır
+        </p>
+        <p>
+          <code>\list</code> veya <code>\l</code> ile veri tabanları listelenir
+        </p>
+        <p>
+          <code>\connect dvdrental</code> veya <code>\c dvdrental</code> ile dvdrental veri tabanına geçilir. Bu işlemin sonunda ekrandaki yazı <code>dvdrental=#</code> olarak güncellenir.
+        </p>
+        <p>
+          <code>\dt</code> ile veri tabanında bulunan tablolar listelenir
+        </p>
+        <p>
+          <code>\d actor</code> ile actor tablosunun detayları görüntülenir.
+        </p>
+        <p>
+          sql kodları yazılarak istenilen tablo görüntülenebilir. <br>
+          <code>
+            SELECT * FROM actor WHERE first_name = 'Penelope';
+          </code>
+        </p>
+        <p>
+          noktalı virgül (;) koymadan enter'a basarsak kodu yazmaya devam ederek alt satıra geçer. En sona noktalı virgül koyup ENTER yapınca da kodu çalıştırır.
+        </p>
+
+      </div>
     </div>
     <!-- İçerik End -->
     <!-- footer start -->
