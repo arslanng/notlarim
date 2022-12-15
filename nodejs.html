@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.JS</title>
+    <link rel="stylesheet" href="css/sql.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Navbar Start -->
+    <div class="nav bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Node.JS</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Ana Sayfa</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Eğitim Notları
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                          <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                          <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                          <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                          <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                          <li><a class="dropdown-item" href="sql.html" target="_blank">SQL notları</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- İçerik Start -->
+    <div class="container">
+      <div class="row nedir">
+        <h1>Node.js Nedir?</h1>
+        <p>
+          Node.js, Chrome V8 JavaScript Engine'i temel alan bir JavaScript çalışma ortamıdır. Bu çalışma ortamı sayesinde bizler Javascript kodlarını kullanmak için tarayıcı kısıtlamalarından kurtulmuş oluruz. 
+        </p>
+
+        <h2>Nasıl Çalışır</h2>
+
+        <h3>Event-Driven:</h3>
+        <p>
+          Node.js olay odaklı (event-driven) çalışır. Tek thread kullanmasından, yani aynı anda sadece bir işlem yapabilmesi nedeniyle node.js kendisinden istenilen işleri bir olay döngüsünün içerisinde değerlendirir.
+        </p>
+
+        <h3>Non-Blocking:</h3>
+        <p>
+          Node.js işlem sırasına koyduğu bir olayın tamamlanmasını beklemeden diğer olayı işleme alabilir, bunun sonucu olarak Node.js iş akışını engellemez.
+        </p>
+
+        <h3>Asynchronous:</h3>
+        <p>
+          Node.js asenkron (asynchronous) çalışır. Asenkron çalışma, kod akışının yukarıdan aşağıya ilerlemediği, işlemlerin birbirini beklemediği çalışma türüdür. Bu sayede işlem sırası olaya göre belirlenebilir.
+        </p>
+
+      </div>
+      <div class="row asalSayi">
+        <h1>Asal Sayılar Çalışması</h1>
+        <p>
+          <code>
+            function showPrimeNumbers(lownumber, highnumber){ <br>
+              for(let i = lownumber; i<=highnumber; i++){ <br>
+                 let isPrime = true; <br>
+                 for (let j = 2; j <= i; j++){ <br>
+                  if (i%j===0 && j !==i){ <br>
+                      isPrime = false <br>
+                  } 
+                 }  <br>
+                 if(isPrime){ <br>
+                  console.log(i); <br>
+                 } 
+              }
+          } <br>
+          
+          showPrimeNumbers(2, 9)
+          </code> bize 2 ve 9 arasındaki asal sayıları verir. Bunu terminalde görmek için <code>node uygulama_adi</code> yazılır.
+        </p>
+
+        <h2>Terminalden veri almak</h2>
+        <p>
+          process nesnesi nodeJS e ait global nesnelerden biridir. Bize o anki işlemle ilgili bilgiler verir. <br>
+          <code>
+            console.log(process)
+          </code> ifadesi js klasörüne ilave edilerek bu bilgilere ulaşılabilir. Çok fazla bilgi verir. Bir kısmı bize gerekir.
+        </p>
+        <p>
+          <strong>process.argv</strong> özelliği bize node.exe ve çalışan js dosyasının parametrelerini verir. <br>
+          <code>console.log(process.argv)</code> koda ilave olunca bu iki veriyi konsola 2 maddeli <strong>array</strong> olarak yazdırır.
+        </p>
+        <p>
+          içinde <code>console.log(process.argv)</code> ifadesi bulunan kodu çalıştırırken terminalde boşluk bırakıp ifade girilirse boşluktan sonraki her maddeyi arraye ekler. <br>
+          <code>
+            node uygulama_adi 1 12
+          </code>
+        </p>
+        <p>
+          uygulamanın içindeki kod bir array metodu olan slice ile ilk iki parametresi alınmayacak şekilde yazılırsa çıktı olarak terminalde kodun sonuna yazılan değerleri verir. <br>
+          <code>
+            console.log(process.argv.slice(2));
+          </code>
+        </p>
+        <p>
+          <code>
+            process.argv.slice(2)
+          </code> değeri js üzerinden bir değişkene tanımlanır ise bu sayede terminalden veri alınabilir.
+          
+        </p>
+        <h2>Terminalden Alınan Veriyi Programda Kullanma</h2>
+        <p>
+          asal sayı bulma kodunun başına <br>
+          <code>
+            const arguments = process.argv.slice(2);
+          </code> ile alınacak değişkenler eklenir.
+        </p>
+        <p>
+          Son kısma da çıktı almak için <br>
+          <code>
+            showPrimeNumbers(arguments[0], arguments[1]); 
+          </code> uygulanır
+        </p>
+      </div>
+      <div class="row repl">
+        <h1>REPL</h1>
+        <p>
+          Node.js Javascript çalışma ortamının terminal ekranı. 
+        </p>
+        <p>
+          REPL ortamını başlatmak için node komutunu terminal ekranına yazmak yeterli olacaktır.
+        </p>
+        <p>
+          <code>alert</code> benzeri bazı kodlar tarayıcıda çalışırken REPL içinde çalışmayabilir. Tam tersi de olabilir.
+        </p>
+        <h2>REPL Komutları - Açıklamaları</h2>
+        <p>
+          <strong>help</strong> - Tüm komutları listeler. <br>
+          <strong>break</strong> - Çok satırlı ifadeden çıkar. <br>
+          <strong>ctrl + c</strong> - Çalışan komutu durdurur.<br>
+          <strong>ctrl + d</strong> - REPL ortamını sonlandırır.<br>
+          <strong>save dosya_adi</strong> - REPL ortamındaki kodları dosyaya kaydeder.<br>
+          <strong>load dosya_adi</strong> - Dosyadaki kodları REPL ortamına alır.
+        </p>
+      </div>
+    </div>
+    <!-- İçerik End -->
+    <!-- footer start -->
+    <!-- footer end -->
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
