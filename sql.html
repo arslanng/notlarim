@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL</title>
+    <link rel="stylesheet" href="css/sql.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <!-- Navbar Start -->
@@ -45,308 +45,1341 @@
     <!-- İçerik Start -->
     <div class="container">
       <div class="row">
-        <h1>SQL</h1>
-        
-        <h2>Veritabanı Yönetim Sistemi (DBMS)</h2>
-        <p>Veritabanı verilerimizi organize bir şekilde depolamımızı sağlayan yapılardı. İşte bu veritabanımızı oluşturmamızı, yönetmemizi ve SQL yardımıyla gerekli gördüğümüz sorguları yapmamızı sağlayan yazılımlara Database Management System veritabanı yönetim sistemi adı verilir.</p>
+        <div class="solBar col-sm-2 mt-2">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="#SQLGiris">SQL</a></li>
+            <li class="list-group-item"><a href="#SQLKomut">SQL Kodları</a></li>
+            <li class="list-group-item"><a href="#select"><code>SELECT</code></a></li>
+            <li class="list-group-item"><a href="#where"><code>WHERE</code></a></li>
+            <li class="list-group-item"><a href="#betweenIn">BETWEEN ve IN</a></li>
+            <li class="list-group-item"><a href="#like">LIKE ve ILIKE</a></li>
+            <li class="list-group-item"><a href="#distinct_count">DISTINCT ve COUNT</a></li>
+            <li class="list-group-item"><a href="#PSQL1">PSQL</a></li>
+            <li class="list-group-item"><a href="#orderBy">ORDER BY</a></li>
+            <li class="list-group-item"><a href="#limitOffset">LIMIT ve OFFSET</a></li>
+            <li class="list-group-item"><a href="#aggregate">Aggregate Fonksiyonlar</a></li>
+            <li class="list-group-item"><a href="#groupBy">GROUP BY</a></li>
+            <li class="list-group-item"><a href="#having">HAVING</a></li>
+            <li class="list-group-item"><a href="#alias">ALIAS</a></li>
+            <li class="list-group-item"><a href="#createDropTable">Tablo Oluşturmak ve Silmek (CREATE - DROP)</a></li>
+            <li class="list-group-item"><a href="#updateDelete">Verileri Güncellemek - Silmek</a></li>
+            <li class="list-group-item"><a href="#primaryKeyForeıgnKey">PRIMARY KEY - FOREIGN KEY</a></li>
+            <li class="list-group-item"><a href="#veriTipleri">Veri Tipleri</a></li>
+            <li class="list-group-item"><a href="#constraint">CONSTRAINT</a></li>
+            <li class="list-group-item"><a href="#PSQL2">PSQL II</a></li>
+            <li class="list-group-item"><a href="#join">JOIN</a></li>
+            <li class="list-group-item"><a href="#union">UNION</a></li>
+            <li class="list-group-item"><a href="#intersectExpect">INTERSECT ve EXCEPT</a></li>
+            <li class="list-group-item"><a href="#altsorgu">Alt Sorgu</a></li>
+            <li class="list-group-item"><a href="#anyAll">Any ve All Operatörleri</a></li>
+            <li class="list-group-item"><a href="#altsorguVeJoin">Alt Sorgular ve JOIN Kullanımı</a></li>
+            
+          </ul>
 
-        <h2>SQL (Structured Query Language) Nedir?</h2>
-        <p>SQL Türkçe ifadesiyle yapılandırılmış sorgu dili anlamına gelmektedir. Biz SQL sayesinde verilerimizin bulunduğu veritabanı ile iletişime geçeriz.</p>
-
-        <p>Daha önce de konuştuğumuz gibi veritabanı yönetim sitemi (DBMS) veritabanını barındıra bir yazılım. Bizler bu yazılım üzerinden verilerimiz için yapmak istediğimiz sorguları SQL dili standartlarına uygun olarak yazmak durumundayız.</p>
-
-        <h3>Bir Programlama dili olarak SQL</h3>
-        <p>
-          SQL üzerine konuşulurken ilk olarak şu soru akla gelir. SQL bir programlama dili midir? Evet, SQL ilişkisel veritabanı yönetim sistemleri ile ilişki kurmamızı sağlayan bir declarative bildirimsel bir programlama dilidir
-        </p>
-
+        </div>
+        <div class="col-sm-10 ortaBar px-5">
+          <div class="row" id="SQLGiris">
+            <h1>SQL</h1>
+            
+            <h2>Veritabanı Yönetim Sistemi (DBMS)</h2>
+            <p>Veritabanı verilerimizi organize bir şekilde depolamımızı sağlayan yapılardı. İşte bu veritabanımızı oluşturmamızı, yönetmemizi ve SQL yardımıyla gerekli gördüğümüz sorguları yapmamızı sağlayan yazılımlara Database Management System veritabanı yönetim sistemi adı verilir.</p>
+    
+            <h2>SQL (Structured Query Language) Nedir?</h2>
+            <p>SQL Türkçe ifadesiyle yapılandırılmış sorgu dili anlamına gelmektedir. Biz SQL sayesinde verilerimizin bulunduğu veritabanı ile iletişime geçeriz.</p>
+    
+            <p>Daha önce de konuştuğumuz gibi veritabanı yönetim sitemi (DBMS) veritabanını barındıra bir yazılım. Bizler bu yazılım üzerinden verilerimiz için yapmak istediğimiz sorguları SQL dili standartlarına uygun olarak yazmak durumundayız.</p>
+    
+            <h3>Bir Programlama dili olarak SQL</h3>
+            <p>
+              SQL üzerine konuşulurken ilk olarak şu soru akla gelir. SQL bir programlama dili midir? Evet, SQL ilişkisel veritabanı yönetim sistemleri ile ilişki kurmamızı sağlayan bir declarative bildirimsel bir programlama dilidir
+            </p>
+    
+          </div>
+          <div class="row" id="SQLKomut">
+            <h1>SQL Kodları</h1>
+            <p>
+              ortam: pgAdmin 4 <br>
+              database->database_name->Schemas->tables->film(sağ klik)->query tool
+            </p>
+            <p>
+              SQL komutlarının büyük harf - küçük harf duyarlılıkları yoktur.
+            <p>
+            <p>
+              SQL boşlukları yok sayar. Kodun devamını alt satıra da yazabiliriz.
+            </p>
+            <p>Başına iki adet eksi işareti konulan satır yorum satırı olarak algılanır. <br> <code>--buraya yorum yazılabilir.</code> <br> Satır içinde ctrl + ö ile satır yorum satırına dönüştürülür</p>
+          </div>     
+          <div class="row" id="select">
+            <h1><code>SELECT</code></h1>
+            <p>
+              query (sorgu) <br>
+              <code>SELECT title FROM film;</code>: film tablosundaki title kolonunu seç
+    
+            </p>
+            <p>
+              <code>
+                SELECT title, description FROM film;
+              </code> film tablosundaki title kolonunu ve description kolonunu seç
+            </p>
+            <p>
+              <code>
+                SELECT * FROM film;
+              </code> film tablosundaki tüm kolonları seç
+            </p>
+            
+          </div>
+          <div class="row" id="where">
+            <h1><code>WHERE</code></h1>
+            <p>
+              filtreleme işlemi.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM film WHERE replacement_cost = 12.99;
+              </code> film tablosunda replacement_cost = 12.99; olan filmleri listele.
+            </p>
+            <p>
+              WHERE sorgusunda string bir koşul kullanılacaksa tek tırnak içine alınır. <br>
+              <code>
+                SELECT * FROM actor WHERE first_name = 'Penelope'
+              </code> <br>
+              sorgu büyük-küçük harf duyarlıdır.
+            </p>
+            <h2>Karşılaştırma Operatörleri</h2>
+            
+            <p>
+              datatype < datatype → boolean	Less than <br>
+              datatype > datatype → boolean	Greater than <br>
+              datatype <= datatype → boolean	Less than or equal to <br>
+              datatype >= datatype → boolean	Greater than or equal to <br>
+              datatype = datatype → boolean	Equal <br>
+              datatype <> datatype → boolean	Not equal <br>
+              datatype != datatype → boolean	Not equal <br>
+            </p>
+    
+            <h2>Mantıksal Operatörler</h2>
+            <p>and, or, not</p>
+            
+            <h3><code>AND</code></h3>
+            <p>
+              her iki yanındaki koşul da doğru ise true döner.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM actor WHERE first_name = 'Penelope' AND last_name = 'Pinkett'
+              </code> adı Pnelope, soyadı Pinkett olanları döner.
+            </p>
+    
+            <h3><code>OR</code></h3>
+            <p>
+              İki yanındakilerden biri doğru ise true döner
+            </p>
+            <p>
+              <code>
+                SELECT * FROM actor WHERE first_name = 'Penelope' OR first_name = 'Bob'
+              </code> adı Penelope veya Bob olanları döner.
+            </p>
+            <p>AND sorgusundan sonra OR eklenirse AND koşuluna uyan listeye OR dan sonraki koşula uyan listeyi ekler.</p>
+    
+            <h3><code>NOT</code></h3>
+            <p>
+              başına yazıldığı koşula uymayanları listeler.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM film WHERE NOT rental_rate = 4.99
+              </code> rental_rate = 4.99 olmayanları listeler.
+            </p>
+            <p>AND veya OR ile konulan koşulun tamamınına uymayan durum isteniyorsa koşul parantez içine alınır</p>
+            <p>
+              <code>
+                SELECT * FROM film WHERE NOT (rental_rate = 4.99 AND replacement_cost = 20.99)
+              </code> parantez içindeki koşula uymayanları listeler.
+            </p>
+          </div>
+          <div class="row" id="betweenIn">
+            <h1>BETWEEN ve IN</h1>
+            
+            <h2><code>WHERE</code> columnName <code>BETWEEN ... AND ...</code></h2>
+            <p>
+              Aralık belirtmek için kullanılır. sınırlar dahil aralığı verir.</p>
+            <p>
+              <code>
+                SELECT title, length FROM film WHERE length BETWEEN 90 AND 120
+              </code> <br>ile <br>
+              <code>
+                SELECT title, length FROM film WHERE length >= 90 AND length <= 120
+              </code> ifadesi aynı sonucu verir.
+            </p>
+    
+            <h2><code>WHERE</code> columnName <code>IN (..,..,..)</code></h2>
+            <p>
+              kolondaki birden fazla spesifik değeri bulmak için kullanılır
+            </p>
+            <p>
+              <code>
+                SELECT title, length FROM film WHERE length IN (40,50,60)
+              </code> <br>ile <br>
+              <code>
+                SELECT title, length FROM film WHERE length = 40 OR length = 50 OR length = 60
+              </code> ifadesi aynı sonucu verir
+            </p>
+          </div>
+          <div class="row" id="like">
+            <h1>LIKE ve ILIKE</h1>
+    
+            <h2><code>WHERE</code> columnName <code>LIKE ..%</code></h2>
+            <p>
+              Bir kısmına göre getirmek istediğimiz veriler için kullanılır. İstediğimiz kısmı yazar kalan yere % koyarız.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM customer WHERE last_name LIKE '%av%'
+              </code> soyadında 'av' olanları listeler.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM customer WHERE last_name LIKE 'Av%'
+              </code> soyadı 'Av' ile başlayanları listeler.
+            </p>
+            <p>
+              Büyük-küçük harfe duyarlıdır. Duyarlı olmaması için <code>ILIKE </code> kullanılır.
+            </p>
+            <p>
+              Sadece tek bir karakter için yer tutucu gerektiğinde alt çizgi "_" kullanılır.
+              'J_an' bize ilk harfi "J" ikinci harfi herhangi bir karakter ve devamı "an" olan verileri ifade eder.
+            </p>
+            <p>
+              <code>
+                LIKE
+              </code> yerine
+              <code>
+                ~~
+              </code> kullanılabilir.
+            </p>
+            <p>
+              <code>
+                ILIKE
+              </code> yerine
+              <code>
+                ~~*
+              </code> kullanılabilir.
+            </p>
+            <p>
+              <code>
+                NOT LIKE
+              </code> yerine
+              <code>
+                !~~
+              </code> kullanılabilir.
+            </p>
+            <p>
+              <code>
+                NOT ILIKE
+              </code> yerine
+              <code>
+                !~~*
+              </code> kullanılabilir.
+            </p>
+          </div>
+          <div class="row" id="distinct_count">
+            <h1>DISTINCT ve COUNT</h1>
+    
+            <h2><code>SELECT DISTINCT</code> columnName</h2>
+            <p>
+              Bir sütundaki distinct (farklı) ifadeleri görmek için kullanılır.
+            </p>
+            <p>
+              <code>
+                SELECT DISTINCT rental_rate FROM film
+              </code> rental_rate kolonunda kaç farklı ifade olduğunu ve bunların ne olduğunu verir.
+            </p>
+            <p>
+              <code>
+                SELECT DISTINCT
+              </code> ifadesinden sonra birden fazla kolon adı girilirse, kolonların eşleşmesinde farklı olan kombinasyonları gösterir.
+            </p>
+    
+            <h2><code>SELECT COUNT(*)</code></h2>
+            <p>
+              Koşulu sağlayan değerleri sayar.
+            </p>
+            <p>
+              <code>
+                SELECT COUNT(*) FROM actor WHERE first_name = 'Penelope'
+              </code> 'Penelope' adındaki aktörlerin sayısını verir.
+            </p>
+            <p>
+              COUNT() parantezinin içine kolon adı yazılabilir ancak "*" konulması ile değişiklik oluşturmaz. içerik boş bırakılır veya kolon adı ve * değerinden başka bir şey yazılırsa kod hata verir.
+            </p>
+            <p>
+              <code>
+                SELECT COUNT(DISTINCT first_name) FROM actor
+              </code> actor tablosunda kaç farklı first_name verisi olduğunu sayar.
+            </p>
+            <p>
+              <code>
+                SELECT COUNT(DISTINCT(first_name, last_name)) FROM actor
+              </code> actor tablosunda kaç farklı first_name last_name ikilisi olduğunu sayar.
+            </p>
+          </div>
+          <div class="row psql" id="PSQL1">
+            <h1>PSQL</h1>
+            <p>
+              postgreSQL in termina arayüzü
+            </p>
+            <p>
+              Ortam: <br>
+              başlat -> cmd -> psql
+              ile varsayılan kullanıcıya ulaşırız ki bizim qspl altındaki kullanıcı adımız farklı. ctrl + c ile geri dönebiliriz.
+            </p>
+            <p>
+              <code>psql</code> yerine <code>psql -U postgres</code> yazarak postgres kullanıcısına ulaşabiliriz. Sonra da şifremizi gireriz. 
+            </p>
+            <p>
+              ekranda yazan <code>postgres=#</code> varsayılan veri tabanı olan postgres veri tabanında olduğumuzu gösterir.
+            </p>
+            <p>
+              help komutu ile yapabileceklerimizin bir listesi açılır. <br>
+              <code>\copyright for distribution terms</code> <br>
+              <code>\h for help with SQL commands</code> <br>
+              <code>\? for help with psql commands</code> <br>
+              <code>\g or terminate with semicolon to execute query</code> <br>
+              <code>\q to quit</code>
+            </p>
+            <p>
+              <code>\h</code> ile tüm sql komutları listelenir.
+            </p>
+            <p>
+              <code>\?</code> ile psql komutları ile ilgili bilgi var.
+            </p>
+            <p>
+              ctrl + c ile geri çıkılır
+            </p>
+            <p>
+              <code>\list</code> veya <code>\l</code> ile veri tabanları listelenir
+            </p>
+            <p>
+              <code>\connect dvdrental</code> veya <code>\c dvdrental</code> ile dvdrental veri tabanına geçilir. Bu işlemin sonunda ekrandaki yazı <code>dvdrental=#</code> olarak güncellenir.
+            </p>
+            <p>
+              <code>\dt</code> ile veri tabanında bulunan tablolar listelenir
+            </p>
+            <p>
+              <code>\d actor</code> ile actor tablosunun detayları görüntülenir.
+            </p>
+            <p>
+              sql kodları yazılarak istenilen tablo görüntülenebilir. <br>
+              <code>
+                SELECT * FROM actor WHERE first_name = 'Penelope';
+              </code>
+            </p>
+            <p>
+              noktalı virgül (;) koymadan enter'a basarsak kodu yazmaya devam ederek alt satıra geçer. En sona noktalı virgül koyup ENTER yapınca da kodu çalıştırır.
+            </p>
+    
+          </div>
+          <div class="row" id="orderBy">
+            <h1>ORDER BY</h1>
+            <p>
+              Sıralama yapmak için kullanılır.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM film ORDER BY title DESC;
+              </code> film tablosunu title kolonuna göre azalan (DESC) sırayla sıralar.
+            </p>
+            <p>
+              sistem varsayılanı artan sıralamadır. Herhangi bir şey belirtilmezse artan sıralar. Bunu <code>ASC</code> yazarak da sağlayabiliriz. Tersi için <code>DESC</code> yazılır.
+            </p>
+            <p>
+              Birden fazla koşula göre sıralama yaptığımızda önce ilk yazılana göre sıralar. Eşit olanları ikinci koşula göre kendi içinde sıralar.
+            </p>
+            <p>
+              <code>
+                SELECT title, rental_rate, length FROM film <br> 
+                ORDER BY rental_rate, length DESC;
+              </code> önce rental_rate e göre artan sırayla sıralar. rental_rate eşit olanları length değerine göre azalan sıralar.
+            </p>
+            <p>
+              ORDER BY komutu koşul komutundan sonra yazılır.
+            </p>
+            <p>
+              <code>
+                SELECT title, rental_rate, length FROM film <br>
+                WHERE title LIKE 'A%' <br>
+                ORDER BY rental_rate, length DESC;
+              </code>
+            </p>
+    
+            <h2>Özelleştirilmiş Sıralama</h2>
+            <p>
+              <code>
+                ORDER BY sort_expression1 [ASC | DESC] [NULLS { FIRST | LAST }] <br>
+                [, sort_expression2 [ASC | DESC] [NULLS { FIRST | LAST }] ...]
+              </code>  
+            </p>
+            <p>
+              NULLS FIRST ve NULLS LAST seçenekleri, sıralama düzeninde boş değerlerin boş olmayan değerlerden önce mi yoksa sonra mı görüneceğini belirlemek için kullanılabilir. Varsayılan olarak, boş değerler boş olmayan herhangi bir değerden daha büyük gibi sıralanır; yani, DESC sırası için varsayılan NULLS FIRST, aksi takdirde NULLS LAST olur.
+            </p>
+            <p><Strong>Hackerrank çözümü</Strong> <br>
+              <code>
+                SELECT Name FROM STUDENTS WHERE Marks > 75 ORDER BY RIGHT(Name,3), ID;
+              </code> <br>
+              Mark > 75 olanları önce adının son 3 karakterine göre listeler sonra aynı olanları ID ye göre listeler. 
+            </p>
+            <p>
+              <code>RIGHT()</code> işlevi, bir diziden (sağdan başlayarak) bir dizi karakter çıkarır.
+            </p>
+    
+          </div>
+          <div class="row" id="limitOffset">
+            <h1>LIMIT ve OFFSET</h1>
+    
+            <h2><code>LIMIT</code></h2>
+            <p>
+              kaç adet veri satırının görüneceğini belirler.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM film <br>
+                LIMIT 20;
+              </code>
+            </p>
+            <p>
+              <code>LIMIT</code> en sona yazılır.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM film <br>
+                WHERE replacement_cost = 14.99 AND rental_rate = 0.99 <br>
+                ORDER By length DESC <br>
+                LIMIT 10;
+              </code>
+    
+              <h2><code>OFFSET</code></h2>
+              <p>
+                Bazı verileri geçmek için kullanılır.
+              </p>
+              <p>
+                <code>
+                  SELECT * FROM country <br>
+                  OFFSET 6 
+                </code> ilk 6 veriyi geçip 7. veriden başlar.
+              </p>
+            </p>
+          </div>
+          <div class="row" id="aggregate">
+            <h1>Aggregate Fonksiyonlar</h1>
+            <p>
+              veri kümelerimizden sonuçlar çıkarabiliriz.
+            </p>
+    
+            <p>
+              <code>COUNT</code> bir aggregate fonksiyonudur.
+            </p>
+    
+            <h2><code>MAX</code></h2>
+            <p>
+              En yüksek değeri verir.
+            </p>
+            <p>
+              <code>
+                SELECT MAX(replacement_cost) FROM film;
+              </code> replacement_cost kolonundaki en yüksek değeri verir.
+            </p>
+    
+            <h2><code>MIN</code></h2>
+            <p>
+              En düşük değeri verir.
+            </p>
+            <p>
+              <code>
+                SELECT MIN(rental_rate) FROM film;
+              </code> rental_rate kolonundaki en düşük değeri verir.
+            </p>
+    
+            <h2><code>AVG</code></h2>
+            <p>
+              Ortalamayı verir
+            </p>
+            <p>
+              <code>
+                SELECT AVG(rental_rate) FROM film;
+              </code> rental_rate kolonundaki değerlerin ortalamasını verir.
+            </p>
+            <p>
+              verilen değer virgülden sonra istemediğimz kadar değer içerebilir. Bu durumda ROUND fonksiyonuna AVG fonksiyonu parametre olarak atanır.
+            </p>
+            <p>
+              <code>
+                SELECT ROUND(AVG(rental_rate), 3) FROM film;
+              </code> AVG den çıkan sonucun virgülden sonraki değerini 3. basamağa yuvarlar.
+            </p>
+    
+            <h2><code>SUM</code></h2>
+            <p>
+              verilen kolondaki tüm değerleri toplar.
+            </p>
+            <p>
+              <code>
+                SELECT SUM(rental_rate) FROM film;
+              </code> rental_rate kolonundaki tüm değerleri toplar.
+            </p>
+    
+            <p>
+              Bir seferde birden fazla aggregate fonksiyonu çalıştırılabilir.
+            </p>
+            <p>
+              <code>
+                SELECT MAX(length), MIN(length), SUM(rental_rate) FROM film;
+              </code>
+            </p>
+    
+            <p>
+              Aggregate fonksiyonu ile sütun eş zamanlı çağırılamaz.
+            </p>
+          </div>
+          <div class="row" id="groupBy">
+            <h1>GROUP BY</h1>
+            <p>
+              Aynı sonuçları veri kümesinin içerisinde bulunan farklı gruplarda bulmak için kullanılır
+            </p>
+            <p>
+              <code>
+                SELECT rental_rate, MAX(length) FROM film
+                <br>
+                GROUP BY rental_rate
+              </code> her bir rental_rate değerindeki en uzun length değerini verir.
+            </p>
+            <p>
+              Gruplamada bir kolonu görebilmek için <code>GROUP BY</code> içinde de olması gerekir.
+            </p>
+            <p>
+              <code>
+                SELECT rating, rental_rate,  MAX(length) FROM film
+                <br>
+                GROUP BY rental_rate, rating
+              </code> her bir rental_rate, rating çifti değeri için en uzun filmin uzunluğunu verir.
+            </p>
+          </div>
+          <div class="row" id="having">
+            <h1>HAVING</h1>
+            <p>
+              gruplanmış verilere koşul eklemek için kullanılır.
+            </p>
+            <p>
+              <code>
+                SELECT rental_rate, COUNT(*) FROM film
+                <br>
+                GROUP BY rental_rate
+                <br>
+                HAVING COUNT(*) > 325;
+              </code>
+            </p>
+          </div>
+          <div class="row" id="alias">
+            <h1>ALIAS <code>AS</code></h1>
+            <p>
+              Sorguda tablo ve sütunlara geçici ad verilmesini sağlar
+            </p>
+            <p>
+              <code>
+                SELECT first_name AS isim, last_name AS soyisim FROM actor;
+              </code>
+              <br> veya <br>
+              <code>
+                SELECT first_name isim, last_name soyisim FROM actor;
+              </code> olarak yazılabilir.
+            </p>
+            <p>
+              birden fazla karakter eklenecek ise çift tırnak içine alınır.
+            </p>
+            <p>
+              <code>
+                SELECT first_name "isim deneme", last_name "soyisim deneme" FROM actor;
+              </code>
+            </p>
+    
+            <h2><code>CONCET</code></h2>
+            <p>
+              iki sütundaki veriyi birleştirmek için kullanılır.
+            </p>
+            <p>
+              <code>
+                SELECT CONCAT(first_name, ' ', last_name) "İSİM VE SOYİSİM" FROM actor;
+              </code>
+              first_name ve last_name kolonları aralarına boşluk bırakılarak "İSİM VE SOYİSİM" adlı geçici kolonda birleştirildi.
+            </p> 
+          </div>
+          <div class="row" id="createDropTable">
+            <h1>Tablo Oluşturmak ve Silmek (CREATE - DROP)</h1>
+    
+            <h2>Tablo oluştur <code>CREATE TABLE</code></h2>
+            <p> Söz dizimi: <br>
+              <code>
+                CREATE TABLE tablo_adı (
+                <br>sütun_adıveri_tip kısıtlama_adı,
+                <br> ....
+                <br> sütun_adı veri_tip kısıtlama_adı
+                <br> );
+              </code>
+            </p>
+            <p>
+              <code>
+                CREATE TABLE author ( <br>
+                  id SERIAL PRIMARY KEY, <br>
+                  first_name VARCHAR(50) NOT NULL, <br>
+                  last_name VARCHAR(50) NOT NULL, <br>
+                  email VARCHAR(100), <br>
+                  birthday DATE <br>
+                );
+              </code>
+            </p>
+            <p>
+              veri tipi ve kısıtlama aşağıda detaylı anlatılacak.
+            </p>
+            <p>
+              veri tipi <code>SERIAL</code>: sayısal değer. kendiliğinden artar.
+            </p>
+            <p>
+              kısıt adı <code>PRIMARY KEY</code>: her satır için eşsiz değer.
+            </p>
+            <p>
+              veri tipi <code>VARCHAR(50)</code>: 50 karakter alabilir.
+            </p>
+            <p>
+              kısıt adı <code>NOT NULL</code>: Boş bırakılamaz.
+            </p>
+            <p>
+              veri tipi <code>DATE</code>: tarih
+            </p>
+    
+            <h2>Veri Eklemek <code>INSERT INTO</code></h2>
+            <p>
+              <code>
+                INSERT INTO author (first_name, last_name, email, birthday) <br>
+                VALUES <br>
+                  ('Haruki', 'Murakami', 'haruki@murakami.com', '1948-11-07'), <br>
+                  ('Sabahattin', 'Ali', 'sabahattin.ali', '1950-05-01'), <br>
+                  ('Orhan', 'Pamuk', 'orhan@pamuk.com', '1940-10-16'), <br>
+                  ('Halide Edip', 'Adıvar', 'halide@edip.com', '1956-10-25'), <br>
+                  ('Zugmunt', 'Bauman', 'zymung@bauman.com', '1953-03-05');
+              </code>
+            </p>
+            <p>
+              id bilgisinin eklenmesine gerek yok. Her seferinde 1 artarak kendini ekliyor (data tipi <code>SERIAL</code> seçildiği için)
+            </p>
+            <p>
+              tarih YYYY-AA-GG formatında yazılır.
+            </p>
+    
+            <h2>Referans Alarak Tablo Oluşturmak</h2>
+            <p>
+              <code>
+                CREATE TABLE author2 (LIKE author)
+              </code>
+            </p> author tablosunu referans alan boş bir tablo oluşturur.
+    
+            <h2>Bir Tablodan Diğerine Veri Taşımak <code>INSERT INTO</code></h2>
+            <p>
+              <code>
+                INSERT INTO author2
+                SELECT * FROM author <br>
+                WHERE first_name = 'Sabahattin'; <br>
+              </code>
+            </p>
+    
+            <h2>Tablo Kopyalayarak Yeni Tablo Oluşturmak</h2>
+            <p>
+              <code>
+                CREATE TABLE author3 AS <br>
+                SELECT * FROM author;
+              </code>
+            </p>
+    
+            <h2>Tablo Silmek <code>DROP TABLE</code></h2>
+            <p>
+              <code>
+                DROP TABLE author4; <br>
+              </code> tablo olmadığı durumda:
+              <code>ERROR:  table "author4" does not exist SQL state: 42P01</code> hatası alınır.
+            </p>
+            <p>
+              <code>
+                DROP TABLE IF EXISTS author4; <br>
+              </code> tablo olmadığı durumda hata vermez.
+              <code>NOTICE:  table "author4" does not exist, skipping DROP TABLE</code> uyarısı alınır.
+            </p>
+    
+            <h2>Verilerle Çalışmak İçin Rasgele veri Oluşturmak</h2>
+            <p>
+              <a href="https://www.mockaroo.com/">mockaroo.com</a> üzerinden veriler istenildiği gibi seçilir. Dosya tipi SQL olarak ayarlanır. Preview tıklanır. Çıkan ekran kopyalanıp kod olarak SQL programına yapıştırılır.
+            </p>
+          </div>
+          <div class="row" id="updateDelete">
+            <h1>Verileri Güncellemek - Silmek</h1>
+    
+            <h2><code>UPDATE</code></h2>
+            <p>
+              veri güncellemek için kullanılır.
+            </p>
+            <p>
+              Söz dizimi:
+              <code>
+                UPDATE tablo_adı <br>
+                SET sütun_adı = değer, <br> 
+                  sütun_adı = değer, <br>
+                  ---- <br>
+                WHERE koşul_adı;
+              </code>
+            </p>
+            <p>
+              <code>
+                UPDATE author <br>
+                SET <br> 
+                  first_name = 'JRR', <br>
+                  last_name = 'Tolkien', <br>
+                  email = 'jrr@tolkien. com' <br>
+                WHERE id = 6 <br>
+                RETURNING *;
+              </code> id = 6 olan satırın first_name, last_name ve email bilgisi güncellendi. <br> 
+              <code>RETURNING *</code> fonksiyonu yapılan son değişikliği ekrana getirir
+            </p>
+          
+            <h2><code>DELETE</code></h2>
+            <p>
+              Söz dizimi:
+              <code>
+                DELETE FROM tablo_adı <br>
+                WHERE koşul_adı;
+              </code>
+            </p>
+            <p>
+              <code>
+                DELETE FROM author <br>
+                WHERE id > 10
+              </code> id değeri 10 dan büyük olan tüm değerleri siler.
+            </p>
+          </div>
+          <div class="row" id="primaryKeyForeıgnKey">
+            <h1>PRIMARY KEY - FOREIGN KEY</h1>
+    
+            <h2>PRIMARY KEY</h2>
+            <p>
+              Tablodaki satırları diğer satırlardan ayırmak için kullanılır.
+            </p>
+            <p>
+              Bulundukları kolonda eşsiz bir değer alırlar.
+            </p>
+            <p>
+              Bir tabloda 1 adet PRIMARY KEY sütunu olur.
+            </p>
+            <p>
+              PRIMARY KEY sütununudaki veriler değiştirilmezler.
+            </p>
+    
+            <h2>FOREIGN KEY</h2>
+            <p>
+              Başka bir tablodaki veriye referans verir.
+            </p>
+            <p>
+              Tablo oluşturulurken <code>REFERENCES tablo_adi(kolon_adi)</code> kodu ilgili kolonun bilgilerinin sonuna yazılır. <br>
+              örnek: <br>
+              <code>
+                ... <br>
+                author_id INTEGER REFERENCES author(id) <br> 
+                ...
+              </code>
+            </p>
+            <p>
+              veri eklerken referans alındığı diğer tabloda ilgili değer yoksa <code> ...violetes foreign key constraint...</code> hatası verir.
+            </p>
+            <p>
+              <code>JOIN</code> işlemi ile iki tablo birleştirildiğinde bu referanslar kullanılır.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM book <br>
+                JOIN author ON author.id = book.author_id
+              </code>
+            </p>
+            <p>
+              <code>JOIN</code> işlemi daha sonra detaylı anlatılacaktır.
+            </p>
+          </div>
+          <div class="row" id="veriTipleri">
+            <h1>Veri Tipleri</h1>
+            <p>
+              <a href="https://www.postgresql.org/docs/current/datatype.html">postgresql.org/docs/current/datatype</a>
+            </p>
+    
+            <h2>Numeric</h2>
+    
+            <h3>Integer</h3>
+            <p>
+              <strong>smallint</strong> (2 bytes): -32768 to +32767 <br>
+              <strong>integer</strong> (4 bytes):	-2147483648 to +2147483647 <br>
+              <strong>bigint</strong> (8 bytes): -9223372036854775808 to +9223372036854775807
+            </p>
+    
+            <h3>Serial</h3>
+            <p>1 den başlayıp kendiliğinden artarak ilerler. Ayrıca girilmelerine gerek yoktur.</p>
+            <p>
+              <strong>smallserial</strong> (2 bytes): 1 to 32767 <br>
+              <strong>serial</strong>	(4 bytes): 1 to 2147483647 <br>
+              <strong>bigserial</strong> (8 bytes): 1 to 9223372036854775807
+            </p>
+    
+            <h3>Ondalıklı sayılar için</h3>
+            <p>
+              <strong>decimal = numeric</strong>: virgülden önce 131072 virgülden sonra 16383 rakam alır. <br>
+              <strong>real (float4)</strong>	(4 bytes): 6 ondalık basamak hassasiyeti <br>
+              <strong>double precision (float8)</strong>	(8 bytes):15 ondalık basamak hassasiyeti
+            </p>
+    
+            <p><code>SELECT (istenilen_veri);</code> söz dizimi ile istenilen_veri yerine yazılan verinin veri tipini <strong>kabaca</strong> alabiliriz. <code>SELECT (istenilen_veri::veritipi);</code> söz dizimine numeric veri tipini yazarsak veriyi o veri tipinde görüneceği şekilde aktarır.</p>
+    
+            <h2>Karakter</h2>
+            <p>
+              <strong>character varying(n) = varchar(n)</strong>
+              içine n kadar karakter alabilir. Fazlasını atar. Daha fazla alamaz. Daha az alabilir. Parantez içi boş bırakılırsa istenildiği kadar karakter alır.
+            </p>
+            <p>
+              <strong>character(n), char(n)</strong> içine n kadar karakter alabilir. Daha fazla alamaz. Fazlasını atar. Daha az alırsa boşluk ile n e tamamlanır.
+            </p>
+            <p>
+              <strong>text</strong> istenildiği kadar karakter alabilir.
+            </p>
+    
+            <h2>Boolean</h2>
+            <p>
+              true, false veya null alır.
+            </p>
+            <p>
+              <strong>true</strong> = true, yes, on, 1, t
+            </p>
+            <p>
+              <strong>false</strong> = false, no, off, 0, f
+            </p>
+    
+            <h2>Tarih/Zaman</h2>
+            <p>
+              <strong>DATE</strong> yyyy-aa-gg formatına dönüşür.
+            </p>
+            <p>
+              <strong>TIME</strong> saat:dakika:saniye formatında, time without time zone etiketiyle verir. <br>
+              <strong>TIME WITH TIME ZONE</strong> saat: dakika:saniye+03.00 formatında, time with time zone etiketiyle verir.
+            </p>
+            <p>
+              <strong>TIMESTAMP</strong> yyyy-aa-gg saat:dakika:saniye formatında, time without time zone etiketiyle verir.
+            </p>
+    
+          </div>
+          <div class="row" id="constraint">
+            <h1>CONSTRAINT</h1>
+            <p>
+              veriler için kısıt oluşturan kurallardır.
+            </p>
+            <p>
+              yukarıda anlatılan PRIMARY KEY ve FOREIGN KEY de constraintdir.
+            </p>
+    
+            <h2>NOT NULL</h2>
+            <p>
+              ilgili kolonun boş olmasını engeller.
+            </p>
+            <p>
+              Tablo oluşturulurken belirtilebilir.
+            </p>
+            <p>
+              oluşmuş tabloya özellik olarak eklenebilir. (ALTER kolonu ile.)
+            </p>
+    
+            <h2>ALTER</h2>
+            <p>
+              var olan tabloda değişiklik yapmak için kullanılır.
+            </p>
+            <p>
+              Söz dizimi <br>
+              <code>
+                ALTER TABLE tablo_adı <br>
+                ALTER COLUMN sütun_adı <br>
+                SET NOT NULL; 
+              </code>
+            </p> 
+            <p>
+              kolon içinde zaten NULL var ise hata verir
+            </p>
+            <p>
+              NULL değerleri bulmak ve silmek için <br>
+              <code>
+                WHERE user_name IS NULL
+              </code> kullanılır.
+            </p>
+            <p>
+              <code>
+                ALTER TABLE users <br>
+                ALTER COLUMN user_name <br>
+                SET NOT NULL;
+              </code>
+            </p>
+            <p>NULL bilinmeyen veya eksik veri demektir. Boş string veya 0 NULL değildir.</p>
+    
+            <h2>UNIQUE</h2>
+            <p>
+              Verilerin eşsiz olmasını kısıtını getirir.
+            </p>
+            <p>
+              Tablo oluştururken yazılabileceği gibi sonrasında <code>ALTAR</code> ile de eklenebilir.
+            </p>
+            <p>
+              Söz dizimi <br>
+              <code>
+                ALTER TABLE tablo_adı <br>
+                ADD UNIQUE(sütun_adı)
+              </code>
+            </p>
+            <p>
+              Eklenilen tabloda eşsiz olmayan veriler varsa hata verir.
+            </p>
+            <p>
+              <code>
+                ALTER TABLE users <br>
+                ADD UNIQUE(email);
+              </code>
+            </p>
+    
+            <h2>CHECK</h2>
+            <p>
+              sütundaki verilere belirli koşullar vermek için kullanılır.
+            </p>
+            <p>
+              Tablo oluştururken yazılabileceği gibi sonrasında <code>ALTAR</code> ile de eklenebilir.
+            </p>
+            <p>
+              Söz dizimi: <br>
+              <code>
+                CREATE TABLE tablo_adı ( <br>
+                kolon_adı veri_tipi CHECK (koşul) <br>
+                );
+              </code> <br> veya <br>
+              <code>
+                ALTER TABLE tablo_adı <br>
+                ADD CHECK (koşul);
+              </code>
+            </p>
+            <p>
+              <code>
+                ALTER TABLE users <br>
+                ADD CHECK (age>18);
+              </code> age kolonuna 18 den büyük olma koşulu getirir. Özellik eklerken tabloda buna uymayan değer var ise hata mesajı alınır.
+            </p>
+            <p>
+              <code>
+                CREATE TABLE products ( <br>
+                  product_no integer, <br>
+                  name text, <br>
+                  price numeric CHECK (price > 0), <br>
+                  discounted_price numeric CHECK (discounted_price > 0), <br>
+                  CHECK (price > discounted_price)
+                );
+              </code> price ve discounted_price için 0'dan büyük olma şart ve price için discounted_price'dan büyük olma şartı konulmuş.
+            </p>
+    
+            <h2>CONSTRAINT silmek</h2>
+            <p>
+              <code>
+                ALTER TABLE tablo_adı <br>
+                DROP CONSTRAINT constraint_adı;
+              </code> constraint_adı: bu constraint ile uymayan bir veri girilmek istediğinde alınan uyarıdan kopyalanabilir.
+            </p>
+            <p>
+              <code>
+                ALTER TABLE book <br>
+                DROP CONSTRAINT book_author_id_fkey;
+              </code> book tablosundaki "book_author_id_fkey" constraint silindi.
+            </p>
+          </div>
+          <div class="row psql" id="PSQL2">
+            <h1>PSQL II</h1>
+            <p>
+              CMD -> psql -U postgres
+            </p>
+            <p>
+              <code>
+                CREATE DATABASE testdb;
+              </code>
+              ile testdb adında database yaratıldı.
+            </p> 
+            <p>
+              <code>
+                \q
+              </code> ile çıkış yapılır.
+            </p>
+            <p>
+              ilgili database e direk bağlanmak için: <br>
+              <code>
+                psql -h localhost -p 5432 -U postgres testdb
+              </code> yazılır.
+            </p>
+            <p>
+              <code>
+                \c
+              </code> ile başka bir database'e bağlanılabilir. <br> Örnek <br>
+              <code>
+                \c dvdrental
+              </code>
+            </p>
+            <p>
+              <code>
+                CREATE TABLE ...
+              </code> metodu ile yeni tablo oluşturuldu.
+            </p>
+            <p>
+              <code>
+                \d 
+              </code>ile ilgili database içindeki tablolar listelenir.
+            </p>
+            <p>
+              <code>
+                \d+ 
+              </code>ile ilgili database içindeki tablolar detayları ile listelenir.
+            </p>
+            <p>
+              <code>
+                \d tablo_adı
+              </code> ile adı verilen tablonun özelliği listelenir.
+            </p>
+            <p>
+              <code>
+                \d+ tablo_adı
+              </code> ile adı verilen tablo özelliği detaylı listelenir.
+            </p>
+            <p>
+              <code>
+                INSERT INTO (...) <br>
+                VALUES (...)
+              </code> ile değerler eklenir.
+            </p>
+            <p>
+              Hatalı kolon adı var ise: <br>
+              <code>
+                ALTER TABLE tablo_adı <br>
+                RENAME COLUMN kolon_adı TO düzeltilmiş_kolon_adı;
+              </code>
+            </p>
+            <p>
+              <code>
+                ALTER TABLE users <br>
+                ADD CONSTRAINT kısıt_adı UNIQUE(username);
+              </code> ile username kolonu UNIQUE kısıtı kısıt_adı adıyla eklenir.
+            </p>
+          </div>
+          <div class="row" id="join">
+            <h1>JOIN</h1>
+            <p>
+              Birden fazla tablodaki ifadeyi birleştirmeyi sağlar.
+            </p>
+            <p>
+              Birden fazla JOIN tipi vardır. Tek başına JOIN yazılırsa varsayılan olarak INNER JOIN işlemi yapılır.
+            </p>
+    
+            <h2>INNER JOIN</h2>
+            <p>
+              Birbiri ile ilişkili iki tablolarda <strong>kesişen verileri</strong> listelemek için kullanılır.
+            </p>
+            <p>
+              Simetriktir. Birleşen ve birleştiren tabloların yer değiştirmesi sonucu değiştirmez.
+            </p>
+            <p>
+             Söz dizimi
+             <code>
+              SELECT sütun_adı, sütun_adı ... <br>
+              FROM tablo1_adı <br>
+              INNER JOIN tablo2_adı <br>
+              ON tablo1_adı.sütun_adı = tablo2_adı.sütun_adı;
+             </code> 
+            </p>
+            <p>
+              <code>
+                SELECT title, first_name, last_name <br>
+                FROM book <br> 
+                INNER JOIN author <br>
+                ON book.author_id  = author.id;
+              </code>
+            </p>
+            <p>
+              Örnekte author_id <strong>foreign key</strong> yapısındadır. Foreign key olmasaydı ancak veriler aynı olsaydı da eşleşebilirdi ancak foreign key olmasının avantajı, yeni veri girilirken referans aldığı tablodan farklı bir değer alamamasıdır.
+            </p>
+            <p>
+              SELECT komutundan sonra yazılan kolon isimleri tablo_adı.kolon_adı şeklinde de yazılabilir. Her iki tabloda aynı ada sahip kolonlar var ise karışması bu şekilde engellenebilir.
+            </p>
+            
+            <h2>LEFT JOIN</h2>
+            <p>Soldaki tabloyu (tablo1) alır. Sağdaki tablodan (tablo2) eşleşenleri alır. Olmayanları NULL getirir.</p>
+            <p>
+              Söz dizimi
+              <code>
+               SELECT sütun_adı, sütun_adı ... <br>
+               FROM tablo1_adı <br>
+               LEFT JOIN tablo2_adı <br>
+               ON tablo1_adı.sütun_adı = tablo2_adı.sütun_adı;
+              </code> 
+            </p>
+            <p>
+              <code>
+                SELECT title, first_name, last_name <br>
+                FROM author LEFT JOIN book <br>
+                ON author.id = book.author_id;
+              </code> author tablosundaki değerlerin tamamını alır. book tablosundaki karşılığını alır. book tablosunda karşılığı olmayan yazarların karşısında NULL değeri yer alır.
+            </p>
+    
+            <h2>RIGHT JOIN</h2>
+            <p>
+              LEFT JOIN'in tersi
+            </p>
+            <p>Sağdaki tabloyu (tablo2) alır. Soldaki tablodan (tablo1) eşleşenleri alır. Olmayanları NULL getirir.</p>
+            <p>
+              Söz dizimi
+              <code>
+               SELECT sütun_adı, sütun_adı ... <br>
+               FROM tablo1_adı <br>
+               RIGHT JOIN tablo2_adı <br>
+               ON tablo1_adı.sütun_adı = tablo2_adı.sütun_adı;
+              </code> 
+            </p>
+            <p>
+              <code>
+                SELECT title, first_name, last_name <br>
+                FROM author RIGHT JOIN book <br>
+                ON author.id = book.author_id;
+              </code> book tablosundaki değerlerin tamamını alır. author tablosundaki karşılığını alır. author tablosunda karşılığı olmayan yazarların karşısında NULL değeri yer alır.
+            </p>
+    
+            <h2>FULL JOIN</h2>
+            <p>
+              Her iki tablodaki tüm değerleri getirir. 
+            </p>
+            <p>
+              FULL JOIN de INNER JOIN gibi simetriktir.
+            </p>
+            <p>
+              <code>
+                FULL JOIN = FULL OUTER JOIN
+              </code>
+            </p>
+            
+            <p>
+              Söz dizimi
+              <code>
+               SELECT sütun_adı, sütun_adı ... <br>
+               FROM tablo1_adı <br>
+               FULL JOIN tablo2_adı <br>
+               ON tablo1_adı.sütun_adı = tablo2_adı.sütun_adı;
+              </code> 
+            </p>
+    
+            <h2>Birden Fazla Tabloyu Birleştirmek</h2>
+            <p>
+              Birden fazla JOIN yapısını kullanarak birbiri ile bağlantısı olmayan tabloları, her ikisi ile de bağlantısı olan bir tablo aracılığı ile bağlayabiliriz.
+            </p>
+            <p>
+              <code>
+                SELECT film.title, film.length, actor.first_name, actor.last_name FROM film <br>
+                JOIN film_actor ON film.film_id = film_actor.film_id <br>
+                JOIN actor ON film_actor.actor_id = actor.actor_id <br>
+                ORDER BY film.length DESC; 
+              </code> birbirlerinde referansı olmayan actor ve film tablosu her ikisinde de referansı olan actor_film tablosu ile bağlanır.
+            </p>
+          </div>
+          <div class="row" id="union">
+            <h1>UNION</h1>
+            <p>
+              Birden fazla SELECT sorgusunu tek bir sonuç kümesi olarak göstermek için kullanılır.
+            </p>
+            <p>
+              Her iki sorguda kesişim var ise onları tek gösterir. Kesişenleri birleştirmemesi için <code>UNION ALL</code> kullanılır.
+            </p>
+            <p>
+              Birden fazla tablo birleştirirken kolon isimlerini ilk sorgudan alır.
+            </p>
+            
+            <p>
+              Söz dizimi <br>
+              <code>
+                (ilk sorgu) <br>
+                UNION <br>
+                (ikinci sorgu)
+              </code>
+            </p>
+            <p>
+              Sorgularda kullanılan <strong>sütun sayıları aynı olmalıdır.</strong>
+            </p>
+            <p>
+              Sorguda kullanılan <strong>id tipi aynı olmalıdır.</strong>
+            </p>
+            <p>
+              <code>
+                (SELECT id, title FROM book <br>
+                ORDER BY id <br>
+                LIMIT 5) <br>
+                UNION <br>
+                (SELECT id, email FROM author <br>
+                ORDER BY id <br>
+                LIMIT 5);
+              </code>
+            </p>
+          </div>
+          <div class="row" id="intersectExpect">
+            <h1>INTERSECT ve EXCEPT</h1>
+    
+            <h2>INTERSECT</h2>
+            <p>
+              Sorguların kesişimlerini gösterir.
+            </p>
+            <p>
+              Söz dizimi <br>
+              <code>
+                (ilk sorgu) <br>
+                INTERSECT <br>
+                (ikinci sorgu)
+              </code>
+            </p>
+            <p>
+              Sorgularda kullanılan <strong>sütun sayıları aynı olmalıdır.</strong>
+            </p>
+            <p>
+              Sorguda kullanılan <strong>id tipi aynı olmalıdır.</strong>
+            </p>
+            <p>
+              <code>
+                (SELECT * FROM book <br>
+                ORDER BY id <br>
+                LIMIT 10) <br>
+                INTERSECT <br>
+                (SELECT * FROM book <br>
+                ORDER BY title <br>
+                LIMIT 10) <br>
+              </code>
+            </p>
+            
+    
+            <h2>EXCEPT</h2>
+            <p>
+              ilk sorguda olan ancak ikincide olmayan verileri getirir.
+            </p>
+            <p>
+              Söz dizimi <br>
+              <code>
+                (ilk sorgu) <br>
+                EXCEPT <br>
+                (ikinci sorgu)
+              </code>
+            </p>
+            <p>
+              Sorgularda kullanılan <strong>sütun sayıları aynı olmalıdır.</strong>
+            </p>
+            <p>
+              Sorguda kullanılan <strong>id tipi aynı olmalıdır.</strong>
+            </p>
+            <p>
+              <code>
+                (SELECT * FROM book <br>
+                ORDER BY id <br>
+                LIMIT 10) <br>
+                EXCEPT <br>
+                (SELECT * FROM book <br>
+                ORDER BY title <br>
+                LIMIT 10) <br>
+              </code>
+            </p>
+            
+          </div>
+          <div class="row" id="altsorgu">
+            <h1>Alt Sorgu</h1>
+            <p>
+              Bir sorgu içerisinde, o sorgunun ihtiyaç duyduğu veri veya verileri getiren sorgulardır.
+            </p>
+            <p>
+              <code>
+                SELECT * FROM book <br>
+                WHERE page_number >= ( <br>
+                SELECT page_number FROM book <br>
+                WHERE title = 'Chaplin' <br>
+                )
+              </code>
+            </p>
+            <p>
+              Önce alt sorgular çalışır. Çıkan sonuca göre ana sorgu çalışır.
+            </p>
+          </div>
+          <div class="row" id="anyAll">
+            <h1>Any ve All Operatörleri</h1>
+            <p>
+              bir sütundaki değerin birden fazla değer gelmesi durumunda listelenebilmesi için kullanılırlar. Özellikle alt sorgu durumlarında çok faydalılar.
+            </p>
+            <p>
+              <strong>ANY</strong> sorguya <code>OR</code> anlamı katar.
+            </p>
+            <p>
+              <strong>ALL</strong> sorguya <code>AND</code> anlamı katar.
+            </p>
+    
+            <h2>ANY</h2>
+            <p>
+              Değerlerden biri bile karşılıyorsa sonuç verir.
+            </p>
+            <p>
+              <code>
+                SELECT first_name, last_name, id FROM author <br>
+                WHERE id > ANY <br>
+                ( <br>
+                  SELECT author_id FROM book <br>
+                  WHERE title = <br> 'Reprise' OR title = 'Vesku from Finland (Vesku)' <br>
+                ); <br>
+              </code>
+              Alt sorgudan gelen id değerleri 3 ve 6. sorgu 3 veya 6 dan büyük olanlar diye okunur. çıktı 3 ten büyük olan tüm değerleri verir.
+            </p>
+    
+            <h2>ALL</h2>
+            <p>Tüm değerler karşılıyorsa sonuç verir</p>
+            <p>
+              <code>
+                SELECT first_name, last_name, id FROM author <br>
+                WHERE id > ALL <br>
+                ( <br>
+                  SELECT author_id FROM book <br>
+                  WHERE title = <br> 'Reprise' OR title = 'Vesku from Finland (Vesku)' <br>
+                ); <br>
+              </code>
+              Alt sorgudan gelen id değerleri 3 ve 6. sorgu 3 ve 6 dan büyük olanlar diye okunur. çıktı sadece 6 dan büyük olan değerleri verir.
+            </p>
+          </div>
+          <div class="row" id="altsorguVeJoin">
+            <h1>Alt Sorgular ve JOIN Kullanımı</h1>
+            
+            <p>
+              Önce JOIN ile tablolar birleştirilip sonra WHERE alt sorgu ile filtreleme yapılabilir.
+            </p>
+            <p>
+              <code>
+                SELECT film.title, film.length, actor.first_name, actor.last_name FROM film <br>
+                JOIN film_actor ON film.film_id = film_actor.film_id <br>
+                JOIN actor ON film_actor.actor_id = actor.actor_id <br>
+                WHERE film.length > ( <br>
+                SELECT AVG(length) FROM film <br>
+                ) <br>
+                ORDER BY film.title; <br>
+              </code> film_actor yardımı ile film ve actor tabloları bağlandı. Alt sorgu ile ortalama film uzunluğu bulundu ve bundan uzun olan filmler listelendi. Film adına göre listelendi.
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <h1>SQL kodları</h1>
-        <p>
-          ortam: pgAdmin 4 <br>
-          database->database_name->Schemas->tables->film(sağ klik)->query tool
-        </p>
-        <p>
-          SQL komutlarının büyük harf - küçük harf duyarlılıkları yoktur.
-        <p>
-        <p>
-          SQL boşlukları yok sayar. Kodun devamını alt satıra da yazabiliriz.
-        </p>
-        <p>Başına iki adet eksi işareti konulan satır yorum satırı olarak algılanır. <br> <code>--buraya yorum yazılabilir.</code> <br> Satır içinde ctrl + ö ile satır yorum satırına dönüştürülür</p>
-      </div>     
-      <div class="row">
-        <h1><code>SELECT</code></h1>
-        <p>
-          query (sorgu) <br>
-          <code>SELECT title FROM film;</code>: film tablosundaki title kolonunu seç
-
-        </p>
-        <p>
-          <code>
-            SELECT title, description FROM film;
-          </code> film tablosundaki title kolonunu ve description kolonunu seç
-        </p>
-        <p>
-          <code>
-            SELECT * FROM film;
-          </code> film tablosundaki tüm kolonları seç
-        </p>
-        
-      </div>
-      <div class="row">
-        <h1><code>WHERE</code></h1>
-        <p>
-          filtreleme işlemi.
-        </p>
-        <p>
-          <code>
-            SELECT * FROM film WHERE replacement_cost = 12.99;
-          </code> film tablosunda replacement_cost = 12.99; olan filmleri listele.
-        </p>
-        <p>
-          WHERE sorgusunda string bir koşul kullanılacaksa tek tırnak içine alınır. <br>
-          <code>
-            SELECT * FROM actor WHERE first_name = 'Penelope'
-          </code> <br>
-          sorgu büyük-küçük harf duyarlıdır.
-        </p>
-        <h2>Karşılaştırma Operatörleri</h2>
-        
-        <p>
-          datatype < datatype → boolean	Less than <br>
-          datatype > datatype → boolean	Greater than <br>
-          datatype <= datatype → boolean	Less than or equal to <br>
-          datatype >= datatype → boolean	Greater than or equal to <br>
-          datatype = datatype → boolean	Equal <br>
-          datatype <> datatype → boolean	Not equal <br>
-          datatype != datatype → boolean	Not equal <br>
-        </p>
-
-        <h2>Mantıksal Operatörler</h2>
-        <p>and, or, not</p>
-        
-        <h3><code>AND</code></h3>
-        <p>
-          her iki yanındaki koşul da doğru ise true döner.
-        </p>
-        <p>
-          <code>
-            SELECT * FROM actor WHERE first_name = 'Penelope' AND last_name = 'Pinkett'
-          </code> adı Pnelope, soyadı Pinkett olanları döner.
-        </p>
-
-        <h3><code>OR</code></h3>
-        <p>
-          İki yanındakilerden biri doğru ise true döner
-        </p>
-        <p>
-          <code>
-            SELECT * FROM actor WHERE first_name = 'Penelope' OR first_name = 'Bob'
-          </code> adı Penelope veya Bob olanları döner.
-        </p>
-        <p>AND sorgusundan sonra OR eklenirse AND koşuluna uyan listeye OR dan sonraki koşula uyan listeyi ekler.</p>
-
-        <h3><code>NOT</code></h3>
-        <p>
-          başına yazıldığı koşula uymayanları listeler.
-        </p>
-        <p>
-          <code>
-            SELECT * FROM film WHERE NOT rental_rate = 4.99
-          </code> rental_rate = 4.99 olmayanları listeler.
-        </p>
-        <p>AND veya OR ile konulan koşulun tamamınına uymayan durum isteniyorsa koşul parantez içine alınır</p>
-        <p>
-          <code>
-            SELECT * FROM film WHERE NOT (rental_rate = 4.99 AND replacement_cost = 20.99)
-          </code> parantez içindeki koşula uymayanları listeler.
-        </p>
-      </div>
-      <div class="row">
-        <h1>BETWEEN ve IN</h1>
-        
-        <h2><code>WHERE</code> columnName <code>BETWEEN ... AND ...</code></h2>
-        <p>
-          Aralık belirtmek için kullanılır. sınırlar dahil aralığı verir.</p>
-        <p>
-          <code>
-            SELECT title, length FROM film WHERE length BETWEEN 90 AND 120
-          </code> <br>ile <br>
-          <code>
-            SELECT title, length FROM film WHERE length >= 90 AND length <= 120
-          </code> ifadesi aynı sonucu verir.
-        </p>
-
-        <h2><code>WHERE</code> columnName <code>IN (..,..,..)</code></h2>
-        <p>
-          kolondaki birden fazla spesifik değeri bulmak için kullanılır
-        </p>
-        <p>
-          <code>
-            SELECT title, length FROM film WHERE length IN (40,50,60)
-          </code> <br>ile <br>
-          <code>
-            SELECT title, length FROM film WHERE length = 40 OR length = 50 OR length = 60
-          </code> ifadesi aynı sonucu verir
-        </p>
-      </div>
-      <div class="row">
-        <h1>LIKE ve ILIKE</h1>
-
-        <h2><code>WHERE</code> columnName <code>LIKE ..%</code></h2>
-        <p>
-          Bir kısmına göre getirmek istediğimiz veriler için kullanılır. İstediğimiz kısmı yazar kalan yere % koyarız.
-        </p>
-        <p>
-          <code>
-            SELECT * FROM customer WHERE last_name LIKE '%av%'
-          </code> soyadında 'av' olanları listeler.
-        </p>
-        <p>
-          <code>
-            SELECT * FROM customer WHERE last_name LIKE 'Av%'
-          </code> soyadı 'Av' ile başlayanları listeler.
-        </p>
-        <p>
-          Büyük-küçük harfe duyarlıdır. Duyarlı olmaması için <code>ILIKE </code> kullanılır.
-        </p>
-        <p>
-          Sadece tek bir karakter için yer tutucu gerektiğinde alt çizgi "_" kullanılır.
-          'J_an' bize ilk harfi "J" ikinci harfi herhangi bir karakter ve devamı "an" olan verileri ifade eder.
-        </p>
-        <p>
-          <code>
-            LIKE
-          </code> yerine
-          <code>
-            ~~
-          </code> kullanılabilir.
-        </p>
-        <p>
-          <code>
-            ILIKE
-          </code> yerine
-          <code>
-            ~~*
-          </code> kullanılabilir.
-        </p>
-        <p>
-          <code>
-            NOT LIKE
-          </code> yerine
-          <code>
-            !~~
-          </code> kullanılabilir.
-        </p>
-        <p>
-          <code>
-            NOT ILIKE
-          </code> yerine
-          <code>
-            !~~*
-          </code> kullanılabilir.
-        </p>
-      </div>
-      <div class="row">
-        <h1>DISTINCT ve COUNT</h1>
-
-        <h2><code>SELECT DISTINCT</code> columnName</h2>
-        <p>
-          Bir sütundaki distinct (farklı) ifadeleri görmek için kullanılır.
-        </p>
-        <p>
-          <code>
-            SELECT DISTINCT rental_rate FROM film
-          </code> rental_rate kolonunda kaç farklı ifade olduğunu ve bunların ne olduğunu verir.
-        </p>
-        <p>
-          <code>
-            SELECT DISTINCT
-          </code> ifadesinden sonra birden fazla kolon adı girilirse, kolonların eşleşmesinde farklı olan kombinasyonları gösterir.
-        </p>
-
-        <h2><code>SELECT COUNT(*)</code></h2>
-        <p>
-          Koşulu sağlayan değerleri sayar.
-        </p>
-        <p>
-          <code>
-            SELECT COUNT(*) FROM actor WHERE first_name = 'Penelope'
-          </code> 'Penelope' adındaki aktörlerin sayısını verir.
-        </p>
-        <p>
-          COUNT() parantezinin içine kolon adı yazılabilir ancak "*" konulması ile değişiklik oluşturmaz. içerik boş bırakılır veya kolon adı ve * değerinden başka bir şey yazılırsa kod hata verir.
-        </p>
-        <p>
-          <code>
-            SELECT COUNT(DISTINCT first_name) FROM actor
-          </code> actor tablosunda kaç farklı first_name verisi olduğunu sayar.
-        </p>
-        <p>
-          <code>
-            SELECT COUNT(DISTINCT(first_name, last_name)) FROM actor
-          </code> actor tablosunda kaç farklı first_name last_name ikilisi olduğunu sayar.
-        </p>
-      </div>
-      <div>
-        <h1>PSQL</h1>
-        <p>
-          postgreSQL in termina arayüzü
-        </p>
-        <p>
-          Ortam: <br>
-          başlat -> cmd -> psql
-        </p> ile varsayılan kullanıcıya ulaşırız ki bizim qspl altındaki kullanıcı adımız farklı. ctrl + c ile geri dönebiliriz.
-        <p>
-          <code>psql</code> yerine <code>psql -U postgres</code> yazarak postgres kullanıcısına ulaşabiliriz. Sonra da şifremizi gireriz. 
-        </p>
-        <p>
-          ekranda yazan <code>postgres=#</code> varsayılan veri tabanı olan postgres veri tabanında olduğumuzu gösterir.
-        </p>
-        <p>
-          help komutu ile yapabileceklerimizin bir listesi açılır. <br>
-          <code>\copyright for distribution terms</code> <br>
-          <code>\h for help with SQL commands</code> <br>
-          <code>\? for help with psql commands</code> <br>
-          <code>\g or terminate with semicolon to execute query</code> <br>
-          <code>\q to quit</code>
-        </p>
-        <p>
-          <code>\h</code> ile tüm sql komutları listelenir.
-        </p>
-        <p>
-          <code>\?</code> ile psql komutları ile ilgili bilgi var.
-        </p>
-        <p>
-          ctrl + c ile geri çıkılır
-        </p>
-        <p>
-          <code>\list</code> veya <code>\l</code> ile veri tabanları listelenir
-        </p>
-        <p>
-          <code>\connect dvdrental</code> veya <code>\c dvdrental</code> ile dvdrental veri tabanına geçilir. Bu işlemin sonunda ekrandaki yazı <code>dvdrental=#</code> olarak güncellenir.
-        </p>
-        <p>
-          <code>\dt</code> ile veri tabanında bulunan tablolar listelenir
-        </p>
-        <p>
-          <code>\d actor</code> ile actor tablosunun detayları görüntülenir.
-        </p>
-        <p>
-          sql kodları yazılarak istenilen tablo görüntülenebilir. <br>
-          <code>
-            SELECT * FROM actor WHERE first_name = 'Penelope';
-          </code>
-        </p>
-        <p>
-          noktalı virgül (;) koymadan enter'a basarsak kodu yazmaya devam ederek alt satıra geçer. En sona noktalı virgül koyup ENTER yapınca da kodu çalıştırır.
-        </p>
-
-      </div>
+      
     </div>
-    <!-- İçerik End -->
-    <!-- footer start -->
+      <!-- İçerik End -->
+      <!-- footer start -->
     <!-- footer end -->
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
