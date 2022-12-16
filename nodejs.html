@@ -155,6 +155,176 @@
           <strong>load dosya_adi</strong> - Dosyadaki kodları REPL ortamına alır.
         </p>
       </div>
+      <div class="row asenkronJs">
+        <h1>Node.js'in Asenkron Yapısı</h1>
+        <p>
+          Asenkron programlama uzun süren bir işlemi beklemeden diğer işlemlere devam edebilmektir, işlemlerin sırasıyla devam etme zorunluluğu yoktur. Önce bir dosya okuyalım, aaa ama bu dosya okumak uzun sürüyor, eee ne yapalım o zaman? Bu işlemin bitmesini beklemeden diğer işleme geçebiliriz. Bir işlem yapılırken diğer işlemler bloklanmaz.
+        </p>
+        <p>
+          Node.js için temel amaç mümkün olan en kısa sürede beklemeden fazla sayıda işlem yapmaktır.
+        </p>
+        <p>
+          Aynı anda başladığı işleri hangi sırayla sunacağını da <strong>olay döngüsü (event-loop)</strong> belirler.
+        </p>
+      </div>
+      <div class="row callback">
+        <h1>Callback Nedir?</h1>
+        <p>
+          klasik js kod sırasına göre sıralı ilerler (senkron çalışma) ve aynı anda tek bir işlem yapar (single thread)
+        </p>
+        <p>
+          Node.JS nin ise asenkron bir doğası vardır.
+        </p>
+        <p>
+          Callback fonksiyonu başka bir fonksiyon içerisinde argüman olarak kullanılabilen fonksiyon anlamına gelmektedir.
+        </p>
+        <p>
+          <code>
+            const func1 = () => { <br>
+              console.log('func 1 tamamlandı') <br>
+              func2(); 
+            };<br>
+            const func2 = () => { <br>
+              console.log('func 2 tamamlandı') <br>
+              func3();
+            }; <br>
+            const func3 = () => { <br>
+              console.log('func 3 tamamlandı')
+            };<br>
+      
+          func1();
+          </code> bu kod çalıştığında önce func1 aktive olur. Sonra onun içine argüman olarak eklenen func2 aktive olur. Sonra onun içine argüman olarak eklenen func3 aktive olur.
+        </p>
+        <p>
+          Örnekler için: <strong>callback.js</strong>
+        </p>
+
+      </div>
+      <div class="row promise">
+        <h1>Promise Nedir?</h1>
+        <p>
+          Bir işlemin sonucunu temsil eden bir JS nesnesidir.
+        </p>
+        <p>
+          Promise bir işlemin sonucunu temsil eden bir Javascript nesnesidir. Promise nesnesi Resolve ve Reject adında iki tane parametre alır ve olumlu durumlarda Resolve ile belirtilen işlemlerin, olumsuz durumlarda da Reject ile belirtilen işlemlerin yapılacağına dair güvence verir. Promise yapısı olumlu sonuçları .then(), olumsuz sonuçları da .catch() ile karşılar.
+        </p>
+        <p>
+          <code>
+            const promise1 = new Promise((resolve, reject) => { <br>
+              resolve('Veriler Alındı');<br>
+              reject('Bağlantı Hatası');
+          });
+          </code> ile promise kurulur.
+        </p>
+        <p>
+
+        </p>
+        <p>
+          <code>
+            promise1 <br>
+              .then(value => { <br>
+                  console.log(value); <br>
+              });
+          </code> ile resorve durumu yakalar.
+        <p>
+          <code>
+            promise1 <br>
+              .catch(error => { <br>
+                  console.log(error); <br>
+              });
+          </code> ile reject durumu yakalar.
+        </p>
+        <p>
+          <code>
+            promise1 <br>
+              .then(value => { <br>
+                  console.log(value); <br>
+              }).catch(error => { <br>
+                  console.log(error); <br>
+              });
+          </code> ile her iki durumu da yakalar.
+        </p>
+        <p>
+          Örnek için <strong>promise.js</strong>
+        </p>
+      </div>
+      <div class="row asyncAwait">
+        <h1>Async Await Yapısı</h1>
+        <p>
+          Async - Await yapısı ES8 ile birlikte gelmiştir ve Promise yapısının daha anlaşılır bir söz dizimi ile yazılmasıdır.
+        </p>
+        <p>
+          Bir fonksiyon async anahtar kelimesi ile birlikte tanımlanırsa, fonksiyonun olumlu sonuçlanması sonucunda bir Promise döner. Bir async fonksiyon await anahtar kelimesi ile birlikte kullanılırsa ilgili Promise olumlu bir şekilde dönene kadar async fonksiyonunun çalışması bekletilir.
+        </p>
+        <p>
+          asenkron fonksiyon (<code>async function</code>) içinde bekle (<code>await</code>) komutu ile daha önce <code>promise</code> kalıbında yazılan verinin <code>await</code> ten sonraki kısmı true ise <code>resolve</code> çıktısı, false ise <code>reject</code> tipik reject hatası alınır. Bu hatayı almamak için tüm yapı <code>try-catch</code> bloğuna alınır.
+        </p>
+        <p>
+          özellikle sıralı işlemler için kullanılır.
+        </p>
+        
+        <h2>Örnek</h2>
+        <p>
+          <code>
+            function getData(data) { <br>
+              return new Promise((resolve, reject) => {<br>
+                  console.log('Veriler alınmaya çalışılıyor..');<br>
+                  if (data) {<br>
+                      resolve('Veriler alındı');<br>
+                  } else {<br>
+                      reject('Veriler alınamadı')
+                  }
+              })
+            }<br><br>
+          
+            function cleanData(receivedData) {<br>
+              return new Promise((resolve, reject) => {<br>
+                  console.log('Veriler düzenleniyor..');<br>
+                  if (receivedData) {<br>
+                      resolve('Veriler düzenlendi')<br>
+                  } else {<br>
+                      reject('Veriler düzenlenemedi')
+                  }
+              })
+            }<br>
+          </code> ifadelerinde önce birinci fonksiyon, sonra 2. fonksiyon çalışmalıdır.
+        </p>
+        <p>
+          Bu ifadelerin sırayla ve doğrulanarak ilerlemesi için <strong>promise</strong> yapsında: <br>
+          <code>
+            getData(true) <br>
+              .then(result => {<br>
+                  console.log(result);<br>
+                  return cleanData(true)<br>
+              }).then(result =>{<br>
+                  console.log(result)<br>
+              }).catch(error => {<br>
+                  console.log(error)<br>
+              });<br>
+          </code> yapısı kullanılır.
+        </p>
+        <p>
+          <strong>async-await</strong> yapısı için ise: <br>
+          <code>
+            async function processData(){ <br>
+              try{<br>
+                  const receivedData = await getData(false);</code> // devam etmek için bunu bekle.<br><code>
+                  console.log(receivedData);<br>
+                  const cleanedData = await cleanData(true);</code> // devam etmek için bunu bekle.<br> <code>
+                  console.log(cleanedData);<br>
+              } catch(error) {<br>
+                  console.log(error)
+              }
+              }<br><br>
+              
+              
+              processData();
+          </code> kullanılır.
+        </p>
+
+
+        
+      </div>
     </div>
     <!-- İçerik End -->
     <!-- footer start -->
