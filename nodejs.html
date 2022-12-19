@@ -325,6 +325,91 @@
 
         
       </div>
+      <div class="row module">
+        <h1>Modül Kavramı</h1>
+
+        <h2>Modül Nedir?</h2>
+        <p>
+          Node.js uygulaması farklı görevleri olan farklı Javascript dosyalarından oluşur ve Node.js içerdiği tüm Javascript dosyalarına bir modül olarak davranır. Modül genelde belirli özel bir işlevi olan Javascript dosyasıdır. Bu şekilde Node.js uygulamaya ait olan dosyaları farklı bölümlere ayırarak kodun daha modülarize olmasını ve aynı zamanda bu kod kontrolünün ve hata yakalamanın daha kolay olmasını sağlar.
+        </p>
+        
+        <h2>Asal Sayılar Örneği</h2>
+        <p>
+          Burada daha önce üzerine konuştuğumuz asal sayılar örneğimizi daha modüler hale getirelim ve sonrasında diğer dosyaların bu modülümüze ulaşmasını sağlayalım.
+        </p>
+        <p>
+          primeNumber.js => primeNumberModule.js adıyla yeniden kopyalandı ve dizenlendi
+        </p>
+        <p>primeNumberModule.js içinde: <br>
+          <code>
+            function showPrimeNumbers(lownumber, highnumber){<br>
+              for(let i = lownumber; i<=highnumber; i++){<br>
+                 let isPrime = true;<br>
+                 for (let j = 2; j <= i; j++){<br>
+                  if (i%j===0 && j !==i){<br>
+                      isPrime = false
+                  }
+                 } <br>
+                 if(isPrime){<br>
+                  console.log(i);
+                 }
+              }
+          }<br><br>
+          
+          
+          module.exports = {showPrimeNumbers}; 
+          </code>Bu işlem ile fonksiyonu diğer dosyaların kullanımına açıyoruz. {} içine aralarına virgül koyarak birden fazla fonksiyon export edilebilir.
+        </p>
+        <p>
+          Başka bir js dosyası içinde: <br>
+          <code>
+            const primeNumbers = require('./primeNumbersModule');
+          </code> değişkene modül atanır. <br>
+          <code>
+            primeNumbers.showPrimeNumbers(10,22);
+          </code> değişken üzerinden fonksiyon çağırılır.
+        </p>
+        <p>
+          Birden fazla fonksiyon export ettiğimizde, örneğin: <br>
+          <code>
+            module.exports = {
+              showPrimeNumbers,
+              showFivePrimes
+            } 
+          </code><br>
+          Çağırıken bir değişkene atayıp tek tek çağırabiliriz:
+          <code>
+            const primeNumbers = require('./primeNumbers');<br>
+            primeNumbers.showPrimeNumbers(10, 22);<br>
+            primeNumbers.showFivePrimes();
+          </code><br>
+          ya da object destructuring yöntemiyle parçalayıp kullanabiliriz. <br>
+          <code>
+            const { showPrimeNumbers, showFivePrimes } = require('./primeNumbers');<br>
+            showPrimeNumbers(10, 22); <br>
+            showFivePrimes();
+          </code>
+        </p>
+
+        <h2>ES6 Import Söz Dizimi</h2>
+        <p>
+          Burada ES6 Import söz dizimini kullanarak da aynı işlemi yerine getirebiliriz. Fonksiyonu export ederken tek bir fonksiyon için default anahtar kelimesini kullanırız.
+        </p>
+        <p>
+          <code>
+            export default showPrimeNumbers;
+          </code>
+        </p>
+        <p>
+          import ederken ise bu kez dosya uzantısını kullanmak durumundayız.
+        </p>
+        <p>
+          <code>
+            import showPrimeNumbers  from './primeNumbers.js';
+          </code>
+        </p>
+      </div>
+
     </div>
     <!-- İçerik End -->
     <!-- footer start -->
