@@ -409,6 +409,277 @@
           </code>
         </p>
       </div>
+      <div class="row fsModule">
+        <h1>FS Modülü Kullanımı</h1>
+        <p>
+          FS (File System) modülü Node.js'in dosya ve klasör işlemleri yaparken kullandığı bir çekirdek modülüdür. Buradaki çekirdek modülü kavramıyla Node.js yazılımıyla birlikte gelmesidir, tekrar oluşturulmasına gerek yoktur ve kullanıma hazırdır. FS modülünü kullanmak için: <br>
+          <code>
+            import { readFile } from 'node:fs';
+          </code>
+        </p>
+        <p>
+          yeni node sürümü <code>const fs = require('fs');</code> kodunu kabul etmiyor. ES6 ya göre yazılması için ise <strong>package.json</strong> içine <code>"type":"module",</code> eklenmesi gerekiyor.
+        </p>
+
+        <h2>Dosya Okumak</h2>
+        <p>
+          <code>
+            readFile('../password.txt','utf8', (err, data) => { <br>
+              if (err) console.log(err); <br>
+              console.log(data); <br>
+              console.log('dosya okundu') 
+             }); <br>
+          </code> ile password.txt içindeki veri konsola yazdırılır.
+        </p>
+
+        <h2>Dosya Oluşturmak</h2>
+        <p>
+          <code>
+            import { writeFile } from 'node:fs';
+          </code> ile writeFile import edildi. <br>
+          <code>
+            writeFile('../example.txt', 'kodluyoruzzz', 'utf8', (err)=>{ <br>
+              if (err) console.log(err); <br>
+              console.log('dosya başarılı bir şekilde oluşturuldu')
+          }); 
+          </code> ile example.txt oluşturuldu ve içine kodluyoruzzz yazıldı.
+        </p>
+        
+        <h2>Dosyaya Veri Eklemek</h2>
+        <p>
+          <code>
+            import { appendFile } from 'node:fs';
+          </code> ile appendFile import edildi. <br>
+          <code>
+            appendFile('../example.txt', '\nkodluyoruz 2222', 'utf8', (err)=>{ <br>
+              if (err) console.log(err); <br>
+              console.log('yeni veri eklendi')
+          }); 
+          </code> ile yeni veri eklendi. verinin başındaki \n verinin son satırın altına yeni bir satıra yazılmasını sağlar.
+        </p>
+
+        <h2>Dosya Silmek</h2>
+        <p>
+          <code>
+            import { unlink } from 'node:fs';
+          </code> ile unlink import edildi. <br>
+          <code>
+            unlink('../example.json', (err)=>{ <br>
+              if(err) console.log('silemedim:('); <br>
+              else console.log('DOSYA SİLİNDİ'); 
+            });
+          </code> ile example.json silindi.
+        </p>
+
+        <h2>Klasör Oluşturmak</h2>
+        <p>
+          <code>
+            import { mkdir } from 'node:fs';
+          </code> ile mkdir import edildi. <br>
+          <code>
+            mkdir('../uploads/json', { recursive: true }, (err)=>{ <br>
+              if(err) console.log(err); <br>
+              else console.log('Klasörler Oluşturuldu');
+            })
+          </code> ile uploads/json dosyaları iç içe oluşturuldu. İç içe oluşturabilmek için <code>{ recursive: true },</code> eklendi. Tek bir klasör oluşturulacaksa buna gerel yok.
+        </p>
+
+        <h2>Klasör Silmek</h2>
+        <p>
+          <code>
+            import { rmdir } from 'node:fs';
+          </code> ile rmdir import edildi. <br>
+          <code> 
+            rmdir('../uploads', { recursive: true }, (err)=>{ <br>
+              if(err) console.log(err); <br>
+              else console.log('Klasörler silindi');
+            });
+          </code> ile uploads ve altındaki tüm klasörler silindi. Hem kökü hem de altındakileri silmek için <code>{ recursive: true },</code> eklendi. Tek bir klasör silinecek ise buna gerel yok.
+        </p>
+
+        <h2>Tüm File System Modülünü Tek Seferde İmport Etmek</h2>
+        <p>
+          <code>
+            import * as fs from 'node:fs';
+          </code> ile tüm fs import edilir. Ancak import edilen kodları kullanmak için başına <code>fs.</code> eklenir.
+        </p>
+        <p>
+          Örnek: <br>
+          <code>
+            fs.appendFile('../example.txt', '\nkodluyoruz 2222', 'utf8', (err)=>{ <br>
+              if (err) console.log(err); <br>
+              console.log('yeni veri eklendi')
+          });
+          </code>
+        </p>
+      </div>
+      <div class="row npm">
+        <h1>NPM ve Package.json Kavramları</h1>
+        <p>
+          NPM: node package manager. Hem kayıtlı paketlerin olduğu web sayfasını hem de paket indirmeyi sağlayan kod satırı uygulamasını içerir.
+        </p>
+        <p>
+          paket: bir veya daha fazla modülden oluşan ve içerdiği modüller konusunda bilgi veren package.json dosyasına sahip bir klasör sistemi.
+        </p>
+        <p>
+          İşimize yarayan paketler npm den hazır indirilebilir.
+        </p>
+
+        <h2>Package.json</h2>
+        <p>
+          Tüm bu kodları yönetmemiz için bizim bu bilgileri taşıyan bir dosyaya ihtiyacımız var, işte bu dosyanın adı package.json. Bu dosyayı oluşturmak için: <br>
+          <code>
+            npm init
+          </code> yazıp gelen soruları cevaplayabiliriz. <br>
+          <code>
+            npm init -y
+          </code> tüm sorular varsayılan olarak doldurulur.
+        </p>
+        <p>
+          Artık npm den paket indirebiliriz.
+        </p>
+
+        <h2>Paket Yüklemek</h2>
+        <p>
+          <code>npm i paketAdi</code> veya <code>npm install paketAdi</code>
+        </p>
+        <p>
+          Bu işlemden sonra package.json dosyasında <br>
+          <code>
+            "dependencies": { <br>
+              "paketAdi": "^4.17.1" <br>
+            } 
+          </code> benzeri bir ifade yer alır.
+        </p>
+
+        <h2>Paket Silmek</h2>
+        <p>
+          <code>
+            npm uninstall paketAdi
+          </code>
+        </p>
+
+        <p>
+          Dosya olarak silinen veya gite aktarılmadan bırakılan bağlı paketleri yüklemek için: <br>
+          <code>
+            npm install
+          </code> <br>Bu nedenle paket dosyalarını git'e aktarmaya gerek yoktur.
+        </p>
+
+        <h2>NPM İçine Kısayol Ekleme</h2>
+        <p>
+          <code>
+            package.json
+          </code> dosyası içine
+          <code>
+            "script"
+          </code> kısmına istediğimiz kısayolu
+          <code>
+            "kisayolAdi": "dosyaYolu"
+          </code> şeklinde yazabiliriz. <br>
+          Kullanmak için komut satırına: <br>
+          <code>
+            npm kisayolAdi
+          </code> yazılır.
+        </p>
+      </div>
+      <div class="row requestResponse">
+        <h1>Request - Response Döngüsü</h1>
+        <p>
+          Node.js ile yazılan bir web uygulaması temelde bir request - response (istek - cevap) döngüsüdür. Bizler internet tarayıcımıza www.google.com yazmakla, aslında uzaktaki sunucuya bir request gönderiyoruz. Uzaktaki sunucu ise bize gördüğümüz Google sayfasını göstererek bir response dönüyor.
+          <br><br>
+          Sayfa > incele > ağ yaptığımızda: Request HEADERS içerisinde yaptığımız istek, Response HEADERS içerisinde ise aldığımız cevap ile ilgili bilgiler taşınır. Bunlardan bazıları istek metodu, remote address, cantent-type, path vs..
+        </p>
+
+        <h2>IP Address</h2>
+        <p>
+          Sunucunun sahip olduğu IP (Internet Protocol) adresi sunucuya ulaşmamızı sağlar. Aslında biz www.google.com yazmakla arka plandaki DNS sunucusu yardımıyla rakamlardan oluşan IP adresine ulaşır ve chunk ismi verilen parçalar halinde karşı sunucudaki web sayfası kendi bilgisayarımızda gösterilmeye başlar.
+        </p>
+        
+        <h2>TCP - IP Protokolü</h2>
+        <p>
+          TCP/IP (Transmission Control Protocol/Internet Protocol), istemci - sunucu arasında veri iletme, alma birimleri arasında organizasyonu sağlayan, böylece bir yerden diğerine veri iletişimini olanaklı kılan ve farklı protokollerden oluşan yapıya verilen genel addır.
+        </p>
+
+        <h2>HTTP</h2>
+        <p>
+          Sunucu ile istemci arasında iletişim için kullanılan protokoldür.
+        </p>
+        <p>
+          <strong>https</strong> http protokolünün ek güvenlik önlemlerine sahip versiyonudur.
+        </p>
+
+        <h2>Status Code</h2>
+        <p>
+          İstemci ile sunucu arasındaki iletişimin başarılı kurulma durumunu gösterir. <br>
+          Örn: 404: sayfa bulunamadı.
+        </p>
+      </div>
+      <div class="row webSunucusu">
+        <h1>Bir Web Sunucusu Oluşturmak</h1>
+        <p>
+          Node.js ile bir web sunucusu oluşturmanın çeşitli yolları vardır ve biz burada başlangıç olarak Node.js çekirdek modülü olan "http" modülünü kullanacağız. server.js dosyası oluşturup önce bu modülü çağıralım.
+        </p>
+        <p>
+          <code>
+            import * as http from 'node:http';
+          </code>
+        </p>
+
+        <h2><code>createServer</code></h2>
+        <p>
+          http modülü ile bir web sunucusu oluşturmak için createServer metodunu kullanacağız. createServer metodu, callback fonksiyon parametreleri olarak request ve response nesnelerini (request - response döngüsünün elemanları) alır. Doğal olarak biz bir web sunucusu oluşturuyorsak bu sunucumuz üzerinde isteklerde bulunmak ve bunlara gerekli cevapları almak isteriz.
+        </p>
+        <p>
+          <code>
+            const server = http.createServer((req, res)=>{
+          </code> <br>
+          <code>
+            const url = req.url;
+          </code> ile istek yapılan url alınır <br>
+          <code>
+            if(url === '/'){
+              res.writeHead(200, {'Content-Type': 'text/html'});
+          </code> ile status code ve tipi belirtilir <br>
+          <code>
+            res.write('İndex Sayfası');
+          </code> ile cevap iletilir. Cevap tipi html olarak bildirildiği için cevap html elementi olarak da yazılabilir. <br>
+          <code>
+          } else if (url === '/about'){ <br>
+            res.writeHead(200, {'Content-Type': 'text/html'}); <br>
+            res.write('Hakkımda Sayfası'); <br>
+        } else if (url === '/contact'){ <br>
+            res.writeHead(200, {'Content-Type': 'text/html'}); <br>
+            res.write('İletişim Sayfası'); <br>
+        } else { <br>
+            res.writeHead(404, {'Content-Type': 'text/html'}); <br>
+            res.write('404 Sayfa Bulunamadı'); 
+        }
+          </code><br>
+          <code>
+            res.end();
+          </code> ile cevap sonlandırılır <br>
+          <code>
+          });
+          </code>
+        </p>
+
+        <h2>Port Belirlemek</h2>
+        <p>
+          Biz kendi bilgisayarızımı sunucuya çevirdik ve aşağıdaki kod ile portu belirttik
+        </p>
+        <p>
+          <code>
+            const port = 3000; <br>
+            server.listen(port, ()=>{ <br>
+              console.log(`Sunucu Port ${port} de başlatıldı.`);
+            });
+          </code>
+        </p>
+        <p>
+          konsola <code>node webSunucusu</code> yazdığımız anda <strong>localhost:3000</strong> adresi için sunucumuz hazır.
+        </p>
+      </div>
 
     </div>
     <!-- İçerik End -->

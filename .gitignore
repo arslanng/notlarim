@@ -20,4 +20,4 @@ images/
 *.log
 password.txt
 
-
+node_modules/
