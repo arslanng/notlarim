@@ -53,7 +53,7 @@ global.console.log('log');
 // console.log(path.dirname(__filename));
 // Prints: /Users/mjr
 
-import * as fs from 'node:fs';
+const fs = require('fs')
 fs.appendFile('../example.txt', '\nkodluyoruz 2222', 'utf8', (err)=>{
     if (err) console.log(err); 
     console.log('yeni veri eklendi')

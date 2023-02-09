@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rest Api</title>
+    <link rel="stylesheet" href="css/sql.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .menu ul{
+            list-style-position: inside;
+            list-style: none;
+        }
+        li a{
+            color: black;
+            text-decoration: none;
+        }
+        li:hover{
+            background-color: rgba(0, 0, 0, 0.103);
+        }
+        h1{
+            border-bottom: 1px solid black;
+        }
+        h3{
+            margin-top: 4px;
+            margin-bottom: -3px;
+            font-size: normal;
+        }
+        ul{
+          list-style-position: inside;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Rest Api</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Ana Sayfa</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Eğitim Notları
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                          <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                          <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                          <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                          <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                          <li><a class="dropdown-item" href="sql.html" target="_blank">SQL notları</a></li>
+                          <li><a class="dropdown-item" href="nodejs.html" target="_blank">NodeJS notları</a></li>
+                          <li><a class="dropdown-item" href="restAPI.html" target="_blank">Rest Api notları</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- İçerik Start -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top menu d-none d-lg-block" style="height: fit-content;">
+            <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
+            <h2 class="text-center">Konu Listesi </h2>
+            <ul style="max-height: 400px; overflow: auto;">
+                <h3>Teori</h3>
+                <li><a href="#giris">Rest-Api Giriş</a></li>
+                <li><a href="#apiNedir">API Nedir?</a></li>
+                <li><a href="#restApiNedir">REST API Nedir?</a></li>
+                <li><a href="#restPrensip">Rest Prensipleri</a></li>
+                <li><a href="#httpNedir">HTTP Nedir?</a></li>
+                <li><a href="#httpStatus">HTTP Durum Kodları</a></li>
+                <li><a href="#httpmethods">HTTP Metotları</a></li>
+                <li><a href="#jsonNedir">JSON Nedir?</a></li>
+                <li><a href="#jsonJsXml">JSON - JavaScript - XML</a></li>
+                <li><a href="#postman">Postman</a></li>
+                <h3>Pratik</h3>
+                <li><a href="#starWarsApi">Star Wars API</a></li>
+                <li><a href="#tmdbApi">The Movie Database API (TMDBAPI)</a></li>
+                <li><a href="#fakeApi">Fake API</a></li>
+                <li><a href="#cURL">cURL Kullanımı</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+          <div class="row" id="giris">
+              <h1>Rest-Api Giriş</h1>
+              <p>
+                  En basitleştirilmiş tanımıyla API; Bir kod bölümünün başka bir kod bölümüyle iletişime geçmesidir. API'ın en genel tanımı bu olmakla birlikte genel olarak ve bu çalışmamız çerçevesinde web üzerinden çoğunlukla HTTP protokolüne göre çalışan API'lar ifade edilir.
+              </p>
+              <p>
+                  REST sunucu ile istemci arasında iletişimi sağlayan API için kullanılan bir mimari yapı. Bu yapıya uygun API'a REST-API denir.
+              </p>
+          </div>
+          <div class="row" id="apiNedir">
+            <h1>API Nedir?</h1>
+            <p>
+              <b>A</b>pplication <b>P</b>rogramming <b>I</b>nterface
+            </p>
+            <p>
+              Bir uygulamada gerçekleştirmek istediğimiz ek bir işlemi, o işlemi sağlayan başka bir uygulamadan API kullanarak gerçekleştirebiliriz.
+            </p>
+
+            <h2><b>I</b>nterface</h2>
+            <p>
+              Arka planını bilmediğimiz işlevselliğe ulaşmak için kullanılan kısım.
+            </p>
+            <h2><b>A</b>pplication <b>P</b>rogramming</h2>
+            <p>
+              İki yazılımın iletişimi
+            </p>
+
+            <h2>API neden kullanılır?</h2>
+            <ul>
+              <li>API kullanımı bizi ilgili işlemin gerektireceği iş yükünden kurtarır. “API hayatı kolaylaştırır”.</li>
+              <li>API lar özel kullanıcı kitlelerine yönelik hazırlanırlar ve ilgili verileri hızlı bir şekilde oluşturmamızı sağlarlar. ( IMDB API, GitHub API ..)</li>
+              <li>Platform bağımsız çalışırlar. Yazıldığı dil bizi ilgilendirmez.</li>
+              <li>Güncelleme durumunda bizim yapmamız gereken işlemler sınırlıdır.</li>
+            </ul>
+          </div>
+          <div class="row" id="restApiNedir">
+            <h1>REST API Nedir?</h1>
+            <p>
+              <b>Re</b>presentational <b>S</b>tate <b>T</b>ransfer
+            </p>
+            <p>
+              Bir kaynağa yapılan isteğe karşılık gelen veri transferi. Bu transfer genelde JSON formatında olur.
+            </p>
+            <p>
+              İsteğin yapıldığı andaki güncel state bilgisi çekilir. Alınan yerdeki veriler güncellendikçe çekilen veri de güncellenir.
+            </p>
+            <p>
+              REST-API, rest mimarisi prensipleri taşıyan API'dır. Tüm prensipleri karşılıyorsa RESTful API denir.
+            </p>
+            <p>
+              <a href="https://jsonplaceholder.typicode.com/">{JSON} Placeholder</a> API yapılarını testetmek için REST-API örneği sunan bir site.
+            </p>
+            <p>
+              API yapısı ile alınan JSON formatının tarayıcıda düzgün görünmesi için chrome web mağazasından JSON formatter indirilir.
+            </p>
+          </div>
+          <div class="row" id="restPrensip">
+            <h1>Rest Prensipleri</h1>
+            <ul>
+              <li>İstemci-Sunucu (Client - Server)</li>
+              <li>Tek tip arayüz (Uniform Interface)</li>
+              <li>Durumsuzluk (Statelessness)</li>
+              <li>Önbelleklenebilirlik (Cacheable)</li>
+              <li>Katmanlı sistem (Layered System)</li>
+              <li>İsteğe bağlı kod (Code on Demand - Optional)</li>
+            </ul>
+
+            <h2>İstemci-Sunucu (Client - Server)</h2>
+            <p>
+              İstemci isteği gönderen, sunucu da ilgili cevabı veren durumundadır. Birbirlerinin sorumluluk alanlarına girmezler. Birbirlerinden bağımsız programlama dilleri ve teknolojiler kullanabilirler.
+            </p>
+
+            <h2>Tek tip arayüz (Uniform Interface)</h2>
+            <p>
+              Aynı kaynağa yönelik olan tüm istekler, isteğin nereden geldiğinden bağımsız olarak aynı şekilde görünmelidir. Bu aynı zamanda istemci – sunucu bağımsızlığını da destekler. 4 temel özelliği bulunmaktadır.
+            </p>
+            <ul>
+              <li><h3 style="display: inline;">Kaynakların tanımlanması</h3></li>
+              <p>
+                Bir kaynak için bir sunucuya yapılacak istek benzersiz bir url ile tanımlanır.
+              </p>
+
+              <li><h3 style="display: inline;">İstemci tarafında kaynağın değiştirilmesi</h3></li>
+              <p>
+                İstemci sunucunun kendine gönderdiği verilerde değişiklik yapabilir veya silebilir (yetkisi varsa)
+              </p>
+
+              <li><h3 style="display: inline;">İstemci ve sunucu birbirinin ihtiyaç duyfuğu bilgilerin tamamını gönderir</h3></li>
+              <p>
+                Sunucu istemciye göndereceği sunumun dosya tipini belirtir. 
+              </p>
+              <p>
+                İstemci aynı url ye istemde bulunduğunda metodu da belirtir. (GET/users vs POST/users vs) Bu da sonucu değiştirir.
+              </p>
+
+              <li><h3 style="display: inline;">HATEOAS (Hypermedia as the Engine of Application State)</h3></li>
+              <p>
+                Sunucu cevabın yanında farklı ek aksiyonlar için url adresleri de gönderebilir.
+              </p>
+            </ul>
+
+            <h2>Durumsuzluk (Statelessness)</h2>
+            <p>
+              state: o anki mevcut vaziyet.
+            </p>
+            <p>
+              Durum bilgisi tutuluyorsa stateful, tutulmuyorsa stateless denir.
+            </p>
+            <p>
+              Stateless olması için sunucu istemci tarafından kendisine gönderilen bilgileri tutmamalıdır.
+            </p>
+
+            <h2>Önbelleklenebilirlik (Cacheable)</h2>
+            <p>
+              Cache ihtiyacımız olan verileri lokalde tutmaya denir. Bu da tekrar kullanımda hızı arttırır.
+            </p>
+            <p>
+              Sunucu gelen isteklere verilen cevapların önbelleklenebilir olup olmadığını belirtmelidir. Örneğin “Cache-Control”, “Expires” gibi HTTP başlıkları önbellek ile ilgili bilgiler taşır.
+            </p>
+
+            <h2>Katmanlı sistem (Layered System)</h2>
+            <p>
+              İstemci – sunucu arasındaki ilişki katmanlara ayrılabilir, ve bileşenler sadece ilişkili oldukları katmanlara karşı sorumlu olurlar.
+            </p>
+            <p>
+              Bu ara katmanlar gönderilen istekte veya alınan cevapta değişiklik yapmamalıdır.
+            </p>
+
+            <h2>İsteğe bağlı kod (Code on Demand - Optional)</h2>
+            <p>
+              Sunucu, istemci tarafına istemcinin işlevini genişletecek ek kodlar gönderebilir. Bu özellik istemci tarafında yapılması gereken işlemleri hafifletir.
+            </p>
+            <p>
+              Örneğin sunucu, istemci tarafına döneceği HTML dökümanın içerisine JavaScript kodları ekleyebilir.
+            </p>
+          </div>
+          <div class="row" id="httpNedir">
+            <h1>HTTP Nedir?</h1>
+            <p>
+              <b>H</b>yper <b>T</b>ext <b>T</b>ransfer <b>P</b>rotocol
+            </p>
+            <p>
+              İstemci ile sunucu arasında veri akışının kurallarını belirler.
+            </p>
+            <p>
+              request - response modeline göre çalışır.
+            </p>
+
+            <h2>HTTP Request</h2>
+            <p>4 bölümden oluşur:</p>
+            <ul>
+              <li style="font-size: large;"><b>Request Line</b></li>
+              <p>
+                http metodu, path, http versiyon belirtilir.
+              </p>
+              <li style="font-size: large;"><b>Request headers</b></li>
+              <p>
+                İsteğin özelliklerini isim ve değer çifti olarak belirtilir.
+              </p>
+              <p>
+                Hangi header nasıl kullanılır için: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers">developer.mozilla.org/en-US/docs/Web/HTTP/Headers</a> 
+              </p>
+              <li style="font-size: large;"><strong>Boş Satır</strong></li>
+              <p>
+                header ile body i ayırır
+              </p>
+              <li style="font-size: large;"><strong>Request Message Body</strong></li>
+              <p>
+                İsteğin gönderildiği kısım
+              </p>
+            </ul>
+            <img src="images/restApi/Request.png" class="w-100" alt="">
+
+            <h2>HTTP Response</h2>
+            <ul>
+              <li style="font-size: large;"><b>Status</b></li>
+              <p>
+                http protokol versiyonu, http status code
+              </p>
+              <li style="font-size: large;"><b>Response headers</b></li>
+              <p>
+                Cevabın özelliklerini isim ve değer çifti olarak belirtilir.
+              </p>
+              <p>
+                Hangi header nasıl kullanılır için: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers">developer.mozilla.org/en-US/docs/Web/HTTP/Headers</a> 
+              </p>
+              <li style="font-size: large;"><strong>Boş Satır</strong></li>
+              <p>
+                header ile body i ayırır
+              </p>
+              <li style="font-size: large;"><strong>Response Message Body</strong></li>
+              <p>
+                Cevabın gönderildiği kısım
+              </p>
+            </ul>
+            <img src="images/restApi/Response.png" class="w-100" alt="">
+          </div>
+          <div class="row" id="httpStatus">
+            <h1>HTTP Durum Kodları</h1>
+            <p>
+              Sunucu tarafından gelen cevaptaki bu 3 haneli kod sunucu tarafında olanları özetler.
+            </p>
+            <ul>
+              <li>Informational responses (Bidirimsel cevaplar) (100–199)</li>
+              <ul>
+                <li>100 Continue</li>
+                <li>102 Processing</li>
+              </ul>
+              <li>Successful responses (Başarılı cevaplar) (200–299)</li>
+              <ul>
+                <li>200 OK</li>
+                <li>201 Created</li>
+                <li>204 No Content</li>
+                <p>
+                  204 ile gelen cevapların bodysi olmaz
+                </p>
+              </ul>
+              <li>Redirections (Yönlendirme cevapları) (300–399)</li>
+              <ul>
+                <li>300 Multiple Choice</li>
+                <li>301 Moved Permanently</li>
+                <li>304 Not Modified</li>
+              </ul>
+              <li>Client errors (İstemci Hataları) (400–499)</li>
+              <ul>
+                <li>400 Bad Request</li>
+                <li>401 Unauthorized</li>
+                <li>403 Forbidden</li>
+                <li>404 Not Found</li>
+                <li>405 Method Not Allowed</li>
+              </ul>
+              <li>Server errors (Sunucu Hataları) (500–599)</li>
+              <ul>
+                <li>500 Internal Server Error</li>
+                <li>503 Service Unavailable</li>
+              </ul>
+              <p>
+                Diğer kodlar için: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">developer.mozilla.org/en-US/docs/Web/HTTP/Status</a>
+              </p>
+            </ul>
+          </div>
+          <div class="row" id="httpmethods">
+            <h1>HTTP Metotları</h1> 
+
+            <ul>
+              <li><strong>GET</strong></li>
+              <p>
+                Verileri almak - listelemek için kullanılan istek metodudur.
+              </p>
+              <li><strong>POST</strong></li>
+              <p>
+                Belirli bir kaynağa veri göndermek için kullanılır.
+              </p>
+              <li><strong>PUT</strong></li>
+              <p>
+                Belirli bir kaynaktaki verinin tamamının değiştirilmesi için kullanılan metodtur. Değiştirilmek istenen veriyi silip yerine yeni bir veri yazar. Bu nedenle tek bir değer değiştirmek istiyorsak diğer verileri de göndermemiz gerekir.
+              </p>
+              <li><strong>PATCH</strong></li>
+              <p>
+                Belirli bir kaynaktaki verilerin bir kısmının değiştirilmesi için kullanılan metodtur. Gönderilen veriyi değiştirir. Kalan veriyi olduğu gibi tutar.
+              </p>
+              <li><strong>DELETE</strong></li>
+              <p>
+                Belirli bir kaynaktaki verilerin silinmesi için kullanılan metodtur.
+              </p>
+              <li>CONNECT</li>
+              <p>
+                Genelde sss kullanılan veb sayfalarına ulaşmak için kullanılır.
+              </p>
+              <li>OPTIONS</li>
+              <p>
+                ilgili url de izin verilen metotları belirtir.
+              </p>
+              <li>TRACE</li>
+              <p>
+                genelde debug metotları için kullanılır.
+              </p>
+              <li>HEAD</li>
+              <p>
+                get ile benzerdir ancak sadece header bilgisini alır.
+              </p>
+            </ul>
+
+            <h2>Safe Metodlar</h2>
+            <p>Read only metotlardır. Sunucu tarafında değişiklik yapmazlar.</p>
+            <p><strong>GET, HEAD, OPTIONS</strong></p>
+
+            <h2>Idempotent Metodlar</h2>
+            <p>
+              Tekrar durumunda sunucu state yapısında herhangi bir etki yapmazlar. Gelen cevaplar değişmezler.
+            </p>
+            <p>
+              safe metotlar yapısı gereği idempotenttir. <strong>GET, HEAD, OPTIONS</strong>
+            </p>
+            <p>
+              İlkinde değişiklik yapması önemli değil. Aynı istek gönderilmeye devam ettiğinde değişiklik yapmıyorsa idempotenttir. <strong>DELETE, PUT, TRACE</strong>
+            </p>
+
+            <h2>Endpoint (Sorgu Adresi)</h2>
+            <p>
+              REST API kullanımında gönderilen istek ile verilen cevap için belirlenen buluşma noktasıdır.
+            </p>
+            <p>
+              Root(Base) /Path yapısından oluşur, isimler kullanılır, fiil ilgili HTTP metodu ile belirtilir. Dökümantasyon tarafından belirtilir.
+            </p>
+            <p>
+              <span>https://jsonplaceholder.typicode.com</span><span>/posts</span> <br>
+              <strong>root:</strong> https://jsonplaceholder.typicode.com <br>
+              <strong>path:</strong> /posts
+              
+            </p>
+            <p>
+              hiyerarşik bir yapı kullanılır. <br>
+              https://jsonplaceholder.typicode.com/posts/1/comments => id'si 1 e karşılık gelen posttaki yorumlar
+            </p>
+            <p>
+              Değişen değer için genelde (:) kullanılır. <br>
+              /posts/:id veya /posts/{{id}}
+            </p>
+            <p>
+              Sorgu parametreleri için (?) kullanılır. <br>
+              http://example.com/articles?sort=author&date=published
+            </p>
+          </div>
+          <div class="row" id="jsonNedir">
+            <h1>JSON Nedir?</h1>
+            <p>
+              <b>J</b>ava<b>S</b>cript <b>O</b>bject <b>N</b>otation
+            </p>
+            <p>
+              Veri depolamak veya veri iletmek için kullanılan metin tabanlı bir söz dizimi yapısıdır. Genellikle bir sunucu ve istemci arasında veri alışverişi için veya yazılımların genel ayarları için kullanılan bir formattır.
+            </p>
+            <ul><h2>JSON veri tipleri</h2>
+              <li>String</li>
+              <p>
+                "Sample String", "test1234", "A" <br>
+                String değerler çift tırnak içine yazılmalı
+              </p>
+              <li>Number</li>
+              <p>7, 3.2, -97.238</p>
+              <li>Boolean</li>
+              <p>
+                true, false <br>
+                küçük harf ile yazılacak
+              </p>
+              <li>Null</li>
+              <p>
+                null <br> 
+                Boş olan değerler için kullanılır.
+              </p>
+              <li>Array</li>
+              <p>[2,3,5,7] , ["İstanbul", "Ankara", "İzmir"] <br> 
+                Array içerisinde kullanılan değerler sıralı olarak listelenebilir.</p>
+              <li>Object</li> 
+              <p>
+                { "name": "Gürcan", "age":40 } <br> 
+                JSON nesneleri verileri key-value çiftleri olarak tanımlar. <br>
+                key değeri çift tırnak içine yazılır.
+              </p>
+            </ul>
+
+            <p>
+              JSON veri tipinin uygunluğunu kontrol etmek için: <a href="https://jsonlint.com/">jsonlint.com</a>
+            </p>
+          </div>
+          <div class="row" id="jsonJsXml">
+            <h1>JSON - JavaScript - XML</h1>
+            <p>
+              Uygun JSON formatındaki bir içerik JavaScript ifadesine (expression) denk gelir.
+            </p>
+            <p>
+              js ifadesinde key değerleri çift tırnak içinde yazılabilir ama tercih edilmez. Çift tırnak işareti ile yazılsa da tekrar çağırıldığında tırnakları kendisi siler.
+            </p>
+            <p>
+              json her ne kadar js alt kümesi olsa da başka dillere rahatlıkla parse edilebilir.
+            </p>
+
+            <h2>XML</h2>
+            <p>
+              e<strong>X</strong>tensible <strong>M</strong>arkup <strong>L</strong>anguage
+            </p>
+            <p>
+              JSON'dan önce jullanılıyordu. Ağaç yapısı şeklindedir (HTML gibi etiketler içine yazılır.) Bu ağaç yapısını kullanabilmek için önce programlama dillerine uygun olan nesne yapısına dönüştürmek gerekir.
+            </p>
+            <p>
+              JSON daha kolay işlenir ve daha kolay okunur.
+            </p>
+            <p>
+              XML'in güvenlik tarafında avantajları var.
+            </p>
+          </div>
+          <div class="row" id="postman">
+            <h1>Postman</h1>
+            <p>
+              Postman bir API platformudur. API geliştirmek , test etmek ve/veya hazır bir API kullanımı için gerekli isteklerde bulunabileceğimiz bir uygulamadır. 
+            </p>
+            <p>
+              <a href="https://www.postman.com/downloads/">postman.com/downloads/</a> -> download ve setup
+            </p>
+            <p>
+              uygulama içinden + ile yeni untitled request oluşturulur. <br>
+              ilgili request seçilir ve gönderilecek url girilir. <br>
+              ilgili veriler body alanına json olarak yazılır. <br>
+              send ile gönderilir.
+            </p>
+          </div>
+          <div class="row" id="starWarsApi">
+            <h1>Star Wars API</h1>
+            <p>
+              Bu çalışma için <a href="https://swapi.dev/">swapi.dev</a> adresini kullanacağız.
+            </p>
+            <p>
+              postman uygulamasında SWAPI API koleksiyonu ve içine FILMS klasörü açıldı.
+            </p>
+            <p>
+              <a href="https://swapi.dev/documentation">swapi.dev/documentation</a> içerisinden alınan bilgilerle <b>root:</b> https://swapi.dev/api/ olan sorgular yapıldı.  
+            </p>
+            <p>
+              GET ALL FILMS <br>
+              GET https://swapi.dev/api/films/
+            </p>
+            <p>
+              GET A FILM
+              GET https://swapi.dev/api/films/1/
+            </p>
+            <p>
+              SWAPI API koleksiyonu için root hep aynı olacağından değişkene atanabilir. Bunun için SWAPI API çift tıklanır. Variables ekranında baseURL değişkeni https://swapi.dev/api değeri ile oluşturulur. save ile kaydedilir.
+            </p>
+            <p>
+              GET ALL FILMS <br>
+              GET {{baseURL}}/films/
+            </p>
+            <p>
+              GET A FILM <br>
+              GET {{baseURL}}/films/1/
+            </p>
+
+            <h2>Search</h2>
+            <p>
+              Dökümantasyondan search kısmına bakılır. Bu işlem farklı API larda farklı yapılıyor olabilir.
+            </p>
+            <p>
+              GET {{baseURL}}/films/?search=Hope <br>
+              <b>{{baseURL}}</b>: root <br>
+              <b>/films/</b>: arama yapılacak kısım. <br>
+              <b>?</b> sorgu yapıldığını ifade eder. <br>
+              <b>search</b>: kullandığımız API ın sorgu için kullandığı key değeri. <br>
+              <b>Hope</b>: aranacak değer.
+            </p>
+            <p>
+              Aranacak değer url yapısına uygun olmayan karakter içeriyorsa value sağ tıklanıp Encode URI Component yapılır.
+            </p>
+
+            <h2>Değişken ile sorgu</h2>
+            <p>
+              GET A FILM <br>
+              GET {{baseURL}}/films/:id/ <br>
+              :id ifadesi sonucunda sorgu ekranında Path Variables ekranı açılır ve id key olarak atanır. Karşısına yazılacak value değerine göre de sorgu yapar.
+            </p>
+
+          </div>
+          <div class="row" id="tmdbApi">
+            <h1>The Movie Database API (TMDBAPI)</h1>
+            <p>
+              Bu çalışma için <a href="https://www.themoviedb.org/">themoviedb.org</a> adresini kullanacağız. Önce siteye girip kayıt oluyoruz ve giriş yapıyoruz.
+            </p>
+            <p>
+              profil>ayarlar>API içinde bir API key oluşturacağız. API key bizim giriş anahtaramız olacak.
+            </p>
+            <p>
+              postman uygulamasında TMDB API koleksiyonu ve içine MOVIE klasörü açıldı.
+            </p>
+            <p>
+              TMDB API döküman içinden istenilen sorgunun bilgileri ve örnekleri bulundu.
+            </p>
+            <p>
+              örnekte: <br>
+              https://api.themoviedb.org/3/movie/popular?api_key=<u>&lt;&lt;api_key>></u>&language=en-US&page=1 <br>
+              altı çizili alana api key yazılır. <br>
+              https://api.themoviedb.org/3/movie/popular?api_key=7b1bf84936443d5217465b87c43a41aa&language=en-US&page=1
+            </p>
+            <p>
+              api_key postmande ilgili sorgunun authorization alanına da yazılabilir. API KEY seçilir. <br> key: api_key <br>
+              value: bizim api keyimiz <br>
+              add to: query params <br>
+              burada uygulanan authorization metodu ilgili API nin dökümentasyonuna göre belirlendi.
+            </p>
+            <p>
+              root daha önceki çalışmadaki gibi değişken olarak atanabilir.
+            </p>
+            <p>
+              GET POPULAR MOVIES <br>
+              GET {{baseURL}}/movie/popular?language=tr&page=1
+            </p>
+            <p>
+              GET A MOVIE <br>
+              GET {{baseURL}}/movie/:movie_id <br>
+              movie_id keyin valuesine istenilen filmin idsi yazılır. <br>
+              authorization alanı düzenlenir. <br>
+              Türkçe isteniyorsa <br>
+              {{baseURL}}/movie/:movie_id?language=tr
+            </p>
+            <p>
+              RATE MOVIE <br>
+              POST {{baseURL}}/movie/:movie_id/rating <br>
+              authorization işlemi önceki gibi yapılır. <br>
+              POST işlemi için session gerekir. Bunun için de request token kullanılır.
+            </p>
+
+            <h2>Session</h2>
+            <p>
+              CREATE REQUEST TOKEN <br>
+              GET {{baseURL}}/authentication/token/new <br>
+              authorization işlemi de yapılır ve gönderilir. <br>
+              gelen cevaptaki request_token kopyalanır. <br>
+              TMDB API variables alanına token keyi oluşturur ve value olarak kopyaladığımız değer yapıştırılır.
+            </p>
+            <p>
+              https://www.themoviedb.org/authenticate/{REQUEST_TOKEN} linkindeki alan request token eklenerek doldurulur ve web tarayıcıya yazılır. Gelen alan onaylanır.
+            </p>
+            <p>
+              CREATE SESSION ID <br>
+              POST {{baseURL}}/authentication/session/new <br>
+              body kısmında raw>JSON olarak: <br>
+              { <br>
+                "request_token": "e6a2bb9a30ed7725077e67444fba478655128027" <br>
+              } <br>
+              authorization işlemi de yapılır ve gönderilir. <br>
+              helen cevaptaki session_id value değeri kopyalanır. <br>
+              TMDB API variables alanına session_id keyi oluşturur ve value olarak kopyaladığımız değer yapıştırılır.
+            </p>
+            <p>
+              RATE MOVIE<br>
+              POST {{baseURL}}/movie/:movie_id/rating <br>
+              authorization işlemi önceki gibi yapılır. <br>
+              query params içine: key: session_id value: {{session_id}} <br>
+              body kısmında raw>JSON olarak: <br>
+              { <br>
+                "value": 6 <br>
+              } <br>
+              send ile gönderilir
+            </p>
+            <p>
+              DELETE A MOVIE <br>
+              DELETE {{baseURL}}/movie/:movie_id/rating <br>
+              authorization işlemi önceki gibi yapılır. <br>
+              query params içine: key: session_id value: {{session_id}} <br>
+              send ile gönderilir.
+            </p>
+
+            <h2>Bearer Token (API Read Access Token) Kullanımı</h2>
+            <p>
+              API key aldığımız ekranda yer alıyor. Authorization ekranında API key yerine Bearer Token seçilir. ve token buraya yapıştırılır.
+            </p>
+            <p>
+              Dökümantasyona göre API key ile aynı işe yarıyor.
+            </p>
+          </div>
+          <div class="row" id="fakeApi">
+            <h1>Fake API</h1>
+            <p>
+              Bu pratiğimizde bir Fake (göstermelik) REST API oluşturacağız. Fake REST API oluşturmanın avantajları:
+            </p>
+            <ul>
+              <li>Frontend (Ön yüz) tarafı hazır olan bir uygulamayı test etmek isteyebiliriz.</li>
+              <li>Yapmayı düşündüğümüz bir Backend (Arka yüz) çalışması için bir prototip oluşturmak isteyebiliriz.</li>
+              <li>Postman gibi bir API platformunda farklı HTTP metotlarına ait istekler gerçekleştirmek isteyebiliriz.</li>
+            </ul>
+            <p>
+              FAKE REST API adında bir klasör oluşturup VSC ile açılıp terminale: <br>
+              <code>
+                npm init
+              </code>
+            </p>
+            <p>
+              FAKE API için JSON SERVER paketi kullanacağız. Dökümantasyon <a href="https://github.com/typicode/json-server">github.com/typicode/json-server</a>
+            </p>
+            <p>
+              Dökümantasyonda kurulum için 
+              <code>
+                npm install -g json-server
+              </code> yazıyor. <q>-g</q> burada yüklemeyi global hale getiriyor. Biz sadece bu projede kullanacağımız için terminale: <br>
+              <code>
+                npm i json-server
+              </code>
+            </p>
+            <p>
+              Dökümantasyona göre db.json oluşturulur ve içine JSON formatında veriler yüklenir. Biz api klasörü içine employees.json dosyası oluşturup istediğimiz veriyi Json formatında ekliyoruz. Biz employee ve role adında iki veri grubu oluşturduk.
+            </p>
+            <p>
+              DB tipi veri yaratmak için <a href="https://www.mockaroo.com/">mockaroo.com</a>
+            </p>
+            <p>
+              Dökümantasyona göre terminale <code>json-server --watch db.json</code> yazılarak server başlatılır. Biz başka bir klasör kullanacağımız için package.json script alanına<br>
+              <code>
+                "start:server": "json-server --watch api/employees.json"
+              </code> yazıp kaydediyoruz ve sonra terminale <br>
+              <code>
+                npm run start:server
+              </code> yazıyoruz. <br>
+              terminalde gelen cevapta api için root ve path bilgilerini alıyoruz. Aynı yerdeki home page ise resources vs hakkında bilgi verir.
+            </p>
+            <p>
+              Şimdi postman ile request gönderiyoruz. Önce yeni bir collection (FAKE API) oluşturuyoruz ve sonra da istekleri oluşturup gönderiyoruz. FAKE API collection variables baseURL:  http://localhost:3000
+            </p>
+            <p>
+              GET ALL EMPLOYEES <br>
+              GET {{baseURL}}/employee
+            </p>
+            <p>
+              GET EMPLOYEE DETAIL <br>
+              GET {{baseURL}}/employee/:id <br>
+              Dökümantasyona göre / dan sonra id yazılıyor. Biz de buraya id değişkeni yazdık. Değişken değerini de Path Variables içine yazdık.
+            </p>
+            <p>
+              FILTER EMPLOYEES <br>
+              GET {{baseURL}}/employee?gender=Female <br>
+              Gender değeri Female olanları verir.
+            </p>
+            <p>
+              Birden fazla sorgu yapılacağında arasına <q>&</q> konulur.
+            </p>
+            <p>
+              <b>_page</b>: pagination için sayfanın numarasını verir. <br>
+              <b>_limit</b>: bir sayfada gösterilecek veri miktarını verir. <br>
+              <b>_sort</b>: sıralama <br>
+              <b>_order</b>: sıralama yönü: asc veya desc alır. varsayılanı asc dir. <br>
+              <b>q</b>: search için
+            </p>
+            <p>
+              GET {{baseURL}}/employee?gender=Female&_page=1&_limit=2&_sort=first_name&_order=desc&q=duff <br>
+              sorgu: <br>
+              gender: Female <br>
+              kaçıncı sayfa: 1 <br>
+              sayfadaki veri sayısı: 2 <br>
+              sıralama: first name <br>
+              sıralama: azalan <br>
+              aranan değer: duff
+            </p>
+            <p>
+              bizim oluşturduğumuz database kurgusunda role - employee ilişkisinde employee child, role ise parent. Çünkü her employee bir role karşılık geliyor.
+            </p>
+            <p>
+              <b>_embed</b>: child içeren parentleri sıralar.
+              <b>_expand</b>: parent içindeki çocukları sıralar.
+            </p>
+            <p>
+              GET ROLES WITH EMPLOTEES <br>
+              GET {{baseURL}}/roles/1?_embed=employee <br>
+              rolleri ve her rol için o role sahip çalışanları verir.
+            </p>
+            <p>
+              GET EMPLOYEES WITH ROLES <br>
+              GET {{baseURL}}/employee?_expand=role
+            </p>
+            <p>
+              ADD AN EMPLOYEE <br>
+              POST {{baseURL}}/employee <br>
+              mesajın body kısmına oluşturulacak employee bilgileri eklenir. Id eklenmez. Bunu db kendi verir.
+            </p>
+            <p>
+              DELETE AN EMPLOYEE <br>
+              DELETE {{baseURL}}/employee/:id <br>
+              id değişkenine yazılan id ye karşılık gelen veriyi siler.
+            </p>
+            <p>
+              UPDATE AN EMPLOYEE <br>
+              PATCH {{baseURL}}/employee/:id <br>
+              id değişkenine yazılan id ye karşılık gelen veriyi body de yazılan key-value değerine göre günceller.
+            </p>
+            <p>
+              PATCH metodu ile sadece değiştirilecek veri çifti gönderilir. PUT metodunda ise tüm veriler gönderilir. 
+            </p>
+          </div>
+          <div class="row" id="cURL">
+            <h1>cURL Kullanımı</h1>
+            <p>
+              URL üzerinden veri transferi yapmamızı sağlayan bir komut satırı aracıdır. REST API çerçeverinde sorgu adreslerine yapılan isteklerde sıklıkla kullanılır. HTTP, HTTPS, FTP, FTPS, GOPHER, GOPHERS, IMAP, IMAPS vs.. bir çok protokolü desteklemektedir.
+            </p>
+            <p>
+              <a href="https://curl.se/">curl.se</a> üzerinden indirilerek veya git bash ile kullanılabilir. Biz git bash kullanacağız.
+            </p>
+            <p>
+              git bash terminaline: <br>
+              <code>
+                curl https://swapi.dev/api/planets/1/
+              </code> yazıldığında ilgili linke get request yapar ve sonucu terminalde gösterir.
+            </p>
+            <p>
+              git bash terminaline: <br>
+              <code>
+                curl <u>-i</u> https://swapi.dev/api/planets/1/
+              </code> yazıldığında ilgili linke request yapar ve header bilgilerini terminalde gösterir.
+            </p>
+
+            <h2>cURL komut sseçenekleri</h2>
+            <p>
+              <b>-i</b> (--include): Çıktı içerisinde HTTP başlıklarını da gösterir. <br>
+              <b>-I</b> (--head): Yalnızca HTTP başlıklarını görmek için kullanılır. <br>
+              <b>-o</b> (--output) &lt;file> : Çıktıyı bir dosyaya yazdırmak için kullanılır. <br>
+              <b>-v</b> (--verbose): Daha fazla detay. <br>
+              <b>-s</b>: Sadece istenilen veri<br>
+            </p>
+
+            <h2>Daha Önce Yaptığımız Bazı İşlemlerin cURL Versiyonları</h2>
+            <p>
+              GET A FILM DTEAIL (SWAPI) <br>
+              <code>
+                curl https://swapi.dev/api/films/1/
+              </code>
+            </p>
+            <p>
+              GET POPULAR MOVIES (TMDBAPI) <br>
+              <code>
+                curl https://api.themoviedb.org/3/movie/popular?api_key=your_api_key
+              </code> <br>
+              your_api_key yerine kendi api keyimiz yazılır.
+            </p>
+            <p>
+              GET POPULAR MOVIES (TMDBAPI) -d seçeneği ile <br>
+              <code>
+                curl -X GET -G -d api_key=your_api_key https://api.themoviedb.org/3/movie/popular
+              </code> <br>
+              <b>-X</b> metodu belirtir. GET için method belirmek gerekmez.<br>
+              <b>-G</b> GET ile gönderilecek veriyi belirtir <br>
+              <b>-d</b> gönderilen data flagı
+            </p>
+            <p>
+              GET A MOVIE DETAIL (TMDBAPI) -d seçeneği ile <br>
+              <code>
+                curl -X GET -G -d api_key=your_api_key https://api.themoviedb.org/3/movie/:movie_id
+              </code> <br>
+              :movie_id yerine istenilen filmin id si yazılır.
+            </p>
+            <p>
+              GET ALL EMPLOYEES (Fake API) <br>
+              <code>
+                curl http://localhost:3000/employees
+              </code>
+            </p>
+            <p>
+              GET AN EMPLOYEE DETAIL (Fake API) <br>
+              <code>
+                curl http://localhost:3000/employees/:employee_id
+              </code> <br>
+              :employee_id yerine istenilen verinin id si yazılır.
+            </p>
+            <p>
+              POST AN EMPLOYEE (Fake API) <br>
+              <code>
+                curl -X POST -H "Content-Type: application/json" -d '{ "first_name": "Ricardo", "last_name": "Quaresma", "email": "ricardo@test.tr", "gender": "Male", "roleId": 3 }' http://localhost:3000/employees
+              </code> <br>
+              <b>-H</b> header göndermek için flag
+            </p>
+            <p>
+              DELETE AN EMPLOYEE (Fake API) <br>
+              <code>
+                curl -X DELETE http://localhost:3000/employees/:employee_id
+              </code>
+            </p>
+            <p>
+              UPDATE AN EMPLOYEE (Fake API) - PATCH <br>
+              <code>
+                curl -X PATCH -H "Content-Type: application/json" -d '{ "first_name": "Ricardo", "last_name": "Quaresma"}' http://localhost:3000/employees/:employee_id
+              </code> <br>
+              Sadece gönderilen veriyi günceller.
+            </p>
+            <p>
+              UPDATE AN EMPLOYEE (Fake API) - PUT <br>
+              <code>
+                curl -X PUT -H "Content-Type: application/json" -d '{ "first_name": "Ricardo", "last_name": "Quaresma"}' http://localhost:3000/employees/:employee_id
+              </code> <br>
+              İlgili id deki tüm veriyi silip gönderdiğimizi yazar
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
