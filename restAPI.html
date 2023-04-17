@@ -91,6 +91,8 @@
                 <li><a href="#tmdbApi">The Movie Database API (TMDBAPI)</a></li>
                 <li><a href="#fakeApi">Fake API</a></li>
                 <li><a href="#cURL">cURL Kullanımı</a></li>
+                <h3>Not</h3>
+                <li><a href="#fetch">API'dan Veriyi Node ile Sayfaya Aktarmak (fetch)</a></li>
             </ul>
         </div>
         <div class="col-sm-9">
@@ -867,6 +869,44 @@
                 curl -X PUT -H "Content-Type: application/json" -d '{ "first_name": "Ricardo", "last_name": "Quaresma"}' http://localhost:3000/employees/:employee_id
               </code> <br>
               İlgili id deki tüm veriyi silip gönderdiğimizi yazar
+            </p>
+          </div>
+          <div class="row" id="fetch">
+            <h1>API'dan Veriyi Node ile Sayfaya Aktarmak (fetch)</h1>
+            <p>
+              Bu kısmı diğer derslerden brinde gördüm. Biraz da kendim araştırdım. Gerekli olursa diye buraya da ekliyorum.
+            </p>
+            <p>
+              <code>
+                const url = "https://swapi.dev/api/films/" <br><br>
+                app.get('/', async (req, res) => { <br>
+                  fetch(url) <br>
+                  .then(response => response.json()) <br>
+                  .then(json => { <br>
+                    console.log("filmler alındı") <br>
+                    return films = json.results <br>
+                  }) <br>
+                  .then(films => res.status(200).render('index', {films}, console.log("render OK"))) <br>
+                }); <br>
+              </code> <br> veya <br>
+              <code>
+                const url = "https://swapi.dev/api/films/" <br><br>
+                app.get('/', async (req, res) => { <br>
+                  await fetch(url) <br>
+                  .then(response => response.json()) <br>
+                  .then(json => { <br>
+                    console.log("filmler alındı") <br>
+                    return films = json.results <br>
+                  }) <br>
+                  res.status(200).render('index', {films}, console.log("render OK"))
+                }); <br>
+              </code>
+            </p>
+            <p>
+              fatch kullanımı için: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch</a>
+            </p>
+            <p>
+              axios benzer işlemleri daha da kolay yaptığımız bir kütüphane.
             </p>
           </div>
         </div>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redux</title>
+    <link rel="stylesheet" href="css/sql.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .menu ul{
+            list-style-position: inside;
+            list-style: none;
+        }
+        li a{
+            color: black;
+            text-decoration: none;
+        }
+        li:hover{
+            background-color: rgba(0, 0, 0, 0.103);
+        }
+        h1{
+            border-bottom: 1px solid black;
+        }
+        h3{
+            margin-top: 4px;
+            margin-bottom: -3px;
+            font-size: normal;
+        }
+        ul{
+          list-style-position: inside;
+        }
+        table, th ,td{
+          border: 1px black solid;
+          border-collapse: collapse;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Redux</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Ana Sayfa</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Eğitim Notları
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                          <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                          <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                          <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                          <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                          <li><a class="dropdown-item" href="sql.html" target="_blank">SQL notları</a></li>
+                          <li><a class="dropdown-item" href="nodejs.html" target="_blank">NodeJS notları</a></li>
+                          <li><a class="dropdown-item" href="restAPI.html" target="_blank">Rest Api notları</a></li>
+                          <li><a class="dropdown-item" href="react.html" target="_blank">React</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- İçerik Start -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top menu d-none d-lg-block" style="height: fit-content;">
+            <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
+            <h2 class="text-center">Konu Listesi </h2>
+            <ul style="max-height: 400px; overflow: auto;">
+                <div class="giris">
+                  <h3>Giriş</h3>
+                  <li><a href="#whatIsRedux">Redux nedir ? Ne zaman tercih ediir?</a></li>
+                </div>                   
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <div class="row" id="whatIsRedux">
+                <h1>Redux nedir ? Ne zaman tercih ediir?</h1>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
