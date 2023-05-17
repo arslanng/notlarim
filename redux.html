@@ -28,14 +28,23 @@
             font-size: normal;
         }
         ul{
-          list-style-position: inside;
+            list-style-position: inside;
         }
         table, th ,td{
-          border: 1px black solid;
-          border-collapse: collapse;
-          text-align: center;
+            border: 1px black solid;
+            border-collapse: collapse;
+            text-align: center;
         }
-    </style>
+        nav{
+            background-color: white;
+        }
+        .nav-pills .nav-link.active {
+            background-color: rgba(0, 0, 0, 0.51);
+        }
+        .nav-pills .nav-link {
+            color: black
+        }
+        </style>
 </head>
 <body>
     <div class="nav bg-light">
@@ -79,22 +88,3998 @@
       <div class="row">
         <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top menu d-none d-lg-block" style="height: fit-content;">
             <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
-            <h2 class="text-center">Konu Listesi </h2>
-            <ul style="max-height: 400px; overflow: auto;">
-                <div class="giris">
-                  <h3>Giriş</h3>
-                  <li><a href="#whatIsRedux">Redux nedir ? Ne zaman tercih ediir?</a></li>
-                </div>                   
-            </ul>
+            <h2>Konu Listesi </h2>
+            <hr>
+            <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end " style="max-height: 400px; overflow: auto;">
+                <nav class="nav nav-pills flex-column ">
+                  <a class="nav-link" href="#whatIsRedux">Giriş</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#whatIsRedux">Redux nedir ? Ne zaman tercih ediir?</a>
+                    <a class="nav-link ms-3 my-1" href="#immutability">Immutability</a>
+                  </nav>
+                  <a class="nav-link" href="#reduxStore">Counter App</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#reduxStore">Redux Store Oluşturalım</a>
+                    <a class="nav-link ms-3 my-1" href="#createSliceUseSelector">Bir veri tanimlamak ve kullanmak (createSlice & useSelector)</a>
+                    <a class="nav-link ms-3 my-1" href="#updateData">Bir veriyi güncellemek</a>
+                  </nav>
+                  <a class="nav-link" href="#todoGenelGorunum">To-do App</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#todoGenelGorunum">Genel Görünümün Hazırlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#todoStore">Store ve Todos Slice'ı Oluşturalım</a>
+                    <a class="nav-link ms-3 my-1" href="#todoAddItem">Yeni to-do elemanı eklemek</a>
+                    <a class="nav-link ms-3 my-1" href="#todoToggle">Toggle işlemlerinin yapılması</a>
+                    <a class="nav-link ms-3 my-1" href="#todoDelete">Silme işlemleri</a>
+                    <a class="nav-link ms-3 my-1" href="#todoFilter">Filtreleme işlemleri</a>
+                    <a class="nav-link ms-3 my-1" href="#todoSelectors">Selectors</a>
+                    <a class="nav-link ms-3 my-1" href="#todoPrepare">Prepare tanımı</a>
+                    <a class="nav-link ms-3 m4y-1" href="#todoSetupApi">API Kurulumu</a>
+                    <a class="nav-link ms-3 m4y-1" href="#todoUseApi">API üzerinden verileri çekmek (Thunk Middleware)</a>
+                    <a class="nav-link ms-3 m4y-1" href="#todoPostApi">Kayıtların API üzerinden eklenmesi (POST Methodu)</a>
+                    <a class="nav-link ms-3 m4y-1" href="#todoDeletePatchApi">Kayıtların API üzerinden güncelleme ve silinmesi</a>
+                    <a class="nav-link ms-3 m4y-1" href="#todoDeleteCompletedApi">Delete Completed (Ödev)</a>
+                  </nav>
+                  <a class="nav-link" href="#setupReactRouterReduxToolkitBbApi">Breaking Bad App</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#setupReactRouterReduxToolkitBbApi">React Router ve Redux Toolkit Kurulumu</a>
+                    <a class="nav-link ms-3 my-1" href="#CharDataBbApi">Karakterlerin API'dan çekilmesi</a>
+                    <a class="nav-link ms-3 my-1" href="#CharDataListBbApi">Çekilen karakterlerin listelenmesi</a>
+                    <a class="nav-link ms-3 my-1" href="#paginationBbApi">Sayfalama İşlemleri</a>
+                    <a class="nav-link ms-3 my-1" href="#charDetailBbApi">Karakter detay ekranının tasarlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#quotesBbApi">Quotes route'unun hazırlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#quoteDetailBbApi">Quotes detail route'unun hazırlanması</a>
+                  </nav>
+                  <a class="nav-link" href="#createEntityAdaptor">Contacts App</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#createEntityAdaptor">createEntityAdaptor</a>
+                    <a class="nav-link ms-3 my-1" href="#entityAdaptorSelectorFunctions">Entity Adaptor Selector Functions</a>
+                    <a class="nav-link ms-3 my-1" href="#formAndStyle">Form ve stillendirme işlemleri</a>
+                    <a class="nav-link ms-3 my-1" href="#deleteAndUpdate">Silme ve güncelleme işlemleri</a>
+                  </nav>
+                </nav>
+              </nav>
         </div>
         <div class="col-sm-9">
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
             <div class="row" id="whatIsRedux">
                 <h1>Redux nedir ? Ne zaman tercih ediir?</h1>
+                <p>
+                    Redux bir state yönetim aracıdır. State, uygulamanın o anda tuttuğu verilerdir. State değiştiğinde görünüm de değişir.
+                </p>
+                <p>
+                    Redux stateleri kompanentlerden ayrı bir yerde tutar ve istenildiğinde tüm kompanentlere sunabilir.
+                </p>
+
+                <ul>Redux benzeri araçlar
+                    <li><strong>MobX</strong>: Reduxtan daha kolay öğrenilebiliyormuş.</li>
+                    <li><strong>Recoil</strong></li>
+                    <li><strong>Context</strong>: Reactin kendi çekirdeğinde mevcut (biz bunu daha önce react derslerinde kullandık). Temiz, basit kullanımı kolay</li>
+                    <li><strong>Akita</strong></li>
+                    <li><strong>Apollo</strong> Backend graphQL ies kullanılabilir.</li>
+                </ul>
+
+                <p>
+                    Kolay test edilebilir. Kalıpları var bu nedenle de ekip çalışmasına uygun
+                </p>
+                <p>
+                    Çok fazla kavram barındırıyor. Öğrenmesi daha zor. Çok fazla kod yazılıyor.
+                </p>
             </div>
+            <div class="row" id="immutability">
+                <h1>Immutability</h1>
+                <p>
+                    Primitif veriler birbirine eşitlendiğinde iki ayrı veri olarak saklanırla. biri değiştiğinde diğeri etkilenmez <br>
+                    <pre class="prettyprint ms-0" >
+let name = "Murat"
+let name2 = name
+                    </pre> 
+                    olarak tanımladığımızda name veya name2 değişkenini kodun devamında değiştirdiğimizde sadece kendisi değişir. Diğeri değişmez. <br>
+                </p>
+                <p>
+                    <strong>Primitif veriler (Immutable):</strong> undefined, Boolen, Number, String, BigInt, Symbol, null
+                </p>
+                <p>
+                    Referans tipli veriler birbirine eşitlendiğinde bellekte iki ayrı veri olarak değil tek bir veri olarak saklanırlar. Biri değiştiğinde diğerleri de değişir. <br>
+                    <pre class="prettyprint ms-0">
+let user = {
+    name: "Murat", 
+    isActive: "true"
+}
+
+let user2 = user
+                    </pre>
+                    olarak tanımladığımızda user veya user2 de değişiklik yaptığımızda diğeri de değişir. Bu durumdan kurtulmak için klonu alınır: <br>
+                    <pre class="prettyprint ms-0">
+let user = {
+    name: "Murat", 
+    isActive: "true"
+}
+
+let user2 = {...user}
+                    </pre>
+                    veya obje birleştirme kullanılır: 
+                    <pre class="prettyprint ms-0">
+let user = {
+    name: "Murat", 
+    isActive: "true"
+}
+
+let user2 = Object.assign({}, user) // boş obje ile user'ı birleştirip yeni bir obje yarattık.
+                    </pre>
+                </p>
+                <p>
+                    <strong>Referans tipi veriler (Mutable):</strong> Object, Array, Map, Set, Date, Function vs.
+                </p>
+            </div>
+            <div class="row" id="reduxStore">
+                <h1>Redux Store Oluşturalım</h1>
+                <p>
+                    <pre class="prettyprint ms-0">npx create-react-app counter-app</pre> ile react projesi oluşturuldu.
+                </p> 
+                <p>
+                    <pre class="prettyprint ms-0">npm install react-redux</pre> ile redux kuruldu. Redux ile react'ı bağlamak için gerekli
+                    <pre class="prettyprint ms-0">npm install @reduxjs/toolkit</pre> redux tool kit kuruldu. Redux kullanımı için gerekli
+                </p>
+                <p>
+                    src/redux/store.js dosyası oluşturuldu ve içine:
+                    <pre class="prettyprint ms-0">
+import { configureStore } from "@reduxjs/toolkit";
+
+export const store = configureStore({
+  reducer: {},
+});
+                    </pre> yazıldı. Bu kısım bizim datalarımızı tutan depomuz olacak.
+                </p>
+                <p>
+                    Verilerin projedeki tüm kompanentlere ulaşması için src/index.js içine: 
+                    <pre class="prettyprint ms-0">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+import { store } from "./redux/store"; // dataları yerleştireceğimiz kaynak
+import { Provider } from "react-redux"; // react-redux bağlantısı
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  &lt;React.StrictMode>
+    &lt;Provider store={store}> {/* reduxtan gelen veri Providere prop verildi */}
+      &lt;App />
+    &lt;/Provider>
+  &lt;/React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+                    </pre>
+                </p>
+            </div>
+            <div class="row" id="createSliceUseSelector">
+                <h1>Bir veri tanimlamak ve kullanmak (createSlice & useSelector)</h1>
+                <p>
+                    redux/counter/counterSlice.js içinde:
+                    <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+
+export const counterSlice = createSlice({
+    name: "counter", // state e ulaşmak için kullanacağız.
+    initialState: { // statein başlangıç anındaki değerlerini girdiğimiz kısım
+    value: 0,
+    },
+    reducers: {
+    // statei günceleyecek tanımlar
+    },
+});
+
+export default counterSlice.reducer;
+                    </pre> ile bir başlangıç değeri tanımladık.
+                </p>
+                <p>
+                    Oluşturduğumuz veri deposunu src/redux/store.js içine import edip store yapısına dahil ettik.
+                    <pre class="prettyprint ms-0">
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./counter/counterSlice";
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer // counter keyine gelen veri yerleştirildi.
+  },
+});
+
+                    </pre>
+                </p>
+                <p>
+                    src/components/Counter.js komponentini oluşturup storedan çektiğimiz veriyi kullandık. 
+                    <pre class="prettyprint ms-0">
+import React from 'react'
+import { useSelector } from 'react-redux'
+
+function Counter() {
+    const countValue = useSelector((state) => state.counter.value) // statein altındaki counter altındaki value değerini aldık.
+    console.log(countValue);
+  return (
+    &lt;div>
+        &lt;h1>{countValue}&lt;/h1>
+    &lt;/div>
+  )
+}
+
+export default Counter
+                    </pre>
+                </p>
+                <p>
+                    Bu kompanenti de App.js içinde kullandık.
+                    <pre class="prettyprint ms-0">
+import './App.css';
+
+import Counter from "./components/Counter";
+
+function App() {
+  return (
+    &lt;div className="App">
+      &lt;Counter />
+    &lt;/div>
+  );
+}
+
+export default App;
+
+                    </pre>
+                </p>
+            </div>
+            <div class="row" id="updateData">
+                <h1>Bir veriyi güncellemek</h1>
+                <p>
+                  redux/counter/counterSlice.js içindeki reducers alanına bu dosyada tutulan veriyi manipüle edecek fonksiyonları ekledik ve export ettik.
+                  <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+
+export const counterSlice = createSlice({
+  name: "counter", // state e ulaşmak için kullanacağız.
+  initialState: {
+    // statein başlangıç anındaki değerlerini girdiğimiz kısım
+    value: 0,
+  },
+  reducers: {
+    // statei günceleyecek tanımlar
+    increment: (state) => {
+      state.value += 1;
+    },
+
+    decrement: (state) => {
+      state.value -= 1;
+    },
+    incrementByAmount: (state, action)=> { // sayfadan alınan veriyi kullandığımız fonksiyonlar.
+      state.value += Number(action.payload); // action.payload fonksiyona parametre olarak girilen değeri verir. Bu veri obje dahil tüm veri tiplerinde olabilir. // veri string olarak geldi. Biz de Number fonksiyonu ile sayıya çevirdik.
+    },
+    decrementByAmount: (state, action)=> {
+      state.value -= Number(action.payload);
+    },
+  },
+});
+
+export const { increment, decrement, incrementByAmount, decrementByAmount } = counterSlice.actions; // fonksiyonları dışa aktarıyoruz.
+export default counterSlice.reducer;
+
+                  </pre>
+                </p>
+                <p>
+                  Veri manipülasyonu için yazdığımız fonksiyonları component/Counter.js içinde kullandık. 
+                  <pre class="prettyprint ms-0">
+                    import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { increment, decrement, incrementByAmount, decrementByAmount } from "../redux/counter/counterSlice";
+
+function Counter() {
+    const countValue = useSelector((state) => state.counter.value) // statein altındaki counter altındaki value değerini aldık.
+    const dispatch = useDispatch()
+    // useDispatch, dispatch değişkenine tanımlandı.
+    const [amount, setAmount] = useState(0) // formdan veri almak için oluşturuldu. formdan aldığı veriyi counterSlice içine gönderiyoruz.
+
+  return (
+    &lt;div>
+        &lt;h1>{countValue}&lt;/h1>
+        &lt;button onClick={()=>dispatch(decrement())}>Decrement&lt;/button>
+        &lt;button onClick={()=>dispatch(increment())}>Increment&lt;/button>
+        {/* dispatch içinde çağırdığımız fonksiyonu kullanıyoruz. */}
+
+        &lt;br />&lt;br />
+        &lt;input type='number' value={amount} onChange={(e)=>setAmount(e.target.value)}/>
+        &lt;br />
+        &lt;button onClick={()=>dispatch(decrementByAmount(amount))}>Decrement by Amount&lt;/button>
+        &lt;button onClick={()=>dispatch(incrementByAmount(amount))}>Increment by Amount&lt;/button>
+    &lt;/div>
+
+    
+  )
+}
+
+export default Counter
+                  </pre>
+                </p>
+            </div>
+            <div class="row" id="todoGenelGorunum">
+              <h1>Genel Görünümün Hazırlanması</h1>
+              <p>
+                Yeni react projesi oluşturulur.
+              </p>
+              <p>
+                Projenin görüntüsü için hocanın önceden hazırladığı <a href="https://codepen.io/dmitrysharabin/pen/MWgQNYZ">kodlar</a> kullanılır.
+              </p>
+              <p>
+                index.css hocanın css kodları ile değiştirildi.
+              </p>
+              <p>
+                src/components klasöründe kompanentlerimizi oluşturduk ve bir kısmını iç içe yazıp App.js içinde birleştirdik.
+              </p>
+              <p>
+                App.js: 
+                <pre class="prettyprint ms-0">
+import "./App.css";
+import Content from "./components/Content";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+
+function App() {
+  return (
+    &lt;>
+      &lt;section className="todoapp">
+        &lt;Header />
+        &lt;Content />
+      &lt;/section>
+      &lt;Footer />
+    &lt;/>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+              <p>
+                components/Header.js:
+                <pre class="prettyprint ms-0">
+import React from "react";
+import Form from "./Form";
+
+function Header() {
+  return (
+    &lt;header className="header">
+      &lt;h1>todos&lt;/h1>
+      &lt;Form />
+    &lt;/header>
+  );
+}
+
+export default Header;
+
+                </pre>
+              </p>
+              <p>
+                components/Form.js: 
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function Form() {
+  return (
+    &lt;form>
+      &lt;input
+        className="new-todo"
+        placeholder="What needs to be done?"
+        autoFocus
+      />
+    &lt;/form>
+  );
+}
+
+export default Form;
+
+                </pre>
+              </p>
+              <p>
+                components/Content.js: 
+                <pre class="prettyprint ms-0">
+import React from "react";
+import TodoList from "./TodoList";
+import ContentFooter from "./ContentFooter";
+
+function Content() {
+  return (
+    &lt;>
+      &lt;section className="main">
+        &lt;input className="toggle-all" type="checkbox" />
+        &lt;label htmlFor="toggle-all">Mark all as complete&lt;/label>
+
+        &lt;TodoList />
+      &lt;/section>
+      &lt;ContentFooter />
+    &lt;/>
+  );
+}
+
+export default Content;
+
+                </pre>
+              </p>
+              <p>
+                components/TodoList.js:
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function TodoList() {
+  return (
+    &lt;ul className="todo-list">
+      &lt;li className="completed">
+        &lt;div className="view">
+          &lt;input className="toggle" type="checkbox" />
+          &lt;label>Learn JavaScript&lt;/label>
+          &lt;button className="destroy">&lt;/button>
+        &lt;/div>
+      &lt;/li>
+      &lt;li>
+        &lt;div className="view">
+          &lt;input className="toggle" type="checkbox" />
+          &lt;label>Learn React&lt;/label>
+          &lt;button className="destroy">&lt;/button>
+        &lt;/div>
+      &lt;/li>
+      &lt;li>
+        &lt;div className="view">
+          &lt;input className="toggle" type="checkbox" />
+          &lt;label>Have a life!&lt;/label>
+          &lt;button className="destroy">&lt;/button>
+        &lt;/div>
+      &lt;/li>
+    &lt;/ul>
+  );
+}
+
+export default TodoList;
+
+                </pre>
+              </p>
+              <p>
+                components/ContentFooter.js:
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function ContentFooter() {
+  return (
+    &lt;footer className="footer">
+      &lt;span className="todo-count">
+        &lt;strong>2&lt;/strong>{" "}
+        items left
+      &lt;/span>
+
+      &lt;ul className="filters">
+        &lt;li>
+          &lt;a href="#/" className="selected">
+            All
+          &lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a href="#/">Active&lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a href="#/">Completed&lt;/a>
+        &lt;/li>
+      &lt;/ul>
+
+      &lt;button className="clear-completed">Clear completed&lt;/button>
+    &lt;/footer>
+  );
+}
+
+export default ContentFooter;
+
+                </pre>
+              </p>
+              <p>
+                components/Footer.js:
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function Footer() {
+  return (
+    &lt;footer className="info">
+      &lt;p>Click to edit a todo&lt;/p>
+      &lt;p>
+        Created by &lt;a href="https://d12n.me/">Dmitry Sharabin&lt;/a>
+      &lt;/p>
+      &lt;p>
+        Part of &lt;a href="http://todomvc.com">TodoMVC&lt;/a>
+      &lt;/p>
+    &lt;/footer>
+  );
+}
+
+export default Footer;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoStore">
+              <h1>Store ve Todos Slice'ı Oluşturalım</h1>
+              <p>
+                react-redux ve redux-toolkit kuruldu
+                <pre class="prettyprint ms-0">npm install @reduxjs/toolkit react-redux</pre>
+              </p>
+              <p>
+                redux/store.js içinde storeumuzu tanımladık.
+                <pre class="prettyprint ms-0">
+import { configureStore } from "@reduxjs/toolkit";
+import todosSlice from "./todos/todosSlice"; // todoSlice import edildi.
+
+export const store = configureStore({
+  reducer: {
+    todos: todosSlice, // todoSlice içindeki veri storea yerleştirildi.
+  },
+});
+                </pre>
+              </p>
+              <p>
+                redux/todos/todosSlicer.js içinde todos verilerinin tutulduğu kısmı tanımladık ve içine yer tutucu veri girdik.
+                <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [
+      { // yer tutucu veriler.
+        id: "1",
+        title: "Learn React",
+        completed: true,
+      },
+      {
+        id: "2",
+        title: "Read a Book",
+        completed: false, 
+      },
+    ], 
+  },
+  reducers: {},
+});
+
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                Verileri alabilmek için index.js içinde react-redux bağlantısını kurduk.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  &lt;React.StrictMode>
+    &lt;Provider store={store}>
+      {/* react-redux bağlantısı */}
+      &lt;App />
+    &lt;/Provider>
+  &lt;/React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+                </pre>
+              </p>
+              <p>
+                components/TodoList içinde veri çekildi ve kullanıldı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { useSelector } from "react-redux"; // useSelector ile verilere ulaşırız.
+
+function TodoList() {
+  const items = useSelector((state) => state.todos.items) // todos içindeki itemse ulaştık.
+  console.log("items", items);
+  return (
+    &lt;ul className="todo-list">
+      {items.map((item)=>( // redux store üzerinden alınan veriyi kullandık.
+        &lt;li key={item.id} className={item.completed ? "completed" : ""}> 
+        &lt;div className="view">
+          &lt;input className="toggle" type="checkbox" />
+          &lt;label>{item.title}&lt;/label>
+          &lt;button className="destroy">&lt;/button>
+        &lt;/div>
+      &lt;/li>
+      ))}
+    &lt;/ul>
+  );
+}
+
+export default TodoList;
+
+              </pre>
+              </p>
+            </div>
+            <div class="row" id="todoAddItem">
+              <h1>Yeni to-do elemanı eklemek</h1>
+              <p>
+                redux/todos/todosSlice.js içinde reducers kısmına ekleme işlemi için fonksiyonumuzu yazdık ve export ettik
+                <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [
+      {
+        id: "1",
+        title: "Learn React",
+        completed: true,
+      },
+      {
+        id: "2",
+        title: "Read a Book",
+        completed: false,
+      },
+    ],
+  },
+  reducers: {
+    addTodo: (state, action) => {
+      state.items.push(action.payload);
+    },
+  },
+});
+
+export const { addTodo } = todosSlice.actions; // fonksiyon export edildi.
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                Gelen fonksiyonu components/Form.js içinde import ve dispatch edip kullandık.
+                <pre class="prettyprint ms-0">
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/todos/todosSlice";
+import { nanoid } from "@reduxjs/toolkit"; // unique id yaratmak için kullanılır.
+
+function Form() {
+  const [title, setTitle] = useState("") // formdan gelen veriyi tutar
+  const dispatch = useDispatch()
+  const handleSubmit = (e) => {
+    e.preventDefault(); // formun default davranışını sıfırlar
+    dispatch(addTodo({ id: nanoid(), title, completed: false}))
+    setTitle("") // form submit edildikten sonra formu temizler.
+  };
+  return (
+    &lt;form onSubmit={handleSubmit}>
+      &lt;input
+        className="new-todo"
+        placeholder="What needs to be done?"
+        autoFocus
+        value={title}
+        onChange={(e)=>setTitle(e.target.value)}
+      />
+    &lt;/form>
+  );
+}
+
+export default Form;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoToggle">
+              <h1>Toggle işlemlerinin yapılması</h1>
+              <p>
+                Bu kısımda listelenen göreve tıkladığımızda üzerini çizilmesi işlemini yapacağız.
+              </p>
+              <p>
+                redux/todos/todosSlice.js içindeki reducers kısmına yeni bir fonksiyon ekledik ve export ettik.
+                <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [
+      {
+        id: "1",
+        title: "Learn React",
+        completed: true,
+      },
+      {
+        id: "2",
+        title: "Read a Book",
+        completed: false,
+      },
+    ],
+  },
+  reducers: {
+    addTodo: (state, action) => {
+      state.items.push(action.payload);
+    },
+    toggle: (state, action) => {
+      const { id } = action.payload; // tıklanan kompanentin id sini alır.
+
+      const item = state.items.find((item) => item.id === id); // id ye göre itemi bulur.
+      item.completed = !item.completed; // completed verisini true ise false false ise true yapar.
+    },
+  },
+});
+
+export const { addTodo, toggle } = todosSlice.actions; // fonksiyon export edildi.
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                components/TodaList.js içinde bu fonksiyonu kullandık.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { useSelector, useDispatch } from "react-redux"; // useDispatch ile fonksiyonlara ulaşırız.
+import { toggle } from "../redux/todos/todosSlice";
+
+function TodoList() {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.todos.items);
+  return (
+    &lt;ul className="todo-list">
+      {items.map((item) => (
+        &lt;li key={item.id} className={item.completed ? "completed" : ""}>
+          &lt;div className="view">
+            &lt;input
+              className="toggle"
+              type="checkbox"
+              checked={item.completed} // completed durumuna göre tiki aktif eder.
+              onChange={() => dispatch(toggle({ id: item.id }))} // tıklanınca fonksiyonu çalıştırır.
+            />
+            &lt;label>{item.title}&lt;/label>
+            &lt;button className="destroy">&lt;/button>
+          &lt;/div>
+        &lt;/li>
+      ))}
+    &lt;/ul>
+  );
+}
+
+export default TodoList;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoDelete">
+              <h1>Silme işlemleri</h1>
+              <p>
+                Silme fonksiyonu todoSlice.js reducers alanında tanımlanır ve export edilir.
+                <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [
+      {
+        id: "1",
+        title: "Learn React",
+        completed: true,
+      },
+      {
+        id: "2",
+        title: "Read a Book",
+        completed: false,
+      },
+    ],
+  },
+  reducers: {
+    addTodo: (state, action) => {
+      state.items.push(action.payload);
+    },
+    toggle: (state, action) => {
+      const { id } = action.payload;
+      const item = state.items.find((item) => item.id === id);
+      item.completed = !item.completed;
+    },
+    destroy: (state, action) => {
+      const id = action.payload; // id alındı.
+      const filtered = state.items.filter((item) => item.id !== id); // id si gelen parametre olmayan tüm elemanlar alındı
+      state.items = filtered; // filtrelenen bu elemanlar yeni state.items olarak tanıtıldı.
+    },
+  },
+});
+
+export const { addTodo, toggle, destroy } = todosSlice.actions; // fonksiyon export edildi.
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                Silme fonksiyonu TodoList.js içinde import edilir ve kullanılır.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { toggle, destroy } from "../redux/todos/todosSlice"; // fonksiyon import edildi
+
+function TodoList() {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.todos.items);
+  const handleDestroy = (id) => {
+    if (window.confirm("Are You Sure?")) { // confirm işlemi
+      dispatch(destroy(id)); // silme işlemi
+    }
+  };
+  return (
+    &lt;ul className="todo-list">
+      {items.map((item) => (
+        &lt;li key={item.id} className={item.completed ? "completed" : ""}>
+          &lt;div className="view">
+            &lt;input
+              className="toggle"
+              type="checkbox"
+              checked={item.completed}
+              onChange={() => dispatch(toggle({ id: item.id }))}
+            />
+            &lt;label>{item.title}&lt;/label>
+            &lt;button
+              className="destroy"
+              onClick={() => handleDestroy(item.id)} // silme fonksyonunu başlatan buton
+            >&lt;/button>
+          &lt;/div>
+        &lt;/li>
+      ))}
+    &lt;/ul>
+  );
+}
+
+export default TodoList;
+
+                </pre>
+              </p>
+
+            </div>
+            <div class="row" id="todoFilter">
+              <h1>Filtreleme işlemleri</h1>
+              <p>
+                Filte bilgisi için todosSlice.js initialState alanına yeni bir değişken eklendi. Aktif filtre bilgisini değiştirmek için reducers alanına bir fonksiyon eklendi. Aktif olmayan tüm verileri silmek için de bir fonksiyon eklendi.
+                <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [
+      {
+        id: "1",
+        title: "Learn React",
+        completed: true,
+      },
+      {
+        id: "2",
+        title: "Read a Book",
+        completed: false,
+      },
+    ],
+    activeFilter: "all", // aktif filtre verisi tutulur.
+  },
+  reducers: {
+    addTodo: (state, action) => {
+      state.items.push(action.payload);
+    },
+    toggle: (state, action) => {
+      const { id } = action.payload;
+      const item = state.items.find((item) => item.id === id);
+      item.completed = !item.completed;
+    },
+    destroy: (state, action) => {
+      const id = action.payload;
+      const filtered = state.items.filter((item) => item.id !== id);
+      state.items = filtered;
+    },
+    changeActiveFilter: (state, action) => {
+      // aktif filtreyi değiştiren fonksiyon
+      state.activeFilter = action.payload;
+    },
+    clearCompleted: (state) => {
+      // aktif olmayanları silme fonksiyonu
+      const filtered = state.items.filter((item) => item.completed === false);
+      state.items = filtered;
+    },
+  },
+});
+
+export const { addTodo, toggle, destroy, changeActiveFilter, clearCompleted } =
+  todosSlice.actions; // fonksiyon export edildi.
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                ContentFooter.js içinde aktif filtre verisi, bu veriyi değiştiren fonksiyon ve aktif olmayan nesneleri silen fonksiyon import edilip kullanıldı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { useSelector, useDispatch } from "react-redux"; // useSelector ve useDispatch import edildi.
+import { changeActiveFilter, clearCompleted } from "../redux/todos/todosSlice"; // fonksiyon import edildi.
+
+function ContentFooter() {
+  const dispatch = useDispatch();
+
+  const items = useSelector((state) => state.todos.items); // redux store.js üzerinden veriler çekildi.
+  const itemsLeft = items.filter((item) => !item.completed).length; // tamamlanmamış olanların sayısını verir.
+
+  const activeFilter = useSelector((state) => state.todos.activeFilter); // aktif filtre verisi alındı.
+
+  console.log(itemsLeft);
+  return (
+    &lt;footer className="footer">
+      &lt;span className="todo-count">
+        &lt;strong>{itemsLeft}&lt;/strong> item{itemsLeft > 1 && "s"} left
+      &lt;/span>
+
+      &lt;ul className="filters">
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "all" ? "selected" : ""} // selected clası için şart konuldu
+            onClick={() => dispatch(changeActiveFilter("all"))} // aktif filtre bilgisini değiştiren fonksiyon
+          >
+            {" "}
+            All
+          &lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "active" ? "selected" : ""} // selected clası için şart konuldu
+            onClick={() => dispatch(changeActiveFilter("active"))} // aktif filtre bilgisini değiştiren fonksiyon
+          >
+            Active
+          &lt;/a>{" "}
+        &lt;/li>
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "completed" ? "selected" : ""} // selected clası için şart konuldu
+            onClick={() => dispatch(changeActiveFilter("completed"))} // aktif filtre bilgisini değiştiren fonksiyon
+          >
+            Completed
+          &lt;/a>{" "}
+        &lt;/li>
+      &lt;/ul>
+
+      &lt;button
+        className="clear-completed"
+        onClick={() => dispatch(clearCompleted())} // aktif olmayanları silme fonksiyonu
+      >
+        Clear completed
+      &lt;/button>
+    &lt;/footer>
+  );
+}
+
+export default ContentFooter;
+
+                </pre>
+              </p>
+              <p>
+                Aktif filte bilgisi TodoList.js içinde import edildi ve filteleme durumuna göre gösterilecek verileri ayarlamak için kullanıldı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { toggle, destroy } from "../redux/todos/todosSlice";
+
+let filtered = []; // filtreleme işlemi için kullanılacak
+
+function TodoList() {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.todos.items);
+  const activeFilter = useSelector((state) => state.todos.activeFilter); // aktif olan filtre bilgisi alındı.
+  const handleDestroy = (id) => {
+    if (window.confirm("Are You Sure?")) {
+      dispatch(destroy(id));
+    }
+  };
+
+  filtered = items; //activeFilter all ise tüm veriyi göster.
+  if (activeFilter !== "all") {
+    // activeFilter all değil ise koşulu başlat.
+    filtered = items.filter((todo) =>
+      activeFilter === "active" // activeFilter active ise tamamlanmamamışları değil ise tamamlanmışları göster.
+        ? todo.completed === false
+        : todo.completed === true
+    );
+  }
+  return (
+    &lt;ul className="todo-list">
+      {filtered.map((item) => (
+        &lt;li key={item.id} className={item.completed ? "completed" : ""}>
+          &lt;div className="view">
+            &lt;input
+              className="toggle"
+              type="checkbox"
+              checked={item.completed}
+              onChange={() => dispatch(toggle({ id: item.id }))}
+            />
+            &lt;label>{item.title}&lt;/label>
+            &lt;button
+              className="destroy"
+              onClick={() => handleDestroy(item.id)}
+            >&lt;/button>
+          &lt;/div>
+        &lt;/li>
+      ))}
+    &lt;/ul>
+  );
+}
+
+export default TodoList;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoSelectors">
+              <h1>Selectors</h1>
+              <p>
+                Selector birden fazla yerde kullanılacak verileri hazırlayıp kullanmak için hazırlanır. Tek sefer kullanılacak veriler için gerekli değildir.
+              </p>
+              <p>
+                useSelector() ifadesinde parantez içinde kullandığımız ifadeyi todosSlice.js içinde selector olarak tanımlayıp export edebiliriz.
+              </p>
+
+
+              <p>
+                Daha önceden yaptığımız filtreleme işlemini de selector olarak yazabiliriz.
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [
+      {
+        id: "1",
+        title: "Learn React",
+        completed: true,
+      },
+      {
+        id: "2",
+        title: "Read a Book",
+        completed: false,
+      },
+    ],
+    activeFilter: "all",
+  },
+  reducers: {
+    addTodo: (state, action) => {
+      state.items.push(action.payload);
+    },
+    toggle: (state, action) => {
+      const { id } = action.payload;
+      const item = state.items.find((item) => item.id === id);
+      item.completed = !item.completed;
+    },
+    destroy: (state, action) => {
+      const id = action.payload;
+      const filtered = state.items.filter((item) => item.id !== id);
+      state.items = filtered;
+    },
+    changeActiveFilter: (state, action) => {
+      state.activeFilter = action.payload;
+    },
+    clearCompleted: (state) => {
+      const filtered = state.items.filter((item) => item.completed === false);
+      state.items = filtered;
+    },
+  },
+});
+
+export const selectTodos = (state) => state.todos.items; // import edildiği yerde useSelect() parantezi içinde kullanıldığında items verisini verir.
+
+export const selectFilteredTodos = (state) => {
+  if (state.todos.activeFilter === "all") {
+    return state.todos.items;
+  }
+
+  return state.todos.items.filter((todo) =>
+    state.todos.activeFilter === "active"
+      ? todo.completed === false
+      : todo.completed === true
+  );
+};
+
+export const { addTodo, toggle, destroy, changeActiveFilter, clearCompleted } =
+  todosSlice.actions;
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                export ettiğimiz bu iki selector TodoList.js içinde kullanır.
+              </p>
+              <p>
+                TodoList.js
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  toggle,
+  destroy,
+  selectFilteredTodos,
+} from "../redux/todos/todosSlice";
+
+function TodoList() {
+  const dispatch = useDispatch();
+  const filteredTodos = useSelector(selectFilteredTodos); // filtreleme işlemini kaynağında yaptığımız veriyi değişkene atadık ve aşağıda mapledik.
+  const handleDestroy = (id) => {
+    if (window.confirm("Are You Sure?")) {
+      dispatch(destroy(id));
+    }
+  };
+
+  return (
+    &lt;ul className="todo-list">
+      {filteredTodos.map((item) => (
+        &lt;li key={item.id} className={item.completed ? "completed" : ""}>
+          &lt;div className="view">
+            &lt;input
+              className="toggle"
+              type="checkbox"
+              checked={item.completed}
+              onChange={() => dispatch(toggle({ id: item.id }))}
+            />
+            &lt;label>{item.title}&lt;/label>
+            &lt;button
+              className="destroy"
+              onClick={() => handleDestroy(item.id)}
+            >&lt;/button>
+          &lt;/div>
+        &lt;/li>
+      ))}
+    &lt;/ul>
+  );
+}
+
+export default TodoList;
+
+                </pre>
+              </p>
+              <p>
+                Footer.js stabil ögelerden oluştuğu için her seferinde render edilmesine gerek yok. Bu nedenle React.memo() ile sarmalandı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function Footer() {
+  return (
+    &lt;footer className="info">
+      &lt;p>Click to edit a todo&lt;/p>
+      &lt;p>
+        Created by &lt;a href="https://d12n.me/">Dmitry Sharabin&lt;/a>
+      &lt;/p>
+      &lt;p>
+        Part of &lt;a href="http://todomvc.com">TodoMVC&lt;/a>
+      &lt;/p>
+    &lt;/footer>
+  );
+}
+
+export default React.memo(Footer); // herhangi bir değişken içermediğinden her seferinde render edilmesi engellendi.
+
+                </pre>
+              </p>
+              <p>
+                Form.js içinde formun boşken çalışmaması için koşul eklendi.
+                <pre class="prettyprint ms-0">
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/todos/todosSlice";
+import { nanoid } from "@reduxjs/toolkit"; 
+
+function Form() {
+  const [title, setTitle] = useState(""); 
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    if (!title) return; // title boşsa hiçbir işlem yapmadan return eder.
+    dispatch(addTodo({ id: nanoid(), title, completed: false }));
+    setTitle(""); 
+  };
+  return (
+    &lt;form onSubmit={handleSubmit}>
+      &lt;input
+        className="new-todo"
+        placeholder="What needs to be done?"
+        autoFocus
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+    &lt;/form>
+  );
+}
+
+export default Form;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoPrepare">
+              <h1>Prepare tanımı</h1>
+              <p>
+                reducers statei değiştirmeden önce ona gelecek payloadı yapılandırmak için kullanılır. 
+              </p>
+              <p>
+                Form.js içinde addTodo fonksiyonu kullanırken title ile beraber gönderdiğimiz completed ve id bilgilerini prepare olarak todoSlice.js içinde fonksiyonun kendisine taşıdık.
+                <pre class="prettyprint ms-0">
+import { createSlice, nanoid } from "@reduxjs/toolkit";
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [
+      {
+        id: "1",
+        title: "Learn React",
+        completed: true,
+      },
+      {
+        id: "2",
+        title: "Read a Book",
+        completed: false,
+      },
+    ],
+    activeFilter: "all",
+  },
+  reducers: {
+    addTodo: {
+      reducer: (state, action) => {
+        // çalışacak olan fonksiyon
+        state.items.push(action.payload);
+      },
+      prepare: ({ title }) => { // reducer öncesi payloada yapılan düzenleme.
+        return {
+          payload: { // burada return edilen payload action içine düşüyor.
+            id: nanoid(), // modül import edildi.
+            completed: false,
+            title,
+          },
+        };
+      },
+    },
+    ...
+    ...
+  },
+});
+
+...
+...
+
+export const { addTodo, toggle, destroy, changeActiveFilter, clearCompleted } =
+  todosSlice.actions;
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                Form.js içinde addTodo fonksiyonu sadece {title} payload ile gönderilecek şekilde düzenlendi.
+                <pre class="prettyprint ms-0">
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/todos/todosSlice"; 
+
+function Form() {
+  const [title, setTitle] = useState(""); 
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    if (!title) return; 
+    dispatch(addTodo({ title })); // modifiye edilen kod.
+    setTitle(""); 
+  };
+  return (
+    ...
+  );
+}
+
+export default Form;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoSetupApi">
+              <h1>API Kurulumu</h1>
+              <p>
+                Hoca hazır beckand verdi. Kendi uygulamamızı client klasörüne taşıdık. Hocanın backendini api klasörüne yükledik. terminale:
+                <pre class="prettyprint ms-0">
+cd api
+npm i
+                </pre>
+                yazarak api için gereken modülleri yükledik
+                <pre class="prettyprint ms-0">npm run server</pre>
+                ile backendi çalıştırdık.
+              </p>
+              <p>
+                Backend localhost:7000 üzerinden çalışıyor. Bir veri tabanına bağlı değil. İçinde veri tabanını simule edecek bir array mevcut. Backend çalıştığı sürece bu arrayi manipule edeceğiz. Backend resetlenince veri de resetlenecek. İşlevsel fonksiyonların tamamı server.js içinde.
+                <pre class="prettyprint ms-0">
+const express = require('express');
+const dotenv = require('dotenv');
+const colors = require('colors');
+const cors = require('cors');
+const { json } = require('body-parser');
+const { nanoid } = require('nanoid');
+
+dotenv.config({ path: './config.env' });
+
+const app = express();
+
+app.use(cors());
+app.use(json());
+
+let todos = [
+  {
+    id: nanoid(),
+    title: 'todo 1',
+    completed: true,
+  },
+  {
+    id: nanoid(),
+    title: 'todo 2',
+    completed: false,
+  },
+  {
+    id: nanoid(),
+    title: 'todo 3',
+    completed: false,
+  },
+  {
+    id: nanoid(),
+    title: 'todo 4',
+    completed: false,
+  },
+  {
+    id: nanoid(),
+    title: 'todo 5',
+    completed: false,
+  },
+];
+
+app.get('/todos', (req, res) => res.send(todos));
+
+app.post('/todos', (req, res) => {
+  const todo = { title: req.body.title, id: nanoid(), completed: false };
+  todos.push(todo);
+  return res.send(todo);
+});
+
+app.patch('/todos/:id', (req, res) => {
+  const id = req.params.id;
+  const index = todos.findIndex((todo) => todo.id == id);
+  const completed = Boolean(req.body.completed);
+  if (index > -1) {
+    todos[index].completed = completed;
+  }
+  return res.send(todos[index]);
+});
+
+app.delete('/todos/:id', (req, res) => {
+  const id = req.params.id;
+  const index = todos.findIndex((todo) => todo.id == id);
+  if (index > -1) {
+    todos.splice(index, 1);
+  }
+
+  res.send(todos);
+});
+
+const PORT = 7000;
+
+app.listen(PORT, console.log(`Server running on port ${PORT}`.green.bold));
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoUseApi">
+              <h1>API üzerinden verileri çekmek (Thunk Middleware)</h1>
+              <p>
+                Asenkron işlemler için middleware gerekebiliyor. fetch, login vs
+              </p>
+              <p>
+                todosSlice.js içinde Thunk Middleware import edildi ve kullanıldı.
+                <pre class="prettyprint ms-0">
+import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit"; //Thunk middlewarei import edildi.
+import axios from "axios";
+
+export const getTodosAsync = createAsyncThunk(
+  "todos/getTodosAysnc/",
+  /* async () => {
+    const res = await fetch("http://localhost:7000/todos");
+    return await res.json();
+  } */
+  // aynı işlem yukarıda fetch aşağıda axios kullanılarak yapıldı.
+  async () => {
+    const res = await axios("http://localhost:7000/todos");
+    return res.data;
+  }
+); // api ile haberleşen middleware. ilk parametrede action name ikinci parametrede fetch işlemi yazılır. extraReducers alanında da hangi durumunda ne yapılacağı yazılır.
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+    activeFilter: "all",
+  },
+  reducers: {
+    addTodo: {
+      reducer: (state, action) => {
+        state.items.push(action.payload);
+      },
+      prepare: ({ title }) => {
+        return {
+          payload: {
+            id: nanoid(),
+            completed: false,
+            title,
+          },
+        };
+      },
+    },
+    toggle: (state, action) => {
+      const { id } = action.payload;
+      const item = state.items.find((item) => item.id === id);
+      item.completed = !item.completed;
+    },
+    destroy: (state, action) => {
+      const id = action.payload;
+      const filtered = state.items.filter((item) => item.id !== id);
+      state.items = filtered;
+    },
+    changeActiveFilter: (state, action) => {
+      state.activeFilter = action.payload;
+    },
+    clearCompleted: (state) => {
+      const filtered = state.items.filter((item) => item.completed === false);
+      state.items = filtered;
+    },
+  },
+  extraReducers: {
+    //action name tanımı thunk ile verilen işlemin pending, fulfilled ve rejected durumlarına işlevler tanımlandı.
+    [getTodosAsync.pending]: (state, action) => {
+      // getTodosAsync pending (bekleme) durumunda ise aşağıdaki kısım çalışır.
+      state.isLoading = true;
+    },
+    [getTodosAsync.fulfilled]: (state, action) => {
+      // getTodosAsync fulfilled (başarılı) ise aşağıdaki fonksiyon çalışır.
+      state.items = action.payload;
+      state.isLoading = false;
+    },
+    [getTodosAsync.rejected]: (state, action) => {
+      // getTodos rejected (reddedilmiş) ise aşağıdaki fonksiyon çalışır.
+      state.isLoading = false;
+      state.error = action.error.message;
+    },
+  },
+});
+
+export const selectTodos = (state) => state.todos.items;
+
+export const selectFilteredTodos = (state) => {
+  if (state.todos.activeFilter === "all") {
+    return state.todos.items;
+  }
+
+  return state.todos.items.filter((todo) =>
+    state.todos.activeFilter === "active"
+      ? todo.completed === false
+      : todo.completed === true
+  );
+};
+
+export const { addTodo, toggle, destroy, changeActiveFilter, clearCompleted } =
+  todosSlice.actions;
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                Fetch işleminde axios kullanabilmek için terminale:
+                <pre class="prettyprint ms-0">npm i axios</pre>
+              </p>
+              <p>
+                todosSlice.js içinde tanımlanan <q>getTodosAsync</q> fonksiyonu TodoList.js kompanentinde kullanıldı.
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  toggle,
+  destroy,
+  selectFilteredTodos,
+  getTodosAsync,
+} from "../redux/todos/todosSlice";
+import Loading from "./Loading";
+import Error from "./Error";
+
+function TodoList() {
+  const dispatch = useDispatch();
+  const filteredTodos = useSelector(selectFilteredTodos);
+  const isLoading = useSelector((state) => state.todos.isLoading); // isLoading verisi alındı.
+  const error = useSelector((state) => state.todos.error); // hata mesajı alındı
+
+  useEffect(() => {
+    // sayfa mount edildiğinde backendden data çekmek için yazdığımız fonksiyonu çalıştırır.
+    dispatch(getTodosAsync());
+  }, [dispatch]);
+  const handleDestroy = (id) => {
+    if (window.confirm("Are You Sure?")) {
+      dispatch(destroy(id));
+    }
+  };
+
+  if (isLoading) {
+    // isLoading koşulu.
+    return &lt;Loading />;
+  }
+
+  if (error) {
+    // error koşulu
+    return &lt;Error message={error}/>;
+  }
+
+  return (
+    &lt;ul className="todo-list">
+      {filteredTodos.map((item) => (
+        &lt;li key={item.id} className={item.completed ? "completed" : ""}>
+          &lt;div className="view">
+            &lt;input
+              className="toggle"
+              type="checkbox"
+              checked={item.completed}
+              onChange={() => dispatch(toggle({ id: item.id }))}
+            />
+            &lt;label>{item.title}&lt;/label>
+            &lt;button
+              className="destroy"
+              onClick={() => handleDestroy(item.id)}
+            >&lt;/button>
+          &lt;/div>
+        &lt;/li>
+      ))}
+    &lt;/ul>
+  );
+}
+
+export default TodoList;
+
+                </pre>
+              </p>
+              <p>
+                Components klasörü içerisinde Loading.js ve Error.js TodoList.js içinde kullanılmak üzere oluşturuldu.
+                <pre class="prettyprint ms-0">
+import React from 'react'
+
+function Loading() {
+  return (
+    &lt;div style={{ padding: 15, fontSize: 18}}>Loading....&lt;/div>
+  )
+}
+
+export default Loading
+                </pre>
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function Error({ message }) {
+  return &lt;div style={{padding: 15, fontSize: 16}}>Error: {message}&lt;/div>;
+}
+
+export default Error;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoPostApi">
+              <h1>Kayıtların API üzerinden eklenmesi (POST Methodu)</h1>
+              <p>
+                fetch işlemlerini sadeleştirmek için backend endpoint <q>.env</q> dosyasına tanımlanır.
+                <pre class="prettyprint ms-0">REACT_APP_API_BASE_ENDPOINT=http://localhost:7000</pre>
+              </p>
+              <p>
+                todosSlice.js dosyasında post işlemi tanımlanır. <br>
+                <pre class="prettyprint ms-0">
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const getTodosAsync = createAsyncThunk(
+  "todos/getTodosAysnc/",
+  async () => {
+    const res = await axios(`${process.env.REACT_APP_API_BASE_ENDPOINT}/todos`);
+    return res.data;
+  }
+);
+
+export const addTodosAsync = createAsyncThunk(
+  "todos/addTodoAsync",
+  async (data) => {
+    const res = await axios.post(`${process.env.REACT_APP_API_BASE_ENDPOINT}/todos`, data);
+    return res.data;
+  }
+); // data olarak gelen veriyi backende post eden fonksiyon.
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+    activeFilter: "all",
+    addNewTodoIsLoading: false,
+    addNewTodoError: null,
+  },
+  reducers: {
+    toggle: (state, action) => {
+      const { id } = action.payload;
+      const item = state.items.find((item) => item.id === id);
+      item.completed = !item.completed;
+    },
+    destroy: (state, action) => {
+      const id = action.payload;
+      const filtered = state.items.filter((item) => item.id !== id);
+      state.items = filtered;
+    },
+    changeActiveFilter: (state, action) => {
+      state.activeFilter = action.payload;
+    },
+    clearCompleted: (state) => {
+      const filtered = state.items.filter((item) => item.completed === false);
+      state.items = filtered;
+    },
+  },
+  extraReducers: {
+    // get todos
+    [getTodosAsync.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getTodosAsync.fulfilled]: (state, action) => {
+      state.items = action.payload;
+      state.isLoading = false;
+    },
+    [getTodosAsync.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    },
+    // add todo
+    [addTodosAsync.pending]: (state, action) => {
+      state.addNewTodoIsLoading = true;
+    },
+    [addTodosAsync.fulfilled]: (state, action) => {
+      state.items.push(action.payload);
+      state.addNewTodoIsLoading = false;
+    },
+    [addTodosAsync.rejected]: (state, action) => {
+      state.addNewTodoIsLoading = false;
+      state.addNewTodoError = action.error.message;
+    },
+  },
+});
+
+export const selectTodos = (state) => state.todos.items;
+
+export const selectFilteredTodos = (state) => {
+  if (state.todos.activeFilter === "all") {
+    return state.todos.items;
+  }
+
+  return state.todos.items.filter((todo) =>
+    state.todos.activeFilter === "active"
+      ? todo.completed === false
+      : todo.completed === true
+  );
+};
+
+export const { toggle, destroy, changeActiveFilter, clearCompleted } =
+  todosSlice.actions;
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                Post işleminin fonksiyonu Form.js içinde import edilip kullanıldı. Loading ve error durumları için düzenleme yapıldı.
+                <pre class="prettyprint ms-0">
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodosAsync } from "../redux/todos/todosSlice"; // yeni todo eklemek için kullanılacak fonksiyon
+import Loading from "./Loading";
+import Error from "./Error"
+
+function Form() {
+  const [title, setTitle] = useState("");
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.todos.addNewTodoIsLoading); // Loading için gereken veri
+  const error = useSelector((state) => state.todos.addNewTodoError); // error mesajı
+  console.log("error:", error);
+
+  const handleSubmit = async (e) => {
+    // fonksiyon asenkron çalışmalı.
+    e.preventDefault();
+    if (!title) return;
+    await dispatch(addTodosAsync({ title })) // todo ekleme fonksiyonu
+    setTitle(""); 
+  };
+
+  return (
+    &lt;form
+      onSubmit={handleSubmit}
+      style={{ display: "flex", alignItems: "center" }}
+    >
+      {/* Loading için stil tanımı */}
+      &lt;input
+        disabled={isLoading} // isLoading true ise formu disable eder.
+        className="new-todo"
+        placeholder="What needs to be done?"
+        autoFocus
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      {isLoading && &lt;Loading />}
+      {/* Loading true ise görünür. Yoksa görünmez. */}
+      {error && &lt;Error message={error}/>}
+    &lt;/form>
+  );
+}
+
+export default Form;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoDeletePatchApi">
+              <h1>Kayıtların API üzerinden güncelleme ve silinmesi</h1>
+              <p>
+                Yapılan işlemler arttıkça kodun okunaklı kalması için middleware ile yaptığımız fetch işlemlerini todos/services.js dosyasına taşıdık ve toggle ve delete işlemi tanımlandı.
+                <pre class="prettyprint ms-0">
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const getTodosAsync = createAsyncThunk(
+    "todos/getTodosAysnc/",
+    async () => {
+      const res = await axios(`${process.env.REACT_APP_API_BASE_ENDPOINT}/todos`);
+      return res.data;
+    }
+  );
+  
+  export const addTodosAsync = createAsyncThunk(
+    "todos/addTodoAsync",
+    async (data) => {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_ENDPOINT}/todos`,
+        data
+      );
+      return res.data;
+    }
+  );
+  
+  export const toggleTodoAsync = createAsyncThunk(
+    "todos/toggleTodoAsync",
+    async ({ id, data }) => {
+      const res = await axios.patch(
+        `${process.env.REACT_APP_API_BASE_ENDPOINT}/todos/${id}`,
+        data
+      );
+      return res.data;
+    }
+  ); // backend tarafında toggle işlemi yapacak fonksiyon. data ile completed verisi alınacak.
+  
+  export const removeTodoAsync = createAsyncThunk(
+    "todos/removeTodoAsync",
+    async (id) => {
+      await axios.delete(
+        `${process.env.REACT_APP_API_BASE_ENDPOINT}/todos/${id}`
+      );
+      return id; // buradan gelen data extrareducers alanındaki action.payload olarak dönüyor.
+    }
+  ); // delete işlemi
+                </pre>
+              </p>
+              <p>
+                services.js içindeki fonksiyonlar todosSlice.js içine import edildi. extraReducers alanında düzenlemeler yapıldı.
+                <pre class="prettyprint ms-0">
+import { createSlice } from "@reduxjs/toolkit";
+import {addTodosAsync, getTodosAsync, toggleTodoAsync, removeTodoAsync } from "./services" // middleware ile fetch işlemlerini services.js klasörüne taşıdık ve oradan import ettik.
+
+export const todosSlice = createSlice({
+  name: "todos",
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+    activeFilter: localStorage.getItem("activeFilter") || "all",
+    addNewTodo: {
+      // bu yazım öncekinden daha okunaklı. Buna göre extraReducers ve Form.js alanlarını düzenledik.
+      isLoading: false,
+      error: null,
+    },
+  },
+  reducers: {
+    changeActiveFilter: (state, action) => {
+      state.activeFilter = action.payload;
+    },
+    clearCompleted: (state) => {
+      const filtered = state.items.filter((item) => item.completed === false);
+      state.items = filtered;
+    },
+  },
+  extraReducers: {
+    // backend tarafına işlem yapılırken client tarafında eşgüdüm sağlar.
+    // get todos
+    [getTodosAsync.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getTodosAsync.fulfilled]: (state, action) => {
+      state.items = action.payload;
+      state.isLoading = false;
+    },
+    [getTodosAsync.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    },
+    // add todo
+    [addTodosAsync.pending]: (state, action) => {
+      state.addNewTodo.isLoading = true;
+    },
+    [addTodosAsync.fulfilled]: (state, action) => {
+      state.items.push(action.payload);
+      state.addNewTodo.isLoading = false;
+    },
+    [addTodosAsync.rejected]: (state, action) => {
+      state.addNewTodo.isLoading = false;
+      state.addNewTodo.error = action.error.message;
+    },
+    // toggle todo
+    [toggleTodoAsync.fulfilled]: (state, action) => {
+      const { id, completed } = action.payload;
+      const index = state.items.findIndex((item) => item.id === id);
+      state.items[index].completed = completed;
+    },
+    // remove todo
+    [removeTodoAsync.fulfilled]: (state, action) => {
+      // 1. yöntem
+      // const id = action.payload;
+      // const filtered = state.items.filter((item) => item.id !== id);
+      // state.items = filtered;
+
+      // 2. yöntem
+      const id = action.payload;
+      const index = state.items.findIndex((item) => item.id === id);
+      state.items.splice(index, 1);
+    },
+  },
+});
+
+export const selectTodos = (state) => state.todos.items;
+
+export const selectFilteredTodos = (state) => {
+  if (state.todos.activeFilter === "all") {
+    return state.todos.items;
+  }
+
+  return state.todos.items.filter((todo) =>
+    state.todos.activeFilter === "active"
+      ? todo.completed === false
+      : todo.completed === true
+  );
+};
+
+export const { changeActiveFilter, clearCompleted } = todosSlice.actions;
+export default todosSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                Daha önce fonksiyonları todoSlice.js içinden import ediyorduk. Artık services.js içinden import ediyoruz. Buna göre diğer sayfalardaki import işlemleri yenilenir.
+              </p>
+              <p>
+                TodoList.js içinde toggle ve delete için yazılan fonksiyonlar kullanıldı.
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { selectFilteredTodos } from "../redux/todos/todosSlice";
+import {
+  getTodosAsync,
+  toggleTodoAsync,
+  removeTodoAsync,
+} from "../redux/todos/services";
+import Loading from "./Loading";
+import Error from "./Error";
+
+function TodoList() {
+  const dispatch = useDispatch();
+  const filteredTodos = useSelector(selectFilteredTodos);
+  const isLoading = useSelector((state) => state.todos.isLoading); 
+  const error = useSelector((state) => state.todos.error); 
+
+  useEffect(() => {
+    dispatch(getTodosAsync());
+  }, [dispatch]);
+
+  const handleDestroy = async (id) => {
+    if (window.confirm("Are You Sure?")) {
+      await dispatch(removeTodoAsync(id)); // silme fonksiyonu
+    }
+  };
+
+  const handleToggle = async (id, completed) => {
+    await dispatch(toggleTodoAsync({ id, data: { completed } }));
+  }; // toggle fonksiyonu
+
+  if (isLoading) {
+    return &lt;Loading />;
+  }
+
+  if (error) {
+    return &lt;Error message={error} />;
+  }
+
+  return (
+    &lt;ul className="todo-list">
+      {filteredTodos.map((item) => (
+        &lt;li key={item.id} className={item.completed ? "completed" : ""}>
+          &lt;div className="view">
+            &lt;input
+              className="toggle"
+              type="checkbox"
+              checked={item.completed}
+              onChange={() => handleToggle(item.id, !item.completed)} // toggle için fonksiyonu kullanırken completed verisinin mevcut halini değil, tıklanınca istediğimiz halini gönderiyoruz.
+            />
+            &lt;label>{item.title}&lt;/label>
+            &lt;button
+              className="destroy"
+              onClick={() => handleDestroy(item.id)} // silme fonksiyonu
+            >&lt;/button>
+          &lt;/div>
+        &lt;/li>
+      ))}
+    &lt;/ul>
+  );
+}
+
+export default TodoList;
+
+                </pre>
+              </p>
+              <p>
+                ContentFooter kompanentinde kullanılan activeFilter verisi localStorage üzerine eklendi. Buradan alınan veri de todosSlice.js initialState alanındaki default activeFilter alanında kullanıldı. Bu sayede sayfa yenilense de filtre bilgisi korunmuş oldu.
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  changeActiveFilter,
+  clearCompleted,
+  selectTodos,
+} from "../redux/todos/todosSlice";
+
+function ContentFooter() {
+  const dispatch = useDispatch();
+
+  const items = useSelector(selectTodos);
+  const itemsLeft = items.filter((item) => !item.completed).length;
+
+  const activeFilter = useSelector((state) => state.todos.activeFilter);
+
+  console.log(itemsLeft);
+
+  useEffect(() => {
+    localStorage.setItem("activeFilter", activeFilter)
+  },[activeFilter])
+
+  return (
+    &lt;footer className="footer">
+      &lt;span className="todo-count">
+        &lt;strong>{itemsLeft}&lt;/strong> item{itemsLeft > 1 && "s"} left
+      &lt;/span>
+
+      &lt;ul className="filters">
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "all" ? "selected" : ""}
+            onClick={() => dispatch(changeActiveFilter("all"))}
+          >
+            {" "}
+            All
+          &lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "active" ? "selected" : ""}
+            onClick={() => dispatch(changeActiveFilter("active"))}
+          >
+            Active
+          &lt;/a>{" "}
+        &lt;/li>
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "completed" ? "selected" : ""}
+            onClick={() => dispatch(changeActiveFilter("completed"))}
+          >
+            Completed
+          &lt;/a>{" "}
+        &lt;/li>
+      &lt;/ul>
+
+      &lt;button
+        className="clear-completed"
+        onClick={() => dispatch(clearCompleted())}
+      >
+        Clear completed
+      &lt;/button>
+    &lt;/footer>
+  );
+}
+
+export default ContentFooter;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="todoDeleteCompletedApi">
+              <h1>Delete Completed (Ödev)</h1>
+              <p>
+                Backend tarafında completed: true ögeleri silen bir fonksiyon yazıldı.
+                <pre class="prettyprint ms-0">
+app.put("/todos", async (req, res) => {
+  console.log("requset ulaştı");
+  const uncompleted = todos.filter((item) => item.completed === false);
+  todos = uncompleted;
+  res.send(todos);
+}); // put request olarak completed false olan ögeleri filtreledik. kalanları response olarak gönderdik.
+                </pre>
+              </p>
+              <p>
+                Bu fonksiyona client services.js içinden istek gönderildi.
+                <pre class="prettyprint ms-0">
+export const deleteCompletedTodos = createAsyncThunk("todos/deleteCompletedTodos", async() => {
+  const res = await axios.put(
+    `${process.env.REACT_APP_API_BASE_ENDPOINT}/todos`
+  )
+  return res.data
+}) // silme işlemi için tanımlanan fonksiyon.
+                </pre>
+              </p>
+              <p>
+                İlgili fonksiyonun client işlemleri için todoSlice.js extraReducers alanında ilgili tanımlamalar yapıldı.
+                <pre class="prettyprint ms-0">
+...
+extraReducers: {
+  ...
+  // delete completed todos
+  [deleteCompletedTodos.fulfilled]: (state, action) => {
+    console.log(action.payload);
+    state.items = action.payload
+  },
+  [deleteCompletedTodos.rejected]: (state, action) => {
+    console.log(action.error.message);
+  }
+},
+...
+                </pre>
+              </p>
+              <p>
+                Fonksiyon ContentFooter.js içinde import edildi ve kullanıldı.
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  changeActiveFilter,
+  selectTodos,
+} from "../redux/todos/todosSlice";
+import { deleteCompletedTodos } from "../redux/todos/services"; // tamamlananları silme fonksiyonu
+
+function ContentFooter() {
+  const dispatch = useDispatch();
+
+  const items = useSelector(selectTodos);
+  const itemsLeft = items.filter((item) => !item.completed).length;
+
+  const activeFilter = useSelector((state) => state.todos.activeFilter);
+
+  console.log(itemsLeft);
+
+  useEffect(() => {
+    localStorage.setItem("activeFilter", activeFilter)
+  },[activeFilter])
+
+  return (
+    &lt;footer className="footer">
+      &lt;span className="todo-count">
+        &lt;strong>{itemsLeft}&lt;/strong> item{itemsLeft > 1 && "s"} left
+      &lt;/span>
+
+      &lt;ul className="filters">
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "all" ? "selected" : ""}
+            onClick={() => dispatch(changeActiveFilter("all"))}
+          >
+            {" "}
+            All
+          &lt;/a>
+        &lt;/li>
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "active" ? "selected" : ""}
+            onClick={() => dispatch(changeActiveFilter("active"))}
+          >
+            Active
+          &lt;/a>{" "}
+        &lt;/li>
+        &lt;li>
+          &lt;a
+            href="#/"
+            className={activeFilter === "completed" ? "selected" : ""}
+            onClick={() => dispatch(changeActiveFilter("completed"))}
+          >
+            Completed
+          &lt;/a>{" "}
+        &lt;/li>
+      &lt;/ul>
+
+      &lt;button
+        className="clear-completed"
+        onClick={() => dispatch(deleteCompletedTodos())} // tamamlananları silme butonu
+      >
+        Clear completed
+      &lt;/button>
+    &lt;/footer>
+  );
+}
+
+export default ContentFooter;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="setupReactRouterReduxToolkitBbApi">
+              <h1>React Router ve Redux Toolkit Kurulumu</h1>
+              <p>bbapi klasörü oluşturup vsc ile açtık ve terminale <pre class="prettyprint ms-0">npx create-react-app .</pre> yazdık.</p>
+              <p>
+                proje oluşturulduulduktan sonra terminale <pre class="prettyprint ms-0">npm i react-router-dom</pre> yazarak react-router-dom kurulur.
+              </p>
+              <p>
+                Hova react-router-dom v5 kullanıyor. Biz v6 ile yapacağız. Başlangıç için kullanılacak örnek aşağıdadır.
+                <pre class="prettyprint ms-0">
+import "./App.css";
+import { Routes, Route, Link, BrowserRouter as Router } from "react-router-dom";
+
+function App() {
+  return (
+    &lt;>
+      &lt;Router>
+        &lt;Link to="/">Home&lt;/Link> &lt;br />
+        &lt;Link to="/about">About&lt;/Link>
+        &lt;Routes>
+          &lt;Route path="/" element={&lt;Home />} />
+          &lt;Route path="/about" element={&lt;About />} />
+        &lt;/Routes>
+      &lt;/Router>
+    &lt;/>
+  );
+}
+
+function Home() {
+  return (
+    &lt;>
+      &lt;main>
+        &lt;h2>Welcome to the homepage!&lt;/h2>
+        &lt;p>You can do this, I believe in you.&lt;/p>
+      &lt;/main>
+      &lt;nav>
+        &lt;Link to="/about">About&lt;/Link>
+      &lt;/nav>
+    &lt;/>
+  );
+}
+
+function About() {
+  return (
+    &lt;>
+      &lt;main>
+        &lt;h2>Who are we?&lt;/h2>
+        &lt;p>That feels like an existential question, don't you think?&lt;/p>
+      &lt;/main>
+      &lt;nav>
+        &lt;Link to="/">Home&lt;/Link>
+      &lt;/nav>
+    &lt;/>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+              <p>
+                redux toolkit ve react-redux kurulumu için terminale: 
+                <pre class="prettyprint ms-0">npm install react-redux @reduxjs/toolkit</pre>
+              </p>
+              <p>
+                redux store kurulumu için redux/store.js dosyası aşağıdaki gibi düzenlenir. 
+                <pre class="prettyprint ms-0">
+import { configureStore } from "@reduxjs/toolkit";
+
+export const store = configureStore({
+    reducer: {}
+})
+                </pre>
+              </p>
+              <p>
+                index.js içinde <q>App</q> kompanenti react-redux bileşeni olan <q>Provider</q> ile sarmalanır.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  &lt;React.StrictMode>
+    &lt;Provider store={store}>
+      &lt;App />
+    &lt;/Provider>
+  &lt;/React.StrictMode>
+);
+
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="CharDataBbApi">
+              <h1>Karakterlerin API'dan çekilmesi</h1>
+              <p>
+                Hocanın örnek için kullandığı Breaking Bad Api kullanımdan kalkmış. Onun yerine <a href="https://hp-api.onrender.com/">harry potter api kullanılacak</a>
+              </p>
+              <p>
+                Hocanın kullandığı api kendi offset ve limit sorgusuna sahip. Biz bunu farklı yöneteceğiz.
+              </p>
+              <p>
+                kök dizine .env dosyası oluşturulup base endpoint ortam değişleni olarak tanımlandı. <pre class="prettyprint ms-0">REACT_APP_API_BASE_ENDPOINT=https://hp-api.onrender.com/api</pre>
+              </p>
+              <p>
+                fatch işlemi için axios modülü kullandık. Bunun için terminale:
+                <pre class="prettyprint ms-0">npm i axios</pre>
+              </p>
+              <p>
+                redux/charactersSlice.js dosyası oluşturuldu ve içinde createAsyncThunk metodu ile fetch işlemi yapıldı.
+                <pre class="prettyprint ms-0">
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const fetchCharacters = createAsyncThunk("characters/getCharacters", async ()=>{
+  const res = await axios(`${process.env.REACT_APP_API_BASE_ENDPOINT}/characters`)
+  return res.data
+})
+
+export const charactersSlice = createSlice({
+  name: "character",
+  initialState: {
+    items: [],
+  },
+  reducers: {},
+  extraReducers: {
+    [fetchCharacters.fulfilled]: (state, action) => {
+      console.log(action.payload);
+    }
+  },
+});
+
+export default charactersSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                redux/store.js içinde charactersSlice import edildi ve kullanıldı.
+                <pre class="prettyprint ms-0">
+import { configureStore } from "@reduxjs/toolkit";
+import charactersSlice from "./charactersSlice"
+
+export const store = configureStore({
+    reducer: {
+        characters: charactersSlice
+    }
+})
+                </pre>
+              </p>
+              <p>
+                pages/Home/index.js içinde charactersSlice içindeki fonksiyon imort edildi. dispatch edildi ve useEffect içinde kullanıldı.
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCharacters } from "../../redux/charactersSlice";
+
+function Home() {
+  const data = useSelector((state) => state.characters);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCharacters());
+  }, [dispatch]);
+
+  console.log(data);
+  return &lt;div>Home&lt;/div>;
+}
+
+export default Home;
+
+                </pre>
+              </p>
+              <p>
+                App.js sadeleştirildi.
+                <pre class="prettyprint ms-0">
+import "./App.css";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import Home from "./pages/Home";
+
+function App() {
+  
+  return (
+    &lt;>
+      &lt;Router>
+        &lt;Routes>
+          &lt;Route path="/" element={&lt;Home />} />
+        &lt;/Routes>
+      &lt;/Router>
+    &lt;/>
+  );
+}
+
+
+export default App;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="CharDataListBbApi">
+              <h1>Çekilen karakterlerin listelenmesi</h1>
+              <p>
+                charactersSlice.js içinde fetch edilen veri items değişkenine atandı. Bu kısımda loading ve error şartlarına uygun düzenleme de yapıldı.
+                <pre class="prettyprint ms-0">
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const char_limit = 12; // kaç karakter çekileceğini belirler
+
+export const fetchCharacters = createAsyncThunk(
+  "characters/getCharacters",
+  async () => {
+    const res = await axios(
+      `${process.env.REACT_APP_API_BASE_ENDPOINT}/characters`
+    );
+    return res.data;
+  }
+);
+
+export const charactersSlice = createSlice({
+  name: "character",
+  initialState: {
+    items: [],
+    isLoading: false,
+  },
+  reducers: {},
+  extraReducers: {
+    [fetchCharacters.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [fetchCharacters.fulfilled]: (state, action) => {
+      state.items = action.payload.slice(0, char_limit); // fetch edilen dosya statee geçildi. slice ile hangi aralığın statee geçileceği ayarlandı.
+      state.isLoading = false;
+    },
+    [fetchCharacters.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    },
+  },
+});
+
+export default charactersSlice.reducer;
+                </pre>
+              </p>
+              <p>
+                redux içindeki veriler ve fetchCharacters fonksiyonu pages/Home/index.j içine import edilir.
+              </p>
+              <p>
+                Resimleri listelemek için <a href="https://github.com/paulcollett/react-masonry-css">react masonary css</a> kullanacağız. <p><pre class="prettyprint ms-0">npm install react-masonry-css</pre></p>
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCharacters } from "../../redux/charactersSlice";
+import Masonry from "react-masonry-css"; // Çekilen verinin görsel kısmı için import edildi.
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+
+function Home() {
+  const characters = useSelector((state) => state.characters.items);
+  const isLoading = useSelector((state) => state.characters.isLoading);
+  const error = useSelector((state) => state.characters.error);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCharacters());
+  }, [dispatch]);
+
+  if(isLoading){
+    return &lt;Loading/>
+  }
+
+  if(error){
+    return &lt;Error message={error}/>
+  }
+
+  return (
+    &lt;div>
+
+      &lt;Masonry
+        breakpointCols={4} // satırda kaç tane gösterileceğini belirler.
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {characters.map((character) => (
+          &lt;div key={character.id}>
+            &lt;img src={character.image} alt={character.name} className="character"/>
+            &lt;div className="char_name">{character.name}&lt;/div>
+          &lt;/div>
+        ))}
+      &lt;/Masonry>
+    &lt;/div>
+  );
+}
+
+export default Home;
+
+                </pre>
+              </p>
+              <p>
+                App.css içinde stil tanımları yapıldı. masonary-css için gereken tanımlar kendi sitesinden alındı.
+                <pre class="prettyprint ms-0">
+.my-masonry-grid {
+  display: flex;
+  margin-left: -20px;
+}
+.my-masonry-grid_column {
+  border-left: 20px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements in &lt;masonry> */
+  background: #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.character{
+  width: 100%;
+}
+
+.char_name{
+  padding: 10px 0;
+  font-size: 16px;
+}
+                </pre>
+              </p>
+              <p>
+                Home sayfasında kullanılmak için Error ve Loading kompanentleri oluşturuldu.
+              </p>
+              <p>
+                Loading.js
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function Loading() {
+  return &lt;div style={{ padding: "10px" }}>Loading...&lt;/div>;
+}
+
+export default Loading;
+
+                </pre>
+              </p>
+              <p>
+                Error.js
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function Error({ message }) {
+  return &lt;div>Error: {message}&lt;/div>;
+}
+
+export default Error;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="paginationBbApi">
+              <h1>Sayfalama İşlemleri</h1>
+              <p>
+                sayfalama işlemi için fetchCharacters asenkron fonksiyonunun parametre alması sağlandı. Buradan gelen page verisiyle .slice() fonksiyonunda her bir sayfa için sınırlı veri getirilmesi sağlandı.
+              </p>
+              <p>
+                initialState içinde page ve hasNextPage değişkenleri tanımlandı.
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const char_limit = 12; // kaç karakter çekileceğini belirler
+
+export const fetchCharacters = createAsyncThunk(
+  "characters/getCharacters",
+  async (page) => {
+    const res = await axios(
+      `${process.env.REACT_APP_API_BASE_ENDPOINT}/characters`
+    );
+    return res.data.slice(page * char_limit, page * char_limit + char_limit);
+  }
+);
+
+export const charactersSlice = createSlice({
+  name: "character",
+  initialState: {
+    items: [],
+    isLoading: false,
+    page: 0, // sayfa numarasını değiştirebilmek için oluşturuldu
+    hasNextPage: true, // sonraki sayfa var mı?
+  },
+  reducers: {},
+  extraReducers: {
+    [fetchCharacters.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [fetchCharacters.fulfilled]: (state, action) => {
+      state.items = [...state.items, ...action.payload]; // yeni gelen verileri eskisinin üzerine ekler.
+      state.isLoading = false;
+      state.page += 1; // her çalıştığında sayfa sayısını bir arttırır.
+
+      if (action.payload.length &lt; char_limit) {
+        // son çekilen sayfadaki veri tanımlı karakter limitinden az ise hasNextPage false olur.
+        state.hasNextPage = false;
+      }
+    },
+    [fetchCharacters.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    },
+  },
+});
+
+export default charactersSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                İlgili veriler ve fonksiyonlar Home/index.js içinde import edildi ve kullanıldı.
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCharacters } from "../../redux/charactersSlice";
+import Masonry from "react-masonry-css"; // Çekilen verinin görsel kısmı için import edildi.
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+
+function Home() {
+  const characters = useSelector((state) => state.characters.items);
+  const page = useSelector((state) => state.characters.page);
+  const hasNextPage = useSelector((state) => state.characters.hasNextPage);
+  const isLoading = useSelector((state) => state.characters.isLoading);
+  const error = useSelector((state) => state.characters.error);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCharacters(page));
+  }, [dispatch]);
+
+  if (error) {
+    return &lt;Error message={error} />;
+  }
+
+  return (
+    &lt;div>
+      &lt;Masonry
+        breakpointCols={4}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {characters.map((character) => (
+          &lt;div key={character.id}>
+            &lt;img
+              src={
+                character.image
+                  ? character.image
+                  : "https://cdn.evrimagaci.org/zZKA_7o0hzCnltHvAhIaB9yWllk=/300x0/filters:format(webp)/evrimagaci.org%2Fpublic%2Fmi_media%2F1ffc457d5cd451f726f9287682746838.jpeg"
+              } // forograf bilgisi olmayanlar için yer tutucu tanımlandı.
+              alt={character.name}
+              className="character"
+            />
+            &lt;div className="char_name">{character.name}&lt;/div>
+          &lt;/div>
+        ))}
+      &lt;/Masonry>
+
+      &lt;div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
+        {isLoading && &lt;Loading />}
+        {hasNextPage && !isLoading && (
+          &lt;button onClick={() => dispatch(fetchCharacters(page))}> 
+          {/* butona her tıklandığında mevcut page bilgisi fonksiyona gönderilir. Fonksiyon her başarıya ulaştığında charactersSlice.js içindeki fonksiyonunda sayfa sayısı bir artar */}
+            Load More ({page})
+          &lt;/button>
+        )}
+        {!hasNextPage && &lt;div>There is nothing to be shown.&lt;/div>}
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default Home;
+
+                </pre>
+              </p>
+              <p>
+                Test sırasında sayfanın her seferinde iki kez render edildiğini gözlemledik. Bu da sayfa sayısını ikişer ikişer arttırıyordu. Bunu engellemek için src/index.js aşağıdaki gibi düzenlendi.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  &lt;> {/* değiştirilen kısım */}
+    &lt;Provider store={store}> 
+      &lt;App />
+    &lt;/Provider>
+  &lt;/> // değiştirilen kısım
+);
+
+reportWebVitals();
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="charDetailBbApi">
+              <h1>Karakter detay ekranının tasarlanması</h1>
+              <p>
+                App.js içinde gerekli routing işlemi tanımlandı.
+                <pre class="prettyprint ms-0">
+import "./App.css";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import Home from "./pages/Home";
+import Detail from "./pages/Detail";
+
+function App() {
+  return (
+    &lt;>
+      &lt;Router>
+        &lt;Routes>
+          &lt;Route path="/" element={&lt;Home />} />
+          &lt;Route path="/char/:char_id" element={&lt;Detail />} />
+        &lt;/Routes>
+      &lt;/Router>
+    &lt;/>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+              <p>
+                Karakter fetch işlemini redux üzerinden yapabileceğimiz gibi direk kendi sayfasında da yazabiliriz. Bu örnekte kendi sayfasında yazdık. page/Detail/index.js içinde:
+                <pre class="prettyprint ms-0">
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Loading from "../../components/Loading";
+
+function Detail() {
+  const [char, setChar] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { char_id } = useParams();
+
+  useEffect(() => {
+    axios(`${process.env.REACT_APP_API_BASE_ENDPOINT}/character/${char_id}`)
+      .then((res) => res.data)
+      .then((data) => setChar(data[0]))
+      .finally(setLoading(false));
+  }, []);
+
+  return (
+    &lt;div>
+      {loading && &lt;Loading />}
+      {char && (
+        &lt;div>
+          &lt;h1>{char.name} {char.alternate_names[0] && `(${char.alternate_names})`}&lt;/h1>
+          &lt;img src={char.image} alt="" style={{ width: "50%" }} />
+          &lt;pre>{JSON.stringify(char, null, 2)}&lt;/pre>
+        &lt;/div>
+      )}
+    &lt;/div>
+  );
+}
+
+export default Detail;
+
+                </pre>
+              </p>
+              <p>
+                characterSlice.js içindeki isLoading tanımı bize sadece iki durum verdiği (true-false) ve buna bağlı olarak <q>Home</q> sayfasına her dönüldüğünde fetch işlemi tekrarlandığı için bunun yerine status durumu yazıldı. status başkangıçta <q>idle</q> yükleme sırasında <q>loading</q> yükleme başarılı olunca <q>succeeded</q> yükleme başarısız olursa <q>failed</q> alır. Bu durum home sayfasındaki fetch işlemini <code>status === "idle"</code> koşuluna bağlamayı kolaylaştırır.
+                <pre class="prettyprint ms-0">
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const char_limit = 12; // kaç karakter çekileceğini belirler
+
+export const fetchCharacters = createAsyncThunk(
+  "characters/getCharacters",
+  async (page) => {
+    const res = await axios(
+      `${process.env.REACT_APP_API_BASE_ENDPOINT}/characters`
+    );
+    return res.data.slice(page * char_limit, page * char_limit + char_limit);
+  }
+);
+
+export const charactersSlice = createSlice({
+  name: "character",
+  initialState: {
+    items: [],
+    status: "idle", // isLoading yerine status tanımı girildi. Başlangıç konumu "idle"
+    page: 0,
+    hasNextPage: true,
+  },
+  reducers: {},
+  extraReducers: {
+    [fetchCharacters.pending]: (state, action) => {
+      state.status = "loading"; //
+    },
+    [fetchCharacters.fulfilled]: (state, action) => {
+      state.items = [...state.items, ...action.payload];
+      state.status = "succeeded"; //
+      state.page += 1;
+
+      if (action.payload.length &lt; char_limit) {
+        state.hasNextPage = false;
+      }
+    },
+    [fetchCharacters.rejected]: (state, action) => {
+      state.status = "failed"; //
+      state.error = action.error.message;
+    },
+  },
+});
+
+export default charactersSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                page/Home/index.js içinde fetch işlemi koşul altına alındı. Karakter kartları da link haline getirildi.
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+import Masonry from "react-masonry-css";
+
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCharacters } from "../../redux/charactersSlice";
+
+import { Link } from "react-router-dom";
+
+function Home() {
+  const characters = useSelector((state) => state.characters.items);
+  const page = useSelector((state) => state.characters.page);
+  const hasNextPage = useSelector((state) => state.characters.hasNextPage);
+  const status = useSelector((state) => state.characters.status);
+  const error = useSelector((state) => state.characters.error);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchCharacters(page));
+    }
+  }, [dispatch, status]);
+
+  if (status === "failed") {
+    return &lt;Error message={error} />;
+  }
+
+  return (
+    &lt;div>
+      &lt;Masonry
+        breakpointCols={4}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {characters.map((character) => (
+          &lt;div key={character.id}>
+            &lt;Link to={`/char/${character.id}`}>
+              &lt;img
+                src={
+                  character.image
+                    ? character.image
+                    : "https://cdn.evrimagaci.org/zZKA_7o0hzCnltHvAhIaB9yWllk=/300x0/filters:format(webp)/evrimagaci.org%2Fpublic%2Fmi_media%2F1ffc457d5cd451f726f9287682746838.jpeg"
+                }
+                alt={character.name}
+                className="character"
+              />
+              &lt;div className="char_name">{character.name}&lt;/div>
+            &lt;/Link>
+          &lt;/div>
+        ))}
+      &lt;/Masonry>
+
+      &lt;div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
+        {status === "loading" && &lt;Loading />}
+        {hasNextPage && status !== "loading" && (
+          &lt;button onClick={() => dispatch(fetchCharacters(page))}>
+            Load More ({page})
+          &lt;/button>
+        )}
+        {!hasNextPage && &lt;div>There is nothing to be shown.&lt;/div>}
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default Home;
+
+                </pre>
+              </p>
+              <p>
+                App.css içine stil tanımları eklendi.
+                <pre class="prettyprint ms-0">
+.my-masonry-grid {
+  display: flex;
+  margin-left: -20px;
+}
+.my-masonry-grid_column {
+  border-left: 20px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements in &lt;masonry> */
+  margin-bottom: 20px;
+}
+
+.my-masonry-grid_column > div > a {
+  display: block;
+  padding: 20px;
+  color: #333;
+  text-decoration: none;
+  background: #ddd;
+}
+
+.my-masonry-grid_column > div > a:hover{
+  color: black;
+  background: #eee;
+}
+
+.character{
+  width: 100%;
+}
+
+.char_name{
+  padding: 10px 0;
+  font-size: 16px;
+}
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="quotesBbApi">
+              <h1>Quotes route'unun hazırlanması</h1>
+              <p>
+                Bizim kullandığımız api içinde quotes yok Biz de başka kaynaktan aldık. <q>https://api.quotable.io/quotes</q>
+              </p>
+              <p>
+                Bu eğitimdeki stil tanımlarını da App.css içine ekledim. Bölümün en altına koydum.
+              </p>
+              <p>
+                App.js içinde navigasyon yapısı ve gereken routing işlemi tanımlandı.
+                <pre class="prettyprint ms-0">
+import "./App.css";
+import { Routes, Route, Link, BrowserRouter as Router } from "react-router-dom";
+import Home from "./pages/Home";
+import Detail from "./pages/Detail";
+import Quotes from "./pages/Quotes";
+
+function App() {
+  return (
+    &lt;>
+      &lt;Router>
+        &lt;nav>
+          &lt;ul>
+            &lt;li>
+              &lt;Link to="/">HP Characters&lt;/Link>
+            &lt;/li>
+            &lt;li>
+              &lt;Link to="/quotes">Quotes&lt;/Link>
+            &lt;/li>
+          &lt;/ul>
+        &lt;/nav>
+        &lt;Routes>
+          &lt;Route path="/" element={&lt;Home />} />
+          &lt;Route path="/char/:char_id" element={&lt;Detail />} />
+          &lt;Route path="/quotes" element={&lt;Quotes />} />
+        &lt;/Routes>
+      &lt;/Router>
+    &lt;/>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+              <p>
+                quotes verisinin alınması, tutulması ve işlenmesi için redux/quotesSlice.js dosyası oluşturuldu.
+                <pre class="prettyprint ms-0">
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const fetchAllQuotes = createAsyncThunk("quotes/fetchAll", async () => {
+  const res = await axios("https://api.quotable.io/quotes");
+
+  return res.data;
+});
+
+export const quotesSlice = createSlice({
+  name: "quotes",
+  initialState: {
+    items: [],
+    status: "idle",
+  },
+  reducers: {},
+  extraReducers: {
+    [fetchAllQuotes.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [fetchAllQuotes.fulfilled]: (state, action) => {
+      state.items = action.payload;
+      state.status = "succeeded";
+    },
+    [fetchAllQuotes.rejected]: (state, action) => {
+      state.error = action.error.message;
+      state.status = "failed";
+    },
+  },
+});
+
+export const quotesSelector = (state) => state.quotes.items;
+export const statusSelector = (state) => state.quotes.status;
+export const errorSelector = (state) => state.quotes.error;
+
+export default quotesSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                redux/store.js içinde quotesSlice import edildi ve kullanıldı.
+                <pre class="prettyprint ms-0">
+import { configureStore } from "@reduxjs/toolkit";
+import charactersSlice from "./charactersSlice";
+import quotesSlice from "./quotesSlice";
+
+export const store = configureStore({
+  reducer: {
+    characters: charactersSlice,
+    quotes: quotesSlice,
+  },
+});
+
+                </pre>
+              </p>
+              <p>
+                pages/Quotes/index.js dosyası oluşturuldu ve quotesSlice içinden gelen veri kullanıldı.
+                <pre class="prettyprint ms-0">
+import React, { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  errorSelector,
+  fetchAllQuotes,
+  quotesSelector,
+  statusSelector,
+} from "../../redux/quotesSlice";
+import Error from "../../components/Error";
+import Loading from "../../components/Loading";
+import Item from "./item";
+
+function Quotes() {
+  const dispatch = useDispatch();
+  const data = useSelector(quotesSelector);
+  const status = useSelector(statusSelector);
+  const error = useSelector(errorSelector);
+
+  useEffect(() => {
+    if(status === "idle"){ // sayfanın her seferinde fetch edilmesini engeller.
+        dispatch(fetchAllQuotes());
+    }
+  }, [dispatch, status]);
+
+  if (error) {
+    return &lt;Error message={error} />;
+  }
+
+  return (
+    &lt;div style={{ padding: 10 }}>
+      &lt;h1>Quotes&lt;/h1>
+      {status === "loading" && &lt;Loading />}
+
+      {status === "succeeded" &&
+        data.results.map((item) => &lt;Item key={item._id} item={item} />)}
+
+      {status === "succeeded" && &lt;div className="quotes_info">{data.results.length} quotes in {data.totalCount} quotes&lt;/div>}  
+    &lt;/div>
+  );
+}
+
+export default Quotes;
+
+                </pre>
+              </p>
+              <p>
+                pages/Quotes/index.js sayfasında veri maplemek için kullanılan Item kompanenti pages/Quotes/Item.js içinde oluşturuldu.
+                <pre class="prettyprint ms-0">
+import React from 'react'
+
+function Item({item}) {
+  return (
+    &lt;div className='quote_item'>
+        &lt;q>{item.content}&lt;/q> &lt;strong>{item.author}&lt;/strong>
+    &lt;/div>
+  )
+}
+
+export default Item
+                </pre>
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+                  App.css içine eklenen stil tanımları
+                  <pre class="prettyprint ms-0">
+/* nav tanımları */
+nav{
+  background-color: antiquewhite;
+}
+
+nav ul {
+  margin: 0 0 10px 0;
+  display: flex;
+  padding: 10px;
+  list-style-type: none;
+}
+
+nav ul li {
+  padding: 5px;
+}
+
+/* Item tanımları */
+
+.quote_item {
+  padding: 10px 0 ;
+}
+
+.quotes_info {
+  padding: 30px;
+  text-align: center;
+}
+                  </pre>
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="quoteDetailBbApi">
+              <h1>Quotes detail route'unun hazırlanması</h1>
+              <p>
+                App.js içinde yönlendirme yazıldı.
+                <pre class="prettyprint ms-0">
+import "./App.css";
+import { Routes, Route, Link, BrowserRouter as Router } from "react-router-dom";
+import Home from "./pages/Home";
+import Detail from "./pages/Detail";
+import Quotes from "./pages/Quotes";
+import QuoteDetail from "./pages/QuoteDetail";
+
+function App() {
+  return (
+    &lt;>
+      &lt;Router>
+        &lt;nav>
+          &lt;ul>
+            &lt;li>
+              &lt;Link to="/">HP Characters&lt;/Link>
+            &lt;/li>
+            &lt;li>
+              &lt;Link to="/quotes">Quotes&lt;/Link>
+            &lt;/li>
+          &lt;/ul>
+        &lt;/nav>
+        &lt;Routes>
+          &lt;Route path="/" element={&lt;Home />} />
+          &lt;Route path="/char/:char_id" element={&lt;Detail />} />
+          &lt;Route path="/quotes" element={&lt;Quotes />} />
+          &lt;Route path="/quotes/:quote_id" element={&lt;QuoteDetail />} />
+        &lt;/Routes>
+      &lt;/Router>
+    &lt;/>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+              <p>
+                Quotes/item.js içinde link verildi.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { Link } from "react-router-dom";
+
+function Item({ item }) {
+  return (
+    &lt;div className="quote_item">
+      &lt;Link to={`/quotes/${item._id}`}>
+        &lt;q>{item.content}&lt;/q>
+      &lt;/Link>{" "}{" "}
+      &lt;strong>{item.author}&lt;/strong>
+    &lt;/div>
+  );
+}
+
+export default Item;
+
+                </pre>
+              </p>
+              <p>
+                pages/QuoteDetail/index.js içinde veri fetch edildi ve kullanıldı.
+                <pre class="prettyprint ms-0">
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Loading from "../../components/Loading";
+
+function QuoteDetail() {
+  const { quote_id } = useParams();
+  const [quote, setQuote] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    axios(`https://api.quotable.io/quotes/${quote_id}`)
+      .then((res) => res.data)
+      .then((data) => setQuote(data))
+      .finally(setIsLoading(false));
+  }, []);
+  return (
+    &lt;div>
+      &lt;h1>Quote Detail&lt;/h1>
+      {isLoading ? &lt;Loading /> : &lt;pre>{JSON.stringify(quote, null, 2)}&lt;/pre>}
+    &lt;/div>
+  );
+}
+
+export default QuoteDetail;
+
+                </pre>
+              </p>
+              <p>
+                App.css içine stil tanımları eklendi.
+                <pre class="prettyprint ms-0">
+/* Link kompanenti a tagı olarak render edilir. */
+.quote_item a{
+  text-decoration: none;
+  color: #333;
+}
+.quote_item a:hover{
+  text-decoration: underline;
+}
+                </pre>
+              </p>
+              <p>
+                Son olarak alıntılar sayfasına da karakterler sayfsındaki gibi bir buton ekledim. İstediğim gibi çalışmadı.
+              </p>
+            </div>
+            <div class="row" id="createEntityAdaptor">
+              <h1>createEntityAdaptor</h1>
+              <p>
+                Terminale <pre class="prettyprint ms-0">npx create-react-app .</pre> ile bulunduğumuz dizine yeni bir proje oluşturduk. 
+              </p>
+              <p>
+                Terminale <pre class="prettyprint ms-0">npm install react-redux @reduxjs/toolkit</pre> ile react-redux ve redux-toolkit i kurduk.
+              </p>
+              <p>
+                redux/store.js içinde store oluşturuldu.
+                <pre class="prettyprint ms-0">
+import { configureStore } from "@reduxjs/toolkit";
+import contactSlice from "./contactSlice";
+
+export const store = configureStore({
+  reducer: {
+    contacts: contactSlice,
+  },
+});
+
+                </pre>
+              </p>
+              <p>
+                index.js içinde store import edildi ve import edilen Provider kompanenti ile kullanıldı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  &lt;>
+    &lt;Provider store={store}>
+      &lt;App />
+    &lt;/Provider>
+  &lt;/>
+);
+
+reportWebVitals();
+
+                </pre>
+              </p>
+              <p>
+                Bu bölümde kullanacağımız createEntityAdaptor yapısı bizim daha önce oluşturduğumuz array içinde obje betodu yerine veriyi obje içinde unique id bir keye bağlı objeler olarak tutuyor. Ulaşmak gerektiğinde ise find() metodu kullanmadan, obje içindeki keye yönlenerek datayı bulmamızı sağlıyor. Bu metod kullanıldığında CRUD işlemleri için de hazır fonksiyonlara sahip oluyoruz. Detay okuma için <a href="https://redux-toolkit.js.org/api/createEntityAdapter#crud-functions">tıklayınız.</a>
+              </p>
+              <p>
+                redux/contactSlice.js içinde createEntityAdaptor yapısıyla birlikte bir slice yapısı kurgulandı.
+                <pre class="prettyprint ms-0">
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+
+export const contactAdapter = createEntityAdapter(); //
+const initialState = contactAdapter.getInitialState(); // bu tanım direk initialState karşısına da yazılabilir.
+
+const contactSlice = createSlice({
+  name: "contacts",
+  initialState, //
+  reducers: {
+    addContact: contactAdapter.addOne, // addOne tanımı createEntityApadter içindeki hazır yeni eleman ekleme komutudur.
+    addContacts: contactAdapter.addMany // birden fazla elemanı aynı anda girmeye yarar.
+  },
+});
+
+export const { addContact, addContacts } = contactSlice.actions;
+export default contactSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                componenets/Contacts/Form.js dosyası içinde contactSlice içinden alınan fonksiyonlar dispatch edilir ve kullanılır.
+                <pre class="prettyprint ms-0">
+import React, { useState } from "react";
+
+import { nanoid } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { addContact, addContacts } from "../../redux/contactSlice";
+
+function Form() {
+  const [name, setName] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name) return false;
+
+    const names = name.split(","); //"," ile ayrılmış bir sting veriyi "," e göre ayırır ve array yapar.
+
+    // names.forEach((name) => dispatch(addContact({ id: nanoid(), name }))); // arrayin her bir elemanını contact verisine ekler.
+
+    // yukarıdakinin doğru yolu: (yukarıda her eleman için ayrı ayrı işlem yapar. Aşağıda bunu tek işlemde yapar.)
+    const data = names.map((name) => ({ name, id: nanoid() })) // arraydeki ögeleri istenilen formata getirir.
+    dispatch(addContacts(data)); // arrayi tek hamlede ekler.
+    // dispatch(addContact({ id: nanoid(), name })); // verilen tek değeri ekler.
+    setName("");
+  };
+  return (
+    &lt;form onSubmit={handleSubmit}>
+      &lt;input
+        placeholder="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+    &lt;/form>
+  );
+}
+
+export default Form;
+
+                </pre>
+              </p>
+              <p>
+                Bu kompanenti Contact/index.js içinde onu da App.js içinde kullandık.
+              </p>
+            </div>
+            <div class="row" id="entityAdaptorSelectorFunctions">
+              <h1>Entity Adaptor Selector Functions</h1>
+              <p>
+                Verinin kullanılacağı yerde çekilecek verinin özelliğini değiştirebilecek bazı özel fonksiyonların kullanılabilmesi için, redux/contactSlice.js içine aşağıdaki kod eklenir.
+                <pre class="prettyprint ms-0">
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+
+export const contactAdapter = createEntityAdapter();
+export const contactSelectors = contactAdapter.getSelectors( // Bu tanım selector ile veri çekerken bazı özel fonksiyonları kullanabilmemizi sağlar.
+  (state) => state.contacts
+);
+
+const initialState = contactAdapter.getInitialState();
+
+const contactSlice = createSlice({
+  name: "contacts",
+  initialState,
+  reducers: {
+    addContact: contactAdapter.addOne,
+    addContacts: contactAdapter.addMany,
+  },
+});
+
+export const { addContact, addContacts } = contactSlice.actions;
+export default contactSlice.reducer;
+
+                </pre> 
+              </p>
+              <p>
+                components/Contacts/List.js dosyası oluşturulur ve içine veriler çekilir.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { contactSelectors } from "../../redux/contactSlice";
+import { useSelector } from "react-redux";
+import Item from "./Item";
+
+function List() {
+  const contacts = useSelector(contactSelectors.selectAll); // selectEntities: entities yapısı ile hepsini verir. selectAll array olarak verir. selectTotal kayıt sayısını verir.
+  console.log(contacts);
+  return &lt;div>
+    {
+        contacts.map(contact => (&lt;Item key={contact.id} item={contact}/>))
+    }
+    &lt;/div>;
+}
+
+export default List;
+
+                </pre>
+              </p>
+              <p>
+                Listeleme işlemi için aynı klasörde List.js kompanenti oluşturulur.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function Item({item}) {
+  return <div>{item.name}</div>;
+}
+
+export default Item;
+
+                </pre>
+              </p>
+              <p>
+                List kompanenti componenets/Contacts/index.js içinde kullanılır.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import Form from "./Form";
+import List from "./List";
+
+function Contacts() {
+  return (
+    &lt;div>
+      &lt;h1>Contacts&lt;/h1>
+      &lt;Form />
+      &lt;List />
+    &lt;/div>
+  );
+}
+
+export default Contacts;
+
+                </pre>
+              </p>
+              <p>
+                Form kompanentinden çoklu veri ekleme işlemi çıkartılarak kompanent sadeleştirilir.
+                <pre class="prettyprint ms-0">
+import React, { useState } from "react";
+
+import { nanoid } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactSlice";
+
+function Form() {
+  const [name, setName] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name) return false;
+    dispatch(addContact({ id: nanoid(), name })); // verilen tek değeri ekler.
+    setName("");
+  };
+  return (
+    &lt;form onSubmit={handleSubmit}>
+      &lt;input
+        placeholder="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+    &lt;/form>
+  );
+}
+
+export default Form;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="formAndStyle">
+              <h1>Form ve stillendirme işlemleri</h1>
+              <p>
+                Daha önce buna benzer bir uygulama geliştirmiştik. Oradan aldığımız stil tanımları ile App.css dosyasını güncelledik.
+                <pre class="prettyprint ms-0">
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#container {
+  width: 400px;
+  background-color: aliceblue;  
+  padding: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box; /* sağ sol hizalaması */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box; 
+}
+
+ul, li {
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.list{
+    margin: 15px 0; 
+}
+
+.list > li {
+    background-color: antiquewhite;
+    padding: 5px;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px 0 ;
+}
+
+.btn > button {
+    padding: 5px;
+    width: 60px;
+}
+                </pre>
+              </p>
+              <p>
+                Form kompanenti içinde telefon numarası için input ekledik ve css için gerekli klas ve id bilgilerini ekledik.
+                <pre class="prettyprint ms-0">
+import React, { useState } from "react";
+
+import { nanoid } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactSlice";
+
+function Form() {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name || !number) return false;
+    dispatch(addContact({ id: nanoid(), name, phone_number: number }));
+    setName("");
+    setNumber("");
+  };
+  return (
+    &lt;form onSubmit={handleSubmit}>
+      &lt;input
+        placeholder="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      &lt;input
+        placeholder="phone number"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
+      />
+      &lt;div className="btn">
+        &lt;button type="submit">Add&lt;/button>
+      &lt;/div>
+    &lt;/form>
+  );
+}
+
+export default Form;
+
+                </pre>
+              </p>
+              <p>
+                Aşağıdaki kompanentleri css tanımlarıyla uyumlu hale getirdik.
+              </p>
+              <p>
+                Contacts/index.js
+                <pre class="prettyprint ms-0">
+import React from "react";
+import Form from "./Form";
+import List from "./List";
+
+function Contacts() {
+  return (
+    &lt;div id="container">
+      &lt;h1>Contacts&lt;/h1>
+      &lt;List />
+      &lt;Form />
+    &lt;/div>
+  );
+}
+
+export default Contacts;
+
+                </pre>
+              </p>
+              <p>
+                Contacts/List.js
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { contactSelectors } from "../../redux/contactSlice";
+import { useSelector } from "react-redux";
+import Item from "./Item";
+
+function List() {
+  const contacts = useSelector(contactSelectors.selectAll); 
+  console.log(contacts);
+  return &lt;ul className="list">
+    {
+        contacts.map(contact => (&lt;Item key={contact.id} item={contact}/>))
+    }
+    &lt;/ul>;
+}
+
+export default List;
+
+                </pre>
+              </p>
+              <p>
+                Contacts/Item.js
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+function Item({item}) {
+  return &lt;li>
+    &lt;span>{item.name}&lt;/span>
+    &lt;span>{item.phone_number}&lt;/span>
+  &lt;/li>;
+}
+
+export default Item;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="deleteAndUpdate">
+              <h1>Silme ve güncelleme işlemleri</h1>
+
+              <h2>Silme işlemleri</h2>
+              <p>
+                contactSlice.js içinde tekli silme ve hepsini silme fonksiyonları tanımlandı.
+                <pre class="prettyprint ms-0">
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+
+export const contactAdapter = createEntityAdapter();
+export const contactSelectors = contactAdapter.getSelectors(
+  (state) => state.contacts
+);
+
+const initialState = contactAdapter.getInitialState();
+
+const contactSlice = createSlice({
+  name: "contacts",
+  initialState,
+  reducers: {
+    addContact: contactAdapter.addOne,
+    addContacts: contactAdapter.addMany,
+    deleteContact: contactAdapter.removeOne, // bir tane veriyi silmek için kullanılır. Parametre olarak id değerini alır.
+    removeAllContacts: contactAdapter.removeAll // tüm verileri siler.
+  },
+});
+
+export const { addContact, addContacts, deleteContact, removeAllContacts } = contactSlice.actions;
+export default contactSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                components/Contacts/item.js dosyasında silme butonu ve tekil silme fonksiyonu kullanıldı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactSlice";
+
+function Item({ item }) {
+  const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    if(window.confirm("Are you sure?")){
+      dispatch(deleteContact(id))
+    }
+  };
+  return (
+    &lt;li>
+      &lt;span>{item.name}&lt;/span>
+      &lt;span>{item.phone_number}&lt;/span>
+      &lt;span className="deleteBtn" onClick={()=>handleDelete(item.id)}>
+        x
+      &lt;/span>
+    &lt;/li>
+  );
+}
+
+export default Item;
+
+                </pre>
+              </p>
+              <p>
+                components/Contacts/List.js içinte tüm veriyi silmek için gereken fonksiyon kullanıldı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { contactSelectors, removeAllContacts } from "../../redux/contactSlice";
+import { useSelector, useDispatch } from "react-redux";
+import Item from "./Item";
+
+function List() {
+  const contacts = useSelector(contactSelectors.selectAll);
+  const dispatch = useDispatch();
+  const handleDeleteAll = () => {
+    if (window.confirm("Are You Sure??")) {
+      dispatch(removeAllContacts());
+    }
+  };
+  return (
+    &lt;div>
+      {contacts.length > 1 && (
+        &lt;div className="deleteAllBtn" onClick={handleDeleteAll}>
+          Delete All
+        &lt;/div>
+      )}
+      &lt;ul className="list">
+        {contacts.map((contact) => (
+          &lt;Item key={contact.id} item={contact} />
+        ))}
+      &lt;/ul>
+    &lt;/div>
+  );
+}
+
+export default List;
+
+                </pre>
+              </p>
+              <p>
+                components/Contacts/index.js içinde var olan veri sayısı gösterildi.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import Form from "./Form";
+import List from "./List";
+
+import { useSelector } from "react-redux";
+import { contactSelectors } from "../../redux/contactSlice";
+
+function Contacts() {
+  const total = useSelector(contactSelectors.selectTotal)
+  return (
+    &lt;div id="container">
+      &lt;h1>Contacts ({total})&lt;/h1>
+      &lt;List />
+      &lt;Form />
+    &lt;/div>
+  );
+}
+
+export default Contacts;
+
+                </pre>
+              </p>
+              <p>
+                App.css içine stil tanımları eklendi.
+                <pre class="prettyprint ms-0">
+.deleteBtn{
+    width: 18px;
+    height: 22px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.deleteAllBtn{
+    text-align: right;
+    cursor: pointer;
+    font-size: 12px;
+}
+.deleteAllBtn:hover{
+    text-decoration: underline;
+}
+                </pre>
+              </p>
+
+              <h2>Update işlemleri</h2>
+              <p>
+                contactSlice içinde update fonksiyon yazıldı.
+                <pre class="prettyprint ms-0">
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+
+export const contactAdapter = createEntityAdapter();
+export const contactSelectors = contactAdapter.getSelectors(
+  (state) => state.contacts
+);
+
+const initialState = contactAdapter.getInitialState();
+
+const contactSlice = createSlice({
+  name: "contacts",
+  initialState,
+  reducers: {
+    addContact: contactAdapter.addOne,
+    addContacts: contactAdapter.addMany,
+    deleteContact: contactAdapter.removeOne, 
+    removeAllContacts: contactAdapter.removeAll,
+    updateContact: contactAdapter.updateOne, // veri güncellemek için kullanılır. ilk parametre olarak id, ikinci parametre olarak changes keyi ile değişen değerleri obje olarak alır.
+  },
+});
+
+export const {
+  addContact,
+  addContacts,
+  deleteContact,
+  removeAllContacts,
+  updateContact,
+} = contactSlice.actions;
+export default contactSlice.reducer;
+
+                </pre>
+              </p>
+              <p>
+                App.js içinde Edit kompanentine yönlendirme yapıldı.
+                <pre class="prettyprint ms-0">
+import "./App.css";
+import Contacts from "./components/Contacts";
+import Edit from "./components/Contacts/Edit";
+
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+
+function App() {
+  return (
+    &lt;div className="App">
+      &lt;div id="container">
+        &lt;Router>
+          &lt;Routes>
+            &lt;Route path="/" element={&lt;Contacts />} />
+            &lt;Route path="/edit/:id" element={&lt;Edit />} />
+          &lt;/Routes>
+        &lt;/Router>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+              <p>
+                Item komponenti içinde Edit komponentine link verildi. 
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactSlice";
+import { Link } from "react-router-dom";
+
+function Item({ item }) {
+  const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteContact(id));
+    }
+  };
+  return (
+    &lt;li>
+      &lt;span>{item.name}&lt;/span>
+      &lt;span>{item.phone_number}&lt;/span>
+      &lt;div className="edit">
+        &lt;Link to={`/edit/${item.id}`}>
+          &lt;span>Edit&lt;/span>
+        &lt;/Link>
+        &lt;span className="deleteBtn" onClick={() => handleDelete(item.id)}>
+          x
+        &lt;/span>
+      &lt;/div>
+    &lt;/li>
+  );
+}
+
+export default Item;
+
+                </pre>
+              </p>
+              <p>
+                Edit kompanenti oluşturuldu ve içinde useParams kullanılarak id, id kullanılarak da id ye ait contact bilgisine ulaştık.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { useParams, Navigate } from "react-router-dom";
+import EditForm from "./EditForm";
+
+import { useSelector } from "react-redux";
+import { contactSelectors } from "../../redux/contactSlice";
+
+function Edit() {
+  const { id } = useParams();
+
+  const contact = useSelector((state) =>
+    contactSelectors.selectById(state, id)
+  );
+
+  if (!contact) { // sayfa yenilendiğinde contact verisi gidiyor. Bu durumda da hataya düşüyordu. Biz de bu koşulu yazdık
+    return &lt;Navigate to={"/"} />;
+  }
+  return (
+    &lt;div>
+      &lt;h1>Edit&lt;/h1>
+      &lt;EditForm contact={contact} />
+    &lt;/div>
+  );
+}
+
+export default Edit;
+
+                </pre>
+              </p>
+              <p>
+                Edit komponentinde kullanılan EditForm komponenti oluşturuldu.
+                <pre class="prettyprint ms-0">
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateContact } from "../../redux/contactSlice";
+import { useNavigate } from "react-router-dom"; // yönlendirmeyi fonksiyon içinde yapmak için bu hook çekildi.
+
+function EditForm({ contact }) {
+  const [name, setName] = useState(contact.name);
+  const [number, setNumber] = useState(contact.phone_number);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); // yönlendirme hooku değişkene tanımlandı
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name || !number) return false;
+
+    dispatch(
+      updateContact({
+        id: contact.id,
+        changes: {
+          name,
+          phone_number: number,
+        },
+      })
+    );
+    navigate("/") // işlem sonunda ana sayfaya yönlendirildi.
+  };
+
+  return (
+    &lt;div>
+      &lt;form onSubmit={handleSubmit}>
+        &lt;input
+          placeholder="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        &lt;input
+          placeholder="phone number"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+        />
+        &lt;div className="btn">
+          &lt;button type="submit">Update&lt;/button>
+        &lt;/div>
+      &lt;/form>
+    &lt;/div>
+  );
+}
+
+export default EditForm;
+
+                </pre> 
+              </p>
+              <p>
+                stil amaçlo olarak, Contacts/index.js kompanentindeki <code>&lt;div id="container"></code> ifadesi App.js içine alındı. 
+              </p>
+              <p>
+                App.css içine aşağıdaki tanımlar eklendi.
+                <pre class="prettyprint ms-0">
+.edit span{
+    margin-left: 10px;
+    font-size: 12px ;
+    cursor: pointer;
+} 
+                </pre>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <!-- JS -->
+    
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=js&amp;skin=sunburst"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
