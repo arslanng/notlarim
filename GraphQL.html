@@ -1,0 +1,4116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraphQL</title>
+    <link rel="stylesheet" href="css/sql.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .menu ul{
+            list-style-position: inside;
+            list-style: none;
+        }
+        li a{
+            color: black;
+            text-decoration: none;
+        }
+        li:hover{
+            background-color: rgba(0, 0, 0, 0.103);
+        }
+        h1{
+            border-bottom: 1px solid black;
+        }
+        h3{
+            margin-top: 4px;
+            margin-bottom: -3px;
+            font-size: normal;
+        }
+        ul{
+            list-style-position: inside;
+        }
+        table, th ,td{
+            border: 1px black solid;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        nav{
+            background-color: white;
+        }
+        .nav-pills .nav-link.active {
+            background-color: rgba(0, 0, 0, 0.51);
+        }
+        .nav-pills .nav-link {
+            color: black
+        }
+        </style>
+</head>
+<body>
+    <div class="nav bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">GraphQL</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Ana Sayfa</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Eğitim Notları
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                          <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                          <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                          <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                          <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                          <li><a class="dropdown-item" href="sql.html" target="_blank">SQL notları</a></li>
+                          <li><a class="dropdown-item" href="nodejs.html" target="_blank">NodeJS notları</a></li>
+                          <li><a class="dropdown-item" href="restAPI.html" target="_blank">Rest Api notları</a></li>
+                          <li><a class="dropdown-item" href="react.html" target="_blank">React</a></li>
+                          <li><a class="dropdown-item" href="redux.html" target="_blank">Redux</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- İçerik Start -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top menu d-none d-lg-block" style="height: fit-content;">
+            <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
+            <h2>Konu Listesi </h2>
+            <hr>
+            <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end " style="max-height: 400px; overflow: auto;">
+                <nav class="nav nav-pills flex-column ">
+                  <a class="nav-link" href="#whatIsGraphQL">Giriş</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#whatIsGraphQL">GraphQL Nedir? Ne Değildir?</a>
+                    <a class="nav-link ms-3 my-1" href="#apolloServer">Apollo Server'a Giriş</a>
+                    <a class="nav-link ms-3 my-1" href="#nonNullableFields">Non Nullable Fields</a>
+                    <a class="nav-link ms-3 my-1" href="#scalarTypes">Scalar Types</a>
+                    <a class="nav-link ms-3 my-1" href="#customTypes">Custom Types</a>
+                    <a class="nav-link ms-3 my-1" href="#argumans">Argümanlar ile Çalışmak</a>
+                    <a class="nav-link ms-3 my-1" href="#iliskiselData">İlişkisel Veriler ile Çalışmak</a>
+                    <a class="nav-link ms-3 my-1" href="#iliskiselDataArgumanlar">İlişkisel İfadelerde Argümanlar</a>
+                  </nav>
+                  <a class="nav-link" href="#whatIsMutation">Mutations (Server)</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#whatIsMutation">Mutation Nedir? Nasıl Yazılır?</a>
+                    <a class="nav-link ms-3 my-1" href="#inputType">Input Type</a>
+                    <a class="nav-link ms-3 my-1" href="#updateMutations">Update Mutations</a>
+                    <a class="nav-link ms-3 my-1" href="#deleteMutations">Delete Mutations</a>
+                    <a class="nav-link ms-3 my-1" href="#deleteAllMutations">Delete All Mutations</a>
+                  </nav>
+                  <a class="nav-link" href="#subscriptionServerSetup">Subscriptions (Server)</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#subscriptionServerSetup">Subscription Server Kurulumu</a>
+                    <a class="nav-link ms-3 my-1" href="#userCRUDsubs">User CRUD Subscriptions</a>
+                    <a class="nav-link ms-3 my-1" href="#postVeCommentCRUDsubs">Post ve Comment CRUD Subscriptions</a>
+                    <a class="nav-link ms-3 my-1" href="#withFilter">withFilter ile Subscription Filtreleme</a>
+                    <a class="nav-link ms-3 my-1" href="#redisPubsub">Redis PubSub</a>
+                    <a class="nav-link ms-3 my-1" href="#env">Ortam Değişkenleri</a>
+                  </nav>
+                  <a class="nav-link" href="#Folder/Schema Structure - 1">Folder/Schema Structure</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#folderSchemaStructure1">Folder/Schema Structure - 1</a>
+                    <a class="nav-link ms-3 my-1" href="#folderSchemaStructure2">Folder/Schema Structure - 2 (File Loader)</a>
+                    <a class="nav-link ms-3 my-1" href="#babelComplier">Babel Compiler</a>
+                  </nav>
+                </nav>
+              </nav>
+        </div>
+        <div class="col-sm-9">
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+            <div class="row" id="whatIsGraphQL">
+                <h1>GraphQL Nedir? Ne Değildir?</h1>
+                <p>
+                  Rest Api yapısının eksik olduğu yönleri kapatmak için facebook ekibi tarafından geliştirilmiştir.
+                </p>
+                <p>
+                  Api'dan veri çekerken sadece istediğimiz sorguya uygun veri dönmesini sağlar. Bunu tek bir endpoint kullanarak yapar.
+                </p>
+                <p>
+                  İlişkisel verilerle çalışması çok daha kolaydır.
+                </p>
+                <p>
+                  GraphQL dökümantasyonunu kendisi otomatik olarak yapar. Sorgu sonucunun göründüğü arayüz de otomatik olarak oluşur.
+                </p>
+                <p>
+                  Versiyonlama yapmaya gerek yok. Eski ve yeni alanları belirtebiliyoruz.
+                </p>
+                <p>
+                  Websoket tanımlarını yapmak daha kolay.
+                </p>
+                <ul>GraphQL Terminolojisi
+                  <li>Query: Bir veri kaynağına erişmek istediğinizde kullanacağınız tanımdır.</li>
+                  <li>Mutation: Ekleme, silme ve güncelleme işlemi için kullanacağınız tanımdır.</li>
+                  <li>Subscription: Gerçek zamanlı çalışan projeler için kullanacağınız tanımdır.</li>
+                </ul>
+            </div>
+            <div class="row" id="apolloServer">
+              <h1>Apollo Server'a Giriş</h1>
+              <p>
+                <a href="https://www.apollographql.com/docs/">Apollo Server</a>, hızlıca GraphQL sunucuları oluşturabileceğimiz, oldukça az bağımlılığı olan bir kütüphanedir.
+              </p>
+              <p>
+                Apollo server kullanmak için NodeJS pc de kurulu olmalı.
+              </p>
+              <p>
+                Bir dosya oluşturup açıyoruz. Açtığımız dosyanın içinde <pre class="prettyprint ms-0">npm init --yes</pre> yazıyoruz. <code>npm init</code> bizim yeni bir proje oluşturmamızı sağlar. <code>--yes</code> npm init sonrası sorulacak tüm soruların default olarak otomatik doldurulmasını sağlar.
+              </p>
+              <p>
+                Apollo server için 2 tane bağlılık gerekiyor. Bunları yüklemek için terminale <pre class="prettyprint ms-0">npm i @apollo/server graphql</pre> yazıyoruz.
+              </p>
+              <p>
+                ES6 import yapspını kullanabilmek için package.json dosyasında aşağıdaki ekleme yapılır.
+                <pre class="prettyprint ms-0">
+{
+  // ...etc.
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  }
+  // other dependencies
+}
+                </pre>
+              </p>
+              <p>
+                index.js dosyası oluşturulur. İçine: 
+                <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from '@apollo/server/standalone';
+
+// Tip (type) tanımı:
+const typeDefs = `#graphql
+  # GraphQL dizelerindeki yorumlar (bunun gibi) kare (#) simgesiyle başlar.
+  # Bu "Book" türü, veri kaynağımızdaki her kitap için sorgulanabilir alanları tanımlar.
+
+  type Book {
+    title: String
+    author: String
+  }
+
+
+  # "Query" türü özeldir: istemcilerin yürütebileceği tüm kullanılabilir sorguları ve her birinin dönüş türünü listeler. Bu durumda, "books" sorgusu sıfır veya daha fazla Book'tan (yukarıda tanımlanmıştır) oluşan bir dizi döndürür.
+  type Query {
+    books: [Book]
+  }
+  # data tipi ne ise ona ona uygun düzenlenmeli. Bu örnekte data tipi array olduğundan "[]" içine yazıldı.
+`;
+// data:
+const books = [
+  {
+    title: "The Awakening",
+    author: "Kate Chopin",
+  },
+  {
+    title: "City of Glass",
+    author: "Paul Auster",
+  },
+  {
+    title: "Yabancı",
+    author: "Albert Camus",
+  },
+];
+
+// resolvers (çözücü):
+const resolvers = {
+  Query: {
+    books: () => books,
+  },
+};
+
+// apollo server:
+const server = new ApolloServer({ typeDefs, resolvers }); // iki parametre alır. 1. tip tanımları, 2. resolvers
+
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
+});
+
+console.log(`🚀  Server ready at: ${url}`);
+
+                </pre>
+              </p>
+              <p>
+                terminale <pre class="prettyprint ms-0">npm start</pre> yazdığımızda terminalde "🚀  Server ready at: http://localhost:4000/" çıktısını görürüz.
+              </p>
+              <p>
+                http://localhost:4000/ adresine gittiğimizde bizi sorgu yapmak için hazır bir arayüz ve dökümantasyon karşılar.
+              </p>
+              <p> Bu arayüze
+                <pre class="prettyprint ms-0">
+query ExampleQuery {
+  books {
+    title
+  }
+}
+                </pre> yazarak datamızdaki kitap adlarına ulaşabiliriz.
+              </p> 
+              <p>
+                Bu sayfada gördüğümüz arayüzü, daha sık kullanılan graphql playground arayüzü ile değiştirmek için <a href="https://www.apollographql.com/docs/apollo-server/api/plugin/landing-pages/#graphql-playground-landing-page">bu yönerge</a> takip edilebilir ancak yapımcılar bunu önermiyor.
+              </p>
+              <p>
+                Kodu her güncellediğimizde serveri manuel restart etmemek için nodemon kurduk. Bunun için terminale <pre class="prettyprint ms-0">npm i --save-dev nodemon</pre> yazdık ve package.json>scripts alanına <pre class="prettyprint ms-0">"dev": "nodemon index.js",</pre> ekledik. Terminale <pre class="prettyprint ms-0">npm run dev</pre> yazarak serveri başlattığımızda her güncellemede kendini resetler.
+              </p>
+            </div>
+            <div class="row" id="nonNullableFields">
+              <h1>Non Nullable Fields</h1>
+              <p>
+                GraphQL resolver tanımlarınız üzerinde null dönmemesini istediğiniz bir field veya tip varsa bunun için bir tanım yapabilirsiniz. "!" ile ifade edilir.
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+...
+type Book {
+    title: String!
+    author: String
+  }
+...
+
+                </pre>
+                ifadesi title alanının null dönemeyeceğini ifade eder.
+              </p> 
+              <p>
+                <pre class="prettyprint ms-0">
+...
+type Query {
+  books: [Book]!
+}
+...
+                </pre>
+                ifadesi books sorgusunun null dönemeyeceğini ifade eder.
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+...
+type Query {
+  books: [Book!]!
+}
+...
+                </pre>
+                ifadesi books sorgusunu sonucunda gelen array içinde null eleman olamayacağını ifade eder.
+              </p>
+            </div>
+            <div class="row" id="scalarTypes">
+              <h1>Scalar Types</h1>
+              <ul>GraphQL'nin varsayılan skaler türleri şunlardır:
+                <li>Int</li>
+                <li>Float</li>
+                <li>String</li>
+                <li>Boolean</li>
+                <li>ID</li>
+              </ul>
+              <p> Örnek kullanım:
+                <pre class="prettyprint ms-0">
+...
+type Book {
+  id: ID!
+  title: String!
+  author: String
+  score: Float
+  isPublished: Boolean
+}
+...
+                </pre>
+                <pre class="prettyprint ms-0">
+const books = [
+  {
+    id: 1,
+    title: "The Awakening",
+    author: "Kate Chopin",
+    score: 6.9,
+    isPublished: true
+  },
+...
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="customTypes">
+              <h1>Custom Types</h1>
+              <p>
+                Girilen verinin tipini girerken aşağıdaki gibi tek tek girebiliriz:
+                <pre class="prettyprint ms-0">
+const typeDefs = `#graphql
+
+  type Query {
+    name: String!
+    surname: String!
+    age: Int
+  }
+`;
+
+// resolvers (çözücü):
+const resolvers = {
+  Query: {
+    name: () => "Murat",
+    surname: () => "Gökduman",
+    age: () => 29,
+  },
+};
+                </pre> bunun yerine User için bir tip tanımı oluşturup bunu da geçebiliriz.
+                <pre class="prettyprint ms-0">
+const typeDefs = `#graphql
+
+  type User {
+    name: String!
+    surname: String!
+    age: Int
+  }
+  type Query {
+    user: User
+  }
+`;
+
+// resolvers (çözücü):
+const resolvers = {
+  Query: {
+    user: () => ({
+      name: "Murat",
+      surname: "Gökduman",
+      age: 29,
+    }),
+  },
+};
+                </pre> bu yazımda User bir custom type'dır. Daha önceki örneklerdeki Book da bir custom type'dir.
+              </p>
+              <p>
+                Bu durumda yeni bir veri girmek istersek ancak User içine dahil etmezsek veri ayrıca tiplendirilip resorve edilebilir.
+                <pre class="prettyprint ms-0">
+const typeDefs = `#graphql
+
+  type User {
+    name: String!
+    surname: String!
+    age: Int
+  }
+  type Query {
+    user: User
+    hello: String!
+  }
+`;
+
+// resolvers (çözücü):
+const resolvers = {
+  Query: {
+    user: () => ({
+      name: "Murat",
+      surname: "Gökduman",
+      age: 29,
+    }),
+    hello: () => "world"
+  },
+};
+                </pre>
+              </p>
+              <p>
+                localhost:4000 içinde aşağıdaki sorgu yapıldığında
+                <pre class="prettyprint ms-0">
+Query {
+  hello
+  user {
+    name
+    surname
+  }
+}
+                </pre>
+                Aşağıdaki cevap alınır.
+                <pre class="prettyprint ms-0">
+{
+  "data": {
+    "hello": "world",
+    "user": {
+      "name": "Murat",
+      "surname": "Gökduman"
+    }
+  }
+}
+                </pre>
+              </p>
+              <p>
+                Custom type başka bir custom type içinde type olarak da kullanılabilir.
+                <pre class="prettyprint ms-0">
+const typeDefs = `#graphql
+
+  type Author {
+    id: ID!
+    name: String!
+    score: Float
+    age: Int
+    books: [Book!]
+  }
+
+  type Book {
+    id: ID!
+    title: String!
+    author: Author!
+    isPublsihed: Boolean
+    score: Float
+  }
+
+  type Query {
+    book: [Book]
+  }
+  
+`;
+
+// resolvers (çözücü):
+const resolvers = {
+  Query: {
+    book: () => books,
+  },
+};
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="argumans">
+              <h1>Argümanlar ile Çalışmak</h1>
+              <p>
+                Hazırlık olarak çalıştığımız dataları data.js dosyasına taşıdık ve index.js içine import ettik.
+              </p>
+              <p>
+                data.js
+                <pre class="prettyprint ms-0">
+export const authors = [
+  {
+    id: 3,
+    name: "Kate Chopin",
+    score: 8,
+    books: [],
+  },
+  {
+    id: 2,
+    name: "Paul Auster",
+    score: 3,
+    books: [],
+  },
+  {
+    id: 1,
+    name: "Albert Camus",
+    score: 5,
+    books: [],
+  },
+];
+
+export const books = [
+  {
+    id: 1,
+    title: "The Awakening",
+    author: authors[0],
+    score: 6.9,
+    isPublished: true,
+  },
+  {
+    id: 2,
+    title: "City of Glass",
+    author: authors[1],
+    score: 7,
+  },
+  {
+    id: 3,
+    title: "Yabancı",
+    author: authors[2],
+    isPublished: false,
+  },
+];
+                </pre>
+              </p>
+              <p>
+                id den kitap sorgulama ve id den yazar sorgulama için typeQuery alanına ilgili tip tanımları yapıldı. Sonrasında bu tip tanımlarına uygun resolve lar tanımlandı.
+                <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+
+// data:
+import { books, authors } from "./data.js";
+
+// Tip (type) tanımı:
+const typeDefs = `#graphql
+
+  type Author {
+    id: ID!
+    name: String!
+    score: Float
+    age: Int
+    books: [Book!]
+  }
+
+  type Book {
+    id: ID!
+    title: String!
+    author: Author!
+    isPublsihed: Boolean
+    score: Float
+  }
+
+  type Query {
+    books: [Book!]
+    book(id: ID!): Book!
+    
+    authors: [Author!]
+    author(id: ID!): Author!
+  }
+  
+`;
+
+// resolvers (çözücü):
+const resolvers = {
+  Query: {
+    books: () => books,
+    book: (parent, args) => {
+      //4 parametre alır: 1. parent: ilişkisel veri tabanı oluştururken kullanacağız. 2. prametre istemciden gelen argümanı verir.
+      const data = books.find((book) => book.id == args.id);
+      return data;
+    },
+
+    authors: () => authors,
+    author: (parent, args) => {
+      const data = authors.find((author) => author.id == args.id);
+      return data;
+    }
+  },
+};
+
+// apollo server:
+const server = new ApolloServer({ typeDefs, resolvers }); // iki parametre alır. 1. tip tanımları, 2. resolvers
+
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
+});
+
+console.log(`🚀  Server ready at: ${url}`);
+
+                </pre>
+              </p>
+              <p>
+                resolver alanında alınan 2. parametre sorguda bize gönderilen parametredir. Bundan faydalanarak bir find işlemi yapıldı ve gelen veri dönüldü.
+              </p>
+              <p>
+                Aşağıdaki sorgu yapıldığında
+                <pre class="prettyprint ms-0">
+query{
+  author (id: 1){
+    name
+  }
+  book(id: 3) {
+    title
+    author {
+      name
+    }
+  }
+}
+                </pre>
+                aşağıdaki sonuç alınır
+                <pre class="prettyprint ms-0">
+{
+  "data": {
+    "author": {
+      "name": "Albert Camus"
+    },
+    "book": {
+      "title": "Yabancı",
+      "author": {
+        "name": "Albert Camus"
+      }
+    }
+  }
+}
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="iliskiselData">
+              <h1>İlişkisel Veriler ile Çalışmak</h1>
+              <p>
+                Sorgu sırasında birbiri ile alakalı iki veriyi birbirine bağlamak mümkün. Bunun için aranacak karşılık data alanından silinir. Daha sonra resolvers içinde ilişkisi kurulur.
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+
+// data:
+import { books, authors } from "./data.js";
+
+// Tip (type) tanımı:
+const typeDefs = `#graphql
+
+  type Author {
+    id: ID!
+    name: String!
+    score: Float
+    age: Int
+    books: [Book!]
+  }
+
+  type Book {
+    id: ID!
+    title: String!
+    author: Author
+    author_id: ID!
+    isPublsihed: Boolean
+    score: Float
+  }
+
+  type Query {
+    books: [Book!]
+    book(id: ID!): Book!
+    
+    authors: [Author!]
+    author(id: ID!): Author!
+  }
+  
+`;
+
+// resolvers (çözücü):
+const resolvers = {
+  Query: {
+    books: () => books,
+    book: (parent, args) => books.find((book) => book.id === args.id),
+    
+    authors: () => authors,
+    author: (parent, args) => authors.find((author) => author.id === args.id),
+  },
+  Book: {
+    // Book tipi altındaki author keyi için girilen resolver.
+    author: (
+      parent, // parent sorgunun yapıldığı parent tipin değerini döner.
+      args 
+    ) => authors.find((author) => author.id === parent.author_id),
+  },
+  Author: {
+    books: (parent, args) =>
+      books.filter((book) => book.author_id === parent.id),
+  },
+};
+
+// apollo server:
+const server = new ApolloServer({ typeDefs, resolvers }); // iki parametre alır. 1. tip tanımları, 2. resolvers
+
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
+});
+
+console.log(`🚀  Server ready at: ${url}`);
+
+                </pre>
+              </p>
+              <p>
+                tip alanında istenilen veri keyi veri tipi ile bağlantılanır.
+              </p>
+              <p>
+                resolver alanında hangi tipin altında hangi sorgu yapılırsa nasıl bir verinin çekileceği tanımlanır.
+              </p>
+              <p>
+                Book altında author sorgulandığında parent alanından aldığı author_id ile authors içinde data arar.
+              </p>
+              <p>
+                Author altında books sorgulandığında books içinde author_id değeri barent.id ile uyumlu olanları filtreler.
+              </p>
+            </div>
+            <div class="row" id="iliskiselDataArgumanlar">
+              <h1>İlişkisel İfadelerde Argümanlar</h1>
+              <p>
+                Author altında books sorgusuna ilk harfe göre filtreleme özelliği eklemek için aşağıdaki örneği yaptık.
+                <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+
+// data:
+import { books, authors } from "./data.js";
+                </pre>
+                <pre class="prettyprint ms-0">
+// Tip (type) tanımı:
+const typeDefs = `#graphql
+
+  type Author {
+    id: ID!
+    name: String!
+    score: Float
+    age: Int
+    books(filter: String): [Book!] # filtreleme işlemi için
+  }
+                </pre> books için parametre alabilme özelliği ve alacağı parametrenin veri tipi belirtildi.
+                <pre class="prettyprint ms-0">
+type Book {
+    id: ID!
+    title: String!
+    author: Author
+    author_id: ID!
+    isPublsihed: Boolean
+    score: Float
+  }
+
+  type Query {
+    books: [Book!]
+    book(id: ID!): Book!
+    
+    authors: [Author!]
+    author(id: ID!): Author!
+  }
+  
+`;
+
+// resolvers (çözücü):
+const resolvers = {
+  Query: {
+    books: () => books,
+    book: (parent, args) => books.find((book) => book.id === args.id),
+
+    authors: () => authors,
+    author: (parent, args) => authors.find((author) => author.id === args.id),
+  },
+  Book: {
+    author: (parent, args) =>
+      authors.find((author) => author.id === parent.author_id),
+  },
+                </pre>
+                <pre class="prettyprint ms-0">
+Author: {
+    books: (parent, args) => {
+      let filtered = books.filter((book) => book.author_id === parent.id);
+
+      if (args.filter) { // sorguda filter var ise
+        filtered = filtered.filter((book) =>
+          book.title.toLowerCase().startsWith(args.filter.toLowerCase()) // args.filter verisine göre filtreler.
+        );
+      }
+      return filtered;
+    },
+  },
+};
+                </pre> sorguda book için filter parametresi geçildiyse ilk harfe göre filtreleme yapılır.
+                <pre class="prettyprint ms-0">
+// apollo server:
+const server = new ApolloServer({ typeDefs, resolvers }); // iki parametre alır. 1. tip tanımları, 2. resolvers
+
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
+});
+
+console.log(`🚀  Server ready at: ${url}`);
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="whatIsMutation">
+              <h1>Mutation Nedir? Nasıl Yazılır?</h1>
+              <p>
+                Mutation tanımı, GraphQL sunucuları üzerinde veri ekleme,silme veya güncelleme durumlarında kullanılır.
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { nanoid } from "nanoid"; // user id için gerekli
+
+import { users, posts, comments } from "./data.js";
+
+const typeDefs = `#graphql
+    type User {
+        id: ID!
+        fullName: String!
+        posts: [Post]
+        comments: [Comment]
+    }
+
+    type Post {
+        id: ID!
+        title: String!
+        user_id: ID!
+        comments: [Comment!]
+        user: User!
+    }
+
+    type Comment {
+        id: ID!
+        text: String!
+        post_id: ID!
+        post: Post!
+        user: User!
+    }
+
+    type Query {
+        users: [User!]!
+        user(id: ID!): User!
+
+        posts: [Post!]
+        post(id: ID!): Post!
+
+        comments: [Comment]
+        comment(id: ID!): Comment!
+    }
+
+    type Mutation {
+      createUser(fullName: String!): User! #createUser parametre olarak fullName keyi ile string alır. response olarak User döner.
+      createPost(title: String!, user_id: ID!): Post!
+      createComment(text: String!, post_id: ID!, user_id: ID!): Comment!
+    }
+`;
+
+const resolvers = {
+  Mutation: {
+    createUser: (parent, args) => {
+      // yeni user ekleme
+      const user = {
+        id: nanoid(),
+        fullName: args.fullName,
+      };
+
+      users.push(user);
+
+      return user;
+    },
+    createPost: (parent, args) => {
+      // yeni post ekleme
+      const post = { id: nanoid(), title: args.title, user_id: args.user_id };
+
+      posts.push(post);
+
+      return post;
+    },
+    createComment: (parent, { text, post_id, user_id }) => {
+      //args destruct edildi
+      // yeni comment ekleme
+      const comment = {
+        id: nanoid(),
+        text, // parametre key ve value aynı olduğundan tek kelimeyle yazılabilir.
+        post_id,
+        user_id,
+      };
+
+      comments.push(comment);
+
+      return comment;
+    },
+  },
+  Query: {
+    users: () => users,
+    user: (parent, args) => {
+      const user = users.find((user) => user.id === args.id);
+      if (!user) {
+        return new Error("User not found");
+      }
+
+      return user;
+    },
+
+    posts: () => posts,
+    post: (parent, args) => posts.find((post) => post.id === args.id),
+
+    comments: () => comments,
+    comment: (parent, args) =>
+      comments.find((comment) => comment.id === args.id),
+  },
+  User: {
+    posts: (parent, args) => posts.filter((post) => post.user_id === parent.id),
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.user_id === parent.id),
+  },
+  Post: {
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.post_id === parent.id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+  Comment: {
+    post: (parent, args) => posts.find((post) => post.id === parent.post_id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+
+console.log(`🚀  Server ready at: ${url}`);
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="inputType">
+              <h1>Input Type</h1>
+              <p>
+                Mutation için yazılan parametre tanımları, kdun temiz kalması için, başka bir alanda yazılabilir. Bu alan input tanımı ile başlar. Parametre içinde data ketyi ile karşılanır.
+                <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { nanoid } from "nanoid"; // user id için gerekli
+
+import { users, posts, comments } from "./data.js";
+
+const typeDefs = `#graphql
+
+    type User {
+        id: ID!
+        fullName: String!
+        posts: [Post]
+        comments: [Comment]
+    }
+
+    input CreateUserInput { # createUser mutationu için parametre tanımları.
+      fullName: String!
+    }
+
+    type Post {
+        id: ID!
+        title: String!
+        user_id: ID!
+        comments: [Comment!]
+        user: User!
+    }
+    input CreatePostInput { # createPost mutationu için parametre tanımları.
+      title: String!
+      user_id: ID!
+    }
+
+    type Comment {
+        id: ID!
+        text: String!
+        post_id: ID!
+        post: Post!
+        user: User!
+    }
+    input CreateCommetInput{
+      text: String!
+      post_id: ID!
+      user_id: ID!
+    }
+
+    type Query {
+        users: [User!]!
+        user(id: ID!): User!
+
+        posts: [Post!]
+        post(id: ID!): Post!
+
+        comments: [Comment]
+        comment(id: ID!): Comment!
+    }
+
+    type Mutation {
+      createUser(data: CreateUserInput!): User! #input type tanımı data keyi ile geçilir.
+      createPost(data: CreatePostInput!): Post!
+      createComment(data: CreateCommetInput!): Comment!
+    }
+`;
+
+const resolvers = {
+  Mutation: {
+    createUser: (parent, args) => {
+      // yeni user ekleme
+      const user = {
+        id: nanoid(),
+        fullName: args.data.fullName, // gelen arguman data altında gelir.
+      };
+
+      users.push(user);
+
+      return user;
+    },
+    createPost: (parent, { data: { title, user_id } }) => {
+      //args.data destruct edildi
+      const post = {
+        id: nanoid(),
+        title,
+        user_id,
+      };
+
+      posts.push(post);
+
+      return post;
+    },
+    createComment: (parent, { data }) => {
+      const comment = {
+        id: nanoid(),
+        ...data, // data içindeki veri obje olarak tamamen eklendi.
+      };
+
+      comments.push(comment);
+
+      return comment;
+    },
+  },
+  Query: {
+    users: () => users,
+    user: (parent, args) => {
+      const user = users.find((user) => user.id === args.id);
+      if (!user) {
+        return new Error("User not found");
+      }
+
+      return user;
+    },
+
+    posts: () => posts,
+    post: (parent, args) => posts.find((post) => post.id === args.id),
+
+    comments: () => comments,
+    comment: (parent, args) =>
+      comments.find((comment) => comment.id === args.id),
+  },
+  User: {
+    posts: (parent, args) => posts.filter((post) => post.user_id === parent.id),
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.user_id === parent.id),
+  },
+  Post: {
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.post_id === parent.id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+  Comment: {
+    post: (parent, args) => posts.find((post) => post.id === parent.post_id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+
+console.log(`🚀  Server ready at: ${url}`);
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="updateMutations">
+              <h1>Update Mutations</h1>
+              <p>
+                <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { nanoid } from "nanoid";
+
+import { users, posts, comments } from "./data.js";
+
+const typeDefs = `#graphql
+  # User
+  type User {
+      id: ID!
+      fullName: String!
+      age: Int!
+      posts: [Post]
+      comments: [Comment]
+  }
+
+  input CreateUserInput { 
+    fullName: String!
+    age: Int!
+  }
+
+  input UpdateUserInput {
+    fullName: String
+    age: Int
+  }
+
+  # Post
+  type Post {
+      id: ID!
+      title: String!
+      user_id: ID!
+      comments: [Comment!]
+      user: User!
+  }
+  input CreatePostInput { 
+    title: String!
+    user_id: ID!
+  }
+  input UpdatePostInput {
+    title: String
+    user_id: ID
+  }
+
+  # Comment
+  type Comment {
+      id: ID!
+      text: String!
+      post_id: ID!
+      post: Post!
+      user: User!
+  }
+  input CreateCommetInput{
+    text: String!
+    post_id: ID!
+    user_id: ID!
+  }
+  input UpdateCommentInput{
+    text: String
+    post_id: ID
+    user_id: ID
+  }
+
+  type Query {
+      users: [User!]!
+      user(id: ID!): User!
+
+      posts: [Post!]
+      post(id: ID!): Post!
+
+      comments: [Comment]
+      comment(id: ID!): Comment!
+  }
+
+  type Mutation {
+    # User
+    createUser(data: CreateUserInput!): User! 
+    updateUser(id: ID!, data: UpdateUserInput!): User!
+    # Post
+    createPost(data: CreatePostInput!): Post!
+    updatePost(id: ID!, data: UpdatePostInput!): Post
+
+    # Comment
+    createComment(data: CreateCommetInput!): Comment!
+    updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+  }
+`;
+
+const resolvers = {
+  Mutation: {
+    // User
+    createUser: (parent, args) => {
+      const user = {
+        id: nanoid(),
+        fullName: args.data.fullName,
+      };
+
+      users.push(user);
+
+      return user;
+    },
+    updateUser: (parent, { id, data }) => {
+      const user_index = users.findIndex((user) => user.id === id);
+      if (user_index === -1) {
+        throw new Error("User not found.");
+      }
+
+      const update_user = (users[user_index] = {
+        ...users[user_index], // önce mevcut tanımları al
+        ...data, // data altından gelenlerle merge et.
+      });
+
+      return update_user;
+    },
+    // Post
+    createPost: (parent, { data: { title, user_id } }) => {
+      const post = {
+        id: nanoid(),
+        title,
+        user_id,
+      };
+
+      posts.push(post);
+
+      return post;
+    },
+    updatePost: (parent, { id, data }) => {
+      const post_index = posts.findIndex((post) => post.id === id);
+
+      if (post_index === -1) {
+        throw new Error("Post not found.");
+      }
+
+      const updated_post = (posts[post_index] = {
+        ...posts[post_index],
+        ...data,
+      });
+
+      return updated_post;
+    },
+    // Comment
+    createComment: (parent, { data }) => {
+      const comment = {
+        id: nanoid(),
+        ...data,
+      };
+
+      comments.push(comment);
+
+      return comment;
+    },
+    updateComment: (parent, { id, data }) => {
+      const comment_index = comments.findIndex((comment) => comment.id === id);
+
+      if (comment_index === -1) {
+        throw new Error("Comment not found.");
+      }
+
+      const updated_comment = (comments[comment_index] = {
+        ...comments[comment_index],
+        ...data,
+      });
+
+      return updated_comment;
+    },
+  },
+  Query: {
+    users: () => users,
+    user: (parent, args) => {
+      const user = users.find((user) => user.id === args.id);
+      if (!user) {
+        return new Error("User not found");
+      }
+
+      return user;
+    },
+
+    posts: () => posts,
+    post: (parent, args) => posts.find((post) => post.id === args.id),
+
+    comments: () => comments,
+    comment: (parent, args) =>
+      comments.find((comment) => comment.id === args.id),
+  },
+  User: {
+    posts: (parent, args) => posts.filter((post) => post.user_id === parent.id),
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.user_id === parent.id),
+  },
+  Post: {
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.post_id === parent.id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+  Comment: {
+    post: (parent, args) => posts.find((post) => post.id === parent.post_id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+
+console.log(`🚀  Server ready at: ${url}`);
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="deleteMutations">
+              <h1>Delete Mutations</h1>
+              <p>
+                <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { nanoid } from "nanoid";
+
+import { users, posts, comments } from "./data.js";
+
+const typeDefs = `#graphql
+  # User
+  type User {
+      id: ID!
+      fullName: String!
+      age: Int!
+      posts: [Post]
+      comments: [Comment]
+  }
+
+  input CreateUserInput { 
+    fullName: String!
+    age: Int!
+  }
+
+  input UpdateUserInput {
+    fullName: String
+    age: Int
+  }
+
+  # Post
+  type Post {
+      id: ID!
+      title: String!
+      user_id: ID!
+      comments: [Comment!]
+      user: User!
+  }
+  input CreatePostInput { 
+    title: String!
+    user_id: ID!
+  }
+  input UpdatePostInput {
+    title: String
+    user_id: ID
+  }
+
+  # Comment
+  type Comment {
+      id: ID!
+      text: String!
+      post_id: ID!
+      post: Post!
+      user: User!
+  }
+  input CreateCommetInput{
+    text: String!
+    post_id: ID!
+    user_id: ID!
+  }
+  input UpdateCommentInput{
+    text: String
+    post_id: ID
+    user_id: ID
+  }
+
+  type Query {
+      users: [User!]!
+      user(id: ID!): User!
+
+      posts: [Post!]
+      post(id: ID!): Post!
+
+      comments: [Comment]
+      comment(id: ID!): Comment!
+  }
+
+  type Mutation {
+    # User
+    createUser(data: CreateUserInput!): User! 
+    updateUser(id: ID!, data: UpdateUserInput!): User!
+    deleteUser(id: ID!): User!
+    # Post
+    createPost(data: CreatePostInput!): Post!
+    updatePost(id: ID!, data: UpdatePostInput!): Post!
+    deletePost(id: ID!): Post!
+
+    # Comment
+    createComment(data: CreateCommetInput!): Comment!
+    updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+    deleteComment(id: ID!): Comment!
+  }
+`;
+
+const resolvers = {
+  Mutation: {
+    // User
+    createUser: (parent, args) => {
+      const user = {
+        id: nanoid(),
+        fullName: args.data.fullName,
+      };
+
+      users.push(user);
+
+      return user;
+    },
+    updateUser: (parent, { id, data }) => {
+      const user_index = users.findIndex((user) => user.id === id);
+      if (user_index === -1) {
+        throw new Error("User not found.");
+      }
+
+      const update_user = (users[user_index] = {
+        ...users[user_index],
+        ...data,
+      });
+
+      return update_user;
+    },
+    deleteUser: (parent, { id }) => {
+      // silme işlemi için: 1. filter metodunda id si parent.id olmayanları filtreleyip users'a atayabiliriz. 2. indexini bulup slice ile çıkartabiliriz.
+      const user_index = users.findIndex((user) => user.id === id); // bu idye sahip kullanıcı var mı?
+      if (user_index === -1) {
+        throw new Error("User not found.");
+      }
+
+      const deleted_user = users[user_index]; // silinecek olanı ayrı bir yere kaydettik
+
+      users.splice(user_index, 1); //splice iki parametre alır. Silinecek olanın indexi ve indexten itibaren kaç eleman silineceği. 3 parametre olarak da yerine eklenecek ögeyi alabilir.
+
+      return deleted_user;
+    },
+    // Post
+    createPost: (parent, { data: { title, user_id } }) => {
+      const post = {
+        id: nanoid(),
+        title,
+        user_id,
+      };
+
+      posts.push(post);
+
+      return post;
+    },
+    updatePost: (parent, { id, data }) => {
+      const post_index = posts.findIndex((post) => post.id === id);
+
+      if (post_index === -1) {
+        throw new Error("Post not found.");
+      }
+
+      const updated_post = (posts[post_index] = {
+        ...posts[post_index],
+        ...data,
+      });
+
+      return updated_post;
+    },
+    deletePost: (parent, { id }) => {
+      const post_index = posts.findIndex((post) => post.id === id);
+      if (post_index === -1) {
+        throw new Error("Post not found.");
+      }
+
+      const deleted_post = posts[post_index];
+
+      posts.splice(post_index, 1);
+
+      return deleted_post;
+    },
+
+    // Comment
+    createComment: (parent, { data }) => {
+      const comment = {
+        id: nanoid(),
+        ...data,
+      };
+
+      comments.push(comment);
+
+      return comment;
+    },
+    updateComment: (parent, { id, data }) => {
+      const comment_index = comments.findIndex((comment) => comment.id === id);
+
+      if (comment_index === -1) {
+        throw new Error("Comment not found.");
+      }
+
+      const updated_comment = (comments[comment_index] = {
+        ...comments[comment_index],
+        ...data,
+      });
+
+      return updated_comment;
+    },
+    deleteComment: (parent, { id }) => {
+      const comment_index = comments.findIndex((comment) => comment.id === id);
+      if (comment_index === -1) {
+        throw new Error("Comment not found");
+      }
+
+      const deleted_comment = comments[comment_index];
+
+      comments.splice(comment_index, 1);
+      
+      return deleted_comment;
+    },
+  },
+  Query: {
+    users: () => users,
+    user: (parent, args) => {
+      const user = users.find((user) => user.id === args.id);
+      if (!user) {
+        return new Error("User not found");
+      }
+
+      return user;
+    },
+
+    posts: () => posts,
+    post: (parent, args) => posts.find((post) => post.id === args.id),
+
+    comments: () => comments,
+    comment: (parent, args) =>
+      comments.find((comment) => comment.id === args.id),
+  },
+  User: {
+    posts: (parent, args) => posts.filter((post) => post.user_id === parent.id),
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.user_id === parent.id),
+  },
+  Post: {
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.post_id === parent.id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+  Comment: {
+    post: (parent, args) => posts.find((post) => post.id === parent.post_id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+
+console.log(`🚀  Server ready at: ${url}`);
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="deleteAllMutations">
+              <h1>Delete All Mutations</h1>
+              <pre class="prettyprint ms-0">
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { nanoid } from "nanoid";
+
+import { users, posts, comments } from "./data.js";
+
+const typeDefs = `#graphql
+  # User
+  type User {
+      id: ID!
+      fullName: String!
+      age: Int!
+      posts: [Post]
+      comments: [Comment]
+  }
+
+  input CreateUserInput { 
+    fullName: String!
+    age: Int!
+  }
+
+  input UpdateUserInput {
+    fullName: String
+    age: Int
+  }
+
+  # Post
+  type Post {
+      id: ID!
+      title: String!
+      user_id: ID!
+      comments: [Comment!]
+      user: User!
+  }
+  input CreatePostInput { 
+    title: String!
+    user_id: ID!
+  }
+  input UpdatePostInput {
+    title: String
+    user_id: ID
+  }
+
+  # Comment
+  type Comment {
+      id: ID!
+      text: String!
+      post_id: ID!
+      post: Post!
+      user: User!
+  }
+  input CreateCommetInput{
+    text: String!
+    post_id: ID!
+    user_id: ID!
+  }
+  input UpdateCommentInput{
+    text: String
+    post_id: ID
+    user_id: ID
+  }
+
+  type DeleteAllOutput {
+    count: Int!
+  }
+
+  type Query {
+      users: [User!]!
+      user(id: ID!): User!
+
+      posts: [Post!]
+      post(id: ID!): Post!
+
+      comments: [Comment]
+      comment(id: ID!): Comment!
+  }
+
+  type Mutation {
+    # User
+    createUser(data: CreateUserInput!): User! 
+    updateUser(id: ID!, data: UpdateUserInput!): User!
+    deleteUser(id: ID!): User!
+    deleteAllUsers: DeleteAllOutput!
+    # Post
+    createPost(data: CreatePostInput!): Post!
+    updatePost(id: ID!, data: UpdatePostInput!): Post!
+    deletePost(id: ID!): Post!
+    deleteAllPosts: DeleteAllOutput!
+
+    # Comment
+    createComment(data: CreateCommetInput!): Comment!
+    updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+    deleteComment(id: ID!): Comment!
+    deleteAllComments: DeleteAllOutput!
+  }
+`;
+
+const resolvers = {
+  Mutation: {
+    // User
+    createUser: (parent, args) => {
+      const user = {
+        id: nanoid(),
+        fullName: args.data.fullName,
+      };
+
+      users.push(user);
+
+      return user;
+    },
+    updateUser: (parent, { id, data }) => {
+      const user_index = users.findIndex((user) => user.id === id);
+      if (user_index === -1) {
+        throw new Error("User not found.");
+      }
+
+      const update_user = (users[user_index] = {
+        ...users[user_index],
+        ...data,
+      });
+
+      return update_user;
+    },
+    deleteUser: (parent, { id }) => {
+      const user_index = users.findIndex((user) => user.id === id); 
+      if (user_index === -1) {
+        throw new Error("User not found.");
+      }
+
+      const deleted_user = users[user_index]; 
+
+      users.splice(user_index, 1); 
+
+      return deleted_user;
+    },
+    deleteAllUsers: () => {
+      const length = users.length;
+      // users = []; // users tanımlanırken const ile tanımlandığından bu method çalışmaz. Bunun çalışabilmesi içiin const ifadesi let ile değiştirilebilir veya farklı bir metod kullanılabilir.
+
+      users.splice(0, length); // 0 dan başlayıp tüm elemanları siler
+
+      return {
+        count: length,
+      };
+    },
+    // Post
+    createPost: (parent, { data: { title, user_id } }) => {
+      const post = {
+        id: nanoid(),
+        title,
+        user_id,
+      };
+
+      posts.push(post);
+
+      return post;
+    },
+    updatePost: (parent, { id, data }) => {
+      const post_index = posts.findIndex((post) => post.id === id);
+
+      if (post_index === -1) {
+        throw new Error("Post not found.");
+      }
+
+      const updated_post = (posts[post_index] = {
+        ...posts[post_index],
+        ...data,
+      });
+
+      return updated_post;
+    },
+    deletePost: (parent, { id }) => {
+      const post_index = posts.findIndex((post) => post.id === id);
+      if (post_index === -1) {
+        throw new Error("Post not found.");
+      }
+
+      const deleted_post = posts[post_index];
+
+      posts.splice(post_index, 1);
+
+      return deleted_post;
+    },
+    deleteAllPosts: () => {
+      const length = posts.length;
+
+      posts.splice(0, length);
+
+      return {
+        count: length,
+      };
+    },
+
+    // Comment
+    createComment: (parent, { data }) => {
+      const comment = {
+        id: nanoid(),
+        ...data,
+      };
+
+      comments.push(comment);
+
+      return comment;
+    },
+    updateComment: (parent, { id, data }) => {
+      const comment_index = comments.findIndex((comment) => comment.id === id);
+
+      if (comment_index === -1) {
+        throw new Error("Comment not found.");
+      }
+
+      const updated_comment = (comments[comment_index] = {
+        ...comments[comment_index],
+        ...data,
+      });
+
+      return updated_comment;
+    },
+    deleteComment: (parent, { id }) => {
+      const comment_index = comments.findIndex((comment) => comment.id === id);
+      if (comment_index === -1) {
+        throw new Error("Comment not found");
+      }
+
+      const deleted_comment = comments[comment_index];
+
+      comments.splice(comment_index, 1);
+
+      return deleted_comment;
+    },
+    deleteAllComments: () => {
+      const length = comments.length;
+      comments.splice(0, length);
+      return {
+        count: length,
+      };
+    },
+  },
+  Query: {
+    users: () => users,
+    user: (parent, args) => {
+      const user = users.find((user) => user.id === args.id);
+      if (!user) {
+        return new Error("User not found");
+      }
+
+      return user;
+    },
+
+    posts: () => posts,
+    post: (parent, args) => posts.find((post) => post.id === args.id),
+
+    comments: () => comments,
+    comment: (parent, args) =>
+      comments.find((comment) => comment.id === args.id),
+  },
+  User: {
+    posts: (parent, args) => posts.filter((post) => post.user_id === parent.id),
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.user_id === parent.id),
+  },
+  Post: {
+    comments: (parent, args) =>
+      comments.filter((comment) => comment.post_id === parent.id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+  Comment: {
+    post: (parent, args) => posts.find((post) => post.id === parent.post_id),
+    user: (parent, args) => users.find((user) => user.id === parent.user_id),
+  },
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+
+console.log(`🚀  Server ready at: ${url}`);
+
+              </pre>
+            </div>
+            <div class="row" id="subscriptionServerSetup">
+              <h1>Subscription Server Kurulumu</h1>
+              <p>
+                Subscription tanımı gerçekleşen olaylardan(ekleme,silme,güncelleme vb.) gerçek zamanlı olarak haberdar olabileceğimiz WebSocket tabanlı bir yapıdır.
+              </p>
+              <p>
+                Apollo Server'ın 3. versiyonu ile birlikte Subscription yapısı core üzerinden kaldırıldı ancak ek kütüphaneler ekleyerek bunu yeniden aktifleştirebilirsiniz. Bu işlem sırasında birden fazla kütüphanenin kurulması gerekiyor ve kod biraz daha karmaşık görünüyor. Bundan kurtulmak için <a href="https://github.com/dotansimha/graphql-yoga">graphql yoga</a> adında bir kütüphaneden faydalanacağız.
+              </p>
+              <p>
+                Terminale <pre class="prettyprint ms-0">npm i graphql-yoga</pre> yazıyoruz
+              </p>
+              <p>
+                Dersin videosu güncel değil. Biz kendi yolumuzu bulacağız. <a href="https://the-guild.dev/graphql/yoga-server/docs/features/subscriptions">Bunu</a> uyguladık.
+              </p>
+              <p>
+                <a href="https://github.com/dotansimha/graphql-yoga/blob/main/examples/subscriptions/src/index.ts">Bu</a> da kullanılabilir. Aynı methodun farklı yazılmışı.
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+import { createYoga, createSchema, createPubSub } from "graphql-yoga"; //graphql-yoga içinden gerekenler import edildi.
+import { createServer } from "node:http";
+import { nanoid } from "nanoid";
+
+import { users, posts, comments } from "./data.js";
+
+const pubSub = createPubSub(); // Yayın için gereken middleware
+
+const yoga = createYoga({
+  // Şemayı sarmala
+  schema: createSchema({
+    typeDefs: `#graphql
+      # User
+      type User {
+          id: ID!
+          fullName: String!
+          age: Int!
+          posts: [Post]
+          comments: [Comment]
+      }
+
+      input CreateUserInput { 
+        fullName: String!
+        age: Int!
+      }
+
+      input UpdateUserInput {
+        fullName: String
+        age: Int
+      }
+
+      # Post
+      type Post {
+          id: ID!
+          title: String!
+          user_id: ID!
+          comments: [Comment!]
+          user: User!
+      }
+      input CreatePostInput { 
+        title: String!
+        user_id: ID!
+      }
+      input UpdatePostInput {
+        title: String
+        user_id: ID
+      }
+
+      # Comment
+      type Comment {
+          id: ID!
+          text: String!
+          post_id: ID!
+          post: Post!
+          user: User!
+      }
+      input CreateCommetInput{
+        text: String!
+        post_id: ID!
+        user_id: ID!
+      }
+      input UpdateCommentInput{
+        text: String
+        post_id: ID
+        user_id: ID
+      }
+
+      type DeleteAllOutput {
+        count: Int!
+      }
+
+      type Query {
+          users: [User!]!
+          user(id: ID!): User!
+
+          posts: [Post!]
+          post(id: ID!): Post!
+
+          comments: [Comment]
+          comment(id: ID!): Comment!
+      }
+
+      type Mutation {
+        # User
+        createUser(data: CreateUserInput!): User! 
+        updateUser(id: ID!, data: UpdateUserInput!): User!
+        deleteUser(id: ID!): User!
+        deleteAllUsers: DeleteAllOutput!
+        # Post
+        createPost(data: CreatePostInput!): Post!
+        updatePost(id: ID!, data: UpdatePostInput!): Post!
+        deletePost(id: ID!): Post!
+        deleteAllPosts: DeleteAllOutput!
+
+        # Comment
+        createComment(data: CreateCommetInput!): Comment!
+        updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+        deleteComment(id: ID!): Comment!
+        deleteAllComments: DeleteAllOutput!
+      }
+
+      type Subscription {
+        # count: Int! # Örnek için
+        userCreated: User!
+      }
+    `,
+    resolvers: {
+      Subscription: {
+        // count: { // Örnek
+        //   subscribe: () => { // Her saniye değeri 1 arttırıp iletir
+        //     let count = 0;
+
+        //     setInterval(() => {
+        //       count++;
+        //       pubSub.publish("count", {count});
+        //     }, 1000);
+
+        //     return pubSub.subscribe("count")
+        //   }
+        // }
+        userCreated: {
+          subscribe: () => pubSub.subscribe("userCreated"), // kanala abone olduk.
+        },
+      },
+      Mutation: {
+        // User
+        createUser: (parent, args) => {
+          const user = {
+            id: nanoid(),
+            fullName: args.data.fullName,
+            age: args.data.age
+          };
+
+          users.push(user);
+          pubSub.publish("userCreated", {"userCreated": user}); // yayın yapıldı.
+
+          return user;
+        },
+        updateUser: (parent, { id, data }) => {
+          const user_index = users.findIndex((user) => user.id === id);
+          if (user_index === -1) {
+            throw new Error("User not found.");
+          }
+
+          const update_user = (users[user_index] = {
+            ...users[user_index],
+            ...data,
+          });
+
+          return update_user;
+        },
+        deleteUser: (parent, { id }) => {
+          const user_index = users.findIndex((user) => user.id === id);
+          if (user_index === -1) {
+            throw new Error("User not found.");
+          }
+
+          const deleted_user = users[user_index];
+
+          users.splice(user_index, 1);
+
+          return deleted_user;
+        },
+        deleteAllUsers: () => {
+          const length = users.length;
+
+          users.splice(0, length); 
+
+          return {
+            count: length,
+          };
+        },
+        // Post
+        createPost: (parent, { data: { title, user_id } }) => {
+          const post = {
+            id: nanoid(),
+            title,
+            user_id,
+          };
+
+          posts.push(post);
+
+          return post;
+        },
+        updatePost: (parent, { id, data }) => {
+          const post_index = posts.findIndex((post) => post.id === id);
+
+          if (post_index === -1) {
+            throw new Error("Post not found.");
+          }
+
+          const updated_post = (posts[post_index] = {
+            ...posts[post_index],
+            ...data,
+          });
+
+          return updated_post;
+        },
+        deletePost: (parent, { id }) => {
+          const post_index = posts.findIndex((post) => post.id === id);
+          if (post_index === -1) {
+            throw new Error("Post not found.");
+          }
+
+          const deleted_post = posts[post_index];
+
+          posts.splice(post_index, 1);
+
+          return deleted_post;
+        },
+        deleteAllPosts: () => {
+          const length = posts.length;
+
+          posts.splice(0, length);
+
+          return {
+            count: length,
+          };
+        },
+
+        // Comment
+        createComment: (parent, { data }) => {
+          const comment = {
+            id: nanoid(),
+            ...data,
+          };
+
+          comments.push(comment);
+
+          return comment;
+        },
+        updateComment: (parent, { id, data }) => {
+          const comment_index = comments.findIndex(
+            (comment) => comment.id === id
+          );
+
+          if (comment_index === -1) {
+            throw new Error("Comment not found.");
+          }
+
+          const updated_comment = (comments[comment_index] = {
+            ...comments[comment_index],
+            ...data,
+          });
+
+          return updated_comment;
+        },
+        deleteComment: (parent, { id }) => {
+          const comment_index = comments.findIndex(
+            (comment) => comment.id === id
+          );
+          if (comment_index === -1) {
+            throw new Error("Comment not found");
+          }
+
+          const deleted_comment = comments[comment_index];
+
+          comments.splice(comment_index, 1);
+
+          return deleted_comment;
+        },
+        deleteAllComments: () => {
+          const length = comments.length;
+          comments.splice(0, length);
+          return {
+            count: length,
+          };
+        },
+      },
+      Query: {
+        users: () => users,
+        user: (parent, args) => {
+          const user = users.find((user) => user.id === args.id);
+          if (!user) {
+            return new Error("User not found");
+          }
+
+          return user;
+        },
+
+        posts: () => posts,
+        post: (parent, args) => posts.find((post) => post.id === args.id),
+
+        comments: () => comments,
+        comment: (parent, args) =>
+          comments.find((comment) => comment.id === args.id),
+      },
+      User: {
+        posts: (parent, args) =>
+          posts.filter((post) => post.user_id === parent.id),
+        comments: (parent, args) =>
+          comments.filter((comment) => comment.user_id === parent.id),
+      },
+      Post: {
+        comments: (parent, args) =>
+          comments.filter((comment) => comment.post_id === parent.id),
+        user: (parent, args) =>
+          users.find((user) => user.id === parent.user_id),
+      },
+      Comment: {
+        post: (parent, args) =>
+          posts.find((post) => post.id === parent.post_id),
+        user: (parent, args) =>
+          users.find((user) => user.id === parent.user_id),
+      },
+    },
+  }),
+});
+
+const server = createServer(yoga); // server kur
+
+server.listen(4000, () => {
+  console.info("Server is running on http://localhost:4000/graphql");
+});
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="userCRUDsubs">
+              <h1>User CRUD Subscriptions</h1>
+              <p>
+                Yukarıdaki işlemleri diğer user Crud işlemlerine uyarladık.
+                <pre class="prettyprint ms-0">
+import { createYoga, createSchema, createPubSub } from "graphql-yoga";
+import { createServer } from "node:http";
+import { nanoid } from "nanoid";
+
+import { users, posts, comments } from "./data.js";
+
+const pubSub = createPubSub();
+
+const yoga = createYoga({
+  // Şemayı sarmala
+  schema: createSchema({
+    typeDefs: `#graphql
+      # User
+      type User {
+          id: ID!
+          fullName: String!
+          age: Int!
+          posts: [Post]
+          comments: [Comment]
+      }
+
+      input CreateUserInput { 
+        fullName: String!
+        age: Int!
+      }
+
+      input UpdateUserInput {
+        fullName: String
+        age: Int
+      }
+
+      # Post
+      type Post {
+          id: ID!
+          title: String!
+          user_id: ID!
+          comments: [Comment!]
+          user: User!
+      }
+      input CreatePostInput { 
+        title: String!
+        user_id: ID!
+      }
+      input UpdatePostInput {
+        title: String
+        user_id: ID
+      }
+
+      # Comment
+      type Comment {
+          id: ID!
+          text: String!
+          post_id: ID!
+          post: Post!
+          user: User!
+      }
+      input CreateCommetInput{
+        text: String!
+        post_id: ID!
+        user_id: ID!
+      }
+      input UpdateCommentInput{
+        text: String
+        post_id: ID
+        user_id: ID
+      }
+
+      type DeleteAllOutput {
+        count: Int!
+      }
+
+      type Query {
+          users: [User!]!
+          user(id: ID!): User!
+
+          posts: [Post!]
+          post(id: ID!): Post!
+
+          comments: [Comment]
+          comment(id: ID!): Comment!
+      }
+
+      type Mutation {
+        # User
+        createUser(data: CreateUserInput!): User! 
+        updateUser(id: ID!, data: UpdateUserInput!): User!
+        deleteUser(id: ID!): User!
+        deleteAllUsers: DeleteAllOutput!
+        # Post
+        createPost(data: CreatePostInput!): Post!
+        updatePost(id: ID!, data: UpdatePostInput!): Post!
+        deletePost(id: ID!): Post!
+        deleteAllPosts: DeleteAllOutput!
+
+        # Comment
+        createComment(data: CreateCommetInput!): Comment!
+        updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+        deleteComment(id: ID!): Comment!
+        deleteAllComments: DeleteAllOutput!
+      }
+
+      type Subscription {
+        # count: Int! # Örnek için
+
+        # User
+        userCreated: User!
+        userUpdated: User!
+        userDeleted: User!
+
+      }
+    `,
+    resolvers: {
+      Subscription: {
+        userCreated: {
+          subscribe: () => pubSub.subscribe("userCreated"),
+        },
+        userUpdated: {
+          subscribe: () => pubSub.subscribe("userUpdated"), // yayına abone olundu
+        },
+        userDeleted: {
+          subscribe: () => pubSub.subscribe("userDeleted"), // yayına abone olundu
+        },
+      },
+      Mutation: {
+        // User
+        createUser: (parent, args) => {
+          const user = {
+            id: nanoid(),
+            fullName: args.data.fullName,
+            age: args.data.age,
+          };
+
+          users.push(user);
+          pubSub.publish("userCreated", { userCreated: user });
+
+          return user;
+        },
+        updateUser: (parent, { id, data }) => {
+          const user_index = users.findIndex((user) => user.id === id);
+          if (user_index === -1) {
+            throw new Error("User not found.");
+          }
+
+          const update_user = (users[user_index] = {
+            ...users[user_index],
+            ...data,
+          });
+          pubSub.publish("userUpdated", { userUpdated: update_user, }); //yayın yapıldı
+          return update_user;
+        },
+        deleteUser: (parent, { id }) => {
+          const user_index = users.findIndex((user) => user.id === id);
+          if (user_index === -1) {
+            throw new Error("User not found.");
+          }
+
+          const deleted_user = users[user_index];
+
+          users.splice(user_index, 1);
+
+          pubSub.publish("userDeleted", { userDeleted: deleted_user }); // yayın yapıldı
+          return deleted_user;
+        },
+        deleteAllUsers: () => {
+          const length = users.length;
+
+          users.splice(0, length);
+
+          return {
+            count: length,
+          };
+        },
+        // Post
+        createPost: (parent, { data: { title, user_id } }) => {
+          const post = {
+            id: nanoid(),
+            title,
+            user_id,
+          };
+
+          posts.push(post);
+
+          return post;
+        },
+        updatePost: (parent, { id, data }) => {
+          const post_index = posts.findIndex((post) => post.id === id);
+
+          if (post_index === -1) {
+            throw new Error("Post not found.");
+          }
+
+          const updated_post = (posts[post_index] = {
+            ...posts[post_index],
+            ...data,
+          });
+
+          return updated_post;
+        },
+        deletePost: (parent, { id }) => {
+          const post_index = posts.findIndex((post) => post.id === id);
+          if (post_index === -1) {
+            throw new Error("Post not found.");
+          }
+
+          const deleted_post = posts[post_index];
+
+          posts.splice(post_index, 1);
+
+          return deleted_post;
+        },
+        deleteAllPosts: () => {
+          const length = posts.length;
+
+          posts.splice(0, length);
+
+          return {
+            count: length,
+          };
+        },
+
+        // Comment
+        createComment: (parent, { data }) => {
+          const comment = {
+            id: nanoid(),
+            ...data,
+          };
+
+          comments.push(comment);
+
+          return comment;
+        },
+        updateComment: (parent, { id, data }) => {
+          const comment_index = comments.findIndex(
+            (comment) => comment.id === id
+          );
+
+          if (comment_index === -1) {
+            throw new Error("Comment not found.");
+          }
+
+          const updated_comment = (comments[comment_index] = {
+            ...comments[comment_index],
+            ...data,
+          });
+
+          return updated_comment;
+        },
+        deleteComment: (parent, { id }) => {
+          const comment_index = comments.findIndex(
+            (comment) => comment.id === id
+          );
+          if (comment_index === -1) {
+            throw new Error("Comment not found");
+          }
+
+          const deleted_comment = comments[comment_index];
+
+          comments.splice(comment_index, 1);
+
+          return deleted_comment;
+        },
+        deleteAllComments: () => {
+          const length = comments.length;
+          comments.splice(0, length);
+          return {
+            count: length,
+          };
+        },
+      },
+      Query: {
+        users: () => users,
+        user: (parent, args) => {
+          const user = users.find((user) => user.id === args.id);
+          if (!user) {
+            return new Error("User not found");
+          }
+
+          return user;
+        },
+
+        posts: () => posts,
+        post: (parent, args) => posts.find((post) => post.id === args.id),
+
+        comments: () => comments,
+        comment: (parent, args) =>
+          comments.find((comment) => comment.id === args.id),
+      },
+      User: {
+        posts: (parent, args) =>
+          posts.filter((post) => post.user_id === parent.id),
+        comments: (parent, args) =>
+          comments.filter((comment) => comment.user_id === parent.id),
+      },
+      Post: {
+        comments: (parent, args) =>
+          comments.filter((comment) => comment.post_id === parent.id),
+        user: (parent, args) =>
+          users.find((user) => user.id === parent.user_id),
+      },
+      Comment: {
+        post: (parent, args) =>
+          posts.find((post) => post.id === parent.post_id),
+        user: (parent, args) =>
+          users.find((user) => user.id === parent.user_id),
+      },
+    },
+  }),
+});
+
+const server = createServer(yoga); // server kur
+
+server.listen(4000, () => {
+  console.info("Server is running on http://localhost:4000/graphql");
+});
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="postVeCommentCRUDsubs">
+              <h1>Post ve Comment CRUD Subscriptions</h1>
+              <p>
+                Yukarıdaki işlemi post ve comment için tekrarlıyoruz.
+                <pre class="prettyprint ms-0">
+import { createYoga, createSchema, createPubSub } from "graphql-yoga";
+import { createServer } from "node:http";
+import { nanoid } from "nanoid";
+
+import { users, posts, comments } from "./data.js";
+
+const pubSub = createPubSub();
+
+const yoga = createYoga({
+  // Şemayı sarmala
+  schema: createSchema({
+    typeDefs: `#graphql
+      # User
+      type User {
+          id: ID!
+          fullName: String!
+          age: Int!
+          posts: [Post]
+          comments: [Comment]
+      }
+
+      input CreateUserInput { 
+        fullName: String!
+        age: Int!
+      }
+
+      input UpdateUserInput {
+        fullName: String
+        age: Int
+      }
+
+      # Post
+      type Post {
+          id: ID!
+          title: String!
+          user_id: ID!
+          comments: [Comment!]
+          user: User!
+      }
+      input CreatePostInput { 
+        title: String!
+        user_id: ID!
+      }
+      input UpdatePostInput {
+        title: String
+        user_id: ID
+      }
+
+      # Comment
+      type Comment {
+          id: ID!
+          text: String!
+          post_id: ID!
+          post: Post!
+          user: User!
+      }
+      input CreateCommetInput{
+        text: String!
+        post_id: ID!
+        user_id: ID!
+      }
+      input UpdateCommentInput{
+        text: String
+        post_id: ID
+        user_id: ID
+      }
+
+      type DeleteAllOutput {
+        count: Int!
+      }
+
+      type Query {
+          users: [User!]!
+          user(id: ID!): User!
+
+          posts: [Post!]
+          post(id: ID!): Post!
+
+          comments: [Comment]
+          comment(id: ID!): Comment!
+      }
+
+      type Mutation {
+        # User
+        createUser(data: CreateUserInput!): User! 
+        updateUser(id: ID!, data: UpdateUserInput!): User!
+        deleteUser(id: ID!): User!
+        deleteAllUsers: DeleteAllOutput!
+        # Post
+        createPost(data: CreatePostInput!): Post!
+        updatePost(id: ID!, data: UpdatePostInput!): Post!
+        deletePost(id: ID!): Post!
+        deleteAllPosts: DeleteAllOutput!
+
+        # Comment
+        createComment(data: CreateCommetInput!): Comment!
+        updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+        deleteComment(id: ID!): Comment!
+        deleteAllComments: DeleteAllOutput!
+      }
+
+      type Subscription {
+        # count: Int! # Örnek için
+
+        # User
+        userCreated: User!
+        userUpdated: User!
+        userDeleted: User!
+
+        # Post
+        postCreated: Post!
+        postUpdated: Post!
+        postDeleted: Post!
+        postsCount: Int!
+
+        # Comment
+        commentCreated: Comment!
+        commentUpdated: Comment!
+        commentDeleted: Comment!
+      }
+    `,
+    resolvers: {
+      Subscription: {
+        // User
+        userCreated: {
+          subscribe: () => pubSub.subscribe("userCreated"),
+        },
+        userUpdated: {
+          subscribe: () => pubSub.subscribe("userUpdated"),
+        },
+        userDeleted: {
+          subscribe: () => pubSub.subscribe("userDeleted"),
+        },
+
+        // Post
+        postCreated: {
+          subscribe: () => pubSub.subscribe("postCreated"),
+        },
+        postUpdated: {
+          subscribe: () => pubSub.subscribe("postUpdated"),
+        },
+        postDeleted: {
+          subscribe: () => pubSub.subscribe("postDeleted"),
+        },
+        postsCount: {
+          subscribe: () => {
+            setTimeout(() => {
+              pubSub.publish("postsCount", { postsCount: posts.length })
+            }); // publish işlemi subscribe işleminden sonra olmalı. Bu nedenle geçikme koyduk
+            return pubSub.subscribe("postsCount");
+          },
+        },
+
+        // Comment
+        commentCreated: {
+          subscribe: () => pubSub.subscribe("commentCreated"),
+        },
+        commentUpdated: {
+          subscribe: () => pubSub.subscribe("commentUpdated"),
+        },
+        commentDeleted: {
+          subscribe: () => pubSub.subscribe("commentDeleted"),
+        },
+      },
+      Mutation: {
+        // User
+        createUser: (parent, args) => {
+          const user = {
+            id: nanoid(),
+            fullName: args.data.fullName,
+            age: args.data.age,
+          };
+
+          users.push(user);
+          pubSub.publish("userCreated", { userCreated: user });
+
+          return user;
+        },
+        updateUser: (parent, { id, data }) => {
+          const user_index = users.findIndex((user) => user.id === id);
+          if (user_index === -1) {
+            throw new Error("User not found.");
+          }
+
+          const update_user = (users[user_index] = {
+            ...users[user_index],
+            ...data,
+          });
+          pubSub.publish("userUpdated", { userUpdated: update_user }); //yayın yapıldı
+          return update_user;
+        },
+        deleteUser: (parent, { id }) => {
+          const user_index = users.findIndex((user) => user.id === id);
+          if (user_index === -1) {
+            throw new Error("User not found.");
+          }
+
+          const deleted_user = users[user_index];
+
+          users.splice(user_index, 1);
+
+          pubSub.publish("userDeleted", { userDeleted: deleted_user }); // yayın yapıldı
+          return deleted_user;
+        },
+        deleteAllUsers: () => {
+          const length = users.length;
+
+          users.splice(0, length);
+
+          return {
+            count: length,
+          };
+        },
+        // Post
+        createPost: (parent, { data: { title, user_id } }) => {
+          const post = {
+            id: nanoid(),
+            title,
+            user_id,
+          };
+
+          posts.push(post);
+
+          pubSub.publish("postCreated", { postCreated: post });
+          pubSub.publish("postsCount", { postsCount: posts.length });
+          return post;
+        },
+        updatePost: (parent, { id, data }) => {
+          const post_index = posts.findIndex((post) => post.id === id);
+
+          if (post_index === -1) {
+            throw new Error("Post not found.");
+          }
+
+          const updated_post = (posts[post_index] = {
+            ...posts[post_index],
+            ...data,
+          });
+
+          pubSub.publish("postUpdated", { postUpdated: updated_post });
+          return updated_post;
+        },
+        deletePost: (parent, { id }) => {
+          const post_index = posts.findIndex((post) => post.id === id);
+          if (post_index === -1) {
+            throw new Error("Post not found.");
+          }
+
+          const deleted_post = posts[post_index];
+
+          posts.splice(post_index, 1);
+          pubSub.publish("postDeleted", { postDeleted: deleted_post });
+          pubSub.publish("postsCount", { postsCount: posts.length });
+
+          return deleted_post;
+        },
+        deleteAllPosts: () => {
+          const length = posts.length;
+
+          posts.splice(0, length);
+          pubSub.publish("postsCount", { postsCount: posts.length });
+          return {
+            count: length,
+          };
+        },
+
+        // Comment
+        createComment: (parent, { data }) => {
+          const comment = {
+            id: nanoid(),
+            ...data,
+          };
+
+          comments.push(comment);
+
+          pubSub.publish("commentCreated", { commentCreated: comment });
+          return comment;
+        },
+        updateComment: (parent, { id, data }) => {
+          const comment_index = comments.findIndex(
+            (comment) => comment.id === id
+          );
+
+          if (comment_index === -1) {
+            throw new Error("Comment not found.");
+          }
+
+          const updated_comment = (comments[comment_index] = {
+            ...comments[comment_index],
+            ...data,
+          });
+          pubSub.publish("commentUpdated", { commentUpdated: updated_comment });
+          return updated_comment;
+        },
+        deleteComment: (parent, { id }) => {
+          const comment_index = comments.findIndex(
+            (comment) => comment.id === id
+          );
+          if (comment_index === -1) {
+            throw new Error("Comment not found");
+          }
+
+          const deleted_comment = comments[comment_index];
+
+          comments.splice(comment_index, 1);
+
+          pubSub.publish("commentDeleted", { commentDeleted: deleted_comment });
+          return deleted_comment;
+        },
+        deleteAllComments: () => {
+          const length = comments.length;
+          comments.splice(0, length);
+          return {
+            count: length,
+          };
+        },
+      },
+      Query: {
+        users: () => users,
+        user: (parent, args) => {
+          const user = users.find((user) => user.id === args.id);
+          if (!user) {
+            return new Error("User not found");
+          }
+
+          return user;
+        },
+
+        posts: () => posts,
+        post: (parent, args) => posts.find((post) => post.id === args.id),
+
+        comments: () => comments,
+        comment: (parent, args) =>
+          comments.find((comment) => comment.id === args.id),
+      },
+      User: {
+        posts: (parent, args) =>
+          posts.filter((post) => post.user_id === parent.id),
+        comments: (parent, args) =>
+          comments.filter((comment) => comment.user_id === parent.id),
+      },
+      Post: {
+        comments: (parent, args) =>
+          comments.filter((comment) => comment.post_id === parent.id),
+        user: (parent, args) =>
+          users.find((user) => user.id === parent.user_id),
+      },
+      Comment: {
+        post: (parent, args) =>
+          posts.find((post) => post.id === parent.post_id),
+        user: (parent, args) =>
+          users.find((user) => user.id === parent.user_id),
+      },
+    },
+  }),
+});
+
+const server = createServer(yoga); // server kur
+
+server.listen(4000, () => {
+  console.info("Server is running on http://localhost:4000/graphql");
+});
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="withFilter">
+              <h1>withFilter ile Subscription Filtreleme</h1>
+              <p>
+                Subscription sırasında paraametre ile filtreleme yapacağız.
+              </p>
+              <p>
+                biz v4 kullanıyoruz. hocanın methodu bizde işe yaramıyor. Bu nedenle dökümantasyondan <a href="https://the-guild.dev/graphql/yoga-server/docs/migration/migration-from-yoga-v1">buradan</a> ve <a href="https://the-guild.dev/graphql/yoga-server/docs/features/subscriptions#filter-and-map-values">buradan</a> faydalanarak kendi kodumuzu yazıyoruz.
+              </p>
+              <p>
+                <pre class="prettyprint ms-0">
+import {
+  createYoga,
+  createSchema,
+  createPubSub,
+  filter,
+  pipe,
+  map,
+} from "graphql-yoga"; //filter ve pipe subscription filtreleme için import edildi.
+import { createServer } from "node:http";
+import { nanoid } from "nanoid";
+
+import { users, posts, comments } from "./data.js";
+
+const pubSub = createPubSub();
+
+const yoga = createYoga({
+  // Şemayı sarmala
+  schema: createSchema({
+    typeDefs: `#graphql
+      # User
+      type User {
+          id: ID!
+          fullName: String!
+          age: Int!
+          posts: [Post]
+          comments: [Comment]
+      }
+
+      input CreateUserInput { 
+        fullName: String!
+        age: Int!
+      }
+
+      input UpdateUserInput {
+        fullName: String
+        age: Int
+      }
+
+      # Post
+      type Post {
+          id: ID!
+          title: String!
+          user_id: ID!
+          comments: [Comment!]
+          user: User!
+      }
+      input CreatePostInput { 
+        title: String!
+        user_id: ID!
+      }
+      input UpdatePostInput {
+        title: String
+        user_id: ID
+      }
+
+      # Comment
+      type Comment {
+          id: ID!
+          text: String!
+          post_id: ID!
+          post: Post!
+          user: User!
+      }
+      input CreateCommetInput{
+        text: String!
+        post_id: ID!
+        user_id: ID!
+      }
+      input UpdateCommentInput{
+        text: String
+        post_id: ID
+        user_id: ID
+      }
+
+      type DeleteAllOutput {
+        count: Int!
+      }
+
+      type Query {
+          users: [User!]!
+          user(id: ID!): User!
+
+          posts: [Post!]
+          post(id: ID!): Post!
+
+          comments: [Comment]
+          comment(id: ID!): Comment!
+      }
+
+      type Mutation {
+        # User
+        createUser(data: CreateUserInput!): User! 
+        updateUser(id: ID!, data: UpdateUserInput!): User!
+        deleteUser(id: ID!): User!
+        deleteAllUsers: DeleteAllOutput!
+        # Post
+        createPost(data: CreatePostInput!): Post!
+        updatePost(id: ID!, data: UpdatePostInput!): Post!
+        deletePost(id: ID!): Post!
+        deleteAllPosts: DeleteAllOutput!
+
+        # Comment
+        createComment(data: CreateCommetInput!): Comment!
+        updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+        deleteComment(id: ID!): Comment!
+        deleteAllComments: DeleteAllOutput!
+      }
+
+      type Subscription {
+        # count: Int! # Örnek için
+
+        # User
+        userCreated: User!
+        userUpdated: User!
+        userDeleted: User!
+
+        # Post
+        postCreated(user_id: ID): Post! #postCreated parametre alacak şekilde düzenlendi.
+        postUpdated: Post!
+        postDeleted: Post!
+        postsCount: Int!
+
+        # Comment
+        commentCreated(post_id: ID): Comment!
+        commentUpdated: Comment!
+        commentDeleted: Comment!
+      }
+    `,
+    resolvers: {
+      Subscription: {
+        // User
+        userCreated: {
+          subscribe: () => pubSub.subscribe("userCreated"),
+        },
+        userUpdated: {
+          subscribe: () => pubSub.subscribe("userUpdated"),
+        },
+        userDeleted: {
+          subscribe: () => pubSub.subscribe("userDeleted"),
+        },
+
+        // Post
+        postCreated: {
+          subscribe: (parent, args) => {
+            return pipe(
+              // pipe 2 parametre alır.
+              pubSub.subscribe("postCreated"), // 1. parametre yayına abone olmak için kullanılan fonksiyon.
+              filter((value) => // 2 parametre filter. içi true dönerse değeri yakalar. yoksa es geçer.
+                args.user_id // args.user_id varsa 
+                ? value.postCreated.user_id === args.user_id // bu kıyaslama yapılır. 
+                : true // args.user_id yoksa parametre geçilmemiştir. true döner.
+              )
+            );
+          },
+        },
+        postUpdated: {
+          subscribe: () => pubSub.subscribe("postUpdated"),
+        },
+        postDeleted: {
+          subscribe: () => pubSub.subscribe("postDeleted"),
+        },
+        postsCount: {
+          subscribe: () => {
+            setTimeout(() => {
+              pubSub.publish("postsCount", { postsCount: posts.length });
+            });
+            return pubSub.subscribe("postsCount");
+          },
+        },
+
+        // Comment
+        commentCreated: {
+          subscribe: (parent, args) => {
+            return pipe( // Yukarıdaki örneğin tekrarı.
+              pubSub.subscribe("commentCreated"),
+              filter((value) =>
+                args.post_id
+                  ? value.commentCreated.post_id === args.post_id
+                  : true
+              )
+            );
+          },
+        },
+        commentUpdated: {
+          subscribe: () => pubSub.subscribe("commentUpdated"),
+        },
+        commentDeleted: {
+          subscribe: () => pubSub.subscribe("commentDeleted"),
+        },
+      },
+      Mutation: {
+        // User
+        createUser: (parent, args) => {
+          const user = {
+            id: nanoid(),
+            fullName: args.data.fullName,
+            age: args.data.age,
+          };
+
+          users.push(user);
+          pubSub.publish("userCreated", { userCreated: user });
+
+          return user;
+        },
+        updateUser: (parent, { id, data }) => {
+          const user_index = users.findIndex((user) => user.id === id);
+          if (user_index === -1) {
+            throw new Error("User not found.");
+          }
+
+          const update_user = (users[user_index] = {
+            ...users[user_index],
+            ...data,
+          });
+          pubSub.publish("userUpdated", { userUpdated: update_user });
+          return update_user;
+        },
+        deleteUser: (parent, { id }) => {
+          const user_index = users.findIndex((user) => user.id === id);
+          if (user_index === -1) {
+            throw new Error("User not found.");
+          }
+
+          const deleted_user = users[user_index];
+
+          users.splice(user_index, 1);
+
+          pubSub.publish("userDeleted", { userDeleted: deleted_user });
+          return deleted_user;
+        },
+        deleteAllUsers: () => {
+          const length = users.length;
+
+          users.splice(0, length);
+
+          return {
+            count: length,
+          };
+        },
+        // Post
+        createPost: (parent, { data: { title, user_id } }) => {
+          const post = {
+            id: nanoid(),
+            title,
+            user_id,
+          };
+
+          posts.push(post);
+
+          pubSub.publish("postCreated", { postCreated: post });
+          pubSub.publish("postsCount", { postsCount: posts.length });
+          return post;
+        },
+        updatePost: (parent, { id, data }) => {
+          const post_index = posts.findIndex((post) => post.id === id);
+
+          if (post_index === -1) {
+            throw new Error("Post not found.");
+          }
+
+          const updated_post = (posts[post_index] = {
+            ...posts[post_index],
+            ...data,
+          });
+
+          pubSub.publish("postUpdated", { postUpdated: updated_post });
+          return updated_post;
+        },
+        deletePost: (parent, { id }) => {
+          const post_index = posts.findIndex((post) => post.id === id);
+          if (post_index === -1) {
+            throw new Error("Post not found.");
+          }
+
+          const deleted_post = posts[post_index];
+
+          posts.splice(post_index, 1);
+          pubSub.publish("postDeleted", { postDeleted: deleted_post });
+          pubSub.publish("postsCount", { postsCount: posts.length });
+
+          return deleted_post;
+        },
+        deleteAllPosts: () => {
+          const length = posts.length;
+
+          posts.splice(0, length);
+          pubSub.publish("postsCount", { postsCount: posts.length });
+          return {
+            count: length,
+          };
+        },
+
+        // Comment
+        createComment: (parent, { data }) => {
+          const comment = {
+            id: nanoid(),
+            ...data,
+          };
+
+          comments.push(comment);
+
+          pubSub.publish("commentCreated", { commentCreated: comment });
+          return comment;
+        },
+        updateComment: (parent, { id, data }) => {
+          const comment_index = comments.findIndex(
+            (comment) => comment.id === id
+          );
+
+          if (comment_index === -1) {
+            throw new Error("Comment not found.");
+          }
+
+          const updated_comment = (comments[comment_index] = {
+            ...comments[comment_index],
+            ...data,
+          });
+          pubSub.publish("commentUpdated", { commentUpdated: updated_comment });
+          return updated_comment;
+        },
+        deleteComment: (parent, { id }) => {
+          const comment_index = comments.findIndex(
+            (comment) => comment.id === id
+          );
+          if (comment_index === -1) {
+            throw new Error("Comment not found");
+          }
+
+          const deleted_comment = comments[comment_index];
+
+          comments.splice(comment_index, 1);
+
+          pubSub.publish("commentDeleted", { commentDeleted: deleted_comment });
+          return deleted_comment;
+        },
+        deleteAllComments: () => {
+          const length = comments.length;
+          comments.splice(0, length);
+          return {
+            count: length,
+          };
+        },
+      },
+      Query: {
+        users: () => users,
+        user: (parent, args) => {
+          const user = users.find((user) => user.id === args.id);
+          if (!user) {
+            return new Error("User not found");
+          }
+
+          return user;
+        },
+
+        posts: () => posts,
+        post: (parent, args) => posts.find((post) => post.id === args.id),
+
+        comments: () => comments,
+        comment: (parent, args) =>
+          comments.find((comment) => comment.id === args.id),
+      },
+      User: {
+        posts: (parent, args) =>
+          posts.filter((post) => post.user_id === parent.id),
+        comments: (parent, args) =>
+          comments.filter((comment) => comment.user_id === parent.id),
+      },
+      Post: {
+        comments: (parent, args) =>
+          comments.filter((comment) => comment.post_id === parent.id),
+        user: (parent, args) =>
+          users.find((user) => user.id === parent.user_id),
+      },
+      Comment: {
+        post: (parent, args) =>
+          posts.find((post) => post.id === parent.post_id),
+        user: (parent, args) =>
+          users.find((user) => user.id === parent.user_id),
+      },
+    },
+  }),
+});
+
+const server = createServer(yoga); // server kur
+
+server.listen(4000, () => {
+  console.info("Server is running on http://localhost:4000/graphql");
+});
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="redisPubsub">
+              <h1>Redis PubSub (Konu çözülemedi.)</h1>
+              <p>
+                Birden fazla sunucu kullanılması gereken durumlarda pubSub işlemlerinin sunucuda olması diğer sunucularda yapılan işlemleri okuyamamasına neden olur. Bu nedenle pubSub işlemleri sunucu dışında redis üzerinde tutulabilir.
+              </p>
+              <p>
+                <b>Redis:</b> bir veri yapısı sunucusudur. Açık kaynak, bellek kullanımlı, anahtar-değer deposudur. Redis "Uzak Sözlük Sunucusu" (İngilizce: "REmote DIctionary Server") anlamına gelmektedir. Çeşitli kaynaklara göre en çok kullanılan anahtar-değer veritabanıdır.
+              </p>
+              <p>
+                Bunun için <a href="https://github.com/davidyaha/graphql-redis-subscriptions">graphql-redis-subscriptions</a> kullanacağız. <a href="https://github.com/davidyaha/graphql-redis-subscriptions#creating-a-redis-client">buradaki</a> örneği baz alıyoruz.
+              </p>
+              <p>
+                terminale: <pre class="prettyprint ms-0">npm i graphql-redis-subscriptions</pre> ve <pre class="prettyprint ms-0">npm i ioredis</pre> yazıyoruz.
+              </p>
+              <p>
+                Hoca redis için heroku kullanmış. heruko artık free değil. Biz <a href="https://dashboard.render.com/">render</a> kullanacağız.
+              </p>
+              <p>
+                new > redis > create redis
+              </p>
+              <p>
+                projemizin kök dizinine pubsub.js dosyası oluşturulur. İçine <a href="https://github.com/davidyaha/graphql-redis-subscriptions#creating-a-redis-client">buradaki</a> örneği yapıştırıyoruz. İlgili alanları da oluşturduğumuz redis serverına göre dolduruyoruz. External redis url <pre class="prettyprint ms-0">rediss://username:password@host:port</pre> kalıbına göre oluşturulmuştur. Buradaki veriler örneğe uygun olarak ayrıştırılır.
+              </p>
+              <p>
+                Kullanılan teknolojilerde çakışma var. Son sürümler çalışmıyor. Daha sonra tekrar denenecek.
+              </p>
+              <p style="color: rgb(6, 194, 6); background-color: black; padding: 10px; font-family: monospace;">
+                birden fazla metod denendi. 5. saatin sonunda konu daha sonra irdelenmek üzere bırakıldı. Kullanılan iki pakette çakışma mevcut. 
+              </p>
+            </div>
+            <div class="row" id="env">
+              <h1>Ortam Değişkenleri</h1>
+              <p>
+                Kaynak kodumuzda görünmesini istemediğimiz bilgiler için .env adında bir dosya oluşturuyoruz. Bunun içinde <pre class="prettyprint ms-0">PASS="password1234"</pre> gibi tanımımızı yapıyoruz. Bu bilgileri kullanmak için terminale <pre class="prettyprint ms-0">npm i dotenv</pre> yazarak ilgili paketi kuruyoruz.
+              </p>
+              <p>
+                Bu bilgiyi kullanmak istediğimiz dosyada <code>dotenv</code> paketini import edip çalıştırıyoruz.
+                <pre class="prettyprint ms-0">
+import dotenv from "dotenv"
+dotenv.config()
+                </pre>
+                Artık .env içindeki veriyi kullanabiliriz.
+                <pre class="prettyprint ms-0">
+...
+password: process.env.PASS
+...
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="folderSchemaStructure1">
+              <h1>Folder/Schema Structure - 1</h1>
+              <p>
+                Bu ksımda index.js içindeki kodun daha düzenli ve okunaklı görünmesi için bazı kısımları başka dosyalara yükleyip import ettik. index.js ve data.js src klasörüne taşındı. <br>
+                Son durumda: <br>
+                index.js:
+                <pre class="prettyprint ms-0">
+import { createYoga, createSchema, createPubSub } from "graphql-yoga";
+import { createServer } from "node:http";
+
+import * as fs from "fs";
+import * as path from "path";
+import { fileURLToPath } from "url";
+
+import db from "./data.js"; // veriler import edildi
+import resolvers from "./graphql/resolvers/index.js"; // resolvers import edildi
+
+const pubSub = createPubSub();
+
+const yoga = createYoga({
+  // Şemayı sarmala
+  schema: createSchema({
+    typeDefs: fs.readFileSync( // datanın olduğu dosyanın okunması
+      path.join(
+        path.dirname(fileURLToPath(import.meta.url)), // data yolunun ifade edilmesi
+        "graphql/schema.graphql"
+      ),
+      "utf-8"
+    ),
+    resolvers,
+  }),
+  context: {
+    pubSub,
+    db, // database context içinde geçildi.
+  },
+});
+
+const server = createServer(yoga); // server kur
+
+server.listen(4000, () => {
+  console.info("Server is running on http://localhost:4000/graphql");
+});
+
+                </pre>
+              </p>
+              <p>
+                typeDefs için graphql/schema.qraphql dosyası oluşturuldu.
+                <pre class="prettyprint ms-0">
+# User
+type User {
+  id: ID!
+  fullName: String!
+  age: Int!
+  posts: [Post]
+  comments: [Comment]
+}
+
+input CreateUserInput {
+  fullName: String!
+  age: Int!
+}
+
+input UpdateUserInput {
+  fullName: String
+  age: Int
+}
+
+# Post
+type Post {
+  id: ID!
+  title: String!
+  user_id: ID!
+  comments: [Comment!]
+  user: User!
+}
+input CreatePostInput {
+  title: String!
+  user_id: ID!
+}
+input UpdatePostInput {
+  title: String
+  user_id: ID
+}
+
+# Comment
+type Comment {
+  id: ID!
+  text: String!
+  post_id: ID!
+  post: Post!
+  user: User!
+}
+input CreateCommetInput {
+  text: String!
+  post_id: ID!
+  user_id: ID!
+}
+input UpdateCommentInput {
+  text: String
+  post_id: ID
+  user_id: ID
+}
+
+type DeleteAllOutput {
+  count: Int!
+}
+
+type Query {
+  users: [User!]!
+  user(id: ID!): User!
+
+  posts: [Post!]
+  post(id: ID!): Post!
+
+  comments: [Comment]
+  comment(id: ID!): Comment!
+}
+
+type Mutation {
+  # User
+  createUser(data: CreateUserInput!): User!
+  updateUser(id: ID!, data: UpdateUserInput!): User!
+  deleteUser(id: ID!): User!
+  deleteAllUsers: DeleteAllOutput!
+  # Post
+  createPost(data: CreatePostInput!): Post!
+  updatePost(id: ID!, data: UpdatePostInput!): Post!
+  deletePost(id: ID!): Post!
+  deleteAllPosts: DeleteAllOutput!
+
+  # Comment
+  createComment(data: CreateCommetInput!): Comment!
+  updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+  deleteComment(id: ID!): Comment!
+  deleteAllComments: DeleteAllOutput!
+}
+
+type Subscription {
+  # count: Int! # Örnek için
+
+  # User
+  userCreated: User!
+  userUpdated: User!
+  userDeleted: User!
+
+  # Post
+  postCreated(user_id: ID): Post! #postCreated parametre alacak şekilde düzenlendi.
+  postUpdated: Post!
+  postDeleted: Post!
+  postsCount: Int!
+
+  # Comment
+  commentCreated(post_id: ID): Comment!
+  commentUpdated: Comment!
+  commentDeleted: Comment!
+}
+
+                </pre>
+              </p>
+              <p>
+                data.js db adıyla import edildi ve pubSub ile birlikte context içinde geçildi. Bu sayede her resolver için ulaşılabilir kılındı.
+              </p>
+              <p>
+                src/graphql/resolvers dosyasında tüm resolver işlemleri ayrı ayrı tanımlandı. Tanımlarda data.js den gelen veri context.db üzerinden alındı. pubSub işlemleri contex.pubSub a göre düzenlendi. resolvers/index.js içine import edilip oradan topluca export edildi. <br>
+                örnek resolvers için: <br>
+                src/graphql/resolvers/Mutation.js
+                <pre class="prettyprint ms-0">
+import { nanoid } from "nanoid";
+
+const Mutation = {
+  // User
+  createUser: (_, args, { pubSub, db }) => {
+    const user = {
+      id: nanoid(),
+      fullName: args.data.fullName,
+      age: args.data.age,
+    };
+
+    db.users.push(user);
+    pubSub.publish("userCreated", { userCreated: user });
+
+    return user;
+  },
+  updateUser: (_, { id, data }, { pubSub, db }) => {
+    const user_index = db.users.findIndex((user) => user.id === id);
+    if (user_index === -1) {
+      throw new Error("User not found.");
+    }
+
+    const update_user = (db.users[user_index] = {
+      ...db.users[user_index],
+      ...data,
+    });
+    pubSub.publish("userUpdated", { userUpdated: update_user });
+    return update_user;
+  },
+  deleteUser: (_, __, { pubSub, db }) => {
+    const user_index = db.users.findIndex((user) => user.id === id);
+    if (user_index === -1) {
+      throw new Error("User not found.");
+    }
+
+    const deleted_user = db.users[user_index];
+
+    db.users.splice(user_index, 1);
+
+    pubSub.publish("userDeleted", { userDeleted: deleted_user });
+    return deleted_user;
+  },
+  deleteAllUsers: (_, __, { db }) => {
+    const length = db.users.length;
+
+    db.users.splice(0, length);
+
+    return {
+      count: length,
+    };
+  },
+  // Post
+  createPost: (_, { data: { title, user_id } }, { pubSub, db }) => {
+    const post = {
+      id: nanoid(),
+      title,
+      user_id,
+    };
+
+    db.posts.push(post);
+
+    pubSub.publish("postCreated", { postCreated: post });
+    pubSub.publish("postsCount", { postsCount: db.posts.length });
+    return post;
+  },
+  updatePost: (_, { id, data }, { pubSub, db }) => {
+    const post_index = db.posts.findIndex((post) => post.id === id);
+
+    if (post_index === -1) {
+      throw new Error("Post not found.");
+    }
+
+    const updated_post = (db.posts[post_index] = {
+      ...db.posts[post_index],
+      ...data,
+    });
+
+    pubSub.publish("postUpdated", { postUpdated: updated_post });
+    return updated_post;
+  },
+  deletePost: (_, { id }, { pubSub, db }) => {
+    const post_index = db.posts.findIndex((post) => post.id === id);
+    if (post_index === -1) {
+      throw new Error("Post not found.");
+    }
+
+    const deleted_post = db.posts[post_index];
+
+    db.posts.splice(post_index, 1);
+    pubSub.publish("postDeleted", { postDeleted: deleted_post });
+    pubSub.publish("postsCount", { postsCount: posts.length });
+
+    return deleted_post;
+  },
+  deleteAllPosts: (_, __, { pubSub, db }) => {
+    const length = db.posts.length;
+
+    db.posts.splice(0, length);
+    pubSub.publish("postsCount", { postsCount: db.posts.length });
+    return {
+      count: length,
+    };
+  },
+
+  // Comment
+  createComment: (_, { data }, { pubSub, db }) => {
+    const comment = {
+      id: nanoid(),
+      ...data,
+    };
+
+    db.comments.push(comment);
+
+    pubSub.publish("commentCreated", { commentCreated: comment });
+    return comment;
+  },
+  updateComment: (_, { id, data }, { pubSub, db }) => {
+    const comment_index = db.comments.findIndex((comment) => comment.id === id);
+
+    if (comment_index === -1) {
+      throw new Error("Comment not found.");
+    }
+
+    const updated_comment = (db.comments[comment_index] = {
+      ...db.comments[comment_index],
+      ...data,
+    });
+    pubSub.publish("commentUpdated", { commentUpdated: updated_comment });
+    return updated_comment;
+  },
+  deleteComment: (_, { id }, { pubSub, db }) => {
+    const comment_index = db.comments.findIndex((comment) => comment.id === id);
+    if (comment_index === -1) {
+      throw new Error("Comment not found");
+    }
+
+    const deleted_comment = db.comments[comment_index];
+
+    db.comments.splice(comment_index, 1);
+
+    pubSub.publish("commentDeleted", { commentDeleted: deleted_comment });
+    return deleted_comment;
+  },
+  deleteAllComments: (_, __, { db }) => {
+    const length = db.comments.length;
+    db.comments.splice(0, length);
+    return {
+      count: length,
+    };
+  },
+};
+
+export default Mutation;
+
+                </pre>
+                index.js:
+                <pre class="prettyprint ms-0">
+import Comment from "./Comment.js"
+import Mutation from "./Mutation.js"
+import Post from "./Post.js"
+import Query from "./Query.js"
+import Subscription from "./Subscription.js"
+import User from "./User.js"
+
+export default {
+    Mutation,
+    Comment,
+    Post,
+    Query,
+    Subscription,
+    User
+}
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="folderSchemaStructure2">
+              <h1>Folder/Schema Structure - 2 (File Loader)</h1>
+              <p>
+                Bu kısımda tip tanımlarımızı otomatik merge edeceğiz. <a href="https://the-guild.dev/graphql/tools/docs/schema-merging">doc</a>
+              </p>
+              <p>
+                resolver için de dökümanda merge uygulaması var ancak es6 için uygulanamıyor. Babeli kurduktan sonraki kısımda resolver merge işlemini tekrar yaptık 😄
+              </p>
+              <p>
+                terminale <pre class="prettyprint ms-0">npm i @graphql-tools/load-files @graphql-tools/merge</pre> yazıp gereken paketleri yüklüyoruz.
+              </p>
+              <p>
+                dökümantasyondaki <code>__dir</code> ifadesi ES6 da çalışmıyor. <code>path.join(__dirname)</code> yerine <code>path.dirname(fileURLToPath(import.meta.url))</code> ifadesini kullanıyoruz. Bunun çalışması için ise 
+                <pre class="prettyprint ms-0">
+import * as path from "path";
+import { fileURLToPath } from "url";
+                </pre> 
+                import işlemlerinin yapılması gerekiyor.
+              </p>
+              <p>
+                tip tanımlarını src/graphql/type-defs klasörünün içine yerleştirdik ve her bir veri tipi için ilgili tip tanımını kendine ait bir dosyaya taşıdık.
+                <ul>
+                  <li>User.graphql</li>
+                  <li>Post.graphql</li>
+                  <li>Comment.graphql</li>
+                  <li>global.graphql</li>
+                </ul>
+              </p>
+              <p>
+                Örnek olarak User.graphql
+                <pre class="prettyprint ms-0">
+type Query {
+  users: [User!]!
+  user(id: ID!): User!
+}
+
+type Mutation {
+  createUser(data: CreateUserInput!): User!
+  updateUser(id: ID!, data: UpdateUserInput!): User!
+  deleteUser(id: ID!): User!
+  deleteAllUsers: DeleteAllOutput!
+}
+
+type Subscription {
+  userCreated: User!
+  userUpdated: User!
+  userDeleted: User!
+}
+
+type User {
+  id: ID!
+  fullName: String!
+  age: Int!
+  posts: [Post]
+  comments: [Comment]
+}
+
+input CreateUserInput {
+  fullName: String!
+  age: Int!
+}
+
+input UpdateUserInput {
+  fullName: String
+  age: Int
+}
+                </pre>
+              </p>
+              <p>
+                Bu tanımları birleştirmesi (merge) içib src/type-defs/index.js içine:
+                <pre class="prettyprint ms-0">
+import * as path from "path";
+import { fileURLToPath } from "url";
+import { loadFilesSync } from '@graphql-tools/load-files'
+import { mergeTypeDefs } from '@graphql-tools/merge'
+ 
+const typesArray = loadFilesSync(path.dirname(fileURLToPath(import.meta.url)), { extensions: ['graphql'] })
+ 
+export default mergeTypeDefs(typesArray)
+                </pre>
+              </p>
+              <p>
+                src index.js içinde import edilir ve kullanılır.
+                <pre class="prettyprint ms-0">
+import { createYoga, createSchema, createPubSub } from "graphql-yoga";
+import { createServer } from "node:http";
+
+import db from "./data.js";
+import resolvers from "./graphql/resolvers/index.js";
+import typeDefs from "./graphql/type-defs/index.js";
+
+const pubSub = createPubSub();
+
+const yoga = createYoga({
+  schema: createSchema({
+    typeDefs,
+    resolvers,
+  }),
+  context: {
+    pubSub,
+    db,
+  },
+});
+
+const server = createServer(yoga); // server kur
+
+server.listen(4000, () => {
+  console.info("Server is running on http://localhost:4000/graphql");
+});
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="babelComplier">
+              <h1>Babel Compiler </h1>
+              <p>
+                Build işlemini gerçekleştireceğiz. Bunun için <a href="https://babeljs.io/">babel</a> kullanacağız.
+              </p>
+              <p>
+                <strong>Babel nedir?</strong> Babel, ECMAScript 2015+ kodunu mevcut ve eski tarayıcılarda veya ortamlarda geriye dönük olarak uyumlu bir JavaScript sürümüne dönüştürmek için kullanılan bir araçtır.
+              </p>
+              <p>
+                Babel sayesinde daha önce ES6 da çalışmayan söz dizimleri ile ES6 bir arada yazılabilir. 
+              </p>
+              <p>
+                <a href="https://babeljs.io/">Babeljs.io</a> içinde setup>nodemon
+              </p>
+              <p>
+                terminale <pre class="prettyprint ms-0">npm install @babel/core @babel/node --save-dev</pre> ve <pre class="prettyprint ms-0">npm install @babel/preset-env --save-dev</pre> ve build için:<pre class="prettyprint ms-0">npm install --save-dev @babel/cli</pre> 
+              </p>
+              <p>
+                package.json dosyasında scripts>dev alanı aşağıdaki gibi güncellendi ve "type": "module" ifadesi kaldırıldı.
+                <pre class="prettyprint ms-0">
+"scripts": {
+    ...
+    "dev": "nodemon --exec babel-node ./src/index.js",
+    ...
+  },
+                </pre>
+              </p>
+              <p>
+                kök dizine .babelrc adında bir dosya oluşturuldu ve içine:
+                <pre class="prettyprint ms-0">
+{
+    "presets": ["@babel/preset-env"]
+}
+                </pre> eklendi.
+              </p>
+              <p>
+                son nanoid versiyonu ES6 dışında çalışmıyor. Bu nedenle önceki bir sürüm yoklendi.
+                <pre class="prettyprint ms-0">
+npm uninstall nanoid
+npm install nanoid@3.3.4
+                </pre>
+              </p>
+              <p>
+                ES6 dışında çalışmayan kodlardan kurtulmak için graphql/type-defs/index.js düzenlendi.
+                <pre class="prettyprint ms-0">
+import * as path from "path";
+import { loadFilesSync } from '@graphql-tools/load-files'
+import { mergeTypeDefs } from '@graphql-tools/merge'
+ 
+// const typesArray = loadFilesSync(path.dirname(fileURLToPath(import.meta.url)), { extensions: ['graphql'] })
+const typesArray = loadFilesSync(path.join(__dirname), { extensions: ['graphql'] }) // dir ifadesi babel sayesinde çalışıyor.
+
+export default mergeTypeDefs(typesArray)
+                </pre>
+              </p>
+              <p>
+                package.json script alanı düzenlendi. package.json son hali:
+                <pre class="prettyprint ms-0">
+{
+  "name": "comment-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "dev": "nodemon --exec babel-node ./src/index.js",
+    "build": "babel ./src --out-dir dist --minified --copy-files"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.7.1",
+    "@graphql-tools/load-files": "^7.0.0",
+    "@graphql-tools/merge": "^9.0.0",
+    "@graphql-yoga/node": "^3.9.1",
+    "@graphql-yoga/redis-event-target": "2.0.0",
+    "graphql": "^16.6.0",
+    "graphql-redis-subscriptions": "^2.6.0",
+    "graphql-subscriptions": "^2.0.0",
+    "graphql-ws": "^5.13.1",
+    "graphql-yoga": "^3.9.2-rc-20230524133912-835c7e3d",
+    "ioredis": "5.3.2",
+    "nanoid": "^3.3.4",
+    "redis": "^4.6.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.5",
+    "@babel/core": "^7.22.5",
+    "@babel/node": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "nodemon": "^2.0.22"
+  }
+}
+                </pre>
+              </p>
+              <p>
+                <code>"build": "babel ./src --out-dir dist --minified --copy-files"</code> kodunda <code>--minified</code> build edilen tüm dosyalarda kodu tek satıra toplar. <code>--copy-files</code> ise o olmadan kopyalanmayan nonjs dosyaları da build içine kopyalar
+              </p>
+              <p>
+                build işlemi ile developer tarafındaki ürün product tarafına hazır hale getirilir. Bu işlem için terminale <pre class="prettyprint ms-0">npm run build</pre> yazılır. disc adında bir klasöre build oluşturulur.
+              </p>
+
+              <h2>babel-plugin-module-resolver</h2>
+              <p>
+                import sırasında dosya dizini bulmayı kolaylaştırmak için dosya yollarına takma ad vermek  için <a href="https://www.npmjs.com/package/babel-plugin-module-resolver">babel-plugin-module-resolver</a> kullanılabilir. bunun için terminale <pre class="prettyprint ms-0">npm install --save-dev babel-plugin-module-resolver</pre>
+              </p>
+              <p>
+                .babelrc içine kısayollar tanımlanır. .babelrc son hali:
+                <pre class="prettyprint ms-0">
+{
+    "presets": ["@babel/preset-env"],
+    "plugins": [
+        ["module-resolver", {
+        "root": ["./src"],
+        "alias": {
+            "@graphql": "./src/graphql",
+            "@resolvers": "./src/graphql/resolvers",
+            "@type-defs": "./src/graphql/type-defs"
+        }
+        }]
+    ]
+}
+                </pre>
+              </p>
+              <p>
+                Buna göre src/index.js:
+                <pre class="prettyprint ms-0">
+import { createYoga, createSchema, createPubSub } from "graphql-yoga";
+import { createServer } from "node:http";
+
+import db from "./data.js";
+import resolvers from "@resolvers"; //
+import typeDefs from "@type-defs"; //
+
+const pubSub = createPubSub();
+
+const yoga = createYoga({
+  schema: createSchema({
+    typeDefs,
+    resolvers,
+  }),
+  context: {
+    pubSub,
+    db,
+  },
+});
+
+const server = createServer(yoga); 
+server.listen(4000, () => {
+  console.info("Server is running on http://localhost:4000/graphql");
+});
+                </pre>
+              </p>
+
+              <h2>Babel Sonrası Resolver Merge</h2>
+              <p>graphql/resolvers altına bir resolvers klasörü daha açılır ve index.js harici dosyalaor oraya taşınır.</p>
+              <p>
+                graphql/resolvers/index.js aşağıdaki gibi düzenlenir.
+                <pre class="prettyprint ms-0">
+import path from "path";
+import { mergeResolvers } from "@graphql-tools/merge";
+import { loadFilesSync } from "@graphql-tools/load-files";
+
+const resolversArray = loadFilesSync(path.join(__dirname, "/resolvers"), {
+  extensions: ["js"],
+  extractExports: (fileExport) => { // bu kod index.js ile aynı dizinde resolverler olması durumunda index.js dosyasını merge dışında tutmak için yazıldı ama çalışmıyor. Bu nedenle resolverlar başka bir klasöre taşındı.
+    if (typeof fileExport === "function") {
+      return fileExport("query_root");
+    }
+    return fileExport;
+  },
+});
+
+export default mergeResolvers(resolversArray);
+
+                </pre>
+              </p>
+              <p>
+                merge işleminin düzgün yapılabilmesi için <code>export default ...</code> ifadesi yerine <code>export const ...</code> kalıbı kullanılır. örnek: src/graphql/resolvers/resolvers/Mutation.js
+                <pre class="prettyprint ms-0">
+import { nanoid } from "nanoid";
+
+export const Mutation = {
+  // User
+  createUser: (_, args, { pubSub, db }) => {
+    const user = {
+      id: nanoid(),
+      fullName: args.data.fullName,
+      age: args.data.age,
+    };
+
+    db.users.push(user);
+    pubSub.publish("userCreated", { userCreated: user });
+
+    return user;
+  },
+  updateUser: (_, { id, data }, { pubSub, db }) => {
+    const user_index = db.users.findIndex((user) => user.id === id);
+    if (user_index === -1) {
+      throw new Error("User not found.");
+    }
+
+    const update_user = (db.users[user_index] = {
+      ...db.users[user_index],
+      ...data,
+    });
+    pubSub.publish("userUpdated", { userUpdated: update_user });
+    return update_user;
+  },
+  deleteUser: (_, __, { pubSub, db }) => {
+    const user_index = db.users.findIndex((user) => user.id === id);
+    if (user_index === -1) {
+      throw new Error("User not found.");
+    }
+
+    const deleted_user = db.users[user_index];
+
+    db.users.splice(user_index, 1);
+
+    pubSub.publish("userDeleted", { userDeleted: deleted_user });
+    return deleted_user;
+  },
+  deleteAllUsers: (_, __, { db }) => {
+    const length = db.users.length;
+
+    db.users.splice(0, length);
+
+    return {
+      count: length,
+    };
+  },
+  // Post
+  createPost: (_, { data: { title, user_id } }, { pubSub, db }) => {
+    const post = {
+      id: nanoid(),
+      title,
+      user_id,
+    };
+
+    db.posts.push(post);
+
+    pubSub.publish("postCreated", { postCreated: post });
+    pubSub.publish("postsCount", { postsCount: db.posts.length });
+    return post;
+  },
+  updatePost: (_, { id, data }, { pubSub, db }) => {
+    const post_index = db.posts.findIndex((post) => post.id === id);
+
+    if (post_index === -1) {
+      throw new Error("Post not found.");
+    }
+
+    const updated_post = (db.posts[post_index] = {
+      ...db.posts[post_index],
+      ...data,
+    });
+
+    pubSub.publish("postUpdated", { postUpdated: updated_post });
+    return updated_post;
+  },
+  deletePost: (_, { id }, { pubSub, db }) => {
+    const post_index = db.posts.findIndex((post) => post.id === id);
+    if (post_index === -1) {
+      throw new Error("Post not found.");
+    }
+
+    const deleted_post = db.posts[post_index];
+
+    db.posts.splice(post_index, 1);
+    pubSub.publish("postDeleted", { postDeleted: deleted_post });
+    pubSub.publish("postsCount", { postsCount: posts.length });
+
+    return deleted_post;
+  },
+  deleteAllPosts: (_, __, { pubSub, db }) => {
+    const length = db.posts.length;
+
+    db.posts.splice(0, length);
+    pubSub.publish("postsCount", { postsCount: db.posts.length });
+    return {
+      count: length,
+    };
+  },
+
+  // Comment
+  createComment: (_, { data }, { pubSub, db }) => {
+    const comment = {
+      id: nanoid(),
+      ...data,
+    };
+
+    db.comments.push(comment);
+
+    pubSub.publish("commentCreated", { commentCreated: comment });
+    return comment;
+  },
+  updateComment: (_, { id, data }, { pubSub, db }) => {
+    const comment_index = db.comments.findIndex((comment) => comment.id === id);
+
+    if (comment_index === -1) {
+      throw new Error("Comment not found.");
+    }
+
+    const updated_comment = (db.comments[comment_index] = {
+      ...db.comments[comment_index],
+      ...data,
+    });
+    pubSub.publish("commentUpdated", { commentUpdated: updated_comment });
+    return updated_comment;
+  },
+  deleteComment: (_, { id }, { pubSub, db }) => {
+    const comment_index = db.comments.findIndex((comment) => comment.id === id);
+    if (comment_index === -1) {
+      throw new Error("Comment not found");
+    }
+
+    const deleted_comment = db.comments[comment_index];
+
+    db.comments.splice(comment_index, 1);
+
+    pubSub.publish("commentDeleted", { commentDeleted: deleted_comment });
+    return deleted_comment;
+  },
+  deleteAllComments: (_, __, { db }) => {
+    const length = db.comments.length;
+    db.comments.splice(0, length);
+    return {
+      count: length,
+    };
+  },
+};
+
+
+                </pre> 
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JS -->
+    
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=js&amp;skin=sunburst"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
