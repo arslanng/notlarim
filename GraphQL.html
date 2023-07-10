@@ -127,6 +127,32 @@
                     <a class="nav-link ms-3 my-1" href="#folderSchemaStructure2">Folder/Schema Structure - 2 (File Loader)</a>
                     <a class="nav-link ms-3 my-1" href="#babelComplier">Babel Compiler</a>
                   </nav>
+                  <a class="nav-link" href="#setupApolloClient">Queries (Apollo Client)</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#setupApolloClient">Apollo Client Kurulumu</a>
+                    <a class="nav-link ms-3 my-1" href="#ApolloClientVisual">Genel Görünümün Ayarlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#reactRouter">React Router</a>
+                    <a class="nav-link ms-3 my-1" href="#postlarinListelenmesi">Postların Listelenmesi (useQuery)</a>
+                    <a class="nav-link ms-3 my-1" href="#postDetail">Post Detaylarının Gösterilmesi</a>
+                    <a class="nav-link ms-3 my-1" href="#shortDescField">Short Description Field'ının Tanımlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#useLazyQuery">Post Yorumlarının Listelenmesi (useLazyQuery)</a>
+                  </nav>
+                  <a class="nav-link" href="#subscribeToMore">Subscriptions (Apollo Client)</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#subscribeToMore">Postların Gerçek Zamanlı Listelenmesi (subscribeToMore)</a>
+                    <a class="nav-link ms-3 my-1" href="#useSubscription">Post Sayısını Gerçek Zamanlı Göstermek (useSubscription)</a>
+                    <a class="nav-link ms-3 my-1" href="#commentsRealTime">Yorumların Gerçek Zamanlı Gösterilmesi</a>
+                    <a class="nav-link ms-3 my-1" href="#fragments">Fragments</a>
+                  </nav>
+                  <a class="nav-link" href="#createNewPostForm">Mutations (Apollo Client)</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#createNewPostForm">New Post Formunun Tasarlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#newPostFormUsers">Kullanıcı Listesinin Çekilmesi</a>
+                    <a class="nav-link ms-3 my-1" href="#useMutation">Yeni Post Eklemek (useMutation)</a>
+                    <a class="nav-link ms-3 my-1" href="#createNewCommentForm">Yorum Formunun Hazırlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#mutationNewComment">Yeni Yorum Mutation'unun Hazırlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#spinnerDelay">Spinner Delay</a>
+                  </nav>
                 </nav>
               </nav>
         </div>
@@ -4102,6 +4128,1764 @@ export const Mutation = {
 
 
                 </pre> 
+              </p>
+            </div>
+            <div class="row" id="setupApolloClient">
+              <h1>Apollo Client Kurulumu</h1>
+              <p>
+                Daha önceki tüm yapımızı kök dizindeki server dosyasına taşıdık.
+              </p>
+              <p>
+                Kök dizinde client dosyası içine react kuruludu. Terminale <pre class="prettyprint ms-0">npx create-react-app .</pre>
+              </p>
+              <p>
+                Apollo Client, GraphQL ile uzak ve yerel verilerin yönetimini basitleştiren bir durum yönetimi kütüphanesidir. Özelliklerini zamanla öğreneceğiz.
+              </p>
+              <p>
+                client içine apollo client kuruldu. terminale <pre class="prettyprint ms-0">npm install @apollo/client graphql</pre>
+              </p>
+              <p>
+                apollo client'in client içine importu için <a href="https://www.apollographql.com/docs/react/get-started">bu döküman</a> uygulandı.
+              </p>
+              <p>
+                client/src/index.js
+                <pre class="prettyprint ms-0">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import {
+  ApolloProvider
+} from "@apollo/client";
+import client from "./apollo";
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  &lt;ApolloProvider client={client}>
+    &lt;App />
+  &lt;/ApolloProvider>,
+);
+
+                </pre>
+              </p>
+              <p>
+                client/src/apollo.js
+                <pre class="prettyprint ms-0">
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql", // server tarafının verdiği endpoint
+  cache: new InMemoryCache(),
+});
+
+export default client
+                </pre>
+              </p>
+              <p>
+                chore için <a href="https://chrome.google.com/webstore/detail/apollo-client-devtools/jdkknkkbebbapilgoeccciglkfbmbnfm">apollo client devtools</a> eklentisi.
+              </p>
+            </div>
+            <div class="row" id="ApolloClientVisual">
+              <h1>Genel Görünümün Ayarlanması</h1>
+              <p>
+                Kullanıcı tarafının görüntüsünün ayarlanmasına başlandı.
+              </p>
+              <p>
+                Bunun için <a href="https://ant.design/">ant design</a> kullanacağız.
+              </p>
+              <p>
+                terminale <pre class="prettyprint ms-0">npm install antd</pre>
+              </p>
+              <p>
+                client/src/App.js dosyası client/src/components/App/index.js olarak göüncellendi. İçine:
+                <pre class="prettyprint ms-0">
+import { Col, Row } from "antd";
+import styles from "./styles.module.css"; // stil tanımları
+
+import { Avatar, List, Skeleton } from "antd";
+
+const data = [ // placeholder data
+  {
+    gender: "female",
+    name: {
+      title: "Miss",
+      first: "Tanise",
+      last: "Monteiro",
+    },
+    email: "tanise.monteiro@example.com",
+    picture: {
+      large: "https://randomuser.me/api/portraits/women/82.jpg",
+      medium: "https://randomuser.me/api/portraits/med/women/82.jpg",
+      thumbnail: "https://randomuser.me/api/portraits/thumb/women/82.jpg",
+    },
+    nat: "BR",
+  },
+];
+
+function App() {
+  return (
+    &lt;div className={styles.container}>
+      &lt;Row justify="center">
+        &lt;Col span={14} className={styles.content}>
+          &lt;List
+            className="demo-loadmore-list"
+            loading={false}
+            itemLayout="horizontal"
+            // loadMore={loadMore}
+            dataSource={data}
+            renderItem={(item) => (
+              &lt;List.Item>
+                &lt;Skeleton avatar title={false} loading={item.loading} active>
+                  &lt;List.Item.Meta
+                    avatar={&lt;Avatar src={item.picture.large} />}
+                    title={&lt;a href="https://ant.design">{item.name?.last}&lt;/a>}
+                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                  />
+                &lt;/Skeleton>
+              &lt;/List.Item>
+            )}
+          />
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/div>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+              <p>
+                Stil tanımları için client/src/components/App/styles.module.css içi aşağıdaki gibi düzenlenir.
+                <pre class="prettyprint ms-0">
+.container{
+    height: 100vh;
+}
+
+.content{
+    background-color: #fff;
+    padding: 24px;
+    margin: 24px;
+    border: solid 4px bisque;
+}
+                </pre>
+              </p>
+              <p>
+                App.js lokasyonundaki değişiklik src/index.js içindeki import satırında güncellenir.
+                <pre class="prettyprint ms-0">
+...
+import App from "./components/App";
+...
+                </pre>
+              </p>
+              <p>
+                src/index.css
+                <pre class="prettyprint ms-0">
+body {
+  background-color: #282c34;
+}
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="reactRouter">
+              <h1>React Router</h1>
+              <p>
+                terminale <pre class="prettyprint ms-0">npm i react-router-dom</pre>
+              </p>
+              <p>
+                hoca v5 üzerinden anlatıyor. Biz v6 kullanıyoruz. React notlarımda detay mevcut.
+              </p>
+              <p>
+                Router sarmalama işlemi App.js üzerinde yapılabilir. Hoca index.js üzerinden yapmayı tercih etti. 
+                <pre class="prettyprint ms-0">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./components/App";
+import { BrowserRouter as Router } from "react-router-dom";
+
+import { ApolloProvider } from "@apollo/client";
+import client from "./apollo";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  &lt;ApolloProvider client={client}>
+    &lt;Router> 
+      {/* Router sarmalaması App.js yerine burada yapıldı.*/}
+      &lt;App />
+    &lt;/Router>
+  &lt;/ApolloProvider>
+);
+
+                </pre>
+              </p>
+              <p>
+                Sayfa yapısını düzenlemek için src/pages altına Home/index.js ve NewPost/index.js oluşturuldu. NewPost/index.js placeholder olarak bırakıldı. Home/index.js içine App/index.js içindeki List yapısı taşındı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { Avatar, List, Skeleton } from "antd";
+
+const data = [
+  // placeholder data
+  {
+    gender: "female",
+    name: {
+      title: "Miss",
+      first: "Tanise",
+      last: "Monteiro",
+    },
+    email: "tanise.monteiro@example.com",
+    picture: {
+      large: "https://randomuser.me/api/portraits/women/82.jpg",
+      medium: "https://randomuser.me/api/portraits/med/women/82.jpg",
+      thumbnail: "https://randomuser.me/api/portraits/thumb/women/82.jpg",
+    },
+    nat: "BR",
+  },
+];
+
+function Home() {
+  return (
+    &lt;div>
+      &lt;List
+        className="demo-loadmore-list"
+        loading={false}
+        itemLayout="horizontal"
+        // loadMore={loadMore}
+        dataSource={data}
+        renderItem={(item) => (
+          &lt;List.Item>
+            &lt;Skeleton avatar title={false} loading={item.loading} active>
+              &lt;List.Item.Meta
+                avatar={&lt;Avatar src={item.picture.large} />}
+                title={&lt;a href="https://ant.design">{item.name?.last}&lt;/a>}
+                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+              />
+            &lt;/Skeleton>
+          &lt;/List.Item>
+        )}
+      />
+    &lt;/div>
+  );
+}
+
+export default Home;
+
+                </pre>
+              </p>
+              <p>
+                src/components/App/index.js dosyasıda router yapısı kuruldu.
+                <pre class="prettyprint ms-0">
+import { Col, Row } from "antd";
+import { Routes, Route } from "react-router-dom";
+import styles from "./styles.module.css";
+import HeaderMenu from "./HeaderMenu";
+
+// pages
+import Home from "pages/Home"; // react absolute path ile kök dizin src olarak ayarlandı.
+import NewPost from "pages/NewPost";
+
+function App() {
+  return (
+    &lt;div className={styles.container}>
+      &lt;Row justify="center">
+        &lt;Col span={14}>
+          &lt;HeaderMenu />
+          &lt;div className={styles.content}>
+            &lt;Routes>
+              &lt;Route path="/new" element={&lt;NewPost />} />
+              &lt;Route path="/" element={&lt;Home />} />
+            &lt;/Routes>
+          &lt;/div>
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/div>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+              <p>
+                kök dizini src yapmak için react absolute path yapısı kurgulandı. Bunun için client/jsconfig.json dosyası oluşturuldu. içine 
+                <pre class="prettyprint ms-0">
+{
+    "compilerOptions": {
+      "baseUrl": "src"
+    }
+}
+                </pre>
+              </p>
+              <p>
+                App/index.js içinde kullanılan HeaderMenu App/HeaderMenu.js içinde oluşturuldu.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { Menu } from "antd";
+import styles from "./styles.module.css";
+import { Link, useLocation } from "react-router-dom";
+
+const items = [
+  {
+    label: (
+      &lt;Link to="/" className={styles.menuItem}>
+        Home
+      &lt;/Link>
+    ),
+    key: "/",
+  },
+  {
+    label: (
+      &lt;Link to="/new" className={styles.menuItem}>
+        New
+      &lt;/Link>
+    ),
+    key: "/new",
+  },
+];
+
+function HeaderMenu() {
+  const location = useLocation(); // açık olan sayfanın bilgisini verir.
+  return (
+    &lt;Menu
+      mode="horizontal"
+      items={items}
+      className={styles.headerMenu}
+      selectedKeys={location.pathname}
+    />
+  );
+}
+
+export default HeaderMenu;
+
+                </pre>
+              </p>
+              <p>
+                stil tanımları için componenets/App/styles.module.css içinde:
+                <pre class="prettyprint ms-0">
+.container{
+    height: 100vh;
+}
+
+.content{
+    background-color: #fff;
+    padding: 24px;
+    /* margin: 24px; */
+    border: solid 4px bisque;
+}
+
+.headerMenu{
+    background: none;
+    border: none;
+}
+
+.menuItem{
+    font-weight: bold;
+    font-size: 16px;
+}
+                </pre>
+                src/index.css içinde
+                <pre class="prettyprint ms-0">
+body {
+  background-color: #282c34;
+}
+
+.ant-menu-item:hover::after{
+  border-bottom-color: bisque !important
+}
+
+.ant-menu-item-selected::after{
+  border-bottom-color: bisque !important
+}
+
+.ant-menu-item-selected .ant-menu-title-content a {
+  color: bisque !important
+}
+
+.ant-menu-item:hover::after .ant-menu-title-content {
+  color: #f8f8f8
+}
+
+.ant-menu-horizontal > .ant-menu-item a:hover {
+  color: bisque;
+}
+
+.ant-menu-horizontal > .ant-menu-item a {
+  color: #f8f8f8;
+}
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="postlarinListelenmesi">
+              <h1>Postların Listelenmesi (useQuery)</h1>
+              <p>
+                Client tarafında daha iyi bir görsel yakalamak için server tarafında post datasının ve type-def tanımının içine <q>description</q>, user fatasının ve type-def tanımının içine <q>pfofile_photo</q> tanımları eklendi
+              </p>
+              <p>
+                pages/Home/queries.js dosyası oluşturuldu ve içinde sorgumuz tanımlandı.
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+export const GET_POSTS = gql`
+  query getAllPosts {
+    posts {
+      id
+      title
+      description
+      user {
+        profile_photo
+      }
+    }
+  }
+`;
+                </pre>
+              </p>
+              <p>
+                pages/Home/index.js içinde useQuery ile sorgudan data alındı ve işlendi. useQuery data dışında loading ve error durumlarını da bize veriyor. 
+                <pre class="prettyprint ms-0">
+import React from "react";
+
+import { Avatar, List } from "antd";
+
+import { useQuery } from "@apollo/client";
+import Loading from "components/Loading";
+import { GET_POSTS } from "./queries";
+
+function Home() {
+  const { loading, error, data } = useQuery(GET_POSTS);
+
+  if (loading) {
+    return &lt;Loading />;
+  }
+
+  if (error) {
+    return &lt;div>Error: {error.message}&lt;/div>;
+  }
+
+  console.log(data);
+
+  return (
+    &lt;div>
+      &lt;List
+        className="demo-loadmore-list"
+        loading={false}
+        itemLayout="horizontal"
+        // loadMore={loadMore}
+        dataSource={data.posts}
+        renderItem={(item) => (
+          &lt;List.Item>
+            &lt;List.Item.Meta
+              avatar={&lt;Avatar src={item.user.profile_photo} />}
+              title={&lt;a href="https://ant.design">{item.title}&lt;/a>}
+              description={item.description}
+            />
+          &lt;/List.Item>
+        )}
+      />
+    &lt;/div>
+  );
+}
+
+export default Home;
+
+                </pre>
+              </p>
+              <p>
+                components/Loading/index.js içinde loading durumunda gösterilecek spinner tanımlandı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
+
+import styles from "./styles.module.css"
+
+function Loading() {
+  return (
+    &lt;div className={styles.loading}>
+      &lt;Spin indicator={&lt;LoadingOutlined style={{ fontSize: 32 }} spin />} />
+    &lt;/div>
+  );
+}
+
+export default Loading;
+
+                </pre>
+              </p>
+              <p>
+                component/Loading/styles.module.css içinde loading spinnerı için stil tanımı yapıldı.
+                <pre class="prettyprint ms-0">
+.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="postDetail">
+              <h1>Post Detaylarının Gösterilmesi</h1>
+              <p>
+                server tarafında posts datasına ve type-defs kısmına <q>cover</q> tanımları eklendi.
+              </p>
+              <p>
+                App/index.js içinde Routes altında yeni route oluşturuldu.
+                <pre class="prettyprint ms-0">
+... 
+  &lt;Routes>
+    &lt;Route path="/new" element={&lt;NewPost />} />
+    &lt;Route path="/post/:id" element={&lt;Post />} />
+    &lt;Route path="/" element={&lt;Home />} />
+  &lt;/Routes>
+...
+                </pre>
+              </p>
+              <p>
+                Home/index.js alanında Link kompanenti ile bağlantılar oluşturuldu.
+                <pre class="prettyprint ms-0">
+...
+import { Link } from "react-router-dom";
+...
+
+function Home() {
+  ...
+
+  return (
+    &lt;div>
+      &lt;List
+        className="demo-loadmore-list"
+        loading={false}
+        itemLayout="horizontal"
+        // loadMore={loadMore}
+        dataSource={data.posts}
+        renderItem={(item) => (
+          &lt;List.Item>
+            &lt;List.Item.Meta
+              avatar={&lt;Avatar src={item.user.profile_photo} />}
+              title={
+                &lt;Link to={`/post/${item.id}`} className={styles.listTitle}>
+                  {item.title}
+                &lt;/Link>
+              }
+              description={
+                &lt;Link to={`/post/${item.id}`} className={styles.listItem}>
+                  {item.description}
+                &lt;/Link>
+              }
+            />
+          &lt;/List.Item>
+        )}
+      />
+    &lt;/div>
+  );
+}
+
+export default Home;
+
+                </pre>
+              </p>
+              <p>
+                Home/styles.module.css içinde linlker için stil tanımları yapıldı.
+                <pre class="prettyprint ms-0">
+.listItem{
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+    line-height: 1,5715;
+}
+
+.listItem:hover{
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.listTitle{
+    margin-bottom: 4px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    line-height: 1,5715;
+}
+
+.listTitle:hover{
+    color: rgba(0, 0, 0, 0.9) !important;
+}
+                </pre>
+              </p>
+              <p>
+                pages/Post dosyası oluşturuldu. İçinde index.js ve queries.js dosyası oluşturuldu. <br>
+                queries.js içinde query tanımı eklendi.
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+export const GET_POST = gql`
+  query post($id: ID!) {
+  post(id: $id) {
+    id
+    title
+    description
+    cover
+    user {
+      id
+      fullName
+    }
+  }
+}
+`;
+                </pre>
+                index.js içinde de query import edildi ve useQuery ile variables girilerek kullanıldı.
+                <pre class="prettyprint ms-0">
+import Loading from "components/Loading";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { GET_POST } from "./queries";
+import { Typography, Image } from "antd";
+const { Title } = Typography;
+
+function Post() {
+  const { id } = useParams();
+
+  const { loading, error, data } = useQuery(GET_POST, {
+    variables: {
+      id,
+    },
+  });
+
+  if (loading) {
+    return &lt;Loading />;
+  }
+
+  if (error) {
+    return &lt;div>Error: {error.message}&lt;/div>;
+  }
+
+  console.log(data);
+
+  const { post } = data;
+
+  return (
+    &lt;div>
+      &lt;Title level={3}>{post.title}&lt;/Title>
+      &lt;Image
+        src={post.cover}
+      />
+      &lt;div>{post.description}&lt;/div>
+    &lt;/div>
+  );
+}
+
+export default Post;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="shortDescField">
+              <h1>Short Description Field'ının Tanımlanması</h1>
+              <p>
+                post datası ve type-def tanımlarına <q>short_description</q> alanı oluşturuldu. Bu short_description client tarafında Home için query ile sorgulandı ve gelen veri daha önce description tanımı olan yerde kullanıldı.
+              </p>
+              <p>
+                Post detaylarının olduğu sayfada description alanı için stil tanımı yapıldı. Post/index.js
+                <pre class="prettyprint ms-0">
+import styles from "./styles.module.css";
+
+...
+function Post() {
+  ...
+
+  return (
+    ...
+      &lt;div className={styles.description}>{post.description}&lt;/div>
+    &lt;/div>
+  );
+}
+
+export default Post;
+                </pre>
+                Post/styles.module.css
+                <pre class="prettyprint ms-0">
+.description{
+    font-size: 1.1rem;
+    margin: 10px;
+    color: #666;
+}
+                </pre>
+              </p>
+              <p>
+                Genel görünümü güzelleştirmek için App/index.js için stil tanımı yapıldı.
+                <pre class="prettyprint ms-0">
+...
+
+function App() {
+  return (
+    ...
+      &lt;Row justify="center">
+        &lt;Col span={14} className={styles.col}>
+    ...
+                </pre>
+                App/styles.module.css
+                <pre class="prettyprint ms-0">
+...
+.col{
+  margin: 10px 0 30px 0
+}
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="useLazyQuery">
+              <h1>Post Yorumlarının Listelenmesi (useLazyQuery)</h1>
+              <p>
+                Post sayfasında yorumların sayfadaki <q>show comments</q> butonuna basılınca gösteileceği bir durum kurguladık.
+              </p>
+              <p>
+                Hoca butonu tıklandıktan sonra kaybetmek için farklı bir yöntem kullandı. Ben daha farklı yaptım.
+              </p>
+              <p>
+                Post/queries.js içine ihtiyacımız olan bilgileri çekmek için sorgu yazıldı.
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+...
+
+export const GET_POST_COMMENTS = gql`
+  query postComments($id: ID!) {
+  post(id: $id) {
+    comments {
+      id
+      text
+      user {
+        id
+        fullName
+        profile_photo
+      }
+    }
+  }
+}
+`;
+
+                </pre>
+              </p>
+              <p>
+                Post/Comments.js dosyası oluşturuldu. İçinde sorgu için butonla tetiklenen useLazyQuery hooku kullanıldı.
+                <pre class="prettyprint ms-0">
+import Loading from "components/Loading";
+import { Divider, Button } from "antd";
+import styles from "./styles.module.css";
+import { useLazyQuery } from "@apollo/client";
+import { GET_POST_COMMENTS } from "./queries";
+import { Avatar, List } from "antd";
+
+function Comments({ post_id }) {
+  const [
+    loadComments, // sorguyu başlatacak olan fonksiyon
+    {
+      called, // sorgu başladı mı?
+      loading, // yükleniyor mu?
+      data, // gelen veri
+    },
+  ] = useLazyQuery(
+    GET_POST_COMMENTS,
+    { variables: { id: post_id } } // sorgu için gönderilen değişken
+  );
+
+  if (called && loading) return &lt;Loading />;
+
+  return (
+    &lt;>
+      &lt;Divider>Comments&lt;/Divider>
+      {!called && (
+        &lt;div className={styles.showCommentsButton}>
+          &lt;Button loading={loading} onClick={() => loadComments()}>
+            Show Comments
+          &lt;/Button>
+        &lt;/div>
+      )}
+
+      {!loading && data && (
+        &lt;div>
+          &lt;List
+            className="demo-loadmore-list"
+            loading={false}
+            itemLayout="horizontal"
+            // loadMore={loadMore}
+            dataSource={data.post.comments}
+            renderItem={(item) => (
+              &lt;List.Item>
+                &lt;List.Item.Meta
+                  avatar={&lt;Avatar src={item.user.profile_photo} />}
+                  title={item.user.fullName}
+                  description={item.text}
+                />
+              &lt;/List.Item>
+            )}
+          />
+        &lt;/div>
+      )}
+    </>
+  );
+}
+
+export default Comments;
+
+                </pre>
+              </p>
+              <p>
+                Comments.js içindeki butona styles.module.css içinde stil tanımı yapıldı.
+                <pre class="prettyprint ms-0">
+...
+
+.showCommentsButton{
+    text-align: center;
+}
+                </pre> 
+              </p>
+              <p>
+                Post/index.js içindeki kompanentin en altına Comments kompanenti yerleştirildi. Bu sırada props olarak gönderilen veri Comments kompanentinde karşılandı ve sorgu için kullanıldı.
+                <pre class="prettyprint ms-0">
+...
+import Comments from "./Comments";
+...
+
+function Post() {
+  ...
+
+  return (
+    &lt;div>
+      ...
+      &lt;Comments post_id={id}/>
+    &lt;/div>
+  );
+}
+
+export default Post;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="subscribeToMore">
+              <h1>Postların Gerçek Zamanlı Listelenmesi (subscribeToMore)</h1>
+              <p>
+                Hoca websoket için client/src/apollo.js içinde değişiklik yaptı.
+              </p>
+              <p>
+                Apollo client sürüm 3.7.11 ve sonrası için HTTP üzerinden çok parçalı abonelikleri destekler. Bu nedenle apollo.js içinde değişiklik yapmaya gerek kalmaz.
+              </p>
+              <p>
+                server tarafında resolvers kısmında createPost mutasyonuna verinin son haline uyumlu olması için modif yapıldı.
+              </p>
+              <p>
+                Home/queries.js alanına <q>POSTS_SUBSCRIPTION</q> sorgusu eklendi.
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+...
+
+export const POSTS_SUBSCRIPTION = gql`
+  subscription MySubscription {
+    postCreated {
+      id
+      title
+      short_description
+      user {
+        profile_photo
+      }
+    }
+  }
+`;
+
+                </pre>
+              </p>
+              <p>
+                Home/index.js içinde aşağıdaki güncellem ile subscription kullanıldı.
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+...
+
+import { GET_POSTS, POSTS_SUBSCRIPTION } from "./queries";
+...
+
+function Home() {
+  const {
+    loading,
+    error,
+    data,
+    subscribeToMore, // dinlemek için gereken fonksiyon
+  } = useQuery(GET_POSTS);
+
+  useEffect(() => {
+    // veri değiştiğinde reactta kullanılması için useEffect hooku kullanıldı.
+    subscribeToMore({
+      document: POSTS_SUBSCRIPTION, // dinlenilecek sorgu
+      updateQuery: (
+        prev, // mevcut durum
+        { subscriptionData } // dinlenen kanaldan gelen
+      ) => {
+        if (!subscriptionData.data) return prev;
+
+        return {
+          posts: [subscriptionData.data.postCreated, ...prev.posts], // posts tanımı cache olarak tutulan veri keyinden alındı
+        };
+      },
+    });
+  }, [subscribeToMore]);
+
+  if (loading) {
+    return &lt;Loading />;
+  }
+
+  if (error) {
+    return &lt;div>Error: {error.message}&lt;/div>;
+  }
+
+  return (
+    &lt;div>
+      ...
+    &lt;/div>
+  );
+}
+
+export default Home;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="useSubscription">
+              <h1>Post Sayısını Gerçek Zamanlı Göstermek (useSubscription)</h1>
+              <p>
+                components/App/HeaderMenu.js kompanenti components/HeaderMenu/index.js olarak taşındı. Gereken import ve style tanımları düzenlendi.
+              </p>
+              <p>
+                components/PostCounter/queries.js oluşturuldu ve içine subscription sorgusu eklendi.
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+export const POST_COUNT_SUBSCRİPTİON = gql`
+  subscription {
+    postsCount
+  }
+`;
+                </pre>
+              </p>
+              <p>
+                components/PostCounter/index.js oluşturuldu. queries.js içindeki sorgu import edildi ve <code>useSubscription()</code> hooku ile abone olundu.: 
+                <pre class="prettyprint ms-0">
+import styles from "./styles.module.css";
+import { Badge, Avatar } from "antd";
+import { useSubscription } from "@apollo/client";
+import { POST_COUNT_SUBSCRİPTİON } from "./queries";
+
+function PostCounter() {
+  const {loading, data} = useSubscription(POST_COUNT_SUBSCRİPTİON);
+  
+  return (
+    &lt;div className={styles.container}>
+      &lt;Badge count={loading ? "?" : data.postsCount }>
+        &lt;Avatar shape="square" size="medium">
+            &lt;span className={styles.counterTitle}>Posts&lt;/span>
+        &lt;/Avatar>
+      &lt;/Badge>
+    &lt;/div>
+  );
+}
+
+export default PostCounter;
+                </pre>
+              </p>
+              <p>
+                App/index.js içinde daha önce HeaderMenu kompanentinin tek başına yer aldığı kısım Row/Col yapısyla bölündü ve içine PostCounter kompanenti eklendi.
+                <pre class="prettyprint ms-0">
+...
+import PostCounter from "components/PostCounter";
+
+function App() {
+  return (
+    &lt;div className={styles.container}>
+      &lt;Row justify="center">
+        &lt;Col span={14} className={styles.col}>
+          &lt;Row>
+            &lt;Col span={18}>
+              &lt;HeaderMenu />
+            &lt;/Col>
+            &lt;Col span={6}>
+              &lt;PostCounter />
+            &lt;/Col>
+          &lt;/Row>
+          ...
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/div>
+  );
+}
+
+export default App;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="commentsRealTime">
+              <h1>Yorumların Gerçek Zamanlı Gösterilmesi</h1>
+              <p>
+                Post içinde comment post_id parametresi ile abonelik oluşturacak sorguyu Post/queries.js içine ekledik.
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+...
+
+export const COMMENTS_SUBSCRIPTIONS = gql`
+  subscription ($postId: ID) {
+    commentCreated(post_id: $postId) {
+      id
+      text
+      user {
+        id
+        fullName
+        profile_photo
+      }
+    }
+  }
+`;
+                </pre>
+              </p>
+              <p>
+                Post/Comments.js alanında tıklayınca sorgu başlatan <q>useLazyQuery</q> hooku içinden subscribeToMore fonksiyonunu çektik ve <q>useEffect</q> hooku ile kullandık. 
+                <pre class="prettyprint ms-0">
+import { useEffect } from "react";
+
+function Comments({ post_id }) {
+
+  const [loadComments, { called, loading, data, subscribeToMore }] =
+    useLazyQuery(GET_POST_COMMENTS, { variables: { id: post_id } });
+
+  useEffect(() => {
+    if (!loading && called) {
+      subscribeToMore({
+        document: COMMENTS_SUBSCRIPTIONS,
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev;
+
+          return {
+            post: {
+              ...prev.post,
+              comments: [
+                ...prev.post.comments,
+                subscriptionData.data.commentCreated,
+              ],
+            },
+          };
+        },
+      });
+    }
+  }, [loading, called, subscribeToMore]);
+
+  if (called && loading) return &lt;Loading />;
+
+  return (
+    ...
+  );
+}
+
+export default Comments;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="fragments">
+              <h1>Fragments</h1>
+              <p>
+                Birden fazla query içinde aynı tanımları çekmemiz gerekti. İleride birini güncellememiz gerektiğinde hepsini güncellememiz gerekecek. Bu gibi durumlarda aksaklık yaşanmaması ve işin kolaylaşması için sorgu parametreleri fragment yapılarına alınabilir.
+              </p>
+              <p>
+                Post/queries.js içinde sorguda aynı kullanılan parametreler fragment içinde toplandı.
+                <pre class="prettyprint ms-0">
+const commentFragment = gql`
+  fragment CommentFragment on Comment {
+    # commentsFragment içinde CommentsFragment adıyla aşağıdaki parametreleri saklar.
+    id
+    text
+    user {
+      id
+      fullName
+      profile_photo
+    }
+  }
+`;
+                </pre>
+                Toplanan parametreler ilgili sorgulara import edildi ve kullanıldı.
+                <pre class="prettyprint ms-0">
+export const GET_POST_COMMENTS = gql`
+  query postComments($id: ID!) {
+    post(id: $id) {
+      comments {
+        ...CommentFragment
+        # Bu kısım değişkenleri yerleştirmek için
+      }
+    }
+  }
+  ${commentFragment}
+  # bu kısım değişkeni import etmek için
+`;
+
+export const COMMENTS_SUBSCRIPTIONS = gql`
+  subscription ($postId: ID) {
+    commentCreated(post_id: $postId) {
+      ...CommentFragment
+    }
+  }
+  ${commentFragment}
+`;
+
+                </pre>
+              </p>
+              <p>
+                Aynı uygulamanın Home/queries.js versiyonu
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+const postFragments = gql`
+  fragment PostFragmens on Post {
+    id
+    title
+    short_description
+    user {
+      profile_photo
+    }
+  }
+`;
+
+export const GET_POSTS = gql`
+  query getAllPosts {
+    posts {
+      ...PostFragmens
+    }
+  }
+  ${postFragments}
+`;
+
+export const POSTS_SUBSCRIPTION = gql`
+  subscription MySubscription {
+    postCreated {
+      ...PostFragmens
+    }
+  }
+  ${postFragments}
+`;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="createNewPostForm">
+              <h1>New Post Formunun Tasarlanması</h1>
+              <p>
+                pages/NewPost/NewPostForm.js dosyası oluşturuldu. İçine:
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { Button, Checkbox, Form, Input, Select } from "antd";
+
+const { Option } = Select;
+
+function NewPostForm() {
+  return (
+    &lt;Form
+      name="basic"
+      initialValues={{
+        remember: true,
+      }}
+      // onFinish={onFinish}
+      // onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      &lt;Form.Item
+        // label="Username"
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: "Please input your username!",
+          },
+        ]}
+      >
+        &lt;Input size="large" placeholder="Title" />
+      &lt;/Form.Item>
+
+      &lt;Form.Item name="shortDescription">
+        &lt;Input size="large" placeholder="Short description" />
+      &lt;/Form.Item>
+
+      &lt;Form.Item name="description">
+        &lt;Input.TextArea size="large" placeholder="Description" />
+      &lt;/Form.Item>
+
+      &lt;Form.Item name="cover">
+        &lt;Input size="large" placeholder="Cover" />
+      &lt;/Form.Item>
+
+      &lt;Form.Item
+        name="user"
+        rules={[
+          {
+            required: true,
+            message: "Please select user!",
+          },
+        ]}
+      >
+        &lt;Select size="large" placeholder="Select your user">
+          &lt;Option value="male">Male&lt;/Option>
+          &lt;Option value="female">Female&lt;/Option>
+          &lt;Option value="other">Other&lt;/Option>
+        &lt;/Select>
+      &lt;/Form.Item>
+
+      &lt;Form.Item>
+        &lt;Button type="primary" htmlType="submit">
+          Submit
+        &lt;/Button>
+      &lt;/Form.Item>
+      
+    &lt;/Form>
+  );
+}
+
+export default NewPostForm;
+
+                </pre>
+              </p>
+              <p>
+                Oluşturlan kompanent pages/NewPost/index.js içine import edildi.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { Typography } from "antd";
+import NewPostForm from "./NewPostForm";
+const { Title } = Typography;
+
+function NewPost() {
+  return (
+    &lt;div>
+      &lt;Title level={3}>New Post&lt;/Title>
+
+      &lt;NewPostForm />
+    &lt;/div>
+  );
+}
+
+export default NewPost;
+                </pre>
+              </p>
+              <p>
+                Formdaki satır arası boşlukları azaltmak için src/style.css içine
+                <pre class="prettyprint ms-0">
+.ant-form-item{
+  margin-bottom: 12px;
+}
+                </pre>
+                eklendi
+              </p>
+            </div>
+            <div class="row" id="newPostFormUsers">
+              <h1>Kullanıcı Listesinin Çekilmesi</h1>
+              <p>
+                pages\NewPost\queries.js içinde userlar için gereken query tanımlandı.
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+export const GET_USER = gql`
+  query {
+    users {
+      fullName
+      id
+    }
+  }
+`;
+                </pre>
+              </p>
+              <p>
+                Tanımlanan query NewPost\NewPostForm.js içinde kullanıldı.
+                <pre class="prettyprint ms-0">
+..
+import { useQuery } from "@apollo/client";
+import { GET_USER } from "./queries";
+import styles from "./styles.module.css"
+
+..
+
+function NewPostForm() {
+  const {
+    loading: get_users_loading, // yeniden adlandırdık
+    data: users_data,
+  } = useQuery(GET_USER);
+
+  return (
+    ...
+
+      &lt;Form.Item
+        name="user"
+        rules={[
+          {
+            required: true,
+            message: "Please select user!",
+          },
+        ]}
+      >
+        &lt;Select
+          disabled={get_users_loading}
+          loading={get_users_loading}
+          size="large"
+          placeholder="Select your user"
+        >
+          {users_data &&
+            users_data.users.map(item => (
+              &lt;Option value={item.id} key={item.id}>
+                {item.fullName}
+              &lt;/Option>
+            ))}
+        &lt;/Select>
+      &lt;/Form.Item>
+
+      &lt;Form.Item className={styles.buttons}>
+        &lt;Button size="large" type="primary" htmlType="submit">
+          Submit
+        &lt;/Button>
+      &lt;/Form.Item>
+    &lt;/Form>
+  );
+}
+
+export default NewPostForm;
+
+                </pre>
+              </p>
+              <p>
+                \NewPost\styles.module.css içinde butonlar için stil tanımı yapıldı.
+                <pre class="prettyprint ms-0">
+.buttons{
+    text-align: right;
+}
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="useMutation">
+              <h1>Yeni Post Eklemek (useMutation)</h1>
+              <p>
+                yani post için mutation tanımı pages\NewPost\queries.js dosyasına eklendi.
+                <pre class="prettyprint ms-0">
+                  import { gql } from "@apollo/client";
+
+                  ...
+                  
+                  export const NEW_POST_MUTATION = gql`
+                    mutation ($data: CreatePostInput!) {
+                      createPost(data: $data) {
+                        id
+                        title
+                      }
+                    }
+                  `;
+                </pre>
+              </p>
+              <p>
+                Hazırlanan mutation NewPost\NewPostForm.js içine import edilip kullanıldı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { Button, Form, Input, Select, message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_USER, NEW_POST_MUTATION } from "./queries";
+import styles from "./styles.module.css";
+
+const { Option } = Select;
+
+function NewPostForm() {
+  const navigate = useNavigate()
+
+  const [
+    savePost, // bizim mutation fonksiyonuna verdiğimiz ad.
+    { loading, error }, // işlem sonunda dönen data
+  ] = useMutation(NEW_POST_MUTATION);
+
+  const { loading: get_users_loading, data: users_data } = useQuery(GET_USER);
+
+  const handleSubmit = async (values) => {
+    try {
+      await savePost({
+        variables: {
+          data: values,
+        },
+      });
+      message.success("Post saved", [4]);
+      navigate("/")
+
+    } catch (e) {
+      message.error(`Post not saved!. Error: ${error.message}`, [10]);
+    }
+  };
+
+  return (
+    &lt;Form
+      name="basic"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={handleSubmit}
+      // onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      &lt;Form.Item
+        name="title" // bu kısım value tanımında key olarak gönderilir. mutation içindeki key ile aynı olmak zorunda.
+        rules={[
+          {
+            required: true,
+            message: "Please input a title!",
+          },
+        ]}
+      >
+        &lt;Input disabled={loading} size="large" placeholder="Title" />
+      &lt;/Form.Item>
+
+      &lt;Form.Item name="short_description">
+        &lt;Input
+          disabled={loading}
+          size="large"
+          placeholder="Short description"
+        />
+      &lt;/Form.Item>
+
+      &lt;Form.Item name="description">
+        &lt;Input.TextArea
+          disabled={loading}
+          size="large"
+          placeholder="Description"
+        />
+      &lt;/Form.Item>
+
+      &lt;Form.Item name="cover">
+        &lt;Input disabled={loading} size="large" placeholder="Cover" />
+      &lt;/Form.Item>
+
+      &lt;Form.Item
+        name="user_id"
+        rules={[
+          {
+            required: true,
+            message: "Please select user!",
+          },
+        ]}
+      >
+        &lt;Select
+          disabled={get_users_loading || loading}
+          loading={get_users_loading}
+          size="large"
+          placeholder="Select your user"
+        >
+          {users_data &&
+            users_data.users.map((item) => (
+              &lt;Option value={item.id} key={item.id}>
+                {item.fullName}
+              &lt;/Option>
+            ))}
+        &lt;/Select>
+      &lt;/Form.Item>
+
+      &lt;Form.Item className={styles.buttons}>
+        &lt;Button loading={loading} size="large" type="primary" htmlType="submit">
+          Submit
+        &lt;/Button>
+      &lt;/Form.Item>
+    &lt;/Form>
+  );
+}
+
+export default NewPostForm;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="createNewCommentForm">
+              <h1>Yorum Formunun Hazırlanması</h1>
+              <p>
+                Post altına Comment klasörü açıldı ve CommentList.js altına taşındı.
+              </p>
+              <p>
+                Yeni comment eklemek için kullanacağımız formda yer alması için user listesini almaya yarayacak query pages\Post\Comments\queries.js içinde tanımlandı.
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+export const GET_USER = gql`
+  query {
+    users {
+      fullName
+      id
+    }
+  }
+`;
+                </pre>
+              </p>
+              <p>
+                Comments\NewCommentForm.js dosyası içinde form tanımlandı.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { Button, Col, Form, Input, Row, Select, message } from "antd";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_USER } from "./queries";
+import styles from "./styles.module.css";
+
+const { Option } = Select;
+
+function NewCommentForm() {
+  const { loading: get_users_loading, data: users_data } = useQuery(GET_USER);
+  const handleSubmit = async (values) => {
+    console.log(values);
+  };
+
+  return (
+    &lt;Form name="basic" onFinish={handleSubmit} autoComplete="off">
+      &lt;Row gutter={24}>
+        &lt;Col span={6}>
+          &lt;Form.Item
+            name="user_id"
+            rules={[
+              {
+                required: true,
+                message: "Please select user!",
+              },
+            ]}
+          >
+            &lt;Select
+              disabled={get_users_loading}
+              loading={get_users_loading}
+              size="medium"
+              placeholder="Select your user"
+            >
+              {users_data &&
+                users_data.users.map((item) => (
+                  &lt;Option value={item.id} key={item.id}>
+                    {item.fullName}
+                  &lt;/Option>
+                ))}
+            &lt;/Select>
+          &lt;/Form.Item>
+        &lt;/Col>
+        &lt;Col span={14}>
+          &lt;Form.Item
+            name="text"
+            rules={[
+              {
+                required: true,
+                message: "Please enter a message!",
+              },
+            ]}
+          >
+            &lt;Input size="medium" placeholder="Message" />
+          &lt;/Form.Item>
+        &lt;/Col>
+        &lt;Col span={4}>
+          &lt;Form.Item className={styles.buttons}>
+            &lt;Button size="medium" type="primary" htmlType="submit">
+              Submit
+            &lt;/Button>
+          &lt;/Form.Item>
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/Form>
+  );
+}
+
+export default NewCommentForm;
+                </pre>
+              </p>
+              Oluşturulan kompanent Comments\CommentsList.js içinde import edildi ve kullanıldı.
+              <pre class="prettyprint ms-0">
+...
+import NewCommentForm from "./NewCommentForm";
+
+function CommentsList({ post_id }) {
+  ...
+
+  return (
+    &lt;>
+      &lt;Divider>Comments&lt;/Divider>
+      {!called && (
+        &lt;div className={styles.showCommentsButton}>
+          &lt;Button loading={loading} onClick={() => loadComments()}>
+            Show Comments
+          &lt;/Button>
+        &lt;/div>
+      )}
+
+      {!loading && data && (
+        &lt;>
+          &lt;List
+            className="demo-loadmore-list"
+            loading={false}
+            itemLayout="horizontal"
+            // loadMore={loadMore}
+            dataSource={data.post.comments}
+            renderItem={(item) => (
+              &lt;List.Item>
+                &lt;List.Item.Meta
+                  avatar={&lt;Avatar src={item.user.profile_photo} />}
+                  title={item.user.fullName}
+                  description={item.text}
+                />
+              &lt;/List.Item>
+            )}
+          />
+          &lt;Divider>New Comment&lt;/Divider>
+          &lt;NewCommentForm />
+        &lt;/>
+      )}
+    &lt;/>
+  );
+}
+
+export default CommentsList;
+
+              </pre>
+            </div>
+            <div class="row" id="mutationNewComment">
+              <h1>Yeni Yorum Mutation'unun Hazırlanması</h1>
+              <p>
+                yeni comment eklemek için gereken mutation Post\Comments\queries.js içine eklendi. 
+                <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+...
+
+export const CREATE_COMMENT_MUTATION = gql`
+  mutation ($data: CreateCommetInput!) {
+    createComment(data: $data) {
+      id
+    }
+  }
+`;
+                </pre>
+              </p>
+              <p>
+                Mutation çalışması için kullanılacak post_id verisi prop olarak Post\Comments\CommentsList.js içinden gönderilir.
+                <pre class="prettyprint ms-0">
+...
+ &lt;NewCommentForm post_id={post_id} />
+...
+                </pre>
+              </p>
+              <p>
+                formdaki veriler ve prop olarak gelen post_id kullanılarak mutation fonksiyona tanımlandı ve forma eklendi.
+                <pre class="prettyprint ms-0">
+import { useRef } from "react";
+import { Button, Col, Form, Input, Row, Select, message } from "antd";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_USER, CREATE_COMMENT_MUTATION } from "./queries";
+import styles from "./styles.module.css";
+
+const { Option } = Select;
+
+function NewCommentForm({ post_id }) {
+  const [createComment, { loading }] = useMutation(
+    CREATE_COMMENT_MUTATION
+  );
+  const { loading: get_users_loading, data: users_data } = useQuery(GET_USER);
+
+  const formRef = useRef(); // formu ilk haline getirmesi için.
+
+  const handleSubmit = async (values) => {
+    try {
+      await createComment({
+        variables: {
+          data: { ...values, post_id },
+        },
+      });
+      message.success("Comment saved", [4]);
+
+      formRef.current.resetFields(); // formu resetleyen fonksiyon
+    } catch (e) {
+      message.error(`Comment not saved!.`, [10]);
+      
+    }
+  };
+
+  return (
+    &lt;Form name="basic" onFinish={handleSubmit} autoComplete="off" ref={formRef}> 
+    {/* resetleme için ref içinde formRef verildi */}
+      &lt;Row gutter={24}>
+        &lt;Col span={6}>
+          &lt;Form.Item
+            name="user_id"
+            rules={[
+              {
+                required: true,
+                message: "Please select user!",
+              },
+            ]}
+          >
+            &lt;Select
+              disabled={get_users_loading || loading}
+              loading={get_users_loading}
+              size="medium"
+              placeholder="Select your user"
+            >
+              {users_data &&
+                users_data.users.map((item) => (
+                  &lt;Option value={item.id} key={item.id}>
+                    {item.fullName}
+                  &lt;/Option>
+                ))}
+            &lt;/Select>
+          &lt;/Form.Item>
+        &lt;/Col>
+        &lt;Col span={14}>
+          &lt;Form.Item
+            name="text"
+            rules={[
+              {
+                required: true,
+                message: "Please enter a message!",
+              },
+            ]}
+          >
+            &lt;Input disabled={loading} size="medium" placeholder="Message" />
+          &lt;/Form.Item>
+        &lt;/Col>
+        &lt;Col span={4}>
+          &lt;Form.Item className={styles.buttons}>
+            &lt;Button
+              disabled={loading}
+              size="medium"
+              type="primary"
+              htmlType="submit"
+            >
+              Add
+            &lt;/Button>
+          &lt;/Form.Item>
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/Form>
+  );
+}
+
+export default NewCommentForm;
+
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="spinnerDelay">
+              <h1>Spinner Delay</h1>
+              <p>
+                300 ms den kısa sürelerde olan işlemlerde loading spinerının görünmesi kullanıcı deneyimi için olumsuz bir durumdur. Bu nedenle client\src\components\Loading\index.js içinde Spin etiketine delay (gecikme) eklendi.
+                <pre class="prettyprint ms-0">
+import React from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
+
+import styles from "./styles.module.css"
+
+function Loading() {
+  return (
+    &lt;div className={styles.loading}>
+      &lt;Spin delay={300} indicator={&lt;LoadingOutlined style={{ fontSize: 32 }} spin />} />
+      {/* 300 milisn ve daha kısa süren durumlarda loading görünmez. */}
+    &lt;/div>
+  );
+}
+
+export default Loading;
+
+                </pre>
               </p>
             </div>
           </div>
