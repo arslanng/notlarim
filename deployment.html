@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraphQL</title>
+    <link rel="stylesheet" href="css/sql.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .menu ul{
+            list-style-position: inside;
+            list-style: none;
+        }
+        li a{
+            color: black;
+            text-decoration: none;
+        }
+        li:hover{
+            background-color: rgba(0, 0, 0, 0.103);
+        }
+        h1{
+            border-bottom: 1px solid black;
+        }
+        h3{
+            margin-top: 4px;
+            margin-bottom: -3px;
+            font-size: normal;
+        }
+        ul{
+            list-style-position: inside;
+        }
+        table, th ,td{
+            border: 1px black solid;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        nav{
+            background-color: white;
+        }
+        .nav-pills .nav-link.active {
+            background-color: rgba(0, 0, 0, 0.51);
+        }
+        .nav-pills .nav-link {
+            color: black
+        }
+        </style>
+</head>
+<body>
+    <div class="nav bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">GraphQL</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Ana Sayfa</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Eğitim Notları
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                          <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                          <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                          <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                          <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                          <li><a class="dropdown-item" href="sql.html" target="_blank">SQL notları</a></li>
+                          <li><a class="dropdown-item" href="nodejs.html" target="_blank">NodeJS notları</a></li>
+                          <li><a class="dropdown-item" href="restAPI.html" target="_blank">Rest Api notları</a></li>
+                          <li><a class="dropdown-item" href="react.html" target="_blank">React</a></li>
+                          <li><a class="dropdown-item" href="redux.html" target="_blank">Redux</a></li>
+                          <li><a class="dropdown-item" href="GraphQL.html" target="_blank">GraphQL</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- İçerik Start -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top menu d-none d-lg-block" style="height: fit-content;">
+            <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
+            <h2>Konu Listesi </h2>
+            <hr>
+            <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end " style="max-height: 400px; overflow: auto;">
+                <nav class="nav nav-pills flex-column ">
+                  <a class="nav-link" href="#docker">Docker</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#whatIsDocker">Docker Nedir? Nasıl Kullanılır?</a>
+                  </nav>
+                </nav>
+              </nav>
+        </div>
+        <div class="col-sm-9">
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+            <div class="row" id="docker">
+              <h1>Docker</h1>
+              <div class="row" id="whatIsDocker">
+                <h2>Docker Nedir? Nasıl Kullanılır?</h2>
+                <p>
+                  Proses izolasyonu sağlar. Çalıştırılan programın ortamı, ortamın da uygulamayı etkilemesini engeller.
+                </p>
+                <p>
+                  <b>Container</b> kendine ait prosesleri, servisleri ve ağı olan. Aymı işletim sistemi veya virtual machine (VM) üzerinde çalışan, diğer ortamlardan izole edilmiş ortamlardır.
+                </p>
+                <p>
+                  Docker, container ile işletim sistemi kerneli arasında bağlantıyı sağlar. 
+                </p>
+                <p>
+                  Docker container işini kolaylaştırmak için bize birçok high level araç sunar.
+                </p>
+                <p>
+                  Docker LXC container türü kullanır. 
+                </p>
+                <p>
+                  Windows üzerine docker yüklendiğinde Docker araya otomatik olarak linux VM yükler ve containerları kendisinin yüklediği linux VM üzerinden yönetir.
+                </p>
+                <p>
+                  Container çalışan yapılardır. Kaynak kod image içinde.
+                </p>
+                <p>
+                  <b>image</b> içinde birçok yapıyı barındırabilir. Containerin nasıl çalışacağını anlatır. image çalıştırıldığında container oluşturur. Bu image dosyaları genelde bulutta tutulur. Docker için genelde <a href="https://hub.docker.com/">Docker Hub</a> kullanılır. İmageı çalıştırdığımızda elde ettiğimiz proses containerdır. İmage çalışmayı durdurduğunda container ortadan kalkar.
+                </p>
+                <p>
+                  <b>DockerHub</b> üzerinden ubuntu indirmek için <code>docker pull ubuntu</code>. docker imajından ubuntu çalıştırmak için <code>docker run ubuntu</code> bilgisayarda yoksa image dosyasını kendisi çeker ve çalıştırır. 
+                </p>
+
+                <h3>Docker Kurulumu</h3>
+                <p>
+                  <a href="https://www.docker.com/get-started/">docker.com</a> adresinden indir ve kur.
+                </p>
+
+                <h3>DockerHub</h3>
+                <p>
+                  <a href="https://hub.docker.com/">https://hub.docker.com/</a>
+                </p>
+                <p>
+                  dockerhub>"Explore" filtrelemede 
+                  <ul>
+                    <li>"verified publisher": kendi yayıncısı tarafından dockerize edildiği ve yüklendiği image dosyaları.</li>
+                    <li>"offical images": büyük şirketlerin ürünlerinin docker tarafından dockerize edildiği ve yüklendiği image dosyaları.</li>
+                  </ul>
+                </p>
+
+                <h3>İmage Çekme ve Açma</h3>
+                <p>
+                  Terminale <pre class="prettyprint ms-0">docker pull ubuntu</pre> yazdık. Dockerhub üzerinden ubuntuyu çekti
+                </p>
+                <p>
+                  Terminale <pre class="prettyprint ms-0">docker pull mongo</pre> yazdık. Dockerhub üzerinden mongoyu çekti
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">docker images</pre> yazdığımızda indirmiş olduğumuz docker images listelenir
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">docker run redis</pre> yazdığımızda redis lokalde varsa çalışır. Yoksa image indirilir ve çalıştırılır. Çalıştığını terminalde görürüz.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">docker run ubuntu</pre> ile ubuntu çalışır ama hemen geri kapanır.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">docker run ubuntu sleep 5</pre> ile ubuntu açılır 5 sn bekler ve kapanır.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">docker run -it ubuntu</pre> ile ubuntu açılır ve içinde işlem yapılabilir. <code>-it</code> interaktif terminal anlamında.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">docker ps</pre> veya <pre class="prettyprint ms-0">docker conlainer ls</pre> ayakta olan containerları gösterir.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">docker ps -a</pre> veya <pre class="prettyprint ms-0">docker ps --all</pre> veya <pre class="prettyprint ms-0">docker conlainer ls -a</pre> ayakta olan olmayan tüm containerları gösterir
+                </p>
+
+                <h3>Container İsimlendirme</h3>
+                <p>
+                  <pre>docker run -it --name bash_ubuntu ubuntu</pre> olarak yazdığızda container <b>bash_ubuntu</b> adını alır ve isim altında ayarları da kaydedilir. <pre>docker start bash_ubuntu</pre> yazarak ismini ve özelliklerini kaydettiğimiz container ayağa kaldırılır. Terminalde kaybolur. Arka planda çalışır. <pre>docker stop bash_ubuntu</pre> ile kapatılır.
+                </p>
+                <p>
+                  <code>docker stop &lt;container-name></code> kısmında &lt;container-name> yerine &lt;container-id> nin baştan ilk 2 ve daha fazla karakteri girilerek de durdurma işlemi yapılabilir. container id lerin ilk kısmında çakışma olursa daha çok karakter girmek gerekir.
+                </p>
+                <p>
+                  <pre>docker ps -a</pre> ile listelediğimiz herhangi bir container bu yöntemle açılabilir ve kapatılabilir.
+                </p>
+
+                <h3>Container Silme</h3>
+                <p>
+                  <pre>docker ps -a</pre> ile listelenenleri silmek için <pre>docker rm &lt;container-name></pre> yazarak tek tek silebiliriz. <code>docker start</code> ve <code>docker stop</code> kodlarındaki gibi name yerine idnin başı yazılabilir. Id veya name boşluk bırakılarak birden fazla yazılabilir.
+                </p>
+                <p>
+                  <pre>docker container rm $(docker container ls -aq)</pre> tüm idleri silme fonksiyonuna taşıyarak tüm containerları siler.
+                </p>
+
+                <h3>Tag Nedir?</h3>
+                <p>
+                  sürüm?
+                </p>
+                <p>
+                  <pre>docker run redis:5</pre> redisin 5. sürümünü indirir ve çalıştırır.
+                </p>
+                <p>1:29:35</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JS -->
+    
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=js&amp;skin=sunburst"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

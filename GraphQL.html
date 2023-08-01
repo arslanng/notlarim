@@ -184,6 +184,21 @@
                     <a class="nav-link ms-3 my-1" href="#commentHasuraClient2">Client Entegrasyonu - 2</a>
                     <a class="nav-link ms-3 my-1" href="#commentHasuraClient3">Client Entegrasyonu - 3</a>
                   </nav>
+                  <a class="nav-link" href="#votingHasuraBackend">Realtime Voting App with Hasura</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#votingHasuraBackend">Hasura Backend'in Oluşturulması</a>
+                    <a class="nav-link ms-3 my-1" href="#votingApolloClientAndReactRouter">Apollo Client ve React Router Kurulumu</a>
+                    <a class="nav-link ms-3 my-1" href="#votingRealTimeListing">Oylamaların Gerçek Zamanlı Listelenmesi</a>
+                    <a class="nav-link ms-3 my-1" href="#votingNewVoting1">Yeni Oylama Oluşturma Ekranının Hazırlanması - 1</a>
+                    <a class="nav-link ms-3 my-1" href="#votingNewVoting2">Yeni Oylama Oluşturma Ekranının Hazırlanması - 2</a>
+                    <a class="nav-link ms-3 my-1" href="#votingVotingDetail1">Oylama Detay Ekranının Hazırlanması - 1</a>
+                    <a class="nav-link ms-3 my-1" href="#votingVotingDetail2">Oylama Detay Ekranının Hazırlanması - 2</a>
+                  </nav>
+                  <a class="nav-link" href="#hasuraDigitalOceanDeployment">Deployment</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#hasuraDigitalOceanDeployment">Hasura DigitalOcean Deployment</a>
+                    <a class="nav-link ms-3 my-1" href="#reactClientNetlifyDeployment">React Client Netlify Deployment</a>
+                  </nav>
                 </nav>
               </nav>
         </div>
@@ -7933,7 +7948,766 @@ export default NewPostForm;
                 </p>
               </div>
             </div>
-            
+            <div class="row" id="voting">
+              <div class="row" id="votingHasuraBackend">
+                <h1>Hasura Backend'in Oluşturulması</h1>
+                <p>
+                  proje klasörü içinde terminale
+                  <pre class="prettyprint ms-0">
+mkdir backend
+cd backend
+curl https://raw.githubusercontent.com/hasura/graphql-engine/stable/install-manifests/docker-compose/docker-compose.yaml -o docker-compose.yml
+hasura init
+                  </pre>
+                </p>
+                <p>
+                  backend\docker-compose.yml içinde "HASURA_GRAPHQL_ENABLE_CONSOLE": false yapıldı. 
+                </p>
+                <p>
+                  backend klasörü içinde "powershell" yönetici olarak açıldı ve içine <pre class="prettyprint ms-0">docker-compose up</pre> yazılarak server ayağa kaldırıldı.
+                </p>
+                <p>
+                  backend\hasura konumunda terminale <pre class="prettyprint ms-0">hasura console</pre> yazılır. Hasura <a href="http://localhost:9695/">http://localhost:9695/</a> portunda açıldı.
+                </p>
+                <p>
+                  backend\docker-compose.yml içinde HASURA_GRAPHQL_METADATA_DATABASE_URL: keyine karşılık gelen "postgres://postgres:postgrespassword@postgres:5432/postgres" urli DATA içinde database eklerken kullandık. Altına da 3 tane tablo açtık.
+                  <ul>
+                    <li>questions<ul>
+                      <li>id: integer(auto-increment), primary key</li>
+                      <li>title: text</li>
+                    </ul></li>
+                    <li>options<ul>
+                      <li>id: integer(auto-increment), primary key</li>
+                      <li>title: text</li>
+                      <li>question_id: foreign key -> questions(table) -> id</li>
+                    </ul></li>
+                    <li>votes<ul>
+                      <li>id: integer(auto-increment), primary key</li>
+                      <li>option_id: foreign key -> options(table) -> id</li>
+                    </ul></li>
+                  </ul> 
+                  
+                </p>
+                <p>
+                  "Relationship" kısmında ilişkiler belirtildi.
+                </p>
+              </div>
+              <div class="row" id="votingApolloClientAndReactRouter">
+                <h1>Apollo Client ve React Router Kurulumu</h1>
+                <p>
+                  Terminale
+                  <pre class="prettyprint ms-0">
+mkdir client
+cd client
+npx create-react-app .
+                  </pre>
+                  Kurulumun ardından terminale
+                  <pre class="prettyprint ms-0">
+npm install @apollo/client graphql
+                  </pre> 
+                  Kurulumun ardından terminale
+                  <pre class="prettyprint ms-0">
+npm i react-router-dom
+                  </pre>
+                </p>
+                <p>
+                  client\src\index.js içi aşağıdaki gibi güncellendi.
+                  <pre class="prettyprint ms-0">
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { ApolloProvider } from "@apollo/client";
+import client from "./apollo";
+
+import { BrowserRouter as Router } from "react-router-dom";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  &lt;ApolloProvider client={client}>
+    &lt;Router> 
+      {/* Router sarmalaması App.js yerine burada yapıldı.*/}
+      &lt;App />
+    &lt;/Router>
+  &lt;/ApolloProvider>
+);
+                  </pre>
+                  Hem "apollo client"in hem de "react router dom"un providerleri ile proje sarmalandı.
+                </p>
+                <p>
+                  "apollo provider"de kullanıdğımız ve bizim backende bağlanmamızı sağlayan client tanımı client\src\apollo.js dosyasında oluşturuldu.
+                  <pre class="prettyprint ms-0">
+import { ApolloClient, InMemoryCache, split, HttpLink } from "@apollo/client";
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { getMainDefinition } from "@apollo/client/utilities";
+
+const wsLink = new WebSocketLink({
+  uri: "ws://localhost:8080/v1/graphql",
+  options: {
+    reconnect: true
+  }
+})
+
+const httpLink = new HttpLink({
+  uri: "http://localhost:8080/v1/graphql"
+})
+
+const splitLink = split(
+  ({query }) => {
+    const defination = getMainDefinition(query)
+    return defination.kind === 'OperationDefinition' && defination.operation === "subscription"
+  },
+  wsLink,
+  httpLink
+)
+
+const client = new ApolloClient({
+  link: splitLink,
+  cache: new InMemoryCache(),
+});
+
+export default client;
+                  </pre>
+                  Bu tanım için gereken paketi yüklemek için terminale
+                  <pre class="prettyprint ms-0">
+npm i subscriptions-transport-ws
+                  </pre>
+                </p>
+                <p>
+                  client\src\App.js içinde routing yapısı kuruldu.
+                  <pre class="prettyprint ms-0">
+import { Routes, Route, Link } from "react-router-dom";
+import Questions from "./pages/Questions";
+import NewQuestion from "./pages/New";
+
+function App() {
+  return (
+    &lt;div className="App">
+      &lt;nav>
+        &lt;Link to="/">Questions&lt;/Link>
+        &lt;Link to="/new">New Question&lt;/Link>
+      &lt;/nav>
+      &lt;hr />
+      &lt;Routes>
+        &lt;Route path="/" element={&lt;Questions />} />
+        &lt;Route path="/new" element={&lt;NewQuestion />} />
+      &lt;/Routes>
+    &lt;/div>
+  );
+}
+
+export default App;
+                  </pre>
+                  Bu yapıda kullanılan kompanentler yer tutucu olarak oluşturuldu.
+                </p>
+                client\src\index.css içine stil tanımları yapıldı.
+                <pre class="prettyprint ms-0">
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.App {
+  padding: 20px;
+}
+
+nav > a {
+  padding: 0 10px 10px 0;
+  color: #000;
+  text-decoration: none;
+}
+
+nav > a:hover {
+  text-decoration: underline;
+}
+                </pre>
+              </div>
+              <div class="row" id="votingRealTimeListing">
+                <h1>Oylamaların Gerçek Zamanlı Listelenmesi</h1>
+                <p>
+                  Soruları listeleyecek subscription hasurada belirlendi ve client\src\pages\Questions\queries.js dosyasında yazıldı.
+                  <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+export const QUESTIONS_SUBSCRIPTION = gql`
+  subscription {
+    questions(order_by: { id: desc }) {
+      id
+      title
+    }
+  }
+`;
+                  </pre>
+                </p>
+                <p>
+                  Yazılan subscription client\src\pages\Questions\index.js dosyasında kullanıldı.
+                  <pre class="prettyprint ms-0">
+import React from "react";
+import { useSubscription } from "@apollo/client";
+import { QUESTIONS_SUBSCRIPTION } from "./queries";
+import Loading from "../../components/Loading";
+import { Link } from "react-router-dom";
+
+function Questions() {
+  const { loading, data } = useSubscription(QUESTIONS_SUBSCRIPTION);
+
+  if (loading) {
+    return &lt;Loading />;
+  }
+
+  return (
+    &lt;div>
+      {data.questions.map((question) => (
+        &lt;div key={question.id}>
+          &lt;Link to={`/q/${question.id}`}>{question.title}&lt;/Link>
+        &lt;/div>
+      ))}
+    &lt;/div>
+  );
+}
+
+export default Questions;
+
+                  </pre>
+                </p>
+                <p>
+                  loading durumunda kullanılan kompanent client\src\components\Loading\index.js dosyasına yazıldı.
+                  <pre class="prettyprint ms-0">
+client\src\components\Loading\index.js
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="votingNewVoting1">
+                <h1>Yeni Oylama Oluşturma Ekranının Hazırlanması - 1</h1>
+                <p>
+                  client\src\pages\New\index.js içinde form tanımları yapıldı.
+                  <pre class="prettyprint ms-0">
+import { useState } from "react";
+
+const initialOptions = [{ title: "" }, { title: "" }];
+
+function NewQuestion() {
+  const [title, setTitle] = useState();
+  const [options, setOptions] = useState(initialOptions);
+
+  const handleChangeOption = ({target}) => {
+    const newArray = options;
+    newArray[target.id].title = target.value
+
+    setOptions([...newArray])
+  }
+
+  return (
+    &lt;div>
+      &lt;h2>Question&lt;/h2>
+      &lt;input
+        placeholder="Type your question..."
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+
+      &lt;h2>Options&lt;/h2>
+      {options.map((option, i) => (
+        &lt;div key={i}>
+          &lt;input
+            placeholder="Type your option..."
+            value={option.title}
+            id={i}
+            onChange={handleChangeOption}
+          />
+        &lt;/div>
+      ))}
+      &lt;button onClick={() => setOptions([...options, { title: "" }])}>
+        New Option
+      &lt;/button>
+
+      &lt;button>Save&lt;/button>
+    &lt;/div>
+  );
+}
+
+export default NewQuestion;
+                  </pre>
+                </p>
+                <p>
+                  client\src\index.css içinde input ve button için stil tanımı yapıldı.
+                  <pre class="prettyprint ms-0">
+...
+input{
+  padding: 6px;
+  font-size: 18px;
+}
+
+button{
+  padding: 6px;
+  margin-top: 10px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="votingNewVoting2">
+                <h1>Yeni Oylama Oluşturma Ekranının Hazırlanması - 2</h1>
+                <p>
+                  Hasura içinde yeni question ve options eklemek için gereken mutation tanımlandı ve client\src\pages\New\queries.js dosyasında kullanıldı.
+                  <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+export const NEW_QUESTION_MUTATION = gql`
+  mutation newQuestion($input: questions_insert_input!) {
+    insert_questions_one(object: $input) {
+      id
+      title
+    }
+  }
+`;
+                  </pre>
+                </p>
+                <p>
+                  İlgili mutation client\src\pages\New\index.js dosyasında formdan gelen veriler ile kullanıldı. 
+                  <pre class="prettyprint ms-0">
+import { useState } from "react";
+
+import { useMutation } from "@apollo/client";
+import { NEW_QUESTION_MUTATION } from "./queries";
+
+const initialOptions = [{ title: "" }, { title: "" }];
+
+function NewQuestion() {
+  const [addQuestion, { loading }] = useMutation(NEW_QUESTION_MUTATION);
+
+  const [title, setTitle] = useState();
+  const [options, setOptions] = useState(initialOptions);
+
+  const handleChangeOption = ({ target }) => {
+    const newArray = options;
+    newArray[target.id].title = target.value;
+
+    setOptions([...newArray]);
+  };
+
+  const handleSave = () => {
+    const filledOptions = options.filter((option) => option.title !== ""); // Boşları database e göndermemek için optionlardan sadece title değeri olanları filtreledi.
+
+    if (title === null || filledOptions.length < 2) return false;
+
+    addQuestion({
+      variables: {
+        input: {
+          title,
+          options: {
+            data: filledOptions,
+          },
+        },
+      },
+    });
+
+    setOptions(initialOptions);
+    setTitle("");
+  };
+
+  return (
+    &lt;div>
+      &lt;h2>Question&lt;/h2>
+      &lt;input
+        placeholder="Type your question..."
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        disabled={loading}
+      />
+
+      &lt;h2>Options&lt;/h2>
+      {options.map((option, i) => (
+        &lt;div key={i}>
+          &lt;input
+            placeholder="Type your option..."
+            value={option.title}
+            id={i}
+            onChange={handleChangeOption}
+            disabled={loading}
+          />
+        &lt;/div>
+      ))}
+      &lt;button
+        onClick={() => setOptions([...options, { title: "" }])}
+        disabled={loading}
+      >
+        New Option
+      &lt;/button>
+
+      &lt;button onClick={handleSave} disabled={loading}>
+        Save
+      &lt;/button>
+    &lt;/div>
+  );
+}
+
+export default NewQuestion;
+
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="votingVotingDetail1">
+                <h1>Oylama Detay Ekranının Hazırlanması - 1</h1>
+                <p>
+                  client\src\App.js içinde route yapısı düzenlendi.
+                  <pre class="prettyprint ms-0">
+import { Routes, Route, Link } from "react-router-dom";
+import Questions from "./pages/Questions";
+import NewQuestion from "./pages/New";
+import Detail from "./pages/Detail";
+
+function App() {
+  return (
+    &lt;div className="App">
+      &lt;nav>
+        &lt;Link to="/">Questions&lt;/Link>
+        &lt;Link to="/new">New Question&lt;/Link>
+      &lt;/nav>
+      &lt;hr />
+      &lt;Routes>
+        &lt;Route path="/" element={&lt;Questions />} />
+        &lt;Route path="/new" element={&lt;NewQuestion />} />
+        &lt;Route path="/q/:id" element={&lt;Detail />} />
+      &lt;/Routes>
+    &lt;/div>
+  );
+}
+
+export default App;
+                  </pre>
+                </p>
+                <p>
+                  client\src\pages\Detail\queries.js içinde question detaylarını çeken subscription ve yeni oy ekleyen mutation kullanıldı. 
+                  <pre class="prettyprint ms-0">
+import { gql } from "@apollo/client";
+
+export const QUESTION_DETAIL_SUBSCRIPTION = gql`
+  subscription questionDetail($id: Int!) {
+    questions_by_pk(id: $id) {
+      id
+      title
+      options {
+        id
+        title
+        votes_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const NEW_VOTE_MUTATIONS = gql`
+  mutation newVote($id: Int) {
+    insert_votes_one(object: { option_id: $id }) {
+      id
+      option {
+        title
+      }
+    }
+  }
+`;
+                  </pre>
+                </p>
+                <p>
+                  client\src\pages\Detail\index.js dosyasında bu sorgular kullanıldı. 
+                  <pre class="prettyprint ms-0">
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useMutation, useSubscription } from "@apollo/client";
+import { NEW_VOTE_MUTATIONS, QUESTION_DETAIL_SUBSCRIPTION } from "./queries";
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+
+function Detail() {
+  const { id } = useParams();
+
+  const [selectedOptionId, setSelectedOptionId] = useState();
+
+  const { data, loading, error } = useSubscription(
+    QUESTION_DETAIL_SUBSCRIPTION,
+    {
+      variables: {
+        id,
+      },
+    }
+  );
+
+  const [newVote, { loading: loadingVote }] = useMutation(NEW_VOTE_MUTATIONS);
+
+  const handleClickVote = () => {
+    newVote({
+        variables: {
+            id: selectedOptionId
+        }
+    })
+  };
+
+  if (loading) {
+    return &lt;Loading />;
+  }
+
+  if (error) {
+    return &lt;Error message={error.message} />;
+  }
+
+  const {
+    questions_by_pk: { options, title },
+  } = data;
+  console.log(data.questions_by_pk);
+  return (
+    &lt;div>
+      &lt;h2>{title}&lt;/h2>
+
+      {options.map((option, i) => (
+        &lt;label htmlFor={i} key={i}>
+          &lt;input
+            type="radio"
+            name="selected"
+            value={option.id}
+            onChange={({ target }) => setSelectedOptionId(target.value)}
+          />
+          &lt;span>{option.title}&lt;/span>
+        &lt;/label>
+      ))}
+
+      &lt;button disabled={loadingVote} onClick={handleClickVote}>Vote&lt;/button>
+    &lt;/div>
+  );
+}
+
+export default Detail;
+                  </pre>
+                </p>
+                <p>
+                  Error kompanenti client\src\components\Error\index.js dosyasında oluşturuldu. 
+                  <pre class="prettyprint ms-0">
+import React from 'react'
+
+function Error({message}) {
+  return (
+    &lt;div>Error: {message}&lt;/div>
+  )
+}
+
+export default Error
+                  </pre>
+                </p>
+                <p>
+                  client\src\index.css içine label stil tanımı eklendi. 
+                  <pre class="prettyprint ms-0">
+label{
+  display: block;
+  margin-bottom: 8px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="votingVotingDetail2">
+                <h1>Oylama Detay Ekranının Hazırlanması - 2</h1>
+                <p>
+                  Oyların dağılımını gösteren progress tagını kullandık. Oy verme durumunda butonu ortadan kaldırıp güncel oy sayılarını gösterdik. 
+                </p>
+                <p>
+                  client\src\pages\Detail\index.js dosyasının son hali: 
+                  <pre class="prettyprint ms-0">
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useMutation, useSubscription } from "@apollo/client";
+import { NEW_VOTE_MUTATIONS, QUESTION_DETAIL_SUBSCRIPTION } from "./queries";
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+
+function Detail() {
+  const { id } = useParams();
+
+  const [isVoted, setIsVoted] = useState(false);
+  const [selectedOptionId, setSelectedOptionId] = useState();
+
+  const { data, loading, error } = useSubscription(
+    QUESTION_DETAIL_SUBSCRIPTION,
+    {
+      variables: {
+        id,
+      },
+    }
+  );
+
+  const [newVote, { loading: loadingVote }] = useMutation(NEW_VOTE_MUTATIONS, {
+    onCompleted: () => {
+      // işlem tamamlandığında
+      setIsVoted(true); // bunu çalıştır
+    },
+  });
+
+  const handleClickVote = () => {
+    newVote({
+      variables: {
+        id: selectedOptionId,
+      },
+    });
+  };
+
+  if (loading) {
+    return &lt;Loading />;
+  }
+
+  if (error) {
+    return &lt;Error message={error.message} />;
+  }
+
+  const {
+    questions_by_pk: { options, title },
+  } = data;
+
+  const total = options.reduce(
+    (t, value) => t + value.votes_aggregate.aggregate.count,
+    0
+  ); // 0 dan başlayarak tüm değerleri toplar
+
+  return (
+    &lt;div>
+      &lt;h2>{title}&lt;/h2>
+
+      {options.map((option, i) => (
+        &lt;div key={i}>
+          &lt;label htmlFor={i}>
+            &lt;input
+              type="radio"
+              name="selected"
+              id={i}
+              value={option.id}
+              onChange={({ target }) => setSelectedOptionId(target.value)}
+            />
+            &lt;span>{option.title}&lt;/span>
+            {isVoted && (
+              &lt;span className="vote_count">
+                (%
+                {(
+                  (option.votes_aggregate.aggregate.count /
+                    (total === 0 ? 1 : total)) *
+                  100
+                ).toFixed(2)}
+                ){/* virgülden sonra 2 karakter gösterilmesini sağlar. */}
+              &lt;/span>
+            )}
+          &lt;/label>
+
+          {isVoted && (
+            &lt;div>
+              &lt;progress
+                value={option.votes_aggregate.aggregate.count}
+                max={total}
+              />
+            &lt;/div>
+          )}
+        &lt;/div>
+      ))}
+
+      {!isVoted && (
+        &lt;button disabled={loadingVote} onClick={handleClickVote}>
+          Vote
+        &lt;/button>
+      )}
+    &lt;/div>
+  );
+}
+
+export default Detail;
+                  </pre>
+                </p>
+                <p>
+                  client\src\index.css dosyasının son hali:
+                  <pre class="prettyprint ms-0">
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.App {
+  padding: 20px;
+}
+
+nav > a {
+  padding: 0 10px 10px 0;
+  color: #000;
+  text-decoration: none;
+}
+
+nav > a:hover {
+  text-decoration: underline;
+}
+
+input {
+  padding: 6px;
+  font-size: 18px;
+}
+
+button {
+  padding: 6px;
+  margin-top: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.vote_count {
+  font-size: 16;
+  margin-left: 4px;
+}
+
+progress {
+  margin-bottom: 8px;
+}
+                  </pre>
+                </p>
+              </div>
+            </div>
+            <div class="row" id="hasuraDeployment">
+              <div class="row" id="hasuraDigitalOceanDeployment">
+                <h1>Hasura DigitalOcean Deployment</h1>
+                <p>
+                  Docker'ın çalıştığı herhangi bir sunucuda hasura backendimiz de çalışır. <a href="https://hasura.io/docs/latest/deployment/deployment-guides/index/">Bu dökümandan faydalandık.</a>
+                </p>
+                <p>
+                  Biz <a href="https://www.digitalocean.com/">DigitalOcean</a> kullanacağız. DigitalOcean aws üzerinden bir makina açıp kullanımıza sunuyor. 
+                </p>
+                <p>
+                  DigitalOcean'a kayıt yapıp giriş yapıyoruz. "Create">"Create Droplets">"Marketplace">"Search: Hasura"
+                </p>
+                <p>
+                  "Choose Region" da en yakın yeri seçtik. Devamında en ucuz makineyi seçiyoruz. Formun devamını dolduruyoruz. Parola belirliyoruz vs. En son "Create" deyip sunucuyu oluşturuyoruz. 
+                </p>
+                <p>
+                  Burada çıkan linke tıklayınca hasura consol açılması gerekiyor ancak 502 hatası alıyorum. Başka bir yoldan deneyeceğim. Deployment derslerini bekliyoruz. Sonra burayı tekrar izleriz.
+                </p>
+              </div>
+              <div class="row" id="reactClientNetlifyDeployment">
+                <h1>React Client Netlify Deployment</h1>
+              </div>
+            </div>
           </div>
         </div>
       </div>
