@@ -143,8 +143,27 @@
                   <nav class="nav nav-pills flex-column">
                     <a class="nav-link ms-3 my-1" href="#linuxDockerSetupProductionLginx">Linux'a Docker Kurulumu,<br>Production,Nginx</a>
                     <nav class="nav nav-pills flex-column">
-                      <a class="nav-link ms-4 my-1" href="#">xxx</a>
+                      <a class="nav-link ms-4 my-1" href="#dockerCloudExm1">Örnek 1: Docker Compose ile Wordpress Site Ayağa Kaldırma.</a>
+                      <a class="nav-link ms-4 my-1" href="#dockerCloudNginxReverseProxy">Nginx kurulumu ve Reverse Proxy tanımı</a>
+                      <a class="nav-link ms-4 my-1" href="#dockerCloudExm2">Örnek 2: Docker Compose ile Aynı Hostta Asana Clone Ayağa Kaldırma.</a>
                     </nav>
+                  </nav>
+                  <a class="nav-link" href="#kubernetes">Kubernetes</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#enterKubernetes">Kubernetes'e Giriş</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesMaster">Master'a Genel Bakış</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesNode">Node'a Genel Bakış</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesHowWork">Kubernetes'in Çalışma Prensipleri</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesSetup1">Kubernetes Kuruyoruz-1</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesSetupMaster">Kubernetes Kuruyoruz-Master</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesSetupNode">Kubernetes Kuruyoruz-Node</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesTraffic">NodePort - ClusterIP - LoadBalancer - Ingress</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesDaemonset">Daemonset ve Kullanımı</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesImperativeDeclarative">Imperative ve Declarative Yöntemler</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesPod">Pod Yaşam Döngüsü ve Probe'lar</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesCrusterLog">Cluster'da Loglama</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesReplication">Replication Yöntemlerine Genel Bakış</a>
+                    <a class="nav-link ms-3 my-1" href="#kubernetesKubectlFirsDeployment">Kubectl ve İlk Deployment</a>
                   </nav>
                 </nav>
               </nav>
@@ -1133,8 +1152,609 @@ volumes:
                   <code>depends_on:</code> altına verilen servisler o servisin çalışması için gerekenleri tanımlar. Önce onlar çalışır. Sonra içine yazıldığı container çalışır.
                 </p>
               </div>
-              <div class="row">
+              <div class="row" id="linuxDockerSetupProductionLginx">
                 <h2>linuxDockerSetupProductionLginx</h2>
+                <p>
+                  Hoca işlemleri <a href="https://www.digitalocean.com/">digitalocean.com</a> üzerinden host alıp yapıyor. Biz de onu takip edeceğiz. 
+                </p>
+                <p>
+                  Create>Droplets ile formu doldurup makineyi ayağa kaldırıyoruz.
+                </p>
+                <p>
+                  Oluşturduğumuz makineye docker kurmak için <a href="https://docs.docker.com/engine/install/ubuntu/">docker.com/engine/install/ubuntu/</a> adresindeki yönergeleri izleyeceğiz.
+                </p>
+                <p>
+                  terminale <pre class="prettyprint ms-0">ssh root@&lt;host-id></pre> sintaxı ile bağlanıyoruz. Bizimki <pre class="prettyprint ms-0">ssh root@165.232.122.105</pre> Gelen ekrana parolamızı yazıp giriş yapıyoruz.
+                </p>
+                <p>
+                  Ubuntuya girdiğimizde terminale <pre class="prettyprint ms-0">sudo apt-get update</pre> yazarak mevcut paketleri güncelliyoruz.
+                </p>
+                <p>
+                  Sonra terminale <pre class="prettyprint ms-0">sudo apt-get install ca-certificates curl gnupg</pre> yazıyoruz.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">apt install docker.io</pre> ile docker kuruldu.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">apt install docker-compose</pre> ile docker-compose kuruldu.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">systemctl status docker</pre> ile docker'ın çalışma durumu kontrol edilir.
+                </p>
+
+                <h3 id="dockerCloudExm1">Örnek 1: Docker Compose ile Wordpress Site Ayağa Kaldırma.</h3>
+                <p>
+                  Uzak bilgisayara bağlandıktan sonra kök dizinde terminale
+                  <pre class="prettyprint ms-0">
+cd /tmp
+mkdir
+mkdir web-apps
+cd web-apps
+                  </pre>
+                  yazılarak tmp içine web-apps dosyası oluşturuldu ve içine girildi
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">vi docker-compose.yml</pre> ile bu klasörde docker-compose.yml klasörü oluşturuldu ve içine girildi. Bu aşamada klavyede <q>i</q> ye basıp düzenleme (insert) modu açıldı. Daha önce wordpress için kullandığımız docker-compose içeriği buraya aktarıldı (hoca direk yapıştırdı. Bende düzgün yapışmadığından elle tek tek yazdım.)
+                  <pre class="prettyprint ms-0">
+version: '3.4'
+services:
+  wordpress:
+    image: wordpress
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: bloguser
+      WORDPRESS_DB_PASSWORD: test123
+      WORDPRESS_DB_NAME: blogdb
+    volumes:
+      - wordpress:/var/www/html
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: blogdb
+      MYSQL_USER: bloguser
+      MYSQL_PASSWORD: test123
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  wordpress:
+  db:
+                  </pre>
+                </p>
+                <p>
+                  <q>esc</q> ile insert modundan çıkıldı. <q>:wq</q> ile dosya kaydedilip kapatıldı.
+                </p>
+                <p>
+                  terminale
+                  <pre class="prettyprint ms-0">
+mkdir videomeet
+mv docker-compose.yml videomeet/
+                  </pre>
+                  yazarak önce videomeet adında bir klasör oluşturduk ve ardından docker-compose.yml dosyasını buraya taşıdık.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">
+                    cd videomeet
+                    cat docker-compose
+                  </pre>
+                  yazarak önce bu klasöre girdik. Sonra da docker-compose.yml içeriğini terminalde görüntüledik.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">docker-compose up</pre> ile projemizi ayağa kaldırdık.
+                </p>
+                <p>
+                  Projeye <a href="http://165.232.122.105:8080/">165.232.122.105:8080</a> ile ulaşabiliriz.
+                </p>
+                <p>
+                  projeyi kapatırken <q>ctrl + C</q> yeterli olur ancak tüm bileşenlerin kapanması için <pre class="prettyprint ms-0">docker-compose down</pre> komutu kullanılır.
+                </p>
+
+                <h3 id="dockerCloudNginxReverseProxy">Nginx kurulumu ve Reverse Proxy tanımı</h3>
+                <p>
+                  <b>Reverse proxy (ters yönlü proxy)</b>, bir ağdaki istemcilerin (genellikle internet kullanıcıları) bir hizmet sunucusuna erişirken, istemcilerin bu hizmet sunucusunu doğrudan değil de arada bir sunucu üzerinden erişmelerini sağlayan bir teknolojidir. Bu arada sunucuya "reverse proxy" denir çünkü geleneksel olarak çalışan "forward proxy"nin tersine, istemciden gelen istekleri bir sunucuya ileterek geriye doğru işlem yapar.
+                </p>
+                <p>
+                  Biz reverse proxy ile aynı IP ile de bağlı olan iki domaini isteğin geldiği <q>server_name</q> e göre farklı container içine göndereceğiz.
+                </p>
+                <p>
+                  Nginx kurulumu için <a href="https://www.scaleway.com/en/docs/tutorials/nginx-reverse-proxy/">hocanın kullandığı kaynak</a>
+                </p>
+                <p>
+                  terminale <pre class="prettyprint ms-0">apt install nginx</pre> yazılarak ngnix yüklenir.
+                </p>
+                <p>
+                  Terminale <pre class="prettyprint ms-0">unlink /etc/nginx/sites-enabled/default</pre> yazılarak Nginxin, Ubuntu'nun paket yöneticisi apt aracılığıyla yüklendiğinde önceden yapılandırılmış olan varsayılan sanal ana bilgisayarı devre dışı bırakılır.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">
+cd /etc/nginx/sites-available
+vi reverse-proxy.conf
+                  </pre>
+                  ile ilgili klasöre gidip revers proxy için configuration dosyası oluşturduk.  içine yazmak için klavyede <q>i</q> ye bastık ve aşağıdakileri yazdık.
+                  <pre class="prettyprint ms-0">
+server {
+        listen 80;
+        listen [::]:80;
+        server_name videomeet.app;
+        server_name_in_redirect off;
+
+        access_log /var/log/nginx/reverse-access.log;
+        error_log /var/log/nginx/reverse-error.log;
+
+        location / {
+            proxy_set_header Client-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host;
+            proxy_pass http://127.0.0.1:8080;
+  }
+}
+                  </pre>
+                  <q>esc</q> ile insert mode dan çıktık <q>:wq</q> ile kaydedip çıktık.
+                </p>
+                <p>
+                  terminale <pre class="prettyprint ms-0">ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/reverse-proxy.conf</pre> ile yazdığımız dosya gerekli olan başka bir klasör ile bağlandı.
+                </p>
+                <p>
+                  Terminale <pre class="prettyprint ms-0">nginx -t</pre> yazarak nginx test edilir.
+                  <pre class="prettyprint ms-0">
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+                  </pre>
+                  çıktısı alıyorsa her şey yolunda demektir.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">systemctl restart nginx</pre> ile nginx restart edilir. ngnixin sistemde çalışmasını sorgulamak için terminale <pre class="prettyprint ms-0">systemctl status nginx</pre> yazılır.
+                </p>
+                <p>
+                  Terminale <pre class="prettyprint ms-0">cd /tmp/web-apps/videomeet</pre> yazılarak projemizin olduğu dosyaya ulaştık.
+                  <pre class="prettyprint ms-0">docker-compose up</pre> ile projeyi ayağa kaldırdık.
+                </p>
+                <p>
+                  Burada bazı işlemler domain gerektiriyor. Bunu daha sonra tekrar deneriz. Bu kısımda domaine ve wordpress e host id girildi.
+                </p>
+
+                <h3 id="dockerCloudExm2">Örnek 2: Docker Compose ile Aynı Hostta Asana Clone Ayağa Kaldırma.</h3>
+                <p>
+                  Proje dosyasını ssh üzerinden scp ile göndereceğiz.
+                </p>
+                <p>
+                  Bunun için daha önce hocanın dosyalarından aldığımız ve göndereceğimiz <q>8-vue-app-docker-file</q> klasörünü <q>.tar</q> formatında sıkıştırıyoruz. Sıkıştıracağımız klasörde terminale <pre class="prettyprint ms-0">tar -cvf asana-clone.tar *</pre> yazdık.
+                </p>
+                <p>
+                  Dosyayı göndermek için dosyanın olduğu klasörde terminale <pre class="prettyprint ms-0">scp asana-clone.tar ssh root@165.232.122.105:/tmp/web-apps/</pre> yazdık
+                </p>
+                <p>
+                  server tarafında <pre class="prettyprint ms-0">cd /tmp/web-apps</pre> ile dosyayı gönderdiğimiz dizine girdik. <pre class="prettyprint ms-0">chmod 755 asana-clone.tar</pre> ile dosya erişim iznini değiştirdik. <pre class="prettyprint ms-0">tar xf asana-clone.tar</pre> ile dizinden çıkarttık. <pre class="prettyprint ms-0">mkdir asana-clone</pre> yazarak yeni bir klasör oluşturduk.
+                  <pre class="prettyprint ms-0">
+mv app asana-clone/app
+mv Dockerfile asana-clone/Dockerfile
+                  </pre> ile .tar dan çıkartılanlar bu dosyaya taşındı. <pre class="prettyprint ms-0">rm asana-clone.tar</pre> ile sıkıştırılmış dosya silindi
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">
+cd asana-clone
+docker build . -t asana-clone-app
+                    </pre> ile build aldık ve <pre class="prettyprint ms-0">docker run -p 8090:8080 -d asana-clone-app</pre> ile uygulama up edildi.
+                </p>
+                <p>
+                  <a href="http://165.232.122.105:8090/">http://165.232.122.105:8090/</a> ile uygulamaya ulaşılabilir.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">cd /etc/nginx/sites-available/</pre> ile nginx ayarlarının olduğu klasörü açtık. <pre class="prettyprint ms-0">vi reverse-proxy.conf</pre> ile içine girdik. Klavyede <q>i</q> ye basarak insert modunu açtık ve dosyaya gerekli eklemeleri yaptık. Son hali:
+                  <pre class="prettyprint ms-0">
+server {
+        listen 80;
+        listen [::]:80;
+        server_name videomeet.app;
+        server_name_in_redirect off;
+
+        access_log /var/log/nginx/reverse-access.log;
+        error_log /var/log/nginx/reverse-error.log;
+
+        location / {
+            proxy_set_header Client-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host;
+            proxy_pass http://127.0.0.1:8080;
+  }
+}
+
+server {
+        listen 80;
+        listen [::]:80;
+        server_name talkinghead.app;
+        server_name_in_redirect off;
+
+        access_log /var/log/nginx/reverse-access.log;
+        error_log /var/log/nginx/reverse-error.log;
+
+        location / {
+            proxy_set_header Client-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host;
+            proxy_pass http://127.0.0.1:8090;
+  }
+}
+                  </pre>
+                  <q>esc</q> sonra da ":wq" ile kaydedilip kapatılır.
+                </p>
+                <p>
+                  Her iki domain de aynı IP ile de bağlı olsa isteğin geldiği <q>server_name</q> e göre yönlendirme değişmektedir.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">systemctl restart nginx</pre> ile nginx restart edilir. Böylece yeni ayarlar devreye alınmış olur.
+                </p>
+                <p>
+                  Domain aldığımızda biz de bu durumu deneriz.
+                </p>
+              </div>
+            </div>
+            <div class="row" id="kubernetes">
+              <h1>Kubernetes (K8S)</h1>
+              <p>
+                Tamamen teorik bir eğitim. Uygulama adına hiçbir şey yapmadık.
+              </p>
+              <div class="row" id="enterKubernetes">
+                <h2>Kubernetes'e Giriş</h2>
+                <p>
+                  Containerlar üzerinde çalışan microservice tabanlı uygulamaların orkestrasyonu.
+                </p>
+                <ol>
+                  <li>Uygulamayı geliştirip container haline getiririz</li>
+                  <li>YAML veya JSON dosyası olarak "Deployment" objesini yaratırız</li>
+                  <li>Yarattığımız dosyayı kubernetes api-server'a göndeririz</li>
+                </ol>
+
+                <ol>Kompanenetler
+                  <li>Master (Control Plane) <ol>
+                    <li>kube-api-server: K8S in beyni</li>
+                    <li>cluster store(etcd): K8S in hafızası</li>
+                    <li>kube-controller-manager: kontrollör</li>
+                    <li>kube-scheduler: organizatör</li>
+                  </ol></li>
+                  <li>Node (Worker) <ol>
+                    <li>kubelet: Node Agent</li>
+                    <li>container engine: Container yöneticisi</li>
+                    <li>kube-proxy: Load Balancer</li>
+                  </ol></li>
+                </ol>
+
+                <p>
+                  <b>Pod nedir</b> Docker için container ne ise K8S için de Pod odur. Podların içinde containerlar çalışır. K8S ölöekleme birimidir. 1 Pod birden fazla K8S nodu üzerine deploy edilemez. 
+                </p>
+                <p>
+                  <b>Deployment nedir?</b> REST objeleridir. YAML yada JSON dosyasında tanımlanabilirler. Bir kere hazırlanıp birden fazla deploy edilebilirler. Versiyonlanabilirler. Yaratımı api-server üzerinden olur.
+                </p>
+                <p>
+                  <b>Service nedir?</b> K8S üzerinde bir network var. Podların trafiğini service yönetir. Sadece sağlıklı podlara yönlendirir. Load balancing görevini de yerine getirir.
+                </p>
+              </div>
+              <div class="row" id="kubernetesMaster">
+                <h2>Master'a Genel Bakış</h2>
+                <p>
+                  Cloudda veya lokalde herhangi bir host üzerinden çalışabilir. Cluster'a gözkulak olur. Cluster üzerinde nelerin çalışacağına master karar verir. Workload ayarlamaları, yaşam döngüsü, ölçekleme ve upgrade işlemlerinden sorumludur.
+                </p>
+
+                <h3>Komponentleri</h3>
+                <p>
+                  <b>kube-api-server</b> kuberneteste birşey yaratmak ve kullanmak için faydalanacağımız, K8S in beyni. API(REST) üzerinden fonksiyonları expose eder. JSON yada YAML dosyaları vasıtasıyla fonksiyonları kullanabilir. 443 portu üzerinden çalışır (HTTPS). $kubectl komut satırı ile kullanılır.
+                </p>
+                <p>
+                  <b>cluster store</b> Yönetimdeki tek stateful kısımdır. Kalıcı bir saklama alanıdır. Key/value store teknolojisini kullanır.
+                </p>
+                <p>
+                  <b>kube-controller-manager</b> controllerları koordine eder. Her işlem için controller bulunabilir. Desired state (arzulanan hal) pozisyonunu kontrol eder. Arzulanan halden çıkılırsa geri dönmek için gerekeni yapan kısımdır.
+                </p>
+                <p>
+                  <b>kube-scheduler</b> api-serverdan gelen yeni pod yaratma görevleri için bekler. Node'lara workload atamasından sorumludur.
+                </p>
+              </div>
+              <div class="row" id="kubernetesNode">
+                <h2>Node'a Genel Bakış</h2>
+                <p>
+                  Cluster'ın çalışan gücü. Fiziksel yada sanal makinede olabilirler. Node'u node yapan en önemli şey container runtime'dır.
+                </p>
+                <h3>Komponentleri</h3>
+                <p>
+                  <b>kubelet</b> node'u cluster'a register etmeye yarar. api-server dan gelen direktifleri bekler. Pod oluşturmada görev alır. Master ile sürekli iletişim halinde.
+                </p>
+                <p>
+                  <b>container engine</b> container'ları yönetme işini halleder. Pluggable (kaldırılabilir, değiştirilebilir). Genelde Docker Container Engine kullanılır. Container'ları start-stop etmede görevlidir.
+                </p>
+                <p>
+                  <b>kube-proxy</b> kubernetes network fonksiyonlarını sağlar. Node içinde her pod tek bir IP adresine sahiptir. Service içinde tanımlanan Pod'ların yük dengelemesini sağlıyor. Frontend ve backend podlar kube-proxy üzerinden haberleşir.
+                </p>
+                <h3>Master-Node Arası İletişim</h3>
+                <p>
+                  api-server node'lardaki loglara erişmek, port-front etmek ve portlara erişmek için kubelet'i kullanır. api-server'ın node'lar, pod'lar ve service'ler ile iletişimi şu an için secure (https) değil.
+                </p>
+              </div>
+              <div class="row" id="kubernetesHowWork">
+                <h2>Kubernetes'in Çalışma Prensipleri</h2>
+                <p>
+                  Kubernetes karmaşık mikroservice yapılarını organize eder. Herhangi bir microservice down olursa yeni bir cluster kubernetes tarafından ayağa kaldırılır.
+                </p>
+                <p>
+                  Biz kubectl kullanarak K8S in beyni olan api-server ile konuşur. Manifest dosyamiz ve kubectl komutu ile api-server üzerinden işlem başlar.
+                </p>
+              </div>
+              <div class="row" id="kubernetesSetup1">
+                <h2>Kubernetes Kuruyoruz-1</h2>
+                <p>
+                  <a href="https://gitlab.com/onurersen/turkce-kubernetes/-/tree/master/kubernetes-kuruyoruz">Hocanın notları</a> Node ve Master kurulumunda notlardan faydalandık ancak bu kısımda <a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">bu dökümantasyondan</a> faydalandık. Hocanınki bizde çalışmadı. Gerçi bizim yaptığımız hali de eninde sonunda çöktü :D
+                </p>
+                <p>
+                  Hoca kurulumu direk linux ortamında yapmış. Ben de digitalocean üzerinden 2 makine açıp orada deneyeceğim 
+                </p>
+                <p>
+                  Hem master hem de node makinede swap disable edilmeli. <pre class="prettyprint ms-0">swapoff -a</pre> Bu olmazsa kubernetes ayağa kalkmıyor.
+                </p>
+                <p>
+                  <b>swap nedir?</b> Swap (Takas) Alanı, işletim sistemi tarafından sabit diskinizde ayrılmış bir bölümdür. İşlenecek veriler ön belleğe (RAM) sığmadığı zaman bu bölüm “RAM” gibi kullanılır ve böylelikle veri akışının ve proseslerinin devam etmesi sağlanır.
+                </p>
+                <p>
+                  Her iki makineyi de güncelle <pre class="prettyprint ms-0">sudo apt-get update</pre>
+                </p>
+                <p>
+                  Her iki makineye google apt reposty ekle <pre class="prettyprint ms-0">curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg</pre>
+                </p>
+                <p>
+                  Her iki makineye kubernetes apt repository ekle.
+                  <pre class="prettyprint ms-0">
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+                  </pre>
+                </p>
+                <p>
+                  Her iki makineyi tekrar güncelle <pre class="prettyprint ms-0">sudo apt-get update</pre>
+                </p>
+                <p>
+                  Repository deki versiyonları daha sonra incelemek için apt-cache ile cacheliyelim.
+                  <pre class="prettyprint ms-0">
+apt-cache policy kubelet|head -n 20
+apt-cache policy docker.io|head -n 20
+                  </pre>
+                </p>
+                <p>
+                  Gerekli paketleri repositoryden makinemize çekelim.
+                  <pre class="prettyprint ms-0">
+sudo apt-get install -y docker.io kubelet kubeadm kubectl
+                  </pre>
+                </p>
+                <p>
+                  kubelet, container runtime'mımız olan docker statusleri kontrol edelim.
+                  <pre class="prettyprint ms-0">
+sudo systemctl status kubelet.service
+sudo systemctl status docker.service
+                  </pre>
+                </p>
+                <p>
+                  sistem ayağa kalktığında çalışacak şekilde ayarlayalım.
+                  <pre class="prettyprint ms-0">
+sudo systemctl enable kubelet.service
+sudo systemctl enable docker.service
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="kubernetesSetupMaster">
+                <h2>Kubernetes Kuruyoruz-Master</h2>
+                <p>
+                  Pod network yaratmak icin calico yaml lari indirelim
+                  <pre class="prettyprint ms-0">
+wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
+wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+                  </pre>
+                </p>
+                <p>
+                  Calico yaml file daki ip bilgisine uygun olarak, bir pod network range i belirleyerek Kubernetes cluster imizi olusturalim
+                  <pre class="prettyprint ms-0">sudo kubeadm init --pod-network-cidr=192.168.0.0/16</pre>
+                </p>
+                <p>
+                  API server a admin erisim yetkisine sahip bir hesap yaratalim
+                  <pre class="prettyprint ms-0">
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+                  </pre>
+                </p>
+                <p>
+                  Pod network olusturmak icin gerekli yaml dosyalarini calistiralim
+                  <pre class="prettyprint ms-0">
+kubectl apply -f rbac-kdd.yaml
+kubectl apply -f calico.yaml
+                  </pre>
+                </p>
+                <p>
+                  Sistem specific podlari ve calico podlarini inceleyelim <br>
+                  Not : DNS pod umuz network deploy olup calisir halene kadar aktif olmayacak
+                  <pre class="prettyprint ms-0">
+kubectl get pods --all-namespaces
+                  </pre>
+                </p>
+                <p>
+                  Cluster da mevcut podlarin listesine bakalim - sadece master gorunecek <pre class="prettyprint ms-0">kubectl get nodes</pre>
+                </p>
+                <p>
+                  kubelet static pod manifestleri calistiriyor yani bir anlamda core cluster podlari calisir hale geliyor <pre class="prettyprint ms-0">sudo systemctl status kubelet.service</pre>
+                </p>
+                <p>
+                  kubeconfig dosyasinin bulundugu directory i inceleyelim <pre class="prettyprint ms-0">ls /etc/kubernetes</pre>
+                </p>
+                <p>
+                  master daki manifestleri inceleyelim <pre class="prettyprint ms-0">ls /etc/kubernetes/manifests</pre>
+                </p>
+                <p>
+                  api-server ve etcd nin manifestlerini incelemek istersek...
+                  <pre class="prettyprint ms-0">
+sudo more /etc/kubernetes/manifests/etcd.yaml
+sudo more /etc/kubernetes/manifests/kube-apiserver.yaml
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="kubernetesSetupNode">
+                <h2>Kubernetes Kuruyoruz-Node</h2>
+                <p>
+                  kubelet ve container runtime service lerini kontrol ederim
+                  <pre class="prettyprint ms-0">
+sudo systemctl status kubelet.service
+sudo systemctl status docker.service  
+                  </pre>
+                </p>
+                <p>
+                  Sistem basladigi zaman baslayacak sekilde set edelim
+                  <pre class="prettyprint ms-0">
+sudo systemctl enable kubelet.service  
+sudo systemctl enable docker.service
+                  </pre>
+                </p>
+                <p>
+                  Master'da token bilgisi verilmisti eger not almadiysak su sekilde listeleyebiliriz <pre class="prettyprint ms-0">kubeadm token list</pre>
+                </p>
+                <p>
+                  Yeniden bir token generate etmek istiyorsak <pre class="prettyprint ms-0">kubeadm token create</pre>
+                </p>
+                <p>
+                  Master uzerinde ca cert hash bulunmakta. Onu elde etmek için: 
+                  <pre class="prettyprint ms-0">
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
+                  </pre>
+                </p>
+                <p>
+                  Yukarıdaki kodlarla elde ettiğimiz token imiz ve cert ile Api Server in IP adresi ya da adını kullanarak Node'umuzu cluster a dahil edelim.
+                  <pre class="prettyprint ms-0">
+sudo kubeadm join &lt;ip>:6443 --token&lt;token> --discovery-token-ca-cert-hash &lt;ca_cert_hash>
+                  </pre>
+                </p>
+                <p>
+                  bizim durumumuzda aşağıdaki kod node'a yazılır.
+                  <pre class="prettyprint ms-0">
+kubeadm join 174.138.60.6:6443 --token nyndhw.xynrxsohej6fw400 \
+        --discovery-token-ca-cert-hash sha256:ccb7f01df76693e522c9ba719adb9817d8c28f0ab1cf18148fd21022ee04a74d
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="kubernetesTraffic">
+                <h2>NodePort - ClusterIP - LoadBalancer - Ingress</h2>
+                <p>
+                  Kuberneteste Ptrafik yönetimi: Podlar tüm cruster içinde erişebilir olur. Service üzerinden Podları erişebilir hale getirir. kube-dns servislere otomatik DNS name atar.
+                </p>
+                <p>
+                  <b>NodePort nedir?</b> Dış dünyadan gelen trafiği Cluster'imizin içine kabul etmenin temel yolu. Tüm nodelar üzerinde bir portu erişime açar (default range of 30000-32767). Cluster dışından &lt;NodeIp>:&lt;NodePort> şeklinde erişilebilir. Gelen istekler ilişkilendirilen Service'e yönlendirilir.
+                </p>
+                <p>
+                  <b>ClusterIp nedir?</b> Service'e cluster genelinde geçerli bir IP verme yöntemi. Default olarak dış dünyaya erişime açmaz ama proxy vasıtasıyla dışarıdan erişim sağlanır.
+                </p>
+                <p>
+                  <b>LoadBalancer nedir?</b> Kuberneteste service'i dış dünyaya expose etmek için standart yöntem. Service'lerin yük dağılımı NodePort üzerinden Service'e yönlendirme ile sağlanır. Yaratılan LoadBalancer tipindeki Service'lerin de bir IP si olur. İstek NodeBalancer üzerinden NodePort'a oradan podlara geçer.
+                </p>
+                <p>
+                  <b>Ingress</b> aslında bir service değil bir object. Reverse proxy işi yapar. Service'ler arası yük dağıtan bir router gibi davranır. Çalışması için cluster'da bir Ingress Controllerîn bulunması gerekir.
+                </p>
+              </div>
+              <div class="row" id="kubernetesDaemonset">
+                <h2>Daemonset ve Kullanımı</h2>
+                <p>
+                  Cluster üzerinde her Node üzerinde belirlediğimiz bir Pod'u çalıştırmanın yolu. İstenilen şartta bir Node oluştuğu anda set edilen işlemi gerçekleştirir (İçinde default olarak gelmesi istenen bir pod vs gibi). Spesifik işler yapmak için spesifik Node'lara deploy olabilirler.
+                </p>
+                <p>
+                  DeamonSetlere ulaşmak için: DeamonSet'i yaratırken port bilgisi verilip, NodeIp-Port bilgisiyle veya DeamonSet podları bir Service objesine bind edilip service üzerinden ulaşılabilirler.
+                </p>
+                <p>
+                  DeamonSetler genelde dışarı data push etmek için kullanılır (Loglama vs).
+                </p>
+              </div>
+              <div class="row" id="kubernetesImperativeDeclarative">
+                <h2>Imperative ve Declarative Yöntemler</h2>
+                <p>
+                  <b>Imperative yöntem</b> özel komutlar vasıtasıyla süreci yönetmek.
+                </p>
+                <p>
+                  <b>Declarative yöntem</b> yapılacak işi bir veya birden fazla script içerisinde tanımlayıp çalıştırmak
+                </p>
+                <p>
+                  Imperative bizim tek tek elle yaptığımız işlemlerken, declarative ise manifest dosyaları gibi önceden hazırlanmış dosyalarla yaptığımız kalıptan yapılan işlemlerdir. 
+                </p>
+              </div>
+              <div class="row" id="kubernetesPod">
+                <h2>Pod Yaşam Döngüsü ve Probe'lar</h2>
+                <ol>Pod'un statüleri
+                  <li><b>Pending:</b> kubernetes tarafından kabul edildi. Container image'ların inmesi bekleniyor</li>
+                  <li><b>Running:</b> Pod bir node ile ilişkilendirildi. Tün container'lar yaratıldı</li>
+                  <li><b>Succeded:</b> Pod'daki tüm containerlar görevini tamamlayıp sonlandırıldı. Yeniden başlamayacaklar.</li>
+                  <li><b>Failed:</b> Tüm containerlar sonlandırıldı. Sonlandırılırken en az biri hata verdi.</li>
+                  <li><b>Unknown:</b> Podun stat'i alınamıyor. Podun üzerinde çalıştığı node'dan bilgisi okunamıyor.</li>
+                </ol>
+
+                <p>
+                  <b>Probe</b> kubernetesin Pod'un durumunu öğrenmek için yaptığı işlem. Periyodik olarak cluster'da yapılan diagnostic operasyondur.
+                </p>
+                <ol>Üç çeşit prop vardır
+                  <li><b>Liveness Probe:</b> Sağlıklı çalışıyor mu? Beklendiği gibi çalışıyor mu?</li>
+                  <li><b>Readiness Probe:</b> Pod request kabul edebilir mi?</li>
+                  <li><b>Startup Probe:</b> Containerdaki uygulama başarılı çalıştı mı?</li>
+                </ol>
+
+                <ol>Üç Probe yöntemi vardır
+                  <li><b>Execation</b> prob sırasında bir aksiyon alınıyor.</li>
+                  <li><b>TCPSocketraction</b> prob sırasında soket açılıp denetleniyor</li>
+                  <li><b>HTTPGetAction</b> http request gönderip sonucu veriyor (success, failure, unknown)</li>
+                </ol>
+              </div>
+              <div class="row" id="kubernetesCrusterLog">
+                <h2>Cluster'da Loglama</h2>
+                <p>
+                  Clusterda olan bitenden haberdar olmak (monitmr etme, debug etme) için kullanılır.
+                </p>
+
+                <ul>Bunlar log üretir
+                  <li>Podlar</li>
+                  <li>Contanerlar</li>
+                  <li>Kubernetes Componentleri</li>
+                  <li>DeamonSetler</li>
+                  <li>Birçok Kubernetes Service'i</li>
+                </ul>
+
+                <p>
+                  Kubernetes api üzerinden loglara erişilir.
+                </p>
+
+                <p>
+                  Node level ve cluster level olarak iki ayrı log seviyesi vardır. Node level loglarını default olarak tutar. Cluster level için K8S te bir log kayıt mekanizması yok. Biz ekliyoruz.
+                </p>
+              </div>
+              <div class="row" id="kubernetesReplication">
+                <h2>Replication Yöntemlerine Genel Bakış</h2>
+                <p>
+                  Kubernetesin var olma sebebi. Sistemde çalışan uygulamaların, mikroservislerin ve containerların çoklanması işlemidir. Kubernetese verdiğimiz desired state'e göre kill olanların yerini yeniler alarak bizim istediğimiz yapının kalıcılığı sağlanır.
+                </p>
+                <ul>Üç ihtiyacı karşılar
+                  <li>Scaling (ölçeklendirme)</li>
+                  <li>Reliability (Sistemin kusursuz çalışması)</li>
+                  <li>Load Balancing</li>
+                </ul>
+                <ul> Replication Yöntemleri
+                  <li><b>Replication Controller:</b> Kubernetes'te replication’in en temel halini uygulayan yöntem. Pod’ların replication yönetimi bir controller üzerinden gercekleşir</li>
+                  <li><b>ReplicaSet:</b> Contoller yapısı kullanmadan daha hedefe yönelik (new-gen RC). Replication Controller’a gére daha fazla esnek selector yapı</li>
+                  <li><b>Deployment: </b>(Resmi olarak önerilen yöntem) Replicas tanımlaması ile deployment'in içi replication’ı yedirme. Rollout ve gerekirse rollback avantajı</li>
+                </ul>
+
+              </div>
+              <div class="row" id="kubernetesKubectlFirsDeployment">
+                <h2>Kubectl ve İlk Deployment</h2>
+                <p>
+                  <b>Kubectl</b> kubernetes command-line aracı. Cruster'ı yönetmeye (deployment yapmak, uygulamaları incelemek ve loglara erişmek) yarar. ~/.kube/config dosyasının içindeki bilgilere göre çalışır.
+                </p>
+                <p>
+                  kubectl komutu syntax: <pre class="prettyprint ms-0">kubectl [command] [type] [name] [flags]</pre>
+                  Örnek:
+                  <pre class="prettyprint ms-0">
+kubectl get pods
+kubectl get service my-service
+kubectl create deployment nginx --image=nginx
+                  </pre>
+                </p>
               </div>
             </div>
           </div>
