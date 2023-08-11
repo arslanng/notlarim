@@ -165,6 +165,8 @@
                     <a class="nav-link ms-3 my-1" href="#kubernetesReplication">Replication Yöntemlerine Genel Bakış</a>
                     <a class="nav-link ms-3 my-1" href="#kubernetesKubectlFirsDeployment">Kubectl ve İlk Deployment</a>
                   </nav>
+                  <a class="nav-link" href="#heroku">Heroku yerine Deta.Space</a>
+                  <a class="nav-link" href="#diger">Diğer Eğitimlerdeki Deployment Örnekleri</a>
                 </nav>
               </nav>
         </div>
@@ -173,7 +175,7 @@
             <div class="row" id="docker">
               <h1>Docker</h1>
               <p>
-                Hoconın dökümantasyonu <a href="https://github.com/gkandemi/docker">https://github.com/gkandemi/docker</a>
+                Hocanın dökümantasyonu <a href="https://github.com/gkandemi/docker">https://github.com/gkandemi/docker</a>
               </p>
               <div class="row" id="whatIsDocker">
                 <h2>Docker Nedir? Nasıl Kullanılır?</h2>
@@ -1756,6 +1758,168 @@ kubectl create deployment nginx --image=nginx
                   </pre>
                 </p>
               </div>
+            </div>
+            <div class="row" id="heroku">
+              <h1>Heroku yerine Deta.Space</h1>
+              <p>
+                Hoca heroku anlatacak ancak biz heroku artık ücretli olduğundan deta.space üzerinden takip etmeye çalışacağız.
+              </p>
+              <p>
+                diğer alternatifler: Render, Netlify, Cyclic
+              </p>
+
+              <h2>Node JS ile Basit Rest Api Yapımı</h2>
+              <p>
+                Proje ekranında terminale <pre>npm init y</pre> ile package.json oluşturuldu ve npm başlatıldı.
+              </p>
+              <p>
+                <pre>npm install --save express body-parser</pre> ile gereken bağımlılıklar yüklendi
+              </p>
+              <p>
+                <pre>npm install --save-dev nodemon</pre> ile nodemon kuruldu.
+              </p>
+              <p>
+                db.json dosyası oluşturuldu ve içine hocanın verdiği data eklendi.
+              </p>
+              <p>
+                app.js oluşturuldu son hali aşağıda.
+                <pre>
+const app = require("express")();
+const db = require("./db.json");
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/users", (req, res) => {
+  res.status(200).send(db);
+});
+app.get("/users/:id", (req, res) => {
+  if (isNaN(req.params.id)) {
+    res.status(400).send({
+      message: "İşlenemeyen veri",
+    });
+  } else {
+    const user = db.find((user) => user.id == req.params.id);
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(400).send({
+        message: "Kullanıcı bulunamadı",
+      });
+    }
+  }
+});
+app.post("/users", (req, res) => {
+  const willSaveData = {
+    id: new Date().getTime(),
+    full_name: req.body.full_name,
+    country: req.body.country,
+    email: req.body.email,
+    created_at: new Date(),
+  };
+  db.push(willSaveData);
+  res.send(willSaveData);
+});
+app.patch("/users/:id", (req, res) => {
+  if (isNaN(req.params.id)) {
+    res.status(400).send({
+      message: "İşlenemeyen veri",
+    });
+  } else {
+    const user = db.find((user) => user.id == req.params.id);
+    if (user) {
+      // Kayıt değişikliği
+      // pass by referance ve pass by value araştırılacak.
+      Object.keys(req.body).forEach((key) => {
+        user[key] = req.body[key];
+      });
+      res.status(200).send(user);
+    } else {
+      res.status(400).send({
+        message: "Kullanıcı bulunamadı",
+      });
+    }
+  }
+});
+app.delete("/users/:id", (req, res) => {
+  if (isNaN(req.params.id)) {
+    res.send(400, {
+      message: "İşlenemeyen veri",
+    });
+  } else {
+    const userIndex = db.findIndex((user) => user.id == req.params.id);
+    if (userIndex > -1) {
+      //silme işlemi
+      db.splice(userIndex, 1);
+      res.status(201).send({
+        message: "Kullanıcı Silindi",
+      });
+    } else {
+      res.status(400).send({
+        message: "Kullanıcı bulunamadı",
+      });
+    }
+  }
+});
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Sunucu ayaktadır... Çalışıyor...");
+});
+
+                </pre>
+              </p>
+              <p>
+                nodemonun bizim her değişikliğimizde kodumuzu tekrar çalıştırması için package.json içine 
+                <pre>
+"scripts": {
+    "start": "nodemon app.js"
+  },
+                </pre>
+                eklendi ve terminale <pre>npm start</pre> yazılarak proje ayağa kaldırıldı.
+              </p>
+
+              <h2>Heroku yerine Deta.Space</h2>
+              <p>
+                Heroku ücretli olduğundan alternatif arayışındayız. <a href="https://deta.space/">deta.space</a> terminal kullanımı ve tamamen ücretsiz olması nedeni ile ilgimizi çekti. Burayı deneyeceğiz.
+              </p>
+              <p>
+                diğer alternatifler: Render, Netlify, Cyclic
+              </p>
+              <p>
+                Terminale <pre>iwr https://deta.space/assets/space-cli.ps1 -useb | iex</pre> yazarak bilgisayarımıza kurduk.
+              </p>
+              <p>
+                <pre>space login</pre> ile uygulamayı açtık. Bizden istediği access token için <a href="https://deta.space/">deta.space</a> sayfasında en alttaki form yardımıyla setting>access token ürettik ve terminale girdik. Ve login olduk.
+              </p>
+              <p>
+                Proje dizininde terminale <pre>space new</pre> yazılarak proje deta.space üzerinde pluşturulur.
+              </p>
+              <p>
+                Dockerdakine benzer bir şekilde projemiz için Spacefile adında bir manifest oluşturduk.
+                <pre>
+v: 0
+micros:
+  - name: node-rest-api
+    src: ./
+    engine: nodejs16
+    primary: true
+    run: node app.js
+    dev: npm start
+    public: true
+                </pre>
+              </p>
+              <p>
+                Terminale <pre>space push</pre> yazarak projeyi deploy ettik.
+              </p>
+            </div>
+            <div class="row" id="diger">
+              <h1>Diğer Eğitimlerdeki Deployment Örnekleri</h1>
+              <ul>
+                <li><a href="./react.html#surgeSh">Surge</a></li>
+                <li><a href="./react.html#netlify">Netlify</a></li>
+                <li><a href="./react.html#awsEc2Deploy">AWS EC2 Üzerine Deploy İşlemleri</a></li>
+              </ul>
             </div>
           </div>
         </div>
