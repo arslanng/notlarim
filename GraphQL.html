@@ -199,6 +199,13 @@
                     <a class="nav-link ms-3 my-1" href="#hasuraDigitalOceanDeployment">Hasura DigitalOcean Deployment</a>
                     <a class="nav-link ms-3 my-1" href="#reactClientNetlifyDeployment">React Client Netlify Deployment</a>
                   </nav>
+                  <a class="nav-link" href="#hasuraMeetingApp">Meeting App with Hasura</a>
+                  <nav class="nav nav-pills flex-column">
+                    <a class="nav-link ms-3 my-1" href="#hasuraMeetingDb">Hasura Kurulumu ve DB Yapısının Oluşturulması</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraExpressBackend">Express Backending Hazırlanması</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraSucraseHasuraClientRoutingErrorHandling">Sucrase, Hasura Client, Routing ve Error Handling</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraUserRegisterRoute">User Register Route</a>
+                  </nav>
                 </nav>
               </nav>
         </div>
@@ -8695,17 +8702,525 @@ progress {
                   Biz <a href="https://www.digitalocean.com/">DigitalOcean</a> kullanacağız. DigitalOcean aws üzerinden bir makina açıp kullanımıza sunuyor. 
                 </p>
                 <p>
-                  DigitalOcean'a kayıt yapıp giriş yapıyoruz. "Create">"Create Droplets">"Marketplace">"Search: Hasura"
+                  DigitalOcean'a kayıt yapıp giriş yapıyoruz. "Create">"Create Droplets">"Ubuntu"
                 </p>
                 <p>
                   "Choose Region" da en yakın yeri seçtik. Devamında en ucuz makineyi seçiyoruz. Formun devamını dolduruyoruz. Parola belirliyoruz vs. En son "Create" deyip sunucuyu oluşturuyoruz. 
                 </p>
                 <p>
-                  Burada çıkan linke tıklayınca hasura consol açılması gerekiyor ancak 502 hatası alıyorum. Başka bir yoldan deneyeceğim. Deployment derslerini bekliyoruz. Sonra burayı tekrar izleriz.
+                  terminale <pre class="prettyprint ms-0">ssh root@&lt;host-id></pre> ile bağlanıyoruz. Host id digitalOcean içinden alıyoruz.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+apt install docker.io
+apt install docker-compose
+                  </pre>
+                  ile gerekli olan şeyleri kuruyoruz. (detaylar docker dersinde)
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">systemctl status docker</pre> dockerın çalışma durumunu sorguluyoruz.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">
+cd /tmp
+mkdir hasura
+cd hasura
+                  </pre>
+                  ile temp içinde hasura klasörü oluşturup içine giriyoruz.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">curl https://raw.githubusercontent.com/hasura/graphql-engine/stable/install-manifests/docker-compose/docker-compose.yaml -o docker-compose.yml</pre>
+                  ile hasurayı ayağa kaldıracak olan docker-compose.yml dosyasını indiriyoruz.
+                </p> 
+                <p>
+                  <pre class="prettyprint ms-0">docker-compose up</pre> ile docker ayağa kaldırıldı.
+                </p>
+                <p>
+                  host-ip:8080 ile ayağa kalkan projenin konsoluna ulaşabiliriz. Burada DATA alanında docker-compose.yml içindeki endpoint ile makineye hasura kurulurken kurulan postgreSQL endpointini kullanarak database bağlantısını sağladık.
+                </p>
+                <p>
+                  Proje dizinimizde terminale <pre class="prettyprint ms-0">cd backend/hasura</pre> yazarak migration tanımlarını olduğu klasöre geldik. <pre class="prettyprint ms-0">hasura metadata apply --endpoint --adminsecret</pre> sintaxında endpointten sonra kendi endpointimizi girdik. Bizde: <pre class="prettyprint ms-0">hasura metadata apply --endpoint http://134.122.78.209:8080</pre> admin secret olmadığından gönderilmedi.
+                </p>
+                <p>
+                  İşlem tamamlanınca deploy edilen tarafın arayüzünde bizi karşılayan ekranda "reload metadata" diyoruz.
+                </p>
+                <p>
+                  Tablolarımız geldi. Şimdi de migration işlemini yapacağız.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">hasura migrate apply --endpoint --adminsecret</pre> sintaxında endpointten sonra kendi endpointimizi girdik. Bizde: <pre class="prettyprint ms-0">hasura migrate apply --endpoint http://134.122.78.209:8080</pre> admin secret olmadığından gönderilmedi.
+                </p>
+                <p>
+                  İşlem tamamlanınca deploy edilen tarafın arayüzünde bizi karşılayan ekranda "Reload all databases" i seçip "reload metadata" diyoruz.
                 </p>
               </div>
               <div class="row" id="reactClientNetlifyDeployment">
                 <h1>React Client Netlify Deployment</h1>
+                <p>
+                  Netlfy kayıt ol ve giriş yap. Git repomuzu kaydettik.
+                </p>
+                <p>
+                  Client bir git reposuna alındı.
+                </p>
+                <p>
+                  Netlify>new site> ilgili repo seçilir. Form kontrol edilir ve deploy tıklanır.
+                </p>
+                <p>
+                  client\src\apollo.js içinde hala local endpointlerimiz var. Bunları deploy ettiğimiz hasuranın endpointi ile güncelliyoruz. Tekrar git push yapıyoruz ki değişiklikler netlifyde uygulansın.
+                </p>
+                <p>
+                  hasura docker-compose ile yüklendiğinde https/wss yapısını desteklemiyor. Bu nedenle de websoket tarafında sorun yaşıyoruz. Bu kısmı daha sonra tekrar zorlarız.
+
+                </p>
+                <p>
+                  Kök dizin dışından açma ve sayfa yenileme işlemlerinde sorun yaşamamak için client\public\_redirects dosyası oluşturuldu ve içine <pre class="prettyprint ms-0">/*    /index.html   200</pre> yazıldı.
+                </p>
+              </div>
+            </div>
+            <div class="row" id="hasuraMeetingApp">
+              <div class="row" id="hasuraMeetingDb">
+                <h1>Hasura Kurulumu ve DB Yapısının Oluşturulması</h1>
+                <p>
+                  Toplantı planlama uygulaması. Görüşmeye birileri davet edilebilecek. Kabul edenlere son 1 saat kala yeni bir mail gelecek.
+                </p>
+                <p>
+                  Hoca docker ile lokal kurup ilerliyor. Biz hasura cloud ile ilerleyeceğiz. Çünkü daha sonra digitalocean ile deploy etmeye çalışınca hata alıyoruz.
+                </p>
+                <p>
+                  hasura cloud üzerinde yeni bir server oluşturduk. DB olarak postgreSQL bağladık.
+                </p>
+                <p>
+                  users adında bir tablo oluşturduk.
+                  <ol>
+                    <li><b>id:</b> integer, primary key, unique, default: nextval('users_id_seq'::regclass)</li>
+                    <li><b>email:</b>text, unique</li>
+                    <li><b>name:</b> text</li>
+                    <li><b>surname:</b> text</li>
+                    <li><b>password:</b> text</li>
+                  </ol>
+                </p>
+                <p>
+                  meetings adında bir tablo oluşturduk.
+                  <ol>
+                    <li><b>id:</b> integer, primary key, unique, default: nextval('meetings_id_seq'::regclass)</li>
+                    <li><b>title:</b> text</li>
+                    <li><b>meeting_date:</b> date</li>
+                    <li><b>created_at:</b> timestamp with time zone, default: now()</li>
+                    <li><b>updated_at:</b> timestamp with time zone, default: now()</li>
+                    <li><b>user_id:</b>integer, foreign key(user_id → users.id) On Delete Violation: cascade</li>
+                  </ol>
+                  Bu tabloda relationship kısmında user adında object tipinde bir ilişki kuruldu. users tablosunda da meetings adında array tipinde bir ilişki kuruldu.
+                </p>
+                <p>
+                  participants adında bir tablo oluşturduk.
+                  <ol>
+                    <li><b>id: </b>integer, primary key, unique, default: nextval('participants_id_seq'::regclass)</li>
+                    <li><b>user_id:</b> integer, foreign key (user_id → users . id) On Delete Violation: cascade</li>
+                    <li><b>meeting_id:</b> integer, foreign key (meeting_id → meetings . id ) On Delete Violation: cascade</li>
+                  </ol>
+                  Bu tabloda relationship kısmında user ve meeting adında object tipinde iki ilişki kuruldu. meeting tablosunda participants adında array tipinde bir ilişki kuruldu. Users tablosunda ilişki kurulmadı.
+                </p>
+                <p>
+                  Örnek veriler girildi ve test edildi.
+                </p>
+              </div>
+              <div class="row" id="hasuraExpressBackend">
+                <h1>Express Backending Hazırlanması</h1>
+                <p>
+                  Login, register vs için kullanılacak backendi hazırlayacağız.
+                </p>
+                <p>
+                  proje dosyasında terminale
+                  <pre class="prettyprint ms-0">
+cd backend
+npm init -y
+                  </pre>
+                  ile npm başlatıldı.
+                </p>
+                <p>
+                  <pre class="prettyprint ms-0">npm i express</pre> ile express indirildi. <pre class="prettyprint ms-0">npm i --save-d nodemon</pre> ile nodemon dev dependencies olarak kuruldu.
+                </p>
+                <p>
+                  backend\src\app.js
+                  <pre class="prettyprint ms-0">
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 3001;
+
+app.use(express.json());
+
+app.post("/register", (req, res) => {
+  const input = req.body.input.data;
+  console.log(input);
+
+  res.json({
+    accessToken: "accessToken",
+  });
+});
+
+app.listen(port, () => console.log(`Server is up and running. Port: ${port}`));
+                  </pre>
+                </p>
+                <p>
+                  backend\package.json script alanına nodemon eklendi (gerçi çok da işimize yaramadı.)
+                  <pre class="prettyprint ms-0">
+"scripts": {
+    "dev": "nodemon ./src/app.js"
+  },
+                  </pre>
+                </p>
+                <p>
+                  Hasura cloud üzerinden action>create>new action
+                </p>
+                <p>
+                  Action Definition
+                  <pre class="prettyprint ms-0">
+type Mutation {
+  register (data: RegisterInput!): RegisterOutput
+}
+                  </pre>
+                  Type Configuration
+                  <pre class="prettyprint ms-0">
+type RegisterOutput {
+  accessToken: String!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+}
+                  </pre>
+                </p>
+                <p>
+                  hoca new action için webhook işlemini lokalde docker-compose üzerinden env olarak yapıyor. Biz online serverda çalıştığımızdan backendimizi de deta.space ile online'a aldık. <br>
+                  Webhook (HTTP/S) Handler: https://backend-1-m7357908.deta.app/register
+                </p>
+                <p>
+                  Online'a almak için backend\Spacefile 
+                  <pre class="prettyprint ms-0">
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: backend
+    src: ./
+    engine: nodejs16
+    primary: true
+    run: node ./src/app.js
+    public: true
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="hasuraSucraseHasuraClientRoutingErrorHandling">
+                <h1>hasuraSucraseHasuraClientRoutingErrorHandling</h1>
+                <p>
+                  Yapımızda EC6 kullanabilmek için sucrase isimli bir araç kullanacağız. Sucrase bir babel alternatifi. Terminale <pre class="prettyprint ms-0">npm i sucrase</pre> yazılarak kuruldu.
+                </p>
+                <p>
+                  artık app.js içinde EC6 söz dizimini kullanabilriz.
+                  <pre class="prettyprint ms-0">
+import express from "express";
+const app = express();
+const port = process.env.PORT || 3001;
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.post("/register", (req, res) => {
+  const input = req.body.input.data;
+  console.log(input);
+
+  res.json({
+    accessToken: "accessToken",
+  });
+});
+
+app.listen(port, () => console.log(`Server is up and running. Port: ${port}`));
+                  </pre>
+                </p>
+                <p>
+                  nodemon kullanılırken de sucrase nin çalışması için backend\nodemon.json dosyası oluşturuldu ve içine
+                  <pre class="prettyprint ms-0">
+{
+    "execMap": {
+        "js": "node -r sucrase/register"
+    }
+}
+                  </pre>
+                  yazıldı.
+                </p>
+                <p>
+                  backend\package.json dosyasında scripts alanı düzenlendi.
+                  <pre class="prettyprint ms-0">
+"scripts": {
+    "dev": "nodemon ./src/app.js",
+    "build": "sucrase ./src -d ./dist --transforms imports"
+  },
+                  </pre>
+                  terminale <pre class="prettyprint ms-0">npm run build</pre> yazılarak build alındı. Alınan buildi bir türlü deta.space içine dahil edemeyince ben de kopyalayıp test adlı bir klasöre koydum. Buna bağlı olarak da backend\Spacefile dosyası güncellendi.
+                  <pre class="prettyprint ms-0">
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: backend
+    src: ./
+    engine: nodejs16
+    primary: true
+    public: true
+    run: node test/app.js
+                  </pre>
+                </p>
+                <p>
+                  route tanımlarını app.js içinden ayrı bir yere taşıdık. Bunun için backend\src\routes\auth\index.js dosyası oluşturduk ve içine
+                  <pre class="prettyprint ms-0">
+import express from "express";
+const router = express.Router();
+
+router.post("/register", (req, res) => {
+  const input = req.body.input.data;
+  res.json({ accessToken: "accessToken" });
+});
+
+export default router;
+                  </pre>
+                  yazdık. Bu routerı backend\src\app.js içinde import edip kullandık.
+                  <pre class="prettyprint ms-0">
+import express from "express";
+const app = express();
+
+import auth from "./routes/auth";
+
+const port = process.env.PORT || 3001;
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.use("/auth", auth);
+
+app.listen(port, () => console.log(`Server is up and running. Port: ${port}`));
+                  </pre>
+                </p>
+                <p>
+                  Bu hali ile hasura cloud üzerindeki action endpointimiz kökdizin/register -> kökdizin/auth/register haline geldi. Bu güncellemeyi de hasura claud üzerinde yaptık.
+                </p>
+                <p>
+                  package.json üzerindeki dist tanımını da test ile değiştirdik ki buildler bizim oluşturduğumuz test klasörüne gelsin :D
+                  <pre class="prettyprint ms-0">
+"scripts": {
+    "dev": "nodemon ./src/app.js",
+    "build": "sucrase ./src -d ./test --transforms imports"
+  },
+                  </pre>
+                </p>
+                <p>
+                  Hasuraya bağlanabilmek için terminale <pre class="prettyprint ms-0">npm i graphql-request</pre> yazarak gerekli kütüphaneyi kurduk.
+                </p>
+                <p>
+                  backend\src\clients\hasura.js dosyasını oluşturup hasura bağlantısını sağladık.
+                  <pre class="prettyprint ms-0">
+import { GraphQLClient } from "graphql-request";
+
+const headers = {
+  "Content-Type": "application/json",
+  "x-hasura-admin-secret": "test1234",
+};
+
+export default new GraphQLClient(
+  "https://meeting-app-server.hasura.app/v1/graphql",
+  {
+    headers,
+  }
+);
+
+                  </pre>
+                </p>
+                <p>
+                  Hata olduğunda onu göndermek için bir kütüphane kurduk. <pre class="prettyprint ms-0">npm i boom</pre>
+                </p>
+                <p>
+                  backend\src\app.js üzerinde error catching tanımlarını girdik.
+                  <pre class="prettyprint ms-0">
+import express from "express";
+import Boom from "boom";
+import auth from "./routes/auth";
+
+const app = express();
+
+const port = process.env.PORT || 3001;
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.use("/auth", auth);
+
+//route tanımı olmayan bir sayfaya istek yapıldığında:
+app.use((req, res, next) => {
+  return next(Boom.notFound("Not Found"));
+});
+
+//hata gönderildiğinde:
+app.use((err, req, res, next) => {
+  if (err) {
+    if (err.output) {
+      return res.status(err.output.statusCode || 500).json(err.output.payload);
+    }
+  }
+
+  return res.status(500).json(err);
+});
+
+app.listen(port, () => console.log(`Server is up and running. Port: ${port}`));
+
+                  </pre>
+                </p>
+                <p>
+                  backend\src\routes\auth\index.js içinde ilk validasyon işlemimizi tanımladık.
+                  <pre class="prettyprint ms-0">
+import Boom from "boom";
+import express from "express";
+const router = express.Router();
+
+router.post("/register", (req, res, next) => {
+  const input = req.body.input.data;
+
+  if (!input.email || !input.password) {
+    return next(Boom.badRequest("Email and Password are requared!"));
+  }
+  res.json({ accessToken: "accessToken" });
+});
+
+export default router;
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="hasuraUserRegisterRoute">
+                <h1>User Register Route</h1>
+                <p>
+                  <pre class="prettyprint ms-0">npm i graphql</pre>
+                </p>
+                <p>
+                  hasura cloud üzerinde action>register>Type Configuration alanı name ve surname alması için aşağıdaki gibi düzenlendi.
+                  <pre class="prettyprint ms-0">
+input RegisterInput {
+  email: String!
+  name: String!
+  surname: String!
+  password: String!
+}
+
+type RegisterOutput {
+  accessToken: String!
+}
+                  </pre>
+                </p>
+                <p>
+                  backend\src\routes\auth\queries.js altında gerekli sorgular yapıldı.
+                  <pre class="prettyprint ms-0">
+// Kullanıcının varlığını sorgulayan query
+export const IS_EXIST_USER = `
+  query isExist($email: String!) {
+    users(where: {email: {_eq: $email}}) {
+      id
+    }
+  }
+`;
+
+// Kullanıcı ekleyen mutation
+export const INSERT_USER_MUTATION = `
+  mutation insertUser ($input: users_insert_input!){
+    insert_users_one(object: $input) {
+      id
+      name
+    }
+  }
+`;
+                  </pre>
+                  Bu sorgular backend\src\routes\auth\index.js içinde kullanılacak.
+                </p>
+                <p>
+                  Validasyon için <pre class="prettyprint ms-0">npm install joi</pre> kuruldu
+                </p>
+                <p>
+                  backend\src\routes\auth\validations.js içinde validasyon tanımları yapıldı.
+                  <pre class="prettyprint ms-0">
+import Joi from "joi";
+
+export const registerSchema = Joi.object({
+  email: Joi.string().email().required(),
+  name: Joi.string().min(1).max(60).required(),
+  surname: Joi.string().min(1).max(60).required(),
+  password: Joi.string().min(6).max(60).required(),
+});
+                  </pre>
+                  Bu tanım backend\src\routes\auth\index.js içinde kullanılacak.
+                </p>
+                <p>
+                  Parolaları şifrelemek için: <pre class="prettyprint ms-0">npm i bcryptjs</pre> kuruldu.
+                </p>
+                <p>
+                  backend\src\routes\auth\index.js
+                  <pre class="prettyprint ms-0">
+import express from "express";
+import Boom from "boom";
+import bcrypt from "bcryptjs";
+import Hasura from "../../clients/hasura";
+import { IS_EXIST_USER, INSERT_USER_MUTATION } from "./queries";
+import { registerSchema } from "./validations";
+
+const router = express.Router();
+
+router.post("/register", async (req, res, next) => {
+  const input = req.body.input.data;
+
+  input.email = input.email.toLowerCase();
+
+  // validasyon işlemi
+  const { error } = registerSchema.validate(input);
+  if (error) {
+    return next(Boom.badRequest(error.details[0].message));
+  }
+
+  try {
+    const isExistUser = await Hasura.request(IS_EXIST_USER, {
+      email: input.email,
+    });
+
+    // user zaten varsa hata ver
+    if (isExistUser.users.length > 0) {
+      throw Boom.conflict(`user already exist (${input.email})`);
+    }
+
+    // Parola şifreleme işlemi
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(input.password, salt); // şifrelenmiş parola
+
+    // user yoksa user oluştur
+    const user = await Hasura.request(INSERT_USER_MUTATION, {
+      input: {
+        ...input,
+        password: hash,
+      },
+    });
+
+    res.json({ accessToken: "accessToken" });
+  } catch (err) {
+    return next(Boom.badRequest(err));
+  }
+});
+
+export default router;
+                  </pre>
+                </p>
               </div>
             </div>
           </div>
