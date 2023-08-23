@@ -205,6 +205,15 @@
                     <a class="nav-link ms-3 my-1" href="#hasuraExpressBackend">Express Backending Hazırlanması</a>
                     <a class="nav-link ms-3 my-1" href="#hasuraSucraseHasuraClientRoutingErrorHandling">Sucrase, Hasura Client, Routing ve Error Handling</a>
                     <a class="nav-link ms-3 my-1" href="#hasuraUserRegisterRoute">User Register Route</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraJWTAuthRegister">Hasura JWT Authentication (Register)</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraJWTAuthLogin">Hasura JWT Authentication (Login)</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraMeQuery">Me Query</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraPermissions">Hasura Permissions</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraComputedFields">Computed Fields</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraEventTrigers">Event Triggers</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraMeetingApproveInvitation">Meeting Approve Invitation</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraOneOffScheduledEvents1">One Off Scheduled Events - 1</a>
+                    <a class="nav-link ms-3 my-1" href="#hasuraOneOffScheduledEvents2">One Off Scheduled Events - 2</a>
                   </nav>
                 </nav>
               </nav>
@@ -9216,6 +9225,816 @@ router.post("/register", async (req, res, next) => {
   } catch (err) {
     return next(Boom.badRequest(err));
   }
+});
+
+export default router;
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="hasuraJWTAuthRegister">
+                <h1>Hasura JWT Authentication (Register)</h1>
+                <p>
+                  accessToken ile auth işlemleri
+                </p>
+                <p>
+                  Öncelikle product ortamında görünmesini istemediğimiz "HASURA_ADMIN_SECRET" ve bu uygulamada accessToken üretmek için kullanacağımız "JWT_ACCESS_TOKEN_SECRET" key/value çiftlerini backend\.env dosyasına taşıdık.
+                  <pre class="prettyprint ms-0">
+JWT_ACCESS_TOKEN_SECRET=b***4
+HASURA_ADMIN_SECRET=t***4
+                  </pre>
+                  Bunların bizim deta.space uygulamamızda da çalışması için Spacefile dosyasını güncelledik.
+                  <pre class="prettyprint ms-0">
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: backend
+    src: ./
+    engine: nodejs16
+    primary: true
+    public: true
+    run: node test/app.js
+    presets:
+      env:
+        - name: JWT_ACCESS_TOKEN_SECRET
+          description: JWT access token için secret
+          default: "b***4"
+        - name: HASURA_ADMIN_SECRET
+          description: hasura admin secret
+          default: "t***4"
+                  </pre>
+                </p>
+                <p>
+                  .env dosyasının okunabilmesi için <pre class="prettyprint ms-0">npm i dotenv</pre> ile ilgili paket kuruldu. backend\src\app.js içinde çalıştırıldı.
+                  <pre class="prettyprint ms-0">
+...
+import dotenv from "dotenv";
+
+...
+
+dotenv.config();
+...
+                  </pre>
+                  backend\src\clients\hasura.js içinde de aynı işlem tekrarlandı.
+                  <pre class="prettyprint ms-0">
+import { GraphQLClient } from "graphql-request";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const headers = {
+  "Content-Type": "application/json",
+  "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+};
+
+export default new GraphQLClient(
+  "https://meeting-app-server.hasura.app/v1/graphql",
+  {
+    headers,
+  }
+);
+                  </pre>
+                </p>
+                <p>
+                  accessToken üretmek için <pre class="prettyprint ms-0">npm i jsonwebtoken</pre> ile ilgili paket yüklendi. backend\src\routes\auth\helpers.js içine
+                  <pre class="prettyprint ms-0">
+import JWT from "jsonwebtoken";
+import Boom from "boom";
+
+export const singAccessToken = (user) => {
+  return new Promise((resolve, reject) => {
+    const payload = {
+      "https://hasura.io/jwt/claims": {
+        // hasurada kullanabilmemiz için gereken tanımlar.
+        "x-hasura-allowed-roles": ["user"],
+        "x-hasura-default-role": "user",
+        "x-hasura-user-id": user.id.toString(),
+      },
+      email: user.email,
+    };
+
+    const options = {
+      expiresIn: "100d", // ne kadar süre için geçerli
+      issuer: "graphql-egitimi", // tokenı kim vermiş
+      audience: user.id.toString(), // token kime verilmiş
+    };
+
+    JWT.sign(
+      payload,
+      process.env.JWT_ACCESS_TOKEN_SECRET,
+      options,
+      (err, token) => {
+        if (err) {
+          return reject(Boom.internal("JWT sing error"));
+        }
+        resolve(token);
+      }
+    ); // ilk parametre payload, ikinci parametre access token secret, üçüncü parametre options, dördüncü parametre callback fonksiyon
+  });
+};
+                  </pre>
+                </p>
+                <p>
+                  user tanımı içinde email olması için backend\src\routes\auth\queries.js içinde gerekli güncelleme yapıldı.
+                  <pre class="prettyprint ms-0">
+// Kullanıcının varlığını sorgulayan query
+export const IS_EXIST_USER = `
+  query isExist($email: String!) {
+    users(where: {email: {_eq: $email}}) {
+      id
+    }
+  }
+`;
+
+// Kullanıcı ekleyen mutation
+export const INSERT_USER_MUTATION = `
+  mutation insertUser ($input: users_insert_input!){
+    insert_users_one(object: $input) {
+      id
+      email
+    }
+  }
+`;
+                  </pre>
+                </p>
+                <p>
+                  backend\src\routes\auth\helpers.js içinde ürettiğimiz accessToken üretme fonksiyonu backend\src\routes\auth\index.js içinde import edilip kullanıldı.
+                  <pre class="prettyprint ms-0">
+import express from "express";
+import Boom from "boom";
+import bcrypt from "bcryptjs";
+import { singAccessToken } from "./helpers"; // accessToken için import edildi.
+
+import Hasura from "../../clients/hasura";
+import { IS_EXIST_USER, INSERT_USER_MUTATION } from "./queries";
+import { registerSchema } from "./validations";
+
+const router = express.Router();
+
+router.post("/register", async (req, res, next) => {
+  const input = req.body.input.data;
+
+  input.email = input.email.toLowerCase();
+
+  // validasyon işlemi
+  const { error } = registerSchema.validate(input);
+  if (error) {
+    return next(Boom.badRequest(error.details[0].message));
+  }
+
+  try {
+    const isExistUser = await Hasura.request(IS_EXIST_USER, {
+      email: input.email,
+    });
+
+    // user zaten varsa hata ver
+    if (isExistUser.users.length > 0) {
+      throw Boom.conflict(`user already exist (${input.email})`);
+    }
+
+    // Parola şifreleme işlemi
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(input.password, salt); // şifrelenmiş parola
+
+    // user yoksa user oluştur
+    const { insert_users_one: user } = await Hasura.request(
+      INSERT_USER_MUTATION,
+      {
+        input: {
+          ...input,
+          password: hash,
+        },
+      }
+    );
+
+    const accessToken = await singAccessToken(user); // accessToken üretildi.
+
+    res.json({ accessToken });
+  } catch (err) {
+    return next(Boom.badRequest(err));
+  }
+});
+
+export default router;
+                  </pre>
+                </p>
+                <p>
+                  <a href="https://jwt.io/">jwt.io</a> sitesinde aldığımız accesstoken içinde neyi barındırıyor görebiliriz.
+                </p>
+                <p>
+                  Hasura cloudun accessToken'ı tanıması için https://cloud.hasura.io/project içinde projemize girip "Env vars" alanına "HASURA_GRAPHQL_JWT_SECRET" adında <pre class="prettyprint ms-0">{"key":"buraya_secret_key_yazıyoruz_1234","type":"HS256"}</pre> tanımında bir girdi eklenir. "key" karşısına bizim belirlediğimiz "JWT_ACCESS_TOKEN_SECRET" değeri girildi.
+                  Aynı alana yetkisiz kullanıcı tanımı için: "HASURA_GRAPHQL_UNAUTHORIZED_ROLE" adında <pre class="prettyprint ms-0">anonymous</pre> değeri girildi
+                </p>
+                <p>
+                  hasura cloud console alanında "DATA">users>"Permissions" alanında user ve anonymous tanımarı eklendi.
+                </p>
+                <p>
+                  hasura cloud console alanında "Request Headers" alanına "key": "Authorization", "value": "Bearer &lt;acessToken>" yazılır ve "x-hasura-admin-secret" tiki kaldırılırsa sadece "user" için verilen yetkiyle yapılacak işlemler görünür. Diğer işlemlere izin vermez.
+                </p>
+              </div>
+              <div class="row" id="hasuraJWTAuthLogin">
+                <h1>Hasura JWT Authentication (Login)</h1>
+                <p>
+                  Login için gereken action oluşturulacak.
+                </p>
+                <p>
+                  Hasura Cloud Console > "ACTIONS" > "Create"
+                </p>
+                <p>
+                  Action Definition
+                  <pre class="prettyprint ms-0">
+type Mutation {
+  # Define your action here
+  login (data: LoginInput!): LoginOutput!
+}
+                  </pre>
+                  Type Configuration
+                  <pre class="prettyprint ms-0">
+type LoginOutput {
+  accessToken: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+                  </pre>
+                  "Webhook (HTTP/S) Handler": https://backend-1-m7357908.deta.app/auth/login <br>
+                  "Forward client headers to webhook" seçildi. ve "Create Action" tıklandı.
+                </p>
+                <p>
+                  "Actions" > "login" > "Permissions" alanında "anonymous" için yrtki verildi. "user" bu yetkiye sahip değil. Aynı işlem register için de tekrarlandı.
+                </p>
+                <p>
+                  backend\src\routes\auth\queries.js dosyasına login için gereken query eklendi. 
+                  <pre class="prettyprint ms-0">
+...
+export const LOGIN_QUERY = `
+  query login($email: String!) {
+    users(
+      where: {
+        email: {
+          _eq: $email
+        }
+      }
+      limit: 1
+    ){
+      id
+      email
+      password
+    }
+  }
+`;
+                  </pre>
+                </p>
+                <p>
+                  backend\src\routes\auth\validations.js dosyasına login validasyonu eklendi.
+                  <pre class="prettyprint ms-0">
+...
+export const loginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).max(60).required(),
+});
+                  </pre>
+                </p>
+                <p>
+                  backend\src\routes\auth\index.js içine login işlemi tanımlandı.
+                  <pre class="prettyprint ms-0">
+...
+router.post("/login", async (req, res, next) => {
+  const input = req.body.input.data;
+  input.email = input.email.toLowerCase();
+
+  const { error } = loginSchema.validate(input);
+  if (error) {
+    return next(Boom.badRequest(error.details[0].message));
+  }
+
+  try {
+    const { users } = await Hasura.request(LOGIN_QUERY, {
+      email: input.email,
+    });
+
+    if (users.length === 0) {
+      throw Boom.unauthorized("Email or password is incorrect");
+    }
+
+    const user = users[0];
+
+    const isMatch = await bcrypt.compare(input.password, user.password);
+
+    if (!isMatch) {
+      throw Boom.unauthorized("Email or password is incorrect");
+    }
+
+    const accessToken = await singAccessToken(user);
+    return res.json({ accessToken });
+  } catch (err) {
+    return next(err);
+  }
+});
+...
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="hasuraMeQuery">
+                <h1>Me Query</h1>
+                <p>
+                  accessToken üzerinden kullanıcıyı bulacağız.
+                </p>
+                <p>
+                  Hasura Cloud Console alanıda "Actions" > "Create" <br>
+                  Action Definition
+                  <pre class="prettyprint ms-0">
+type Query {
+  me: MeOutput
+}
+                  </pre>
+                  Type Configuration
+                  <pre class="prettyprint ms-0">
+type MeOutput {
+  user_id: String!
+}
+                  </pre>
+                  "Webhook (HTTP/S) Handler": https://backend-1-m7357908.deta.app/auth/me <br>
+                  "Forward client headers to webhook" seçildi. ve "Create Action" tıklandı.
+                </p>
+                <p>
+                  Permission alanında "user" rolüne yetki verildi.
+                </p>
+                <p>
+                  backend\src\routes\auth\helpers.js içinde token verfy işlemi için fonksiyon yazıldı. 
+                  <pre class="prettyprint ms-0">
+...
+
+export const verifyAccessToken = (req, res, next) => {
+  const authHeader = req.headers.authorization || req.query.token?.toString();
+
+  if (!authHeader) {
+    return next(Boom.unauthorized("No token provided"));
+  }
+
+  const bearerToken = authHeader.split(" ");
+  const token = bearerToken[bearerToken.length - 1];
+
+  JWT.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      const message =
+        err.name === "JsonWebTokenError" ? "Unouthorized" : err.message;
+      return next(Boom.unauthorized(message));
+    }
+    req.payload = decoded;
+    req.token = token;
+    next();
+  });
+};
+                  </pre>
+                </p>
+                <p>
+                  Bu fonksiyon backend\src\routes\auth\index.js içinde import edildi ve "/me" route'u içinde kullanıldı. "/me" route'u ve verifyAccessToken fonksiyonu kullanılarak header ile gelen accessToken'ın ait olduğu id dönüldü.
+                  <pre class="prettyprint ms-0">
+...
+
+router.post("/me", verifyAccessToken, async (req, res, next) => {
+  const { aud } = req.payload;
+
+  return res.json({
+    user_id: aud,
+  });
+});
+...
+                  </pre>
+                </p>
+                <p>
+                  "Actions" > "me" > "Relationship" > "Add a relationship"
+                </p>
+                <p>
+                  Gelen formda user_id ile user tablosundaki id eşleştirildi. Bu sayede me ile elde ettiğimiz user_id ile userın izin verilen tüm bilgilerine ulaşabildik.
+                </p>
+              </div>
+              <div class="row" id="hasuraPermissions">
+                <h1>hasuraPermissions</h1>
+                <p>
+                  Önce meeting ile görmek istediğimiz veri için bir sorgu yazıyoruz. İzinleri bunun üzerinden kurgulayacağız.
+                  <pre class="prettyprint ms-0">
+query MyQuery {
+  meetings{
+    id
+    title
+    user{
+      id
+      name
+      surname
+    }
+    participants{
+      user{
+        id
+        name
+        surname
+      }
+    }
+  }
+}
+                  </pre>
+                </p>
+                <p>
+                  "DATA" altından her tablo için "Permissions" alanında izinler tanımlanır.
+                </p>
+                <p>
+                  meetings > permissions alanında user için "Without any checks" ile tüm alanlara izin verildi. "Allow role user to make aggregation queries" de seçildi. aynı işlem participants > permissions altında da yapıldı.
+                </p>
+                <p>
+                  Bu haliyle kullanıcı kendisinin dahil olmadığı meetingleri de görür. Bunu engellemek için "Without any checks" "With custom check" olarak güncellendi.
+                  <pre class="prettyprint ms-0">
+{
+  "_or":[
+    {
+      "user_id":{
+        "_eq":"X-Hasura-User-Id"
+      }
+    },
+    {
+      "participants":{
+        "user_id":{
+          "_eq":"X-Hasura-User-Id"
+        }
+      }
+    }
+  ]
+}
+                  </pre>
+                </p>
+                <p>
+                  Bu durumda user sadece oluşturduğu veya katılımcısı olduğu meeting'leri görüntüler.
+                </p>
+              </div>
+              <div class="row" id="hasuraComputedFields">
+                <h1>Computed Fields</h1>
+                <p>
+                  Oluşturduğumuz tabloda olmayan ama tablodaki alanlarla hesaplanarak oluşturulabilen alanlardır. Örneğin user tablosunda name ve surname var. Bunlarla fullname yapılabilir.
+                </p>
+                <p>
+                  "DATA" > "users" > "Modify" > "Computed Fields"
+                </p>
+                <p>
+                  Computed Field Name: fullName <br>
+                  Function Schema:public <br>
+                  Function Name: "Create New" ile postgreSQL dilinde bir fonksiyon yazıyoruz.
+                  <pre class="prettyprint ms-0">
+CREATE FUNCTION user_full_name(user_row users)
+RETURNS TEXT AS $$
+  SELECT user_row.name || ' ' || user_row.surname
+$$ LANGUAGE sql STABLE;
+                  </pre>
+                  fonksiyonu kaydediyoruz. Sonra baştaki adımları tekrar yapıyoruz. Function Name: kısmında az önce oluşturduğumuz fonksiyonu seçiyoruz ve kaydediyoruz.
+                </p>
+                <p>
+                  DATA > users > permissions alanıda user için bu alana da izin verdikten sonra artık sorguda fullName diye bir parametremiz de oluyor.
+                </p>
+              </div>
+              <div class="row" id="hasuraEventTrigers">
+                <h1>Event Triggers</h1>
+                <p>
+                  meeting katılımcılarına mail gönderme işlemi. Öncelikle <a href="https://www.mailspons.com/">mailspons.com</a> üzerinden her user için fake mail alıp veri tabanımıza ekledik. Bu istediğimiz gibi çalışmadığından (biraz yavaş) <a href="https://www.tempinbox.xyz/mailbox">tempinbox.xyz</a> üzerinden tekrar fake mail alıp user'larımıza tanımladık.
+                </p>
+                <p>
+                  Hasura Cloud Console > "EVENT" > "Event Triggers" > "Create"
+                </p>
+                <p>
+                  Trigger Name: meeting_created <br>
+                  Database: default <br>
+                  Schema/Table: public, meetings <br>
+                  Trigger Operations: Insert <br>
+                  Webhook (HTTP/S) Handler: https://backend-1-m7357908.deta.app/webhooks/meeting_created <br>
+                  "Create Event Triger"
+                </p>
+                <p>
+                  backend\src\app.js içinde webhooks için gereken routing yapıldı.
+                  <pre class="prettyprint ms-0">
+...
+// routes
+...
+import webhooks from "./routes/webhooks";
+...
+                  </pre>
+                </p>
+                <p>
+                  backend\src\routes\webhooks\queries.js içinde webhook ile weri çekilecek sorgu yazıldı.
+                  <pre class="prettyprint ms-0">
+export const GET_MEETING_PARTICIPANTS = `
+query meeting_participant($id: Int!) {
+    meetings_by_pk(id: $id) {
+      title
+      user {
+        fullName
+      }
+      participants {
+        user {
+          email
+        }
+      }
+    }
+  }
+`;
+                  </pre>
+                </p>
+                <p>
+                  mail gönderebilmek için
+                  <pre class="prettyprint ms-0">npm i nodemailer</pre>
+                  paketi kuruldu.
+                </p>
+                <p>
+                  backend\src\routes\webhooks\index.js içinde events triger ile gelen veri alındı. Bu veri ile sorgu yapıldı. Sorgudan gelen veriler ile de mail gönderildi.
+                  <pre class="prettyprint ms-0">
+import express from "express";
+import nodemailer from "nodemailer";
+
+import Hasura from "../../clients/hasura";
+import { GET_MEETING_PARTICIPANTS } from "./queries";
+
+const router = express.Router();
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "myhasurabackendd@gmail.com",
+    pass: "efuvzfpjocfdemnc",
+  },
+});
+
+router.get("/meeting_created", (req, res) => {
+  res.send("Hello World");
+});
+
+router.post("/meeting_created", async (req, res, next) => {
+  const meeting = req.body.event.data.new;
+
+  const { meetings_by_pk } = await Hasura.request(GET_MEETING_PARTICIPANTS, {
+    id: meeting.id,
+  });
+
+  const title = meeting.title;
+  const { fullName } = meetings_by_pk.user;
+  const participants = meetings_by_pk.participants
+    .map(({ user }) => user.email)
+    .toString();
+
+  const mailOptions = {
+    from: "myhasurabackendd@gmail.com",
+    to: participants,
+    subject: `${fullName} sizi bir görüşmeye davet etti`,
+    text: `${fullName} sizi ${title} adlı görüşmeye davet etti.`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      throw new Error(error);
+    }
+
+    res.json({ info });
+  });
+});
+
+export default router;
+
+                  </pre>
+                </p>
+                <p>
+                  Bu dosyada kullanılan process.env.... kısımları backend\.env ve backend\Spacefile dosyalarına eklendi.
+                </p>
+              </div>
+              <div class="row" id="hasuraMeetingApproveInvitation">
+                <h1>Meeting Approve Invitation</h1>
+                <p>
+                  Mail il gelen daveti kabul etmek
+                </p>
+                <p>
+                  "Hasura Cloud Console" > "DATA" > participants kısmına "is_approved" adında "boolean" default değeri "false" bir sütun oluşturduk.
+                </p>
+                <p>
+                  "Hasura Cloud Console" > "DATA" > participants > "Permissions" altında user için update kısmına "With custom check" ile <pre class="prettyprint ms-0">{"user_id":{"_eq":"X-Hasura-User-Id"}}</pre> koşulu ile "is_approved" alanına izin verdik. "is_approved" için select izni de verdik
+                </p>
+              </div>
+              <div class="row" id="hasuraOneOffScheduledEvents1">
+                <h1>One Off Scheduled Events - 1</h1>
+                <p>
+                  Görüşmeye yarım saat kala katılımcılara mail gönder.
+                </p>
+                <p>
+                  "Hasura Cloud Console" > "EVENTS" > One-off Scheduled Events içinde <a href="https://hasura.io/docs/latest/api-reference/schema-metadata-api/scheduled-triggers/#create-scheduled-event">bu dökümandan</a> faydalanarak backend\src\routes\webhooks\index.js içinde bir obje oluşturuyoruz.
+                </p>
+                <p>
+                  zaman tanımları için <pre class="prettyprint ms-0">npm i moment</pre> ile kurduğumuz paketi kullanacağız. İstek göndermek için de <pre class="prettyprint ms-0">npm i axios</pre> kuruldu.
+                </p>
+                <p>
+                  "Hasura Cloud Console" > "DATA" > meeting içinde "meeting_date" data tipi "timestamp with time zone" olarak güncellendi.
+                </p>
+                <p>
+                  meeting_date bilgisini alabilmek için backend\src\routes\webhooks\queries.js içindeki query güncellendi.
+                </p>
+                <p>
+                  backend\src\routes\webhooks\index.js içinde Scheduled Events oluşturacak yapı kurgulandı. 
+                  <pre class="prettyprint ms-0">
+...
+import moment from "moment";
+import axios from "axios";
+
+...
+
+router.post("/meeting_created", async (req, res, next) => {
+  ...
+
+  const schedule_event = {
+    // zamanlanmış görev eklemek için gereken obje
+    type: "create_scheduled_event",
+    args: {
+      webhook: "https://backend-1-m7357908.deta.app/webhooks/meeting_reminder", //görev başlatılınca çalıştırılacak webhook
+      schedule_at: moment(meetings_by_pk.meeting_date).subtract(2, "min"), // görev başlangıç tarihinden 2 dk çıkardık.
+      payload: {
+        //webhook tetiklendiğinde gönderilecek data
+        meeting_id: meeting.id,
+      },
+    },
+  };
+
+  const add_event = await axios(
+    "https://meeting-app-server.hasura.app/v1/query",
+    {
+      // endpoint olarak hasura endpointimizi sonuna qraphql yerine query yazarak kullanıyoruz.
+      method: "POST",
+      data: JSON.stringify(schedule_event), // ile hazırladığımız Scheduled Events gönderildi.
+      headers: {
+        "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+      },
+    }
+  );
+
+  const event_data = add_event.data;
+
+  ...
+});
+
+router.post("/meeting_reminder", async (req, res, next) => {
+  // Scheduled Events ile tetiklenecek işlev.
+});
+
+export default router;
+
+                  </pre>
+                </p>
+              </div>
+              <div class="row" id="hasuraOneOffScheduledEvents2">
+                <h1>One Off Scheduled Events - 2</h1>
+                <p>
+                  insert_meeting_one mutation'unu user kullanıcısı ile kullanamabilmek için, "DATA" > "meetings" > "Permissions" alanında user > insert için "with custom check" <pre>{"user_id":{"_eq":"X-Hasura-User-Id"}}</pre> kontrolü ile, "Column insert permissions": "title, meeting_date" seçili, "Column presets" - "user_id" - "from session variable" -> "X-Hasura-user-id" izin verildi.
+                </p>
+                <p>
+                  participant ekleyebilmesi için de "DATA" > "meetings" > "Permissions" alanında "with custom check" <pre>{"meeting":{"user_id":{"_eq":"X-Hasura-User-Id"}}}</pre> kontrolü ile, "Column insert permissions": "meeting_id, user_id" seçili izin verildi.
+                </p>
+                <p>
+                  backend\src\routes\webhooks\queries.js içine aşağıdaki sorguyu ekledik.
+                  <pre>
+export const GET_MEETING_PARTICIPANTS_REMINDER = `
+  query meeting_participant($id: Int!) {
+    meetings_by_pk(id: $id) {
+      title
+      meeting_date
+      user {
+        fullName
+        email
+      }
+      participants(
+        where: {
+          is_approved: {
+            _eq: true
+          }
+        }
+      ) {
+        user {
+          email
+        }
+      }
+    }
+  }
+`;
+                  </pre>
+                  bu sorguda bize sadece katılımını onaylayan katılımcıları verdi.
+                </p>
+                <p>
+                  backend\src\routes\webhooks\index.js içinde katılımcılara ve meeting oluşturana mail gönderecek olan fonksiyonlar yazıldı. Dosyanın son hali:
+                  <pre>
+import express from "express";
+import nodemailer from "nodemailer";
+import moment from "moment";
+import axios from "axios";
+
+import Hasura from "../../clients/hasura";
+import {
+  GET_MEETING_PARTICIPANTS,
+  GET_MEETING_PARTICIPANTS_REMINDER,
+} from "./queries";
+
+const router = express.Router();
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "myhasurabackendd@gmail.com",
+    pass: "efuvzfpjocfdemnc",
+  },
+});
+
+router.get("/meeting_created", (req, res) => {
+  res.send("Hello World");
+});
+
+router.post("/meeting_created", async (req, res, next) => {
+  const meeting = req.body.event.data.new;
+
+  const { meetings_by_pk } = await Hasura.request(GET_MEETING_PARTICIPANTS, {
+    id: meeting.id,
+  });
+
+  const title = meeting.title;
+  const { fullName } = meetings_by_pk.user;
+  const participants = meetings_by_pk.participants
+    .map(({ user }) => user.email)
+    .toString();
+
+  const schedule_event = {
+    // zamanlanmış görev eklemek için gereken obje
+    type: "create_scheduled_event",
+    args: {
+      webhook: "https://backend-1-m7357908.deta.app/webhooks/meeting_reminder", //görev başlatılınca çalıştırılacak webhook
+      schedule_at: moment(meetings_by_pk.meeting_date).subtract(2, "min"), // görev başlangıç tarihinden 2 dk çıkardık.
+      payload: {
+        //webhook tetiklendiğinde gönderilecek data
+        meeting_id: meeting.id,
+      },
+    },
+  };
+
+  const add_event = await axios(
+    "https://meeting-app-server.hasura.app/v1/query",
+    {
+      // endpoint olarak hasura endpointimizi sonuna qraphql yerine query yazarak kullanıyoruz.
+      method: "POST",
+      data: JSON.stringify(schedule_event),
+      headers: {
+        "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+      },
+    }
+  );
+
+  const event_data = add_event.data;
+
+  const mailOptions = {
+    from: "myhasurabackendd@gmail.com",
+    to: participants,
+    subject: `${fullName} sizi bir görüşmeye davet etti`,
+    text: `${fullName} sizi ${title} adlı görüşmeye davet etti.`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      throw new Error(error);
+    }
+
+    res.json({ info });
+  });
+});
+
+router.post("/meeting_reminder", async (req, res, next) => { // One-off Scheduled Events tetiklendiğinde yönleneceği endpoint route'u
+  const { meeting_id } = req.body.payload; // One-off Scheduled Events ile gönderilen data
+
+  const { meetings_by_pk } = await Hasura.request(
+    GET_MEETING_PARTICIPANTS_REMINDER,
+    {
+      id: meeting_id,
+    }
+  );
+
+  const title = meetings_by_pk.title;
+  const { email } = meetings_by_pk.user;
+  const participants = meetings_by_pk.participants.map(
+    ({ user }) => user.email
+  );
+
+  participants.push(email);
+
+  const mailOptions = {
+    from: "myhasurabackendd@gmail.com",
+    to: participants.toString(),
+    subject: `"${title}" başlıklı görüşmeniz birazdan başlayacak`,
+    text: `"${title}" başlıklı görüşmeniz iki dakika sonra başlayacak Katılmak için aşağıdaki bağlantıyı kullanın`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      throw new Error(error);
+    }
+
+    res.json({ info });
+  });
 });
 
 export default router;
