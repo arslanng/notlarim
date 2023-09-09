@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figma</title>
+  <link rel="stylesheet" href="css/sql.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <style>
+    .menu ul {
+      list-style-position: inside;
+      list-style: none;
+    }
+
+    li a {
+      color: black;
+      text-decoration: none;
+    }
+
+    li:hover {
+      background-color: rgba(0, 0, 0, 0.103);
+    }
+
+    h1 {
+      border-bottom: 1px solid black;
+    }
+
+    h3 {
+      margin-top: 4px;
+      margin-bottom: -3px;
+      font-size: normal;
+    }
+
+    ul {
+      list-style-position: inside;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px black solid;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    nav {
+      background-color: white;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: rgba(0, 0, 0, 0.51);
+    }
+
+    .nav-pills .nav-link {
+      color: black
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav bg-light">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">GraphQL</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index.html">Ana Sayfa</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Eğitim Notları
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                  <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                  <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                  <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                  <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                  <li><a class="dropdown-item" href="sql.html" target="_blank">SQL notları</a></li>
+                  <li><a class="dropdown-item" href="nodejs.html" target="_blank">NodeJS notları</a></li>
+                  <li><a class="dropdown-item" href="restAPI.html" target="_blank">Rest Api notları</a></li>
+                  <li><a class="dropdown-item" href="react.html" target="_blank">React</a></li>
+                  <li><a class="dropdown-item" href="redux.html" target="_blank">Redux</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <!-- Navbar End -->
+  <!-- İçerik Start -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top menu d-none d-lg-block" style="height: fit-content;">
+        <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
+        <h2>Konu Listesi </h2>
+        <hr>
+        <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end "
+          style="max-height: 400px; overflow: auto;">
+          <nav class="nav nav-pills flex-column ">
+            <a class="nav-link" href="#whatIsFigma">Figma Ne İşe Yarar</a>
+            <a class="nav-link" href="#figmaArayuzGiris">Figma Arayüzüne Giriş ve Araçlar</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#figmaArayuzGirisveMenu">Arayüze Giriş ve Menü Seçenekleri</a>
+              <a class="nav-link ms-3 my-1" href="#moveToolveScaleTool">Move Tool ve Scale Tool Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#frameTool">Frame Tool Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#sliceTool">Slice (Dilimleme) Aracının Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#workWithFonts">Fontlarla Çalışma</a>
+              <a class="nav-link ms-3 my-1" href="#workWithShape">Shape Araçlarıyla Çalışma</a>
+              <a class="nav-link ms-3 my-1" href="#penToolPencil">Pen Tool ve Pencil Aracının Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#handToolCommentTool">Yorum Aracı ve El Aracının Kullanımı</a>
+            </nav>
+            <a class="nav-link" href="#imageAndVector">Resimler ve Vektör Nesnelerle Çalışma</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#imageWorkspace">Çalışma Alanına Resim Yerleştirme</a>
+              <a class="nav-link ms-3 my-1" href="#imageOptions">Resim Özellikleri ve Resimlerde Uygulanabilecek
+                Efektler</a>
+              <a class="nav-link ms-3 my-1" href="#imageVectorImport">Adobe XD ve Adobe Illıstrator'dan Vektör Nesne
+                Import Etme</a>
+            </nav>
+            <a class="nav-link" href="#layerFramePlugins">Layer (Katman), Frame (Çerçeve) Kullanımı ve Plugins
+              (Eklentiler)</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#enterToLayer">Layer (Katman) Konusuna Giriş</a>
+              <a class="nav-link ms-3 my-1" href="#maskLogic">Maskeleme Mantığı</a>
+              <a class="nav-link ms-3 my-1" href="#usePlugin">Plugin (Eklenti) Kullanımı</a>
+            </nav>
+            <a class="nav-link" href="#responsiveDesign">Responsive Tasarım Özellikleri</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#responsiveDesignBootstrap">Responsive Layout Grid ve Bootstrap'ın
+                Figmada Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#whatIsConstraints">Constraints Nedir ve Nasıl Kullanılır?</a>
+              <a class="nav-link ms-3 my-1" href="#guide">Guide Kullanımı</a>
+            </nav>
+            <a class="nav-link" href="#dominateFigma">Figmaya Hakim Oluyoruz</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#aligment">Aligment (Hizalama)</a>
+              <a class="nav-link ms-3 my-1" href="#gradientDetail">Detaylı Gradient Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#booleanOperations">Boolean Operations</a>
+              <a class="nav-link ms-3 my-1" href="#effectsLayerBlurBackgroundBlur">Effects - Layer Blur - Background Blur</a>
+              <a class="nav-link ms-3 my-1" href="#createComponentMasterComponent">Component (Bileşen) Oluşturma ve Master Component (Ana Bileşen)</a>
+              <a class="nav-link ms-3 my-1" href="#advencedPrototypeConditionalLogic">Advenced Prototype Özelliği - Şartlı İfadeler (Conditional Logic)</a>
+              <a class="nav-link ms-3 my-1" href="#prototipOluşturmaTransition">Prototip Oluşturma ve Transition</a>
+              <a class="nav-link ms-3 my-1" href="#autoLayout">Tüm Detaylarıyla Auto Layou</a>
+              <a class="nav-link ms-3 my-1" href="#variants">Variants (Türler)</a>
+              <a class="nav-link ms-3 my-1" href="#figmaInteractiveComponents">Figma İnteractive Components</a>
+            </nav>
+            <a class="nav-link" href="#collaborationImportExportVersionHistory">Collaboration, Import, Export ve Version History</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#teamActivity">Takım Oluşturma, Yorum Ekleme ve Dosya Paylaşımı</a>
+              <a class="nav-link ms-3 my-1" href="#importExport"> İçeri Al/Dışarı Aktar (Import & Export)</a>
+              <a class="nav-link ms-3 my-1" href="#versionHistory">Versiyonlama (Version History)</a>
+              <a class="nav-link ms-3 my-1" href="#fontAwesome">Font Awesome Kurulumu ve Figma'da Kullanımı</a>
+            </nav>
+            <a class="nav-link" href="#plugins">En Çok Kullanılan Pluginler</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#unsplash-UIveFace">Unsplash ve User Profile Eklentileriyle Hazır Resimler</a>
+              <a class="nav-link ms-3 my-1" href="#contentEklentileri">Content (İçerik) Eklentileri</a>
+              <a class="nav-link ms-3 my-1" href="#ikonEklentileri">En Çok Kullanılan İkon Eklentileri</a>
+              <a class="nav-link ms-3 my-1" href="#mapUsing">Figma'da Harita Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#wireframePlugins">Wireframe Eklentisi İle Pratik Olarak Wireframeler Oluşturma</a>
+              <a class="nav-link ms-3 my-1" href="#chartPlugin">Chart Eklentisinin Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#figmotionAnimasyon">Figmotion Eklentisi İle Animasyon</a>
+              <a class="nav-link ms-3 my-1" href="#ROTOPlugin3D">ROTO Eklentisi ile 3 Boyutlu Objeler</a>
+              <a class="nav-link ms-3 my-1" href="#useStoryset">Storyset Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#breakpointsPlugin">Breakpoints Eklentisi ile Belirli Çözünürlüklere Göre Ekran Gösterme</a>
+              <a class="nav-link ms-3 my-1" href="#figmaTablo">Figma'da Tablo Oluşturma</a>
+            </nav>
+            <a class="nav-link" href="#currentFigmaFeatures">Güncel Figma Özellikleri</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#2023FigmaVariables">2023 Figma Variables</a>
+              <a class="nav-link ms-3 my-1" href="#workWithvideos">Figma'da Video Dosyaları ile Çalışma</a>
+              <a class="nav-link ms-3 my-1" href="#update2022">2022 Yeni Güncellemeler - Derleme</a>
+              <a class="nav-link ms-3 my-1" href="#findAndChange">Figma'da Bul/Değiştir Özelliği</a>
+            </nav>
+          </nav>
+        </nav>
+      </div>
+      <div class="col-sm-9">
+        <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
+          class="scrollspy-example-2" tabindex="0">
+          <div class="row" id="whatIsFigma">
+            <h1>Figma Ne İşe Yarar</h1>
+
+            figmada yapılan son güncellemeler için <a href="https://www.figma.com/whats-new/">figma.com/whats-new</a>
+            sayfasını takio ediyoruz.
+
+            Register ve login bildiğiniz gibi.
+
+            Kurulum da oldukça basit. Admin yetkisi istemiyor.
+          </div>
+          <div class="row" id="figmaArayuzGiris">
+            <h1>Figma Arayüzüne Giriş ve Araçlar</h1>
+            <p>
+              Program üzerinden devam ediyoruz.
+            </p>
+            <div class="row" id="figmaArayuzGirisveMenu">
+              <h2>Arayüze Giriş ve Menü Seçenekleri</h2>
+              <p>
+                Comunity içinde hazır şablonlar vs var.
+              </p>
+              <p>
+                FigJam: figmanın akış şeması tarafı
+              </p>
+              <p>
+                Ekranın sağ üstünde "+ Design File" ı tıklayarak yeni design sayfası oluşturduk. Sayfanın ortasındaki
+                "Untitled" yazısına tıklayarak istediğimiz ismi verdik.
+              </p>
+              <p>
+                design sayfasının sol üstündeki pages içinden "+" yı tıklayarak yeni sayfalar oluşturduk. Draft alanında
+                sayfa sınırımız yok. Teams alanında ise 3 sayfa oluşturabiliriz.
+              </p>
+              <p>
+                design sayfasında sağ üstten "&lt/>" butonu ile developer modu açılıp kapatılabilir.
+              </p>
+              <p>
+                "ctrl + D" : dublicate: seçili nesneden bir tane daha oluşturur. <br>
+                "ctrl + alt + C" özellikleri kopyala. <br>
+                "ctrl + alt + V" özellikleri yapıştır. <br>
+                "shift + R": cetvelleri açar veya kapatır.
+                "ctrl + G": grup seçimi
+                "ctrl + E": seçimi düzleştir: birden fazla objeyi tek objeye çevirir.
+              </p>
+              <p>
+                menü > view > rulers : cetvelleri açar veya kapatır. <br>
+                menü > object > flatten selection: birden fazla objeyi tek vektör objeye çevirir.
+              </p>
+              <p>
+                Ekranın sağ altında "?" butonu yardım menüsünü açar. içindeki "Change keyboard layout..." ile klavye
+                kısayollarına ulaşılabilir.
+              </p>
+            </div>
+            <div class="row" id="moveToolveScaleTool">
+              <h2>Move Tool ve Scale Tool Kullanımı</h2>
+
+              <p>
+                Klavyede "V" tuşu move toolu "K" tuşu da scale toolu aktive eder.
+              </p>
+              <p>
+                Move tool taşımak için, scale tool ise orjinal oranlara sadık kalınarak ölçeklendirme için kullanılır.
+              </p>
+              <p>
+                "ALT" basılı iken move tool kullanılırsa obje kopyalanarak taşınır. "Ctrl D" ile de aynı kopyalama
+                yapılabilir.
+              </p>
+              <p>
+                scale tool yerine move tool sırasında shifte basılı tutarak da aynı işlem yapılabilir.
+              </p>
+            </div>
+            <div class="row" id="frameTool">
+              <h2>Frame Tool Kullanımı</h2>
+              <p>
+                Klavyede "F" tuşu ile açılır. Proje için istenilen ölçülerde bir çerçeve oluşturur. Ekran boyutlarına
+                göre hazır ölçüleri bulunur.
+              </p>
+              <p>
+                Oluşturulan frame seçiliyken sağda özellikleri görünür. W (genişlik) ve H (yükseklik) kısmının sağında
+                zincir işareti aktifse değişim oranlı olur.
+              </p>
+              <p>
+                "clip content" taşan içeriğin kesilmesi anlamına gelir. Seçilirse taşan kısmı göstermez.
+              </p>
+              <p>
+                "fill" kısmı arka planı düzenlememizi sağlar. Solid bir rengin yanı sıra başka seçenekler de
+                kullanılabilir.
+              </p>
+              <img src="./images/figma/1.jpg" alt="fill">
+            </div>
+            <div class="row" id="sliceTool">
+              <h2>Slice (Dilimleme) Aracının Kullanımı</h2>
+              <p>
+                Dışarıdan import ettiğimiz resimlerin veya çizmiş olduğumuz tasarımların parçalanmasında kullanılır.
+              </p>
+              <p>
+                Klavyede "S" tuşuna basılarak kullanılır.
+              </p>
+              <p>
+                slice aracı ile seçtiklerimizi sağdaki menüden export edebiliriz.
+              </p>
+            </div>
+            <div class="row" id="workWithFonts">
+              <h2>Fontlarla Çalışma</h2>
+              <p>
+                Klavyede "T" tuşuna basarak kullanıyoruz. İstediğimiz yeri tıklayıp metnimizi yazıyoruz. Daha sonra
+                sağdaki menüden ayarlarını yapıyoruz.
+              </p>
+              <p>
+                Texti vektöre çevirmek için sağ click > Flatten (Ctrl + E)
+              </p>
+              <p>
+                Font ailesini kendi kütüphanemizden seçmek için sağ menüde text menüsünün sağındaki dört noktayı
+                tıklıyoruz.
+              </p>
+            </div>
+            <div class="row" id="workWithShape">
+              <h2>Shape Araçlarıyla Çalışma</h2>
+              <p>
+                Klavyede "R" tuşu diktörtgen yaratmaya yarar. "Shift" basılıyken çizilirse kare çizer.
+              </p>
+              <p>
+                "Shift + X" fill ve stroke renklerinin yer değiştirmesini sağlar.
+              </p>
+              <p>
+                Klavyede "L" tuşu çizgi yaratmaya yarar. "Shift" basılıyken çizilirse yere paralel, 45° veya 90° çizer.
+              </p>
+              <p>
+                Klavyede "Shift + L" tuşu ok yaratmaya yarar. "Shift" basılıyken çizilirse yere paralel, 45° veya 90°
+                çizer.
+              </p>
+              <p>
+                Klavyede "O" tuşu elips yaratmaya yarar. "Shift" basılıyken çizilirse daire çizer. Bu daire dilime
+                dönüştürülebilir veya çemberleştirilebilir. Bunu şeklin üzerindeki noktalarla yaparız. Daireyi çift
+                tıkladığımızda daha fazla seçenek açılır.
+              </p>
+              <p>
+                Poligon ve Star aracında klavye kısayolu yoktur.
+              </p>
+              <p>
+                "Ctrl + Shift + K" ile çalışma alanına resim eklenebilir.
+              </p>
+            </div>
+            <div class="row" id="penToolPencil">
+              <h2>Pen Tool ve Pencil Aracının Kullanımı</h2>
+              <p>
+                Pen tool özellikle vektörel çizimlerde işimize yarar. Klavyeden "P" tuşuna basılarak kullanılır. "Shift"
+                basılıyken kullanıldığında çizimler doğrusal olarak kullanılabilir.
+              </p>
+              <p>
+                Nokta seçiliyken "Shift + Backspace" ile silinebilir. "Shift + Delete" de aynı işi yapar.
+              </p>
+              <p>
+                Pencil "Shift + P" ile aktif hale getirilir. Çalışma alanında serbest çizim yapılmasını sağlar. Sık
+                kullanılmaz.
+              </p>
+            </div>
+            <div class="row" id="handToolCommentTool">
+              <h2>Yorum Aracı ve El Aracının Kullanımı</h2>
+              <p>
+                El aracı klavyede "H" tuşuna basarak veya "Space" tuşuna basılı tutularak kullanılır. Projede
+                gezinmemizi sağlar.
+              </p>
+              <p>
+                Yorum aracı klavyede "C" tuşuna basarak kullanılır. Projeye yorum yapmamızı sağlar.
+              </p>
+            </div>
+          </div>
+          <div class="row" id="imageAndVector">
+            <h1>Resimler ve Vektör Nesnelerle Çalışma</h1>
+            <div class="row" id="imageWorkspace">
+              <h2>Çalışma Alanına Resim Yerleştirme</h2>
+              <p>
+                "Ctrl + Shift + K" ile, menü yardımıyla veya sürükleyip bırakarak çalışma alanına image eklenebilir.
+              </p>
+              <p>
+                Resmi kopyalayıp nesnede yapıştırarak da ekleyebiliriz.
+              </p>
+            </div>
+            <div class="row" id="imageOptions">
+              <h2>Resim Özellikleri ve Resimlerde Uygulanabilecek Efektler</h2>
+              <p>
+                Resim tıklıyken sağdaki menüde "Image" tıklanır. Gelen menüde hem resmin nesneyi nasıl kaplayacağı hem
+                de görsel ayarları yapılabilir.
+              </p>
+              <p>
+                Fill nesneyi kaplar. Nesneden taşan kısımları yok sayar. <br>
+                Fit kendini nesneye sığdırır. Nesnenin bota kalan kısımlarını yok sayar. <br>
+                Crop resmi kesmek için kullanılır. Crop sonrası resmin en boy oranı korunmaz. <br>
+                Tile resmi birden fazla kez çoklayarak nesneyi kapsar. nesneden taşan kısımları yok sayar.
+              </p>
+              <img src="./images/figma/2.jpg" alt="">
+              <p>
+                Sağ menüde fill kısmından yeni bir tabaka ekleyerek farklı efektler oluşturabiliriz.
+              </p>
+              <img src="./images/figma/3.jpg" alt="">
+            </div>
+            <div class="row" id="imageVectorImport">
+              <h2>Adobe XD ve Adobe Illıstrator'dan Vektör Nesne Import Etme</h2>
+              <p>
+                Kopyala - Yapıştır ile veya svg şeklinde export edip sonra "Ctrl + Shift + K" ile import edilebilir.
+              </p>
+            </div>
+          </div>
+          <div class="row" id="layerFramePlugins">
+            <h1>Layer (Katman), Frame (Çerçeve) Kullanımı ve Plugins (Eklentiler)</h1>
+            <div class="row" id="enterToLayer">
+              <h2>Layer (Katman) Konusuna Giriş</h2>
+              <p>
+                Katmanlar yukarıdan aşağıya şeklinde görünürler. En üsttekinin izin verdiği ölçüde bir alttaki görünür.
+              </p>
+              <p>
+                Layerlar birden fazla seçildikten sonra "Ctrl + G" ile gruplandırılabilirler.
+              </p>
+              <p>
+                Grup içindeki layerlar hepsiseçildikten sonra sağ click menüden rename (veya "Ctrl + R") ile bir kurala
+                göre adlandırılabilirler.
+              </p>
+            </div>
+            <div class="row" id="maskLogic">
+              <h2>Maskeleme Mantığı</h2>
+              <p>
+                Maskeleyecek olan obje seçiliyken "Ctrl + Alt + M" kullanılır veya ekranın üst orta kısmından "use as
+                mask" seçilir.
+              </p>
+              <p>
+                Soldaki menüde mask group diye bir kısım oluştu. Maskelenecek olan image de mask group içine taşındı.
+                Çalışma alanında maske ve maskelenen üst üste getirildi. Maskelenen image'ın sadece maskenin izin
+                verdiği kısmı görünür kaldı.
+              </p>
+              <img src="./images/figma/4.jpg" alt="">
+              <p>
+                Aynı işlemi maskelenen ve maskeleyecek olanı üst üste koyup, birlikte seçip "Ctrl + Alt + M" ile de
+                yapabiliriz.
+              </p>
+              <p>
+                Maske, her zaman maskelenenin altında olacak şekilde sıralanmalı.
+              </p>
+            </div>
+            <div class="row" id="usePlugin">
+              <h2>Plugin (Eklenti) Kullanımı</h2>
+              <p>
+                Eklenti kurmak için Home > Community açılır.
+              </p>
+              <p>
+                İstenilen plugin bulunur ve sayfasında "try it out" tıklanır. Açılan sayfada plugin denenebilir.
+                İsteniliyorsa "save" veya "install" tıklanarak kurulur.
+              </p>
+            </div>
+          </div>
+          <div class="row" id="responsiveDesign">
+            <h1>Responsive Tasarım Özellikleri</h1>
+            <div class="row" id="responsiveDesignBootstrap">
+              <h2>Responsive Layout Grid ve Bootstrap'ın Figmada Kullanımı</h2>
+              <p>
+                Bir frame oluşturduğumuzda sağ menüde "Layout grid" menüsünden bize klavuz olması için bir grid yapısı
+                oluşturulabilir. Bu kısımda grid yerine "columns" veya "row" da ayarlanabilir.
+              </p>
+              <img src="./images/figma/5.jpg" alt="">
+              <p>
+                Biz bu kısımda bootstrap ile uyumlu büyük ekran için bir 12 li columb yapısı kurguladık
+              </p>
+              <img src="./images/figma/6.jpg" alt="">
+            </div>
+            <div class="row" id="whatIsConstraints">
+              <h2>Constraints Nedir ve Nasıl Kullanılır?</h2>
+              <p>
+                Frame genişlediğinde veya daraldığında içindeki kompanentlerin de uyum sağlaması için kullanılır.
+              </p>
+              <p>
+                Bir frame oluşturup en üst kısmına bir header yerleştirdiğimizde bu headerın frame ile birlikte
+                genişleyip daralması için sağ menüde "Constraints" alanında yatay ölçeklendirme "Left and Right"
+                seçilir.
+              </p>
+              <p>
+                Frame yüksekliği değiştiğinde header yüksekliği de orantılı olarak değişsin istiyorsak sağ menüde
+                "Constraints" alanında dikey ölçeklendirme "Scale" seçilir.
+              </p>
+              <p>
+                Footer yaparken ise ağ menüde "Constraints" alanında yatay ölçeklendirme "Left and Right", dikey
+                ölçeklendirme "Bottom" seçilir.
+              </p>
+            </div>
+            <div class="row" id="guide">
+              <h2>Guide Kullanımı</h2>
+              <p>
+                Guide eklemek için cetveller aktif durumda olmalı ("Shift + R").
+              </p>
+              <p>
+                Cetvelleri tutup sürükleyerek guide oluştururuz.
+              </p>
+              <p>
+                Menu > Preferences altında "Snap to object" nesnelerin guide'lara ve birbirine yapışmasını sağlar.
+              </p>
+            </div>
+          </div>
+          <div class="row" id="dominateFigma">
+            <h1>Figmaya Hakim Oluyoruz</h1>
+            <div class="row" id="aligment">
+              <h2>Aligment (Hizalama)</h2>
+              <p>
+                Bir frame içinde birden fazla şekil çizdiğimizde ve bunları topluca seçtiğimizde sağ menüde en üstte aligment (hizalama) seçenekleri olur. Bunlara menü > Arrange altından da ulaşabiliriz.
+              </p>
+              <p>
+                ilk üçü yatay hizlama, sonraki üçü ise dikey hizalama için. Son seçenek ise birbirlerine göre mesafelerini ayarlıyor.
+              </p>
+              <img src="./images/figma/7.jpg" alt="">
+            </div>
+            <div class="row" id="gradientDetail">
+              <h2>Detaylı Gradient Kullanımı</h2>
+              <p>
+                Bir cismin rengini ayarlarken solid renk yerine gradientlerden faydalanarak farklı görüntüler elde edebiliriz.
+              </p>
+              <img src="./images/figma/8.jpg" alt="">
+            </div>
+            <div class="row" id="booleanOperations">
+              <h2>Boolean Operations</h2>
+              <p>
+                Birbiri ile kesişen iki şekil beraber seçildiğinde üst orta menüde boolean seçenekleri belirir.
+              </p>
+              <p>
+                <b>Union Selection</b>: iki seçimi üsttekinin renginde birleştirir. <br>
+                <b>Subtract Selection</b>: üsttekini alttakinden çıkarır. <br>
+                <b>Intersect Selection</b>: Kesişimi üsttekinin renginde bırakır. <br>
+                <b>Exclude Selection</b>: Kesişimi siler. <br>
+                <b>Flatten selection:</b> Seçimi tek bir obje haline getirir. Daha öncekilerde alt elemanlara ulaşılabiliyordu ancak bu seçenekte ulaşılamaz.
+              </p>
+              <img src="./images/figma/9.jpg" alt="">
+            </div>
+            <div class="row" id="effectsLayerBlurBackgroundBlur">
+              <h2>Effects - Layer Blur - Background Blur</h2>
+              <p>
+                Efekt verilecek nesne seçildikten sonra sağ menüden effect altından seçilir.
+              </p>
+              <p>
+                Her birinin ne olduğu adından anlaşılıyor.
+              </p>
+              <img src="./images/figma/10.jpg" alt="">
+            </div>
+            <div class="row" id="createComponentMasterComponent">
+              <h2>Component (Bileşen) Oluşturma ve Master Component (Ana Bileşen)</h2>
+              <p>
+                Bileşenler birden fazla kez kullanmış olduğumuz ögeleri tek bir yerden yönetmemize izin veren elementlerdir.
+              </p>
+              <p>
+                Bir elemeti seçtiğimizde üst orta menüde "Create component" seçeneği belirir. Bunu tıkladığımızda element component halini alır. Bundan kopyaladığımız her element bu component ile bağlantılıdır. Ana component değiştiğinde bunlar da güncellenir.
+              </p>
+              <img src="./images/figma/11.jpg" alt="">
+              <p>
+                Ana componentten kopya yoluyla elde edilen componentlerde bir değişiklik yapıldığında yapılan değişiklik yönünden ana component ile bağ kesilir. Bağın tamamen kesilmesi için ise o component sağ tıklanır ve "Detach Instance" tıklanır
+              </p>
+              <img src="./images/figma/12.jpg" alt="">
+              <p>
+                Çalışırken ana component yerine yanlışlıkla diğer componentlerden birinde çalıştıysak ve bundaki değişikliğin ana componente ve ona bağlı tüm componentlere de ulaşmasını istiyorsak değişiklik yaptığımız componenti sağ tıklarız ve "Main Component > Push changes to main component" i tıklarız.
+              </p>
+              <img src="./images/figma/13.jpg" alt="">
+              <p>
+                Ana componentten bağımsız yaptığımız değişiklikleri kaldırmak için sağ menüde aşağıda resmi olan kısımdan iptal edebiliriz.
+              </p>
+              <img src="./images/figma/14.jpg" alt="">
+              <p>
+                Birden fazla elementi ayrı ayrı component yapmak için bu elemntleri seçip üst menüde "Create component" seçeneğinin altındaki "Create multiple components" tıklanır
+              </p>
+              <p>
+                Bir componenti başka bir component ile değiştirmek için component tıklandıktan sonra sağ menüden aşağıda resmi olan kısımdan değişiklik yapılabilir.
+              </p>
+              <img src="./images/figma/15.jpg" alt="">
+              <p>
+                Birbiri ile alakalı bir grubu component yaparken adının başına grup adını yazıp "/" ile asıl adı yazılır. Örn "btn/btn-primary" ve üst orta menüden "Create component set" tıklanır.
+              </p>
+              <img src="./images/figma/16.jpg" alt="">
+              <p>
+                component grubumuz seçiliyken sağ menüden properties için ism atanabilir. Bu isim altında da kopya componentler grup componentleri arasında değiştirilebilir.
+              </p>
+              <img src="./images/figma/17.jpg" alt="">
+            </div>
+            <div class="row" id="advencedPrototypeConditionalLogic">
+              <h2>Advenced Prototype Özelliği - Şartlı İfadeler (Conditional Logic)</h2>
+              <p>
+                Aşağıdaki gibi basit bir tasarım yaptık.
+              </p>
+              <img src="./images/figma/18.jpg" alt="">
+              <p>
+                boş bir alanı tıkladığımızda sağ menüde "local variables" kısmı belirdi. Bunu tıklayıp "create variable" ile üç adet değişken ekledik.
+              </p>
+              <img src="./images/figma/19.jpg" alt="">
+              <p>
+                Stok adeti olarak girdiğimiz üçü seçip sağ menüden "Apply variable" ile değişkene bağlandı.
+              </p>
+              <img src="./images/figma/20.jpg" alt="">
+              <p>
+                Aynı işlem sepet adet sayısındaki "0" için tekrarlandı.
+              </p>
+              <p>
+                Sepette ürün yokken sayı alanının görünmemesi için resimdeki alana sağ tıklanıp boolean variables atandı. 
+              </p>
+              <img src="./images/figma/21.jpg" alt="">
+              <p>
+                Bu kısımdan sonrası pro kullanıcılar için.
+              </p>
+              <p>
+                Sağ menü en üstten "Prototype" kısmına geçilir. "+" tıklanır. "On Click > set variable" seçilir. Yapılması istenen değişiklik burada eklenir. Yapı kurgusu JS gibi.
+              </p>
+            </div>
+            <div class="row" id="prototipOluşturmaTransition">
+              <h2>Prototip Oluşturma ve Transition</h2>
+              <p>
+                Aşağıdaki resimdeki gibi, Prototype sekmesi açıkken elementin yanından tutup diğer sayfaya sürüklersek resimdeki menü açılır. "on click" ve "navigate to" kısımları seçilir. Artık bu butona bastığımızda işaret ettiği sayfaya yönlenir. "Animation" kısmı ile de geçişin nasıl olacağı seçilir.
+              </p>
+              <img src="./images/figma/22.jpg" alt="">
+              <p>
+                Bir sayfada bir süre durup sonra diğerine geçme işlemi için, Prototype sekmesi açıkken sayfanın yanından tutup diğer sayfa işaretlenir. "After delay" seçilir ve ayarı yapılır.
+              </p>
+              <img src="./images/figma/23.jpg" alt="">
+              <p>
+                Bir butona tıklayınca popup benzeri bir elementin açılması için butondan elemente Prototype sekmesi açıkken sürükleme işlemi yapılır ve "open overlay" seçilir.
+              </p>
+              <img src="./images/figma/24.jpg" alt="">
+              <p>
+                Bir süre parmağımızla basılı kalınca tetiklenecek navigate için aşağıdaki örnek ayarlar kullanılabilir.
+              </p>
+              <img src="./images/figma/25.jpg" alt="">
+              <p>
+                Hover sırasında değişimi göstermek için aşağıdaki ayar uygulanabilir.
+              </p>
+              <img src="./images/figma/26.jpg" alt="">
+            </div>
+            <div class="row" id="autoLayout">
+              <h2>Tüm Detaylarıyla Auto Layout</h2>
+              <p>
+                Çalışmamızda istediğimiz içerikleri istediğimiz yapıda, istediğimiz boşluk düzeni ile yerleştirmemizi sağlıyor. Figma CSS teki flex yapısını baz alıyor.
+              </p>
+              <p>
+                CSS flexbox için <a href="https://the-echoplex.net/flexyboxes/">the-echoplex.net/flexyboxes/</a> sitesinden faydalanabiliriz.
+              </p>
+              <p>
+                Bir objeye auto layout eklemek için tıklayıp "Shift + A" yapılır veya sağ tıklanıp "add auto layout" seçilir.
+              </p>
+              <p>
+                Bu özelliğe sahip buton eklemek için önce text yazılır. Sonra seçilen texte auto layqout eklenir. Oluşan frame için bacground color vs seçilir.
+              </p>
+              <p>
+                Oluşan frame tıklandığında sağ menüde "auto layout" menüsü açılır. Buradan kenar boşlukları vs seçilebilir.
+              </p>
+              <p>
+                Aşağıdaki kısımda ise sağdaki menüde dıştaki frame boyutunun fix mi yoksa içerik ile senkron mu olacağı belirtiliyor.
+              </p>
+              <img src="./images/figma/27.jpg" alt="">
+              <p>
+                İç içe frame yapısı kurgulayarak aşağıdaki kişi kartını yaptık. Bunlardan da 2 tanesini birlikte alıp auto layout ekledikten sonra kartın birini seçip "Ctrl + D" ile klonladığımızda otomatik olarak aşağıya doğru yeni klonu ekliyor.
+              </p>
+              <img src="./images/figma/28.jpg" alt="">
+              <p>
+                Tüm bu yapıyı bir frame (iphone 13) içine yerleştirip Constraints özelliğini left and right yaptık ki framne ile responsive bir yapı sergilesin. Kartların da hepsini seçip frame yatay boyutunu "fill" seçtik ki dışındaki frame'e göre büyüsün veya küçülsün.
+              </p>
+              <p>
+                Üst üste binen fotoğraf efekti için 3 fotoya birlikte auto layout eklendi ve aralarındaki mesafe -15 olarak girildi. Daha sonra Advenced auto layout settings ile hangisinin üstte olacağı seçildi.
+              </p>
+              <img src="./images/figma/29.jpg" alt="">
+              <p>
+                Auto layout kullanırken iki nesneden birinin diğerine göre sabit bir yerde durması isteniyorsa yeri sabitlenecek için absolute position butonu kullanılabilir.
+              </p>
+              <img src="./images/figma/30.jpg" alt="">
+              <p>
+                Elementlerin bulundukları alana sığması ve responsive davranması için "fill" özelliğinden faydalanırken aynı zamanda özelliklerini de yitirmemeleri için min ve max width/height verilebilir.
+              </p>
+              <img src="./images/figma/31.jpg" alt="">
+            </div>
+            <div class="row" id="variants">
+              <h2>Variants (Türler)</h2>
+              <p>
+                Bir elementin tüm istenilen variantlarını oluşturup isimlendirmelerini onlara uygun hale getiriyoruz. 
+              </p>
+              <p>
+                işin sırrı isimlendirmede. <br> 
+                örn: <br>
+                "Button/primary/Noicon/Default" Button elementi primary renk düzeni ikonsuz ve default durumda. <br>
+                "Button/secondary/icon/Disabled" Button elementi secondery renk düzeni ikonlu ve disabled durumda.
+              </p>
+              <p>
+                isimlendirmede toplu seçimde değişiklik yapmak için (kısa yolu "Ctrl + R")
+              </p>
+              <img src="./images/figma/32.jpg" alt="">
+              <p>
+                daha sonra:
+              </p>
+              <img src="./images/figma/33.jpg" alt="">
+              <p>
+                ile istediğimiz değişikliği yapabiliriz.
+              </p>
+              <p>
+                Düzgün isimlendirilmiş tüm buttonları seçip orta üst menüden "Create Multipl Components" seçilir. Sonra sağ menüden "Combine as variants" tıklanır.
+              </p>
+              <p>
+                Oluşturduğumuz 12 seçeneğin hepsi tek bir component içinde toplandı.
+              </p>
+              <p>
+                Component tıklandığında sağ menüden "Properties" alanından Property'lerimize isim verebiliriz. Sadece iki değeri olan property için "true/false" veya "yes/no" değerleri atanıp switch ile yönetilir hale getirilebilir.
+              </p>
+              <img src="./images/figma/34.jpg" alt="">
+              <p>
+                sol menüde "Assats" içinde buton alınıp kullanıldığında sağ menüde button ile ilgili tüm seçenekler ayarlanabilir.
+              </p>
+              <img src="./images/figma/35.jpg" alt="">
+            </div>
+            <div class="row" id="figmaInteractiveComponents">
+              <h2>Figma İnteractive Components</h2>
+              <p>
+                Variant yapısına sağ menüdeki "Prototype" özelliği ile prototip nitelikleri verdiğimiz hali. Bu sayede prototipleme sırasında her birine tek tek hover, onclick vs eklememize gerek kalmaz. 
+              </p>
+              <p>
+                Örneğin aşağıdaki örnekte bir hover variant ürettik.
+              </p>
+              <img src="./images/figma/36.jpg" alt="">
+              <p>
+                Sonra bunu prototype alanında "while hovering" ile bağladık.
+              </p>
+              <p>
+                buttonun default durumu bir frame içinde kullanıldığında ve üzerine gelindiğinde hover versiyonu görünür oldu.
+              </p>
+              <img src="./images/figma/37.jpg" alt="">
+            </div>
+          </div>
+          <div class="row" id="collaborationImportExportVersionHistory">
+            <h1>Collaboration, Import, Export ve Version History</h1>
+            <div class="row" id="teamActivity">
+              <h2>Takım Oluşturma, Yorum Ekleme ve Dosya Paylaşımı</h2>
+              <p>
+                Takım içinde free versiyonda 3 Figma ve 3 Figjam dosyası kullanılabiliyor.
+              </p>
+              <p>
+                Home menüden teams kısmına girilebiliyor.
+              </p>
+              <p>
+                Dosya içinde Share butonu ile paylaşabiliyoruz.
+              </p>
+            </div>
+            <div class="row" id="importExport">
+              <h2>İçeri Al/Dışarı Aktar (Import & Export)</h2>
+              <p>
+                Export edilecek frame seçilir ve sağ menüden Export menüsüne girilir.
+              </p>
+              <p>
+                ilk kısımda "1x" olarak görünen kısım export boyutunun frame boyutuna oranı.
+              </p>
+              <p>
+                Buradan PNG, JPEG, PDF ve SVG olarak kaydeder.
+              </p>
+              <p>
+                Ana sayfadaki import butonu (sağ üstte) ile de import işlemi yapılır.
+              </p>
+            </div>
+            <div class="row" id="versionHistory">
+              <h2>Versiyonlama (Version History)</h2>
+              <p>
+                Free versiyon 30 günlük değişikliği kaydeder.
+              </p>
+              <p>
+                Mevcut halini versiyon olarak kaydetmek için "Ctrl + Alt + S"
+              </p>
+              <p>
+                Figma otomatik olarak da versiyonları kaydeder.
+              </p>
+              <p>
+                "menu" > "file" > "show version history" ile versiyonlar görüntülenebilir ve silinebilir.
+              </p>
+            </div>
+            <div class="row" id="fontAwesome">
+              <h2>Font Awesome Kurulumu ve Figma'da Kullanımı</h2>
+              <p>
+                <a href="https://fontawesome.com/download">fontawesome.com/download</a> adresinden indiriyoruz.
+              </p>
+              <p>
+                indirilen klasörün içindeki otfs klasörünün içindeki tüm dosyalar seçilir. Sağ click menüsünden yükle denilir.
+              </p>
+              <p>
+                <a href="https://fontawesome.com/search">fontawesome.com/search</a> sayfasındaki logolardan free olanlardan kullanmak istediğimizi seçtik. Açılan sayfanın en üst sağ kısmında yer alan "Glyph" tıklanır ve projemize text olarak yapıştırılır. Font olarak da "font awesome 6" seçilir.
+              </p>
+            </div>
+          </div>
+          <div class="row" id="plugins">
+            <h1>En Çok Kullanılan Pluginler</h1>
+            <div class="row" id="unsplash-UIveFace">
+              <h2>Unsplash ve User Profile Eklentileriyle Hazır Resimler</h2>
+
+              <h3>Unsplash</h3>
+              <p>
+                Resimleri eklemek istediğimiz alanları seçiyoruz. (Ctrl alt ögeyi seçmemizi Shift de çoklu seçmemizi sağlar)
+              </p>
+              <p>
+                Unsplash pluginini çalıştır. ("Ctrl + P" ile gelen kısma "unsplash" yazılır. Kurulu değilse kurulur.) Çoklu seçim için ilk seçimi sağ click ile sonrakileri sol click ile seç ve "insert ... images" butonunu tıkla.
+              </p>
+
+              <h3>User Profile</h3>
+              <p>
+                Resimleri eklemek istediğimiz alanları seçiyoruz. (Ctrl alt ögeyi seçmemizi Shift de çoklu seçmemizi sağlar)
+              </p>
+              <p>
+                User Profile pluginini çalıştır. ("Ctrl + P" ile gelen kısma "User Profile" yazılır. Kurulu değilse kurulur.) İstenilen özellikler seçilir ve "Random Photo" tıklanır
+              </p>
+            </div>
+            <div class="row" id="contentEklentileri" >
+              <h2>Content (İçerik) Eklentileri</h2>
+              <h3>lorem ipsum</h3>
+              <p>
+                Çalışma alanında istediğimiz alanı text ile doldurur.
+              </p>
+
+              <h3>Content Reel</h3>
+              <p>
+                Hazır veriler, avatarlar, lastname-firstname dataları gibi içerikler bulunur.
+              </p>
+              <p>
+                Doldurulması istenen alanlar seçilip plugin üzerinden istenilen doldurma tipi seçilir.
+              </p>
+            </div>
+            <div class="row" id="ikonEklentileri">
+              <h2>En Çok Kullanılan İkon Eklentileri</h2>
+              <ul>
+                <li>Bootstrap icons</li>
+                <li>ant icons</li>
+                <li>iconscout: ikonlar, 3d, illustrationlar, animasyonlar. Bazıları ücretli.</li>
+                <li>feather icon: basit temel ikonlar</li>
+                <li>iconly: basit temel ikonlar. İsimlendirmesi variant yapısına uygun.</li>
+                <li>iconify: Geniş bir ikon kütüphanesi.</li>
+                <li>Material Design Icons: Geniş bir ikon kütüphanesi.</li>
+                <li>Icons8: ikonlar, illustrationlar, fotoğraflar. SVG ücretli. </li>
+              </ul>
+            </div>
+            <div class="row" id="mapUsing">
+              <h2>Figma'da Harita Kullanımı</h2>
+              <ul>
+                <li><b>Figmap</b>Kendisi ayrı bir element olarak harita ve maker üretiyor.</li>
+                <li><b>Map maker</b>Elementin arka planı olarak bir harita üretiyor. Bende çalışmadı (google maps'e bağlanamadı.)</li>
+              </ul>
+            </div>
+            <div class="row" id="wireframePlugins">
+              <h2>Wireframe Eklentisi İle Pratik Olarak Wireframeler Oluşturma</h2>
+              <p>
+                wireframe: yapılacak olan çalışmanın karakalem çalışması veya bir sonraki aşaması olan ileri şablon aşamasıdır. Gri ve tonları kullanılır. Text veya metin kullanılmaz.
+              </p>
+              <ul>
+                <li>wireframe</li>
+                <li>ink wireframe</li>
+              </ul>
+              <p>
+                Her ikisi de kullanışlı. İkisinin de önizlemesi bende görünmedi.
+              </p>
+            </div>
+            <div class="row" id="chartPlugin">
+              <h2>Chart Eklentisinin Kullanımı</h2>
+              <p>
+                Charts
+              </p>
+            </div>
+            <div class="row" id="figmotionAnimasyon">
+              <h2>Figmotion Eklentisi İle Animasyon</h2>
+              <p>
+                iconify ile bir araba ikonu çağırdık. "Ctrl + E" ile ikonu tek parçada topladık.
+              </p>
+              <p>
+                İkonu seçip sağ click ile plugins > figmotion seçildiğinde bizi tarayıcıya yönlendirdi. Bize verdiği kodu tarayıcıdaki ilgili alana girip giriş sağladık.
+              </p>
+              <p>
+                Tarayıcıda sağ menüden animasyonun değişecek olan değerleri seçilir. Ortadaki zaman alanından ne kadar sürede değişeceği ayarlanır. 
+              </p>
+              <p>
+                Animasyonu ayarlamak için önce başlangıç konumunda hangi değerin değiştirileceği seçilir. Figmada seçili olan elementin konumu uygulamada kaydedilir. Daha sonra zaman alanından 2. konum seçilir ve set edilir.  
+              </p>
+              <p>
+                Taraıcıda açık olan uygulamadan export ile animasyon css, react, json ve lottie olarak alınabilir.
+              </p>
+              <p>
+                Taraıcıda açık olan uygulamadan render ile dosya gif, mp4, webm ve webp olarak tarayıcıda açılabilir. Bu hali serverda geçici olarak tutulur. Tarayıcının en üstünden "wiev last render" ile bu gif vs açılabilir.
+              </p>
+            </div>
+            <div class="row" id="ROTOPlugin3D">
+              <h2>ROTO Eklentisi ile 3 Boyutlu Objeler</h2>
+              <p>
+                Texti 3D yaparken önce "Ctrl + E" ile vektör haline getiriyoruz. Sonra seçip ROTO eklentisini çalıştırıyoruz.
+              </p>
+              <p>
+                3d olan şeklin alındığı kaynak görünmez durumdadır. Bunu sol menüden görünür yapabiliriz. Bu kısmın 3d ile tam oturması için üd menüsünden "shear" aktif edilir.
+              </p>
+              <img src="./images/figma/38.jpg" alt="">
+            </div>
+            <div class="row" id="useStoryset">
+              <h2>Storyset Kullanımı</h2>
+              <p>
+                Vektörel çizimler ve animasyonlar
+              </p>
+              <p>
+                <a href="https://storyset.com/">storyset.com</a> adresinde sağ üstteki "plugin for figma" ile kurulur.
+              </p>
+              <p>
+                Site içinde istenilen illustrationlar üzerinde değişiklik yapabiliyoruz. Renkleri değiştirebiliyoruz. SVG veya PNG olarak indirebiliyoruz. Animasyon ekleyebiliyoruz. Animasyonları SVG + CSS olarak export edebiliyoruz. GIF veya MP4 olarak da indirebiliyoruz.
+              </p>
+              <p>
+                Figma içinde eklenti ile vektör hali çekilebiliyor. Gif, SVG vs için siteden export edildikten sonra import edilebilir.
+              </p>
+            </div>
+            <div class="row" id="breakpointsPlugin">
+              <h2>Breakpoints Eklentisi ile Belirli Çözünürlüklere Göre Ekran Gösterme</h2>
+              <p>
+                Uygulama ücretli
+              </p>
+              <p>
+                Birden fazla ekran boyutuna uygun frame oluşturulur ve içleri doldurulur.
+              </p>
+              <img src="./images/figma/39.jpg" alt="">
+              <p>
+                Sonra breakpoint eklentisi çağırılır ve sitenilen ekran ayarları ve o ayarda görülecek frame seçilir. İşlem tamamlandığında figma ekranında sonucu göreceğimiz bir alan oluşur.
+              </p>
+            </div>
+            <div class="row" id="figmaTablo">
+              <h2>Figma'da Tablo Oluşturma</h2>
+
+              <h3>Table Creator</h3>
+              <p>
+                Table Creator plugini çalıştığında bize Table creator adında bir page ve içinde hazır componentler verir. Bir tane de bizim istediğimiz özelliklerde tablo verir.
+              </p>
+              <p>
+                Oluşturduğu tablo veri girişine hazırdır.
+              </p>
+              <p>
+                Tablo autolayout olduğundan satır ve sütunlar "Ctrl + D" ile çoğalır.
+              </p>
+
+              <h3>Table Generator</h3>
+              <p>
+                Table generator plugini çalıştığında gelen ekranda istediğimiz tablo ayarlarını giriyoruz. Datamızı da data alanına sıralayabiliriz.
+              </p>
+              <img src="./images/figma/40.jpg" alt="">
+            </div>
+          </div>
+          <div class="row" id="currentFigmaFeatures">
+            <h1>Güncel Figma Özellikleri</h1>
+            <div class="row" id="2023FigmaVariables">
+              <h2>2023 Figma Variables</h2>
+              <p>
+                Sayfa içinde boş bir alana tıkladığımızda sağ menüde local variables alanı çıkar. Buradan bir değişken atayıp bunu tasarım içinde kullanabiliriz. 
+              </p>
+              
+              <h3>Boolean</h3>
+              <p>
+                Örneğin boolean bir değişken oluşturup bunu bir elementin görünürlüğünü belirlemede kullanabiliriz. Bunun için boolean değişkeni oluşturduktan sonra elementi seçip sağ menüde beliren layer alanındaki gözü sağ tıklayıp değişkeni seçiyoruz. Değişken true ise element görünür. False ise görünmez. Bunu da prototype alanında bir butona atayabiliriz. bkz: <a href="#advencedPrototypeConditionalLogic">Advenced Prototype Özelliği - Şartlı İfadeler (Conditional Logic)</a> dersi. Bunu yapmak için free olmayan bir figma gerekiyor.
+              </p>
+
+              <h3>Color</h3>
+              <p>
+                Oluşturduğumuz renge isim vermek için sağ menüde fill seçeneğinin hemen sağındaki dört nokta tıklanır. Burada isim kısmına blue/light yazarsak blue altında light oluşur. Buna blue/default ve blue/dark eklenince blue altında light, default ve dark oluşur.
+              </p>
+              <img src="./images/figma/41.jpg" alt="">
+
+              <p>
+                Bu rengi bir elemente atarken de yine fill kısmının sağındaki sembol ile library açılır ve oradan seçilir. Library üzerinden atanan renkler librarydeki özellikler ile bağlıdır. Örneğin atanan renk blue/light ise ve biz blue/light ın özelliğini değiştirirsek atanan elementlerdeki renkler de değişir.
+              </p>
+              <p>
+                Değişkenlere de aynı şekilde renkler eklenir. Değişkenlere eklenmesi kütüphaneye eklenmesinden daha çok esneklik sağlar.
+              </p>
+              <p>
+                İsimlendirmede daha önceki kalıba uyarak local variables alanında color adında bir collection oluşturup aşağıdaki renkleri ekledik
+              </p>
+              <img src="./images/figma/42.jpg" alt="">
+              <p>
+                daha sonra token adında bir collection ekledik ve renkleri libary üzerinden değişkenlere atadık.
+              </p>
+              <img src="./images/figma/43.jpg" alt="">
+              <p>
+                Token alanında modlar var. Bu kısmın kullanımı ücretli.
+              </p>
+
+              <h3>String</h3>
+              <p>
+                Sting olarak variable atayıp bunu da text olarak kullanabiliriz. Ücretli versiyonda mod ekleme ile butona basıldığında farklı bir modun içeriğinin görünmesi de sağlanabiliyor. Bunun için text alanı seçilir ve aşağıdaki gibi değişken atanır.
+              </p>
+              <img src="./images/figma/44.jpg" alt="">
+
+              <h3>Number</h3>
+              <p>
+                Önce aşağıdaki variables girilir.
+              </p>
+              <img src="./images/figma/45.jpg" alt="">
+              <p>
+                sonra buradan referans alan token değerleri oluşturulur. Değişkenin atanabileceği alan olarak da aşağıdaki gibi radius seçilir.
+              </p>
+              <img src="./images/figma/46.jpg" alt="">
+              <p>
+                "Shift" yardımı ile hepsi seçilip sağ click ile "New group with selection" denlerek grup oluşturulur.
+              </p>
+              <img src="./images/figma/46.jpg" alt="">
+              <p>
+                Aynı işlem spacing için de yapılır. Bu kısım da sadece "gap" kısmına atanacak şekilde seçilir.
+              </p>
+              <p>
+                Bu işlem bize tasarım boyunca tutarlılık sağlar.
+              </p>
+            </div>
+          </div>
+          <div class="row" id="workWithvideos">
+            <h2>Figma'da Video Dosyaları ile Çalışma</h2>
+            <p>
+              video sadece ücretli hesaplarda çalışıyor. 30MB dan büyük video figma üzerinde kullanılamıyor.
+            </p>
+          </div>
+          <div class="row" id="update2022">
+            <h2>2022 Yeni Güncellemeler - Derleme</h2>
+            <p>
+              <b>Dark Mode</b> menü > Preferences > theme
+            </p>
+            <p>
+              Border sadece istenilen tarafa verilebiliyor.
+            </p>
+            <p>
+              Text için sağ menüdeki font ayarlarının sonundaki "..." menüsünde variables içinden font kalınlığı ve eğimi ayarlanabiliyor (font izin veriyorsa).
+            </p>
+            <p>
+              Text için sağ menüdeki font ayarlarının sonundaki "..." menüsünde basics içinde en altta truncate menüsü var. Yazı belirli bir alandan taşıyorsa üç nokta ile yazıyı kısaltabiliyoruz.
+            </p>
+            <p>
+              Prototype smart animate içinde yeni animasyonlar var.
+            </p>
+          </div>
+          <div class="row" id="findAndChange">
+            <h2>Figma'da Bul/Değiştir Özelliği</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- JS -->
+
+  <script
+    src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=js&amp;skin=sunburst"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
