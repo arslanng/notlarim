@@ -1,22 +1,22 @@
-div.solBar>ul>li>a{
-    text-decoration: none;
-    color: black;
+div.solBar > ul > li > a {
+  text-decoration: none;
+  color: black;
 }
-div.solBar>ul>li:hover{
-    background-color: rgba(202, 201, 201, 0.192);
-    color: black;
+div.solBar > ul > li:hover {
+  background-color: rgba(202, 201, 201, 0.192);
+  color: black;
 }
-div.solBar{
-    max-height: 400px;
-    overflow: auto;
-    position: sticky;
-    top: 0;
+div.solBar {
+  max-height: 400px;
+  overflow: auto;
+  position: sticky;
+  top: 0;
 }
 
-.psql{
-    background-color: black;
-    color: white;
+.psql {
+  background-color: black;
+  color: white;
 }
-.psql>p>code{
-    color:rgb(34, 175, 3)
+.psql > p > code {
+  color: rgb(34, 175, 3);
 }

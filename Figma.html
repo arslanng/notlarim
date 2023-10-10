@@ -7,8 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Figma</title>
   <link rel="stylesheet" href="css/sql.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <!-- googlefont -->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script" rel="stylesheet"> -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script');
+  </style>
+
   <style>
     .menu ul {
       list-style-position: inside;
@@ -56,6 +63,146 @@
 
     .nav-pills .nav-link {
       color: black
+    }
+    /* examples */
+    #bacground-example-div1{
+      background-image: url(./images/paper.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    #bacground-example-div2{
+      background-image: url(./images/small-paper.png);
+      background-repeat: no-repeat;
+      background-position: center top;
+    }
+    #bacground-example-div3{
+      background: url(./images/manzara.jpg) no-repeat center center;
+      background-size: contain;
+    }
+    #example-border1{
+      width: 300px;
+      height: 300px;
+      /* border-width: 5px;
+      border-color: red;
+      border-style:solid */
+      border: 5px solid red; 
+      border-radius: 30px;
+    }
+    #example-border2{
+      width: 300px;
+      height: 300px;
+      border-left: 5px solid red; 
+      border-top: 5px solid rgb(0, 0, 0); 
+    }
+    #example-width1{
+      width: 50%;
+      height: 200px;
+      background: red;
+    }
+    #example-width2{
+      height: 50vh;
+      background:blue;
+    }
+    #example-font1{
+      
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 40px;
+    }
+    p#example-font1::first-letter{
+      text-transform: capitalize;
+      font-size: 40px;
+      font-family:monospace
+    }
+    #example-font2{
+      font-size: 25px;
+      background-color: rgb(232, 232, 232);
+    }
+    #example-font3{
+      letter-spacing: 3px;
+      background-color: rgb(232, 232, 232);
+    }
+    #example-font4{
+      text-transform: uppercase;
+      background-color: rgb(232, 232, 232);
+    }
+    #example-font5{
+      font-style: italic;
+      background-color: rgb(232, 232, 232);
+    }
+    #example-font6{
+      word-spacing: 20px;
+      background-color: rgb(232, 232, 232);
+    }
+    #example-font7{
+      font-weight: bold;
+      background-color: rgb(232, 232, 232);
+    }
+    #example-googlefont1{
+      font-family: 'Dancing Script', cursive;
+    }
+    #example-mp1{
+      max-width: 500px;
+      border: 2px solid #333;
+      background: #f5f5f5;
+      padding: 20px 80px;
+      margin: 50px;
+    }
+    #example-aligment1{
+      background: yellow;
+      padding: 15px 0;
+      text-align: center;
+    }
+    #example-aligment2{
+      text-align: justify;
+    }
+    #example-aligment3{
+      width: 100%;
+      height: 350px;
+      background-color: crimson;
+      color: #fff;
+      display: table;
+    }
+    div#example-aligment3 p{
+      max-width: 250px;
+      background-color: blue;
+      margin: 0 auto;
+      text-align: center;
+      display: table-cell;
+    }
+    #example-position1{
+      width: 100%;
+      height: 350px;
+      background-color: crimson;
+      color: #fff;
+      position: relative;
+    }
+    div#example-position1 p{
+      max-width: 250px;
+      background-color: blue;
+      margin: 0 auto;
+      text-align: center;
+      height: 140px;
+      position: absolute;
+      left: 50%; 
+      /* alanın yarısı kadar soldan itildi */
+      margin-left: -125px;
+      /* kendisinin yarısı kadar sola geri çekildi */
+      top: 50%;
+      /* alanın yarısı kadar yukarıdan itildi */
+      margin-top: -70px;
+      /* kendisinin yarısı kadar yukarı çekildi*/
+    }
+    img#example-position2{
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 48px;
+    }
+    img#example-position3{
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      width: 48px;
     }
   </style>
 </head>
@@ -177,6 +324,17 @@
               <a class="nav-link ms-3 my-1" href="#useStoryset">Storyset Kullanımı</a>
               <a class="nav-link ms-3 my-1" href="#breakpointsPlugin">Breakpoints Eklentisi ile Belirli Çözünürlüklere Göre Ekran Gösterme</a>
               <a class="nav-link ms-3 my-1" href="#figmaTablo">Figma'da Tablo Oluşturma</a>
+              <a class="nav-link ms-3 my-1" href="#responsify">Responsify</a>
+              <a class="nav-link ms-3 my-1" href="#useFoundationColorGenerator">Foundation Color Generator</a>
+              <a class="nav-link ms-3 my-1" href="#useRemoveBG">Remove BG</a>
+              <a class="nav-link ms-3 my-1" href="#pluginBlobs">Blobs</a>
+              <a class="nav-link ms-3 my-1" href="#lottieFiles">LottieFiles</a>
+              <a class="nav-link ms-3 my-1" href="#artboardStudioMockups">Artboard Studio Mockups</a>
+              <a class="nav-link ms-3 my-1" href="#vectary3DElement">Vectary 3D Element</a>
+              <a class="nav-link ms-3 my-1" href="#dynamicFotoGaleriWithGoogleSheet">Google Sheets Sync</a>
+              <a class="nav-link ms-3 my-1" href="#jsonToFigma">JSON to figma</a>
+              <a class="nav-link ms-3 my-1" href="#jsonToChart">Chart (from JSON)</a>
+              <a class="nav-link ms-3 my-1" href="#dataFromAirtable">Airtable to Figma</a>
             </nav>
             <a class="nav-link" href="#currentFigmaFeatures">Güncel Figma Özellikleri</a>
             <nav class="nav nav-pills flex-column">
@@ -184,6 +342,55 @@
               <a class="nav-link ms-3 my-1" href="#workWithvideos">Figma'da Video Dosyaları ile Çalışma</a>
               <a class="nav-link ms-3 my-1" href="#update2022">2022 Yeni Güncellemeler - Derleme</a>
               <a class="nav-link ms-3 my-1" href="#findAndChange">Figma'da Bul/Değiştir Özelliği</a>
+              <a class="nav-link ms-3 my-1" href="#scrollToOnePage">Scroll To Özelliği İle One Page Sayfa Mantığı</a>
+              <a class="nav-link ms-3 my-1" href="#stickyScrollingInPrototypes">Sticky Scrolling in Prototypes</a>
+              <a class="nav-link ms-3 my-1" href="#figJam">FigJam Nedir, Ne İşe Yarar?</a>
+              <a class="nav-link ms-3 my-1" href="#componentProperties">Component Properties</a>
+              <a class="nav-link ms-3 my-1" href="#figmaWidgets">Figma Widgets</a>
+            </nav>
+            <a class="nav-link" href="#doExample">Uygulamalı Örnekler</a>
+            <a class="nav-link" href="#designSystem">Design System</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#intoTheDesignSystem">Design System'e Giriş</a>
+              <a class="nav-link ms-3 my-1" href="#makeColorSystem">Renk Sistemi Oluşturma ve Kütüphanede Yayınlama</a>
+              <a class="nav-link ms-3 my-1" href="#useFoundationColorGenerator">Foundation Color Generator Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#gridStructure">Grid (Izgara) Yapısını Belirleme</a>
+              <a class="nav-link ms-3 my-1" href="#standartsOfButton">Buton Özellikleri ve Buton Standartları</a>
+              <a class="nav-link ms-3 my-1" href="#standartsOfInputs">Inputlar</a>
+              <a class="nav-link ms-3 my-1" href="#standartsOfTypography">Tipografi</a>
+              <a class="nav-link ms-3 my-1" href="#spacingSystem">Spacing System (Boşluk Sistemi Oluşturma ve Kullanımı)</a>
+              <a class="nav-link ms-3 my-1" href="#standartsOfIcons">Icons</a>
+              <a class="nav-link ms-3 my-1" href="#makeButtonsAtomicSystem">Atomic Design Sistem Mantığı ile Buton Seti Oluşturma</a>
+            </nav>
+            <a class="nav-link" href="#fullMobileAppExample">Baştan Sona Mobil Uygulama Tasarımı</a>
+            <a class="nav-link" href="#onePageWebAppExample">One Page Web Sitesi Tasarımı Yapıyoruz</a>
+            <a class="nav-link" href="#toolboxForDesigner">Tasarımcının El Çantası ve Faydalı İpuçları</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#colorAndFontForDesigner">Tasarımcılar İçin Renk ve Font Kullanımında İpuçları</a>
+              <a class="nav-link ms-3 my-1" href="#style2PaintExe">Yapay Zeka ile Çizimlerde ve Resimlerde Renklendirme İşlemi (Style2Paint.exe)</a>
+              <a class="nav-link ms-3 my-1" href="#bestIconsInWeb">Tasarımcılar İçin En İyi İkon Siteleri</a>
+              <a class="nav-link ms-3 my-1" href="#mobileMockup">Iphone ve Android Cihazlar İçin Mockup Kullanımı</a>
+            </nav>
+            <a class="nav-link" href="#workingWithDynamicData">Dinamik Verilerle Çalışma</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#dynamicFotoGaleriWithGoogleSheet">Google Sheet'den Veri Çekerek Dinamik Fotoğraf Galerisi Oluşturma</a>
+              <a class="nav-link ms-3 my-1" href="#dynamicChartWithJson">JSON Dosyalarından Verileri Çekerek Dinamik Chart Oluşturma</a>
+              <a class="nav-link ms-3 my-1" href="#bravoStudio">Bravo Studio ile Native App (Kod yazmadan + Rest API)</a>
+              <a class="nav-link ms-3 my-1" href="#dataFromAirtable">Airtable Üzerinden Veri Çekme</a>
+            </nav>
+            <a class="nav-link" href="#html">HTML</a>
+            <a class="nav-link" href="#css">Css</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#addCSS">HTML Sayfamıza CSS Ekleme Yöntemleri</a>
+              <a class="nav-link ms-3 my-1" href="#cssBacground">Tüm Özellikleriyle CSS Background Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#selectors">Selector (Seçiciler)</a>
+              <a class="nav-link ms-3 my-1" href="#cssBorder">CSS Border Kullanım</a>
+              <a class="nav-link ms-3 my-1" href="#widthAndHeight">CSS Genişlik ve Yükseklik Özellikler</a>
+              <a class="nav-link ms-3 my-1" href="#cssFonts">Font Özellikleri</a>
+              <a class="nav-link ms-3 my-1" href="#cssFonts">Font Özellikleri</a>
+              <a class="nav-link ms-3 my-1" href="#cssPaddingAndMargin">Padding ve Margin Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssAlignment">Dikey ve Yatayda Ortalanmış Elemanlar</a>
+              <a class="nav-link ms-3 my-1" href="#cssPosition">CSS Konumlandırma - Position</a>
             </nav>
           </nav>
         </nav>
@@ -194,12 +401,15 @@
           <div class="row" id="whatIsFigma">
             <h1>Figma Ne İşe Yarar</h1>
 
-            figmada yapılan son güncellemeler için <a href="https://www.figma.com/whats-new/">figma.com/whats-new</a>
-            sayfasını takio ediyoruz.
-
-            Register ve login bildiğiniz gibi.
-
-            Kurulum da oldukça basit. Admin yetkisi istemiyor.
+            <p>
+              figmada yapılan son güncellemeler için <a href="https://www.figma.com/whats-new/">figma.com/whats-new</a> sayfasını takio ediyoruz.
+            </p>
+            <p>
+              Register ve login bildiğiniz gibi.
+            </p>
+            <p>
+              Kurulum da oldukça basit. Admin yetkisi istemiyor.
+            </p>
           </div>
           <div class="row" id="figmaArayuzGiris">
             <h1>Figma Arayüzüne Giriş ve Araçlar</h1>
@@ -922,6 +1132,75 @@
               </p>
               <img src="./images/figma/40.jpg" alt="">
             </div>
+            <div class="row" id="responsify">
+              <h2>Responsify</h2>
+              <p>
+                Bir cihaza göre bir frame oluşturduğunda diğer cihazlarda nasıl görüneceğini anlamak için önce frame seçilir sonra responsify çalıştırılır.
+              </p>
+            </div>
+            <div class="row" id="">
+              <h2>Foundation Color Generator</h2>
+              <p>
+                <a href="#useFoundationColorGenerator">Foundation Color Generator</a>
+              </p>
+            </div>
+            <div class="row" id="useRemoveBG">
+              <h2>Remove BG</h2>
+              <p>
+                İmage dosyasından arka planı kaldırır.
+              </p>
+            </div>
+            <div class="row" id="pluginBlobs">
+              <h2>Blobs</h2>
+              <p>
+                Vektör formatında amorf baloncuklar yaratır. arka plan görüntüsünde vs kullanılabilir.
+              </p>
+            </div>
+            <div class="row" id="lottieFiles">
+              <h2>LottieFiles</h2>
+              <p>
+                Hazır GIF getirme uygulaması
+              </p>
+            </div>
+            <div class="row" id="artboardStudioMockups">
+              <h2>Artboard Studio Mockups</h2>
+              <p>
+                Framelerimizden mockup yapma plugini. Önce sitesinde üye olup aldığımız api key ile figmada aktive ediyoruz.
+              </p>
+              <p>
+                Free versiyonu sınırlı kullanım sunuyor.
+              </p>
+              <p>
+                Plugin içinden istenilen yüzey seçildiğinde onunla beraber gelen frame içine istenilen materyal eklenir ve "Render Selected Frame" tıklanır.
+              </p>
+            </div>
+            <div class="row" id="vectary3DElement">
+              <h2>Vectary 3D Element</h2>
+              <p>
+                Mockup kullak için başka bir uygulama. Önce kendi listesinden istediğimiz mockup'ı seçiyoruz. Sonra bunun içine ekleyeceğimiz frame'i seçiyoruz ve "Apply Frame" butonuna tıklıyoruz. İstediğimiz gibi olmuşsa "Finish" butonu tıklanır.
+              </p>
+            </div>
+            <div class="row">
+              <h2>Google Sheets Sync</h2>
+              <p>
+                <a href="#dynamicFotoGaleriWithGoogleSheet">Google Sheets Sync</a>
+              </p>
+            </div>
+            <div class="row">
+              <h2>JSON to figma</h2>
+              <p>
+                <a href="#jsonToFigma">JSON to figma</a>
+              </p>
+            </div>
+            <div class="row">
+              <h2>Chart (from JSON)</h2>
+              <p>
+                <a href="#jsonToChart">Chart (from JSON)</a>
+              </p>
+            </div>
+            <div class="row">
+              <a href="#dataFromAirtable">Airtable to Figma</a>
+            </div>
           </div>
           <div class="row" id="currentFigmaFeatures">
             <h1>Güncel Figma Özellikleri</h1>
@@ -986,37 +1265,1507 @@
                 Bu işlem bize tasarım boyunca tutarlılık sağlar.
               </p>
             </div>
+            <div class="row" id="workWithvideos">
+              <h2>Figma'da Video Dosyaları ile Çalışma</h2>
+              <p>
+                video sadece ücretli hesaplarda çalışıyor. 30MB dan büyük video figma üzerinde kullanılamıyor.
+              </p>
+            </div>
+            <div class="row" id="update2022">
+              <h2>2022 Yeni Güncellemeler - Derleme</h2>
+              <p>
+                <b>Dark Mode</b> menü > Preferences > theme
+              </p>
+              <p>
+                Border sadece istenilen tarafa verilebiliyor.
+              </p>
+              <p>
+                Text için sağ menüdeki font ayarlarının sonundaki "..." menüsünde variables içinden font kalınlığı ve eğimi ayarlanabiliyor (font izin veriyorsa).
+              </p>
+              <p>
+                Text için sağ menüdeki font ayarlarının sonundaki "..." menüsünde basics içinde en altta truncate menüsü var. Yazı belirli bir alandan taşıyorsa üç nokta ile yazıyı kısaltabiliyoruz.
+              </p>
+              <p>
+                Prototype smart animate içinde yeni animasyonlar var.
+              </p>
+            </div>
+            <div class="row" id="findAndChange">
+              <h2>Figma'da Bul/Değiştir Özelliği</h2>
+              <p>
+                Sol menüde yer alıyor. Kısayol için "Ctrl + F"
+              </p>
+              <img src="./images/figma/48.jpg" alt="">
+              <p>
+                Word'dekinin aynısı
+              </p>
+            </div>
+            <div class="row" id="scrollToOnePage">
+              <h2>Scroll To Özelliği İle One Page Sayfa Mantığı</h2>
+              <p>
+                Hocanın verdiği template üzerinde çalışacağız. Tek bir home frame içinde birden fazla frame ile navbar, home vs aşağı doğru yerleştirdik (her biri kendi frame'i içinde).
+              </p>
+              <img src="./images/figma/49.jpg" alt="">
+              <p>
+                Her bir buton prototype alanında gideceği yere scroll to ile bağlanır.
+              </p>
+              <img src="./images/figma/50.jpg" alt="">
+              <p>
+                En üstteki navbarın scrolling sırasında ekranda sabit kalması için navbar seçiliyken protype ekranında aşağıdaki ayar yapılır.
+              </p>
+              <img src="./images/figma/51.jpg" alt="">
+              <p>
+                Sabit navbarın altından çağırılan içeriği kurtarmal için prototype alanındaki yükseklik ayarına (y-offset) negatif olarak navbar genişliği verilir (-104). (Bizim örnek resmimizde bu ayar var.)
+              </p>
+            </div>
+            <div class="row" id="stickyScrollingInPrototypes">
+              <h2>Sticky Scrolling in Prototypes</h2>
+              <p>
+                Aşağıdaki gibi bir header, beş adet bir title ve altında list-item olan list alanı yapıldı ve header harici kısım CONTENT adında bir frame ile birleştirildi. 
+              </p>
+              <img src="./images/figma/52.jpg" alt="">
+              <p>
+                Header prototype alanında Position: fixed ile en üste sabitlendi.
+              </p>
+              <p>
+                Content prototype alanında Position: Scroll with parent, Overflow: Vertical seçildi.
+              </p>
+              <p>
+                Content içindeki title kısımları prototype alanında Position: Sticky seçildi.
+              </p>
+              <p>
+                Sticky alanlar üstte yapıştığında en üstte görünmeleri için Context frame'i içinde de üstte olmalılar.
+              </p>
+              <p>
+                Content alan yüksekliği azaltılarak en sona gelindiğinde içeriğin ne kadarının göründüğü ayarlanabilir. Biz title yüksekliği kadar ayarladık. Bu şekilde en son sadece title alanı kaldı.
+              </p>
+              <p>
+                En sonda en dıştaki frame prototiplemek istenen alana getirildi.
+              </p>
+              <p>
+                Kısayol notu: "Ctrl + Shift + G" ile auto layout bir öceki haline getirildi.
+              </p>
+              <p>
+                Kısayol notu: "Ctrl + Shift + Ü" seçili elementleri sol menüde en üste taşır (en önde görünmelerini sağlar).
+              </p>
+              <p>
+                Kısayol notu: "Ctrl + Alt + G" seçili elementleri bir frame altında toplar.
+              </p>
+            </div>
+            <div class="row" id="figJam">
+              <h2>FigJam Nedir, Ne İşe Yarar?</h2>
+  
+              <p>
+                Userflow ve wireframe oluşturmak için kullanılır. Basit bir kullanımı var.
+              </p>
+              <p>
+                Sürükle-bırak ile image eklenebiliyor.
+              </p>
+              <img src="images/figma/akış şeması.jpg" alt="">
+            </div>
+            <div class="row" id="componentProperties">
+              <h2>Component Properties</h2>
+              <p>
+                <a href="#variants">Variants (Türler)</a> dersindeki işlemin daha az efor ile yapılanı.
+              </p>
+              <p>
+                Bu işlem için bir placeholder ve icon içeren bir input hazırlandı ve component haline getirildi.
+              </p>
+              <p>
+                Component içindeki text kısmı seçildi ve sağ menüden "layer" yazısının hemen sağındaki "Apply boolean property" tıklanır ve "create property" tıklanır. Gelen alana property için isim yazılır.
+              </p>
+              <img src="images/figma/53.jpg" alt="">
+              <p>
+                Aynı işlem text için sağ menüde "Content" için de "Appy text property" olarak uygulanır.
+              </p>
+              <p>
+                Aynı layer işlemi icon için de yapılır.
+              </p>
+              <p>
+                Bu haliyle componente bağlı kopya componentlerde "property" alanında oluşturduğumuz değerler seçenek olarak görülür.
+              </p>
+              <p>
+                Ana component seçiliyken sağ menüde "Properties"in yanındaki "+" butonu tıklanarak açılan menüden variant oluşturulur. Sonra da Ana component altındaki "+" butonu ile variant sayısı istenilen miktara getirilir.
+              </p>
+              <img src="images/figma/54.jpg" alt="">
+              <p>
+                Bu durumda tüm componentler seçiliyken sağ menüde properties altında yeni bir değer grubu oluşur. Adını "state" olarak değiştirdik. Her bir "variant" ı tek tek seçip state'e karşılık gelen değeri düzenledik.
+              </p>
+              <img src="images/figma/55.jpg" alt="">
+              <p>
+                Bu 4 variant için renk tanımları yapıldı.
+              </p>
+            </div>
+            <div class="row" id="figmaWidgets">
+              <h2>Figma Widgets</h2>
+              <p>
+                Çalışmaya takvim, todo vs eklemek için kullanılır.
+              </p>
+              <ul>
+                <li><b>Activity Tracker:</b> Start ile yapılan işin süresini kaydetmeye başlar. Freelancer’lar için bir işe ne kadar zaman harcandığındı ölçmek için kullanılabilir.</li>
+                <li><b>Voice memo:</b> tasarımın çeşitli yerlerine sesli notlar koymaya yarar</li>
+                <li><b>jira ve asana:</b> Bu programlardaki taskları düzenlemeye yarar.</li>
+                <li><b>Todo list:</b> iş listesi için. Birden fazla var. istediğimizi kullanabiliriz.</li>
+                <li><b>Aligment Scale:</b> Oylama için kullanılır.</li>
+              </ul>
+            </div>
           </div>
-          <div class="row" id="workWithvideos">
-            <h2>Figma'da Video Dosyaları ile Çalışma</h2>
+          <div class="row" id="doExample">
+            <h1>Uygulamalı Örnekler</h1>
+            Burada yaptıklarımızı figmada example dosyasında tutuyorum.
+            <ul>
+              <li><b>Overlay Kullanımı ve Kayan Yazı Uygulaması</b>: Login ekranında kullanıcı sözleşmesinin overlay olarak görünmesi ve frame'e sığmayan textin kaydırılabilmesi için örnek yapıldı.</li>
+              <li><b>Fix Position When Scrolling</b>: Daha önce öğrendiğimiz scrolling ve fix position çalışmasının örneği</li>
+              <li><b>Tab Çalışması</b>: Yukarıdaki uygulamaya tab ekledik.</li>
+              <li><b>Pen (Kalem) Tool ve Shape (Şekil): Mobil Hava Durumu Tasarımı</b>: Şekil, çizgi ve kalem ile tasarım yaptık</li>
+              <li><b>İnfographic</b></li>
+              <li><b>Smart Animate: Footer Navigation Menu</b></li>
+              <li><b>Text Animation</b></li>
+              <li><b>Fonksiyonel Mega Menu</b></li>
+              <li><b>Animasyonlu Hamburger Menü İkonu Yapımı</b></li>
+              <li><b>figma mirror</b></li>
+              <li><b> İnteraktif Slider Yapımı</b></li>
+              <li><b>Intro (Animasyonlu Geçiş Efekti) Çalışması</b></li>
+              <li><b>Vektörel Olarak Uzay Mekiği Çizimi</b></li>
+              <li><b>Drag Özelliği ve Maskeleme Kullanarak Kayan Yazı Uygulaması</b></li>
+              <li><b>Auto Layout ile Responsive Card Tasarlayalım</b></li>
+              <li><b>Interactive Component: Animasyonlu Share Butonu</b></li>
+              <li><b>Accordion Menü</b></li>
+              <li><b>Auto Layout ve Interactive Componentler ile Takvim Çalışması</b></li>
+              <li><b>Pulser Overlay Info Uygulaması</b></li>
+              <li><b>Sidebar Hover Menu - İç İçe İnteractive Component Kullanımı</b></li>
+              <li><b>Tek Seferde Tüm Cihaz Boyutlarına Uygun Tasarım Yapma</b>: <a href="#responsify"><u>responsify</u></a></li>
+              <li><b> Floating Label</b></li>
+            </ul>
+          </div>
+          <div class="row" id="designSystem">
+            <h1>Design System</h1>
+            <div class="row" id="intoTheDesignSystem">
+              <h2>Design System'e Giriş</h2>
+              <p>
+                UI kit içererisinde buton kitleri, tipografi, boşluklar vs olan sınırlı bir yapı iken design system ise genelde büyük markaların kullanmış olduğu ve kullanılan kompanentlerin bir araya getirilmesi ile oluşan bütünleşik bir sistemdir. UI kit Design System'e göre daha kısıtlıdır. Design System birbirleri ile daha uyumludur. 
+              </p>
+              <p>
+                Design System "atomik web dizayn" yapısıdır. Yani küçük parçaları daha büyük bir bütüne doğru ilerledikçe de tutarlılık sergiler. Yapı da küçükten büyüğe doğru kurgulanır.
+              </p>
+              <p>
+                En sık kullanılan Design Systemler
+                <ul>
+                  <li><b>Material Design</b>: Google'ın</li>
+                  <li><b>Developer.apple.com</b></li>
+                  <li><b>Atlassian</b></li>
+                  <li><b>Carbon Design System</b></li>
+                  <li><b>Flowbite</b>: ücretli</li>
+                </ul>
+              </p>
+            </div>
+            <div class="row" id="makeColorSystem">
+              <h2>Renk Sistemi Oluşturma ve Kütüphanede Yayınlama</h2>
+              <p>
+                Rengi kütüphaneye eklemenin en kolay yolu rengi bir şekle atayıp daha sonra sağ menüden fill yazısının hemen sağındaki dört nokta ile açılan menüden eklemektir.
+              </p>
+              <img src="./images/figma/56.jpg" alt="">
+              <p>
+                İsimlendirmeyi ana-isim/varyant düzeni ile yaparsak renkleri gruplandırabilriz. Örn: Pink/900, Pink/800 vs yazarsak Pink altında 900, 800 vs varyantlar oluşur. 
+              </p>
+              <img src="./images/figma/57.jpg" alt="">
+              <p>
+                Pro versiyonda sol menüde asset > library (açık kitap logosu) > publish ile bu renk stillerimizi paylaşabiliriz.
+              </p>
+            </div>
+            <div class="row" id="useFoundationColorGenerator">
+              <h2>Foundation Color Generator Kullanımı</h2>
+              <p>
+                "Foundation: Color Generator" bir plugin. Bize renk paleti yapıp (palette butonu ile), bunu otomatik olarak "Color Styles" içine kaydetmemizi (Create Styles butonu ile) sağlar.
+              </p>
+            </div>
+            <div class="row" id="gridStructure">
+              <h2>Grid (Izgara) Yapısını Belirleme - Desktop - Tablet - Mobil</h2>
+              <p>
+                Grid yapısını açmak için sağ menüden "layout grid" eklenir. Bootstrap gibi 12li sistemler için aşağıdaki ayar yapılabilir.
+              </p>
+              <img src="./images/figma/58.jpg" alt="">
+              <p>
+                <a href="https://seochecker.it/en/web-tools">seochecker.it/en/web-tools</a> içinde bir sürü güzel web aracı var. Bunlardan biri de <a href="https://seochecker.it/en/layout-grid-calculator">layout grid calculator</a> Bununla gridimizin ölçülerini hesaplayabiliriz.
+              </p>
+              <p>
+                Hazırladığımız layout grid yapısını kaydetmek için:
+              </p>
+              <img src="./images/figma/59.jpg" alt="">
+              <p>
+                Yaptığımız örnek figma içinde design/system altında grid isimli page'de
+              </p>
+            </div>
+            <div class="row" id="standartsOfButton">
+              <h2>Buton Özellikleri ve Buton Standartları</h2>
+              <p>
+                Üst ve alltan padding sağ ve soldan olandan daha az olmalıdır.
+              </p>
+              <p>
+                Web ve mobile için en sık minimum buton size: 64px (42-72px), font size: 16px, en sık padding yatayda: 32px dikeyde: 18px
+              </p>
+              <p>
+                Butonun önceliği arttıkça görünürlüğünü de arttırmak gerekiyor.
+              </p>
+              <p>
+                İcon genelde sol taraftadır.
+              </p>
+              <p>
+                Buton texti mümkün olduğunca tek satırda kullanmalıyız.
+              </p>
+              <p>
+                Yüksek öncelikli buton genelde sol taraftadır. Butonların hepsi sağa yaslıysa en sağa yüksek öncelikli olan konulur.
+              </p>
+              <p>
+                Radius: <br>
+                0px: Ciddi, Temiz (Genelde kurumsal)<br>
+                5px: Ciddi, Dostça <br>
+                20px: Modern, Yenilikçi,<br>
+                50px: Dostça, Sıcak
+              </p>
+            </div>
+            <div class="row" id="standartsOfInputs">
+              <h2>Inputlar</h2>
+              <p>
+                input yüksekliği 38-48px yüksekliğinde olmalı. mobilde 40px, webde 44px tercih edilebilir.
+              </p>
+              <p>
+                Label modern tasarımlarda inputun yanında değil üstünde tercih ediliyor.
+              </p>
+              <p>
+                Label text size: 14-16 px <br>
+                Label - input arası: 5-10px <br>
+                informaton text size: 12-14px
+                input - information arası boşluk: 3-5px <br>
+                input padding: dikey: 11px, yatay: 11-16px
+              </p>
+              <p>
+                floating label: inputa tıklanınca kendini üste alan label.
+              </p>
+            </div>
+            <div class="row" id="standartsOfTypography">
+              <h2>Tipografi</h2>
+              <p>
+                İyi bir tipgrafinin üç kuralı
+                <ul>
+                  <li>Tutarlılık</li>
+                  <li>Hiyerarşi</li>
+                  <li>Hizalama</li>
+                </ul>
+              </p>
+              <p>
+                Yazı tipleri dört başlıkta toplanır.
+                <ul>
+                  <li>Tırnaklı: <span>SERIF</span> Genelde gazete dergi vs basılı materyalde tercih edilir.</li>
+                  <li>Tırnaksız: <span>SANS-SERIF</span> Dijitalde tercih edilir.</li>
+                  <li>El Yazısı: <span>SCRIPT</span></li>
+                  <li>Süslü: <span>DECORATİVE</span></li>
+                </ul>
+              </p>
+              <p>
+                Ön plana çıkması istenen kısım kalın, koyu ve büyük yazılır. Vurgulu kısmın hemen altındaki kısmın font-size değeri vurgulu kısmın yarısından az olmamalı. Altın oran: 1.6
+              </p>
+              <p>
+                <a href="https://typescale.com/">typescale.com</a> sitesi base-size değerine göre diğer boyutları hesaplamamıza yardımcı olur.
+              </p>
+              <p>
+                Bir tasarımda max üç font tipi seçilir. Fazlası hem okunurluğu hem de tutarlılığı zorlar.
+              </p>
+              <p>
+                Figma üzerinde text-style eklemek için, istediğimiz özellikleri atadığımız texti seçip sağ menüde text yazısının yanındaki dört nokta tıklanır. İstediğimiz isim verilerek kaydedilir. Renklerde olduğu gibi "/" işareti ile adlandırılırsa renklerdeki gibi gruplar.
+              </p>
+              <img src="./images/figma/60.jpg" alt="">
+            </div>
+            <div class="row" id="spacingSystem">
+              <h2>Spacing System (Boşluk Sistemi Oluşturma ve Kullanımı)</h2>
+              <p>
+                8'li sistem: 8px ve katlarını kullanır. 4'lü ve 8'li sistemler en sık kullanılan boşluk sistemleridir.
+              </p>
+              <p>
+                <a href="https://m2.material.io/design/layout/spacing-methods.html#spacing">Material Design - Spacing</a>
+              </p>
+              <p>
+                <a href="https://tailwindcss.com/docs/customizing-spacing">Tailwind - Spacing</a>
+              </p>
+              <p>
+                rem birimi sadece html öğesinin font-size ölçüsünü baz almaktadır. html{font-size:16px;} ise 1rem = 16px olacaktır.
+              </p>
+            </div>
+            <div class="row" id="standartsOfIcons">
+              <h2>Icons</h2>
+              <p>
+                Bütünlük açısından aynı tip ikon kullanmak önemlidir.
+              </p>
+              <p>
+                Geometrik ve minimalist tasarımlar daha iyidir. Düşük çözünürlüklü ekranlarda da düzgün görünür.
+              </p>
+              <p>
+                Kullandığımız ikonlarda size değerleri tutarlı olmalıdır.
+              </p>
+              <p>
+                ikon yerleştirirken x ve y tam sayı olmalıdır. Küsüratlı değerlerde çözünürlük bozulabilir.
+              </p>
+              <p>
+                Stroke değeri 1,5-2 olması tercih edilir. İkonun her yerinde aynı stroke değeri kullanılmalıdır.
+              </p>
+              <p>
+                İkon home ikonu gibi evrensel bir ikonsa altına açıklama yazmaya gerek yok. Evrensel bir ikon değilse altına açıklama gerekir.
+              </p>
+              <p>
+                Kullanacağımız ikon setini component set haline getirmeden önce tutarlı bir ölçü sağlamak önemlidir. Bunun için ikonun alanını temsilen bir dikdörtgen/kare oluşturup onun içinde ayarlanması faydalı olacaktır.
+              </p>
+            </div>
+            <div class="row" id="makeButtonsAtomicSystem">
+              <h2>Atomic Design Sistem Mantığı ile Buton Seti Oluşturma</h2>
+              Figma içinde oluşturuldu. Atomic Design mantığında önce en küçük birim olan bir buton oluşturup, buna bağlı elemanlar olarak yavaş yavaş tüm yapı kuruldu.
+            </div>
+          </div>
+          <div class="row" id="fullMobileAppExample">
+            <h1>Baştan Sona Mobil Uygulama Tasarımı</h1>
             <p>
-              video sadece ücretli hesaplarda çalışıyor. 30MB dan büyük video figma üzerinde kullanılamıyor.
+              Uygulama figma içinde "full_mobile_app_example" içinde yapıldı. Teorik anlamda önemli bir not olursa buraya yazacağım.
+            </p>
+            <p>
+              Sisteme font yüklemek için indirip sağ tıklayıp yükle diyoruz.
+            </p>
+            <p>
+              Tasarım ipucu: dışta border radius varsa iç kısımda border radius değeri daha az verilebilir.
+            </p>
+            <p>
+              mockup yapmak için <a href="#artboardStudioMockups">Artboard Studio Mockups</a> pluginini ve <a href="#vectary3DElement">Vectary 3D Element</a> pluginini kullandık.
+            </p>
+            <p>
+              cover page içinde 1600*900 frame oluşturup isrediğimiz şekle soktuktan sonra frame seçilir ve sağ click menüden "Set as thumbnail" tıklanır. Böylece bu frame projenin kapağı olur.
             </p>
           </div>
-          <div class="row" id="update2022">
-            <h2>2022 Yeni Güncellemeler - Derleme</h2>
+          <div class="row" id="onePageWebAppExample">
+            <h1>One Page Web Sitesi Tasarımı Yapıyoruz</h1>
             <p>
-              <b>Dark Mode</b> menü > Preferences > theme
-            </p>
-            <p>
-              Border sadece istenilen tarafa verilebiliyor.
-            </p>
-            <p>
-              Text için sağ menüdeki font ayarlarının sonundaki "..." menüsünde variables içinden font kalınlığı ve eğimi ayarlanabiliyor (font izin veriyorsa).
-            </p>
-            <p>
-              Text için sağ menüdeki font ayarlarının sonundaki "..." menüsünde basics içinde en altta truncate menüsü var. Yazı belirli bir alandan taşıyorsa üç nokta ile yazıyı kısaltabiliyoruz.
-            </p>
-            <p>
-              Prototype smart animate içinde yeni animasyonlar var.
+              Figmada "one-page-web-app" içinde yapıldı.
             </p>
           </div>
-          <div class="row" id="findAndChange">
-            <h2>Figma'da Bul/Değiştir Özelliği</h2>
+          <div class="row" id="toolboxForDesigner">
+            <h1>Tasarımcının El Çantası ve Faydalı İpuçları</h1>
+            <div class="row" id="colorAndFontForDesigner">
+              <h2>Tasarımcılar İçin Renk ve Font Kullanımında İpuçları</h2>
+
+              <h3>Renk</h3>
+
+              <ul>
+                <li><b><a href="https://colorhunt.co/">Color Hunt</a></b>: Hazır renk paletleri mevcut</li>
+                <li><b><a href="https://www.color-hex.com/">Color Hex</a></b>: Hazır renk paletleri mevcut. Popüler web sitelerinin renk paletleri de var</li>
+                <li><b><a href="https://coolors.co/">Coolors</a></b>: Hazır random renk paletleri veriyor. Beğendiğimiz renkleri seçip (kilitleyip) diğer renklerin değişmesi sağlanabiliyor. Kendi seçtiğimiz renge göre de uyumlu renkler sorgulanabiliyor.</li>
+                <li><b><a href="https://paletton.com/">Paletton</a></b>: Seçtiğimiz renge ve tarza göre uyumlu renkleri veren, bunların örnek kullanımlarını da gösteren çok güzel bir web sitesi.</li>
+              </ul>
+
+              <h3>Font</h3>
+              <ul>
+                <li><b><a href="https://www.1001freefonts.com/">1001freefonts</a></b></li>
+                <li><b><a href="https://www.dafont.com/">Dafont</a></b></li>
+                <li><b><a href="https://fonts.google.com/">Google Font</a></b></li>
+                <li><b><a href="https://www.fonttr.com/">Fonttr</a></b></li>
+              </ul>
+            </div>
+            <div class="row" id="style2PaintExe">
+              <h2>Yapay Zeka ile Çizimlerde ve Resimlerde Renklendirme İşlemi (Style2Paint.exe)</h2>
+              <p>
+                Bu program siyah beyaz çizimleri renklendiriyor.
+              </p>
+              <p>
+                <a href="https://github.com/lllyasviel/style2paints">Github linki</a> üzerinden verilen bağlantıdan indirilebilir.
+              </p>
+              <p>
+                Benim bilgisayarda çok yavaş çalışıyor. 
+              </p>
+            </div>
+            <div class="row" id="bestIconsInWeb">
+              <h2>Tasarımcılar İçin En İyi İkon Siteleri</h2>
+              <ul>
+                <li><b><a href="https://www.flaticon.com/">Flaticon</a></b>: bazı iconlar ücretli. Ücretsiz olarak sadece png'ye izin veriyor</li>
+                <li><b><a href="https://icons8.com/">Icons8</a></b>: svg ücretli.</li>
+                <li><b><a href="https://simpleicons.org/">Simpleicons</a></b>: büyük markaların ikonları. SVG olarak iniyor. Logonun renk kodunu da veriyor.</li>
+                <li><b><a href="https://www.iconshock.com/"></a></b>: svg ücretli.</li>
+                <li><b><a href="https://www.freepik.com/">Freepik</a></b>: Ücretsiz de bolca SVG mevcut</li>
+
+                İnternet araması ile daha iyi sitelere ulaşılabilir.
+              </ul>
+            </div>
+            <div class="row" id="mobileMockup">
+              <h2>Iphone ve Android Cihazlar İçin Mockup Kullanımı</h2>
+              <p>
+                Figma içinde cihaz adıyla oluşturulan hazır frameler cihazın orjinal çözünürlüğünün 1/3 ü olarak veriliyor.
+              </p>
+              <p>
+                Figma Community içinde "mockups for modern devices" araması ile hazır mockuplara ulaşabiliriz. Bu hazır mockup dosyasında her bir mockup dizininin en başındaki frame içinde "PLACE IMAGE HERE" adındaki componentin görüntüsü değiştirildiğinde tüm serideki ekranlara o görüntü gelir.
+              </p>
+              <img src="./images/figma/61.jpg" alt="">
+              <img src="./images/figma/62.jpg" alt="">
+            </div>
+          </div> 
+          <div class="row" id="workingWithDynamicData">
+            <h1>Dinamik Verilerle Çalışma</h1>
+            <div class="row" id="dynamicFotoGaleriWithGoogleSheet">
+              <h2>Google Sheet'den Veri Çekerek Dinamik Fotoğraf Galerisi Oluşturma</h2>
+              <p>
+                Google sheet içinde türkçe karakter kullanmadan bir tablo oluşturduk. İmage kısımlarını url olarak girdik. Oluşturduğumuz tabloyu "linke sahip herkes görüntüleyebilir" olarak işaretledik.
+              </p>
+              <img src="./images/figma/63.jpg" alt="">
+              <p>
+                Figma içinde sheet içindeki sütun başlıklarıyla uyacak şekilde verilerin geleceği alanların adlandırmasını yaptık. Her ismin başına "#" koyduk.
+              </p>
+              <p>
+                <img src="./images/figma/64.jpg" alt="">
+              </p>
+              <p>
+                Figmada verinin geleceği tüm alanları seçtik.
+              </p>
+              <p>
+                "Google Sheets Sync" pluginini çalıştırıp gelen alana Google sheet içindeki tablomuzun adresini verdik ve "Fetch and Sync" kısmını tıkladık.
+              </p>
+            </div>
+            <div class="row" id="dynamicChartWithJson">
+              <h2>JSON Dosyalarından Verileri Çekerek Dinamik Chart Oluşturma</h2>
+              <h3 id="jsonToFigma">Örnek 1</h3>
+              <p>
+                Bu çalışmada hocanın verdiği hazır JSON dosyasını kullandık. Figma içinde oluşturduğumuz componentte ilgili alanların adını JSON dosyasındaki key değerleri olacak şekilde verdik. İlgili alanları seçip "JSON to Figma" pluginini çalıştırdık. Plugine JSON dosyamızı gösterdik ve gelen tabloda ilgili alanları seçip "Populate selected" butonunu tıkladık.
+              </p>
+              <img src="./images/figma/65.jpg" alt="">
+              <h3 id="jsonToChart">Örnek 2</h3>
+              <p>
+                Google sheet üzerindeki veriyi önce JSON haline getirip sonra Figmada kullanacağız.
+              </p>
+              <p>
+                Önce Google sheet içinde eklenti olarak "Export Sheet Data" kurulmalı.
+              </p>
+              <p>
+                Uzantılar > "export sheet data" > "open side bar" tıklanır. Sidebar kısmında ayarlarda "Export sheet arrays" ve "Export contents as array" seçili olmalı.
+              </p>
+              <p>
+                Export butonu ile dosya indirmeye hazır hale getirilir ve indirilir.
+              </p>
+              <p>
+                "Chart" plugini "create chart" şeklinde çalıştırılır. Buradan JSON kısmı seçilir. Sonra online veya lokal JSON seçilir (bizimki lokal). Style kısmından da stil tanımları yapılır. "Create Chart" ile grafik oluşturulur.
+              </p>
+            </div>
+            <div class="row" id="bravoStudio">
+              <h2>Bravo Studio ile Native App (Kod yazmadan + Rest API)</h2>
+              <p>
+                Paralı uygulama. İleride istenirse ayrı dersi udemyde mevcut.
+              </p>
+            </div>
+            <div class="row" id="dataFromAirtable">
+              <h2>Airtable Üzerinden Veri Çekme</h2>
+              <p>
+                <a href="https://www.airtable.com/">Airtable.com</a> uzak sunucuda veri saklamamıza ve veriye ulaşmamıza yarayan bir araç. Ücretli ve ücretsiz kullanımı mevcut.
+              </p>
+              <p>
+                Biz aşağıdaki gibi bir database oluşturduk (arayüzü oldukça sezgisel olduğundan database'i nasıl oluşturduğumuzu yazmadım).
+              </p>
+              <img src="./images/figma/66.jpg" alt="">
+              <p>
+                Airtable içinde "Share and sync" kısmı seçildi. Oradaki link kopyalandı. Figmada verinin geleceği component seçildi. "Airtable to Figma" plugini açıldı. Link buraya yapıştırıldı. Gelen data sütunları ile seçilen componentteki alanlar eşleştirildi. Gelen verideki satır sayısı kadar yeni component kendiliğinden oluştu.
+              </p>
+            </div>
           </div>
+          <div class="row" id="html">
+            <h1>HTML</h1>
+            <p>
+              Etiketlerin düzgün kullanımı SEO için de önemli.
+            </p>
+            <h3>Başlıklar</h3>
+            <p>
+              &lt;h1>, &lt;h2>, &lt;h3>, &lt;h4>, &lt;h5>, &lt;h6>:  büyükten küçüğe başlık etiketleri
+            </p>
+            <h3>Satır sonu</h3>
+            <p>
+              &lt;br> etiketi alt satıra geçmek için kullanılır. &lt;hr> etiketi boydan boya çizgi çekmek için kullanılır.
+            </p>
+            <h3>Paragraf</h3>
+            <p>
+              &lt;p> etiketi paragraf oluşturmak için kullanılır.
+            </p>
+            <p>
+              &lt;pre> etiketi yazdığımız metin vsc içinde nasıl görünüyorsa sayfada da aynı şekilde görünmesini sağlar.
+            </p>
+            <h3>Text Dekorasyon</h3>
+            <p>
+              &lt;b> etiketi <b>kalın</b> &lt;strong> etiketi ise <strong>hem kalın hem de SEO açısından önemli</strong> olmasını sağlar.
+            </p>
+            <p>
+              &lt;i> ve &lt;em> etiketi yazının <i>italik</i>, &lt;u> ve &lt;ins> etiketi <u>altı çizili</u>, &lt;del> etiketi ise <del>üstü çizili</del> olmasını sağlar.
+            </p>
+            <p>
+              &lt;small> etiketi yazının paragraftan <small>daha küçük</small>, &lt;big> etiketi ise <big>daha büyük</big> olmasını sağlar.
+            </p>
+            <p>
+              &lt;mark> etiketi yazının <mark>highlight</mark> olmasını sağlar.
+            </p>
+            <h3>Yorum ve Alıntı</h3>
+            <p>
+              &lt;!--  --> içine yazılanlar sayfada görünmez. Yorum satırı olarak adlandırılır. 
+            </p>
+            <p>
+              &lt;blockquote> etiketi alıntılama için kullanılır. Yazı bir tab kadar içeriden başlar. Block elementtir.
+            </p>
+            <p>
+              &lt;q> etiketi <q>tırnak içine</q> alır.
+            </p>
+            <h3>Link</h3>
+            <p>
+              link oluşturmak için &lt;a> etiketi kullanıır. <pre class="prettyprint ms-0">&lt;a href="hedef" target="_nasilAcilayim">LinkOlanMetin&lt;/a></pre> sintaxı ile kullanılır. <a href="https://www.google.com/" target="_blank">google.com</a> şeklinde görünür. target parametresi sayfanın yeni sekmede mi mevcut sekmede mi görüneceğini belirler. <pre class="prettyprint ms-0">&lt;a href="mailto:mail@mail.com">mail@mail.com&lt;/a></pre> ile maile <pre class="prettyprint ms-0">&lt;a href="tel:+90900900000">90900900000&lt;/a></pre> ile de telefona link atanabilir. Arasına giren herşeyi linke çevirir.
+            </p>
+            <h3>İmage</h3>
+            <p>
+              &lt;img> etiketi image göstermek için kullanılır. <pre class="prettyprint ms-0">&lt;img src="kaynakAdresi" alt="alternatifTanim" title="imageAdi"></pre> sintaxı ile kullanılır. width ve height parametreleri ile boyutu değiştirilebilir.
+            </p>
+            <h3>iframe</h3>
+            <p>
+              &lt;iframe> etiketi bir web sayfası içinde başka bir sayfa göstermek için kullanılır. <pre class="prettyprint ms-0">&lt;iframe src="kaynakAdresi" frameborder="0">&lt;/iframe></pre> sintaxı ile kullanılır. Youtube ve google haritalar bu şekilde sitemize dahil edilebilir. Width ve height parametreleri ile boyutu değiştirilebilir.
+            </p>
+
+            <h3>Tablo</h3>
+            <p>
+              &lt;table> etiketinin içinde satırlar için &lt;tr>, &lt;tr> etiketinin içine ise sütunlar için en üste &lt;th> (başlıklar için), diğer satırlarda ise &lt;td> etiketi kullanılır. 
+                <div class="col-6">
+                  <pre class="prettyprint ms-0">
+&lt;table border="1" bordercolor="red">
+  &lt;tr>
+    &lt;th>Yazılım&lt;/th>
+    &lt;th>Tasarım&lt;/th>
+    &lt;th>3D&lt;/th>
+  &lt;/tr>
+  &lt;tr>
+    &lt;td>Php&lt;/td>
+    &lt;td>Adobe XD&lt;/td>
+    &lt;td>3d Max&lt;/td>
+  &lt;/tr>
+  &lt;tr>
+    &lt;td>ASP NET&lt;/td>
+    &lt;td>Figma&lt;/td>
+    &lt;td>Maya&lt;/td>
+  &lt;/tr>
+  &lt;tr>
+    &lt;td>React&lt;/td>
+    &lt;td>Proto Pie&lt;/td>
+    &lt;td>Auto CAD&lt;/td>
+  &lt;/tr>
+&lt;/table>
+                </pre>
+                </div>
+                <div class="col-6">
+                  <table border="1" class="w-100">
+                    <tr>
+                      <th>Yazılım</th>
+                      <th>Tasarım</th>
+                      <th>3D</th>
+                    </tr>
+                    <tr>
+                      <td>Php</td>
+                      <td>Adobe XD</td>
+                      <td>3d Max</td>
+                    </tr>
+                    <tr>
+                      <td>ASP NET</td>
+                      <td>Figma</td>
+                      <td>Maya</td>
+                    </tr>
+                    <tr>
+                      <td>React</td>
+                      <td>Proto Pie</td>
+                      <td>Auto CAD</td>
+                    </tr>
+                  </table>
+                </div>
+            </p>
+            <p>
+              İlk sütun dıştan &lt;thead>, geri kalan kısım &lt;tbody> ile sarmalanabilir.
+            </p>
+
+            <h3>Liste</h3>
+            <p>
+              Sıralı listeler &lt;ol> etiketi içinde &lt;li> etiketi ile elemanları yazılarak oluşturulur. Sırasız listeler ise &lt;ul> etiketi içinde &lt;li> etiketi ile yazılır.
+            </p>
+            <p>
+              &lt;ul type="..."> içinde liste elemanlarının başında görünecek şekil belirtilir. örn: circle, square vs
+            </p>
+            <p>
+              Listeler iç içe de yazılabilir.
+              <div class="col-6">
+                <pre class="prettyprint ms-0">
+&lt;ul>
+  &lt;li>Yazılım
+    &lt;ol>
+      &lt;li>Java&lt;/li>
+      &lt;li>Phyton&lt;/li>
+      &lt;li>PHP&lt;/li>
+    &lt;/ol>
+  &lt;/li>
+  &lt;li>Tasarım
+    &lt;ol>
+      &lt;li>Adobe XD&lt;/li>
+      &lt;li>Figma&lt;/li>
+      &lt;li>Proto Pie&lt;/li>
+    &lt;/ol>
+  &lt;/li>
+&lt;/ul>
+              </pre>
+              </div>
+              <div class="col-6">
+                <ul>
+                  <li>Yazılım
+                  <ol>
+                    <li>Java</li>
+                    <li>Phyton</li>
+                    <li>PHP</li>
+                  </ol></li>
+                  <li>Tasarım
+                  <ol>
+                    <li>Adobe XD</li>
+                    <li>Figma</li>
+                    <li>Proto Pie</li>
+                  </ol></li>
+                </ul>
+              </div>
+            </p>
+
+            <h3>Video ve Audio</h3>
+            <p>
+              &lt;video> etiketi video göstermek için kullanılır. <pre class="prettyprint ms-0">&lt;video src="kaynakAdresi" alt="alternatifTanim" title="videoAdi" controls></pre> sintaxı ile kullanılır. width ve height parametreleri ile boyutu değiştirilebilir. "controls" verilmezse video çalışmaz, video image gibi görünür. "autoplay" özelliği eklenirse sayfa yüklendiğinde video otomatik başlatılır.
+            </p>
+
+            <p>
+              &lt;audio> etiketi audio göstermek için kullanılır. <pre class="prettyprint ms-0">&lt;audio src="kaynakAdresi" alt="alternatifTanim" title="audioAdi" controls></pre> sintaxı ile kullanılır. width ve height parametreleri ile boyutu değiştirilebilir. "controls" verilmezse audio sayfada görülmez. "autoplay" özelliği eklenirse sayfa yüklendiğinde audio otomatik başlatılır.
+            </p>
+
+            <h3>"display" Özelliği ve Aldığı Değerler</h3>
+            <p>
+              temelde: block, inline-block, inline değerlerini alır. Aldığı başka değerleri sonra konuşacağız.
+            </p>
+            <p>
+              Etiketlerin varsayılan değerleri vardır. p etiketi gibi tüm sayfa genişliğini kaplayanlar blok elemetlerdir. a etiketi gibi sadece kendi genişliği kadar yer kaplayanlar inline elementlerdir. Bu varsayılan özellik style ile (css ile) değiştirilebilir.
+            </p>
+            
+            <h4>Varsayılan</h4>
+            <div class="col-6">
+              <pre class="prettyprint ms-0">
+&lt;p>
+  Lorem ipsum dolor sit amet.
+&lt;/p>
+&lt;a href="#">Gönder&lt;/a>
+&lt;a href="#">iptal&lt;/a>
+            </pre>
+            </div>
+            <div class="col-6">
+              <p>
+                Lorem ipsum dolor sit amet.
+              </p>
+              <a href="#">Gönder</a>
+              <a href="#">iptal</a>
+            </div>
+
+            <br><br>
+            <h4>display: block</h4>
+
+            <div class="col-6">
+              <pre class="prettyprint ms-0">
+&lt;p>
+Lorem ipsum dolor sit amet.
+&lt;/p>
+&lt;a href="#" style="display: block;">Gönder&lt;/a>
+&lt;a href="#" style="display: block;">iptal&lt;/a>
+              </pre>
+            </div>
+            <div class="col-6">
+              <p>
+                Lorem ipsum dolor sit amet.
+              </p>
+              <a href="#" style="display: block;">Gönder</a>
+              <a href="#" style="display: block;">iptal</a>
+            </div>
+
+            <br><br>
+            <h4>display: inline</h4>
+
+            <div class="col-6">
+              <pre class="prettyprint ms-0">
+&lt;p style="display: inline;">
+  Lorem ipsum dolor sit amet.
+&lt;/p>
+&lt;a href="#">Gönder&lt;/a>
+&lt;a href="#">iptal&lt;/a>
+              </pre>
+            </div>
+            <div class="col-6">
+              <p style="display: inline;">
+                Lorem ipsum dolor sit amet.
+              </p>
+              <a href="#">Gönder</a>
+              <a href="#">iptal</a>
+            </div>
+            <p>
+              Inline elementlere genişlik ve yükseklik atanamaz. inline-block inline elementin genişlik ve yükseklik alabilen versiyonudur. Block özelliğindeki gibi %100 kaplamasını istemediğimiz elementlerde de inline block kullanılır.
+            </p>
+
+            <h3>Div ve span etiketleri</h3>
+            <p>
+              Her ikisi de istenilen yapıyı sarmalamak ve sarmalandığı alana özellik atayabilmek için kullanılır. &lt;div> etiketi blok, &lt;span> etiketi inline sarmalar. 
+            </p>
+
+            <h3>ID ve Class kullanımı</h3>
+            <p>
+              ID tek bir elementi belirtmek için kullanılır. Eşsizdir. Bir sayfada tek bir element bu id'yi alır.
+            </p>
+            <p>
+              Class birden fazla elementi gruplamak ve aynı özellikleri alması amacı ile kullanılır.
+            </p>
+            
+            <h3>Sayfa İçi Link Oluşturma</h3>
+            <p>
+              a etiketinin idsi olan bir elementi işaret etmesi ile oluşturulur. <pre class="prettyprint ms-0">&lt;a href="#elementIDsi">görünen kısım&lt;/a></pre>
+            </p>
+            <p>
+              Yan bardaki tüm linkler buna örnektir.
+            </p>
+
+            <h3>Form Etiketi ve Form Elemanlarının Kullanımı</h3>
+            <p>
+              form etiketinin aldığı parametrelerden "method" verinin nasıl gönderileceğini belirler. 
+            </p>
+            <p>
+              input etiketinin aldığı "name" parametresi kodlama sırasında veriye ulaşmamızı sağlar. "placeholder" yer tutucudur. "value" varsayılan değeri belirtir. &lt;label> etiketi for parametresinde ilgili inputun id'sini alır. 
+            </p>
+            <div class="col-6">
+              <pre class="prettyprint ms-0">
+&lt;form>
+  Adınızı girin: &lt;input type="text" placeholder="Murat" name="name1"> &lt;br>
+  Adınızı girin: &lt;input type="text" value="Murat" name="name2"> &lt;br>
+  &lt;label for="ad">Adınızı girin:&lt;/label> &lt;input type="text" value="Murat" name="name3" id="ad"> 
+&lt;/form>
+              </pre>
+            </div>
+            <div class="col-6">
+              <form>
+                Adınızı girin: <input type="text" placeholder="Murat" name="name1"> <br><br>
+                Adınızı girin: <input type="text" value="Murat" name="name2"> <br><br>
+                <label for="ad">Adınızı girin:</label> <input type="text" value="Murat" name="name3" id="ad"> <br>
+              </form>
+            </div>
+
+            <div class="col-6">
+              <pre class="prettyprint ms-0">
+&lt;form>
+  &lt;div class="mb-2">
+    &lt;label for="ad">Adınızı girin :&lt;/label> 
+    &lt;input type="text" name="ad" id="ad"> &lt;br>
+  &lt;/div>
+  &lt;div class="mb-2">
+    &lt;label for="soyad">Soyadınızı girin :&lt;/label> 
+    &lt;input type="text" name="soyad" id="soyad"> &lt;br>
+  &lt;/div>
+  &lt;div class="mb-2">
+    &lt;label for="email">Emailinizi girin :&lt;/label> 
+    &lt;input type="email" name="email" id="email"> &lt;br>
+  &lt;/div>
+  &lt;div class="mb-2">
+    &lt;label for="password">Parolanızı girin :&lt;/label> 
+    &lt;input type="password" name="password" id="password"> &lt;br>
+  &lt;/div>
+  &lt;div class="mb-2">
+    &lt;label for="date">Doğum tarihinizi girin :&lt;/label> 
+    &lt;input type="date" name="date" id="date"> &lt;br>
+  &lt;/div>
+  &lt;div class="mb-2">
+    &lt;textarea name="mesaj" id="mesaj" cols="25" rows="5" placeholder="Mesajınızı yazın">&lt;/textarea>
+  &lt;/div>
+  &lt;div class="mb-2">
+    Erkek &lt;input type="radio" name="cinsiyet" id="" value="erkek" checked>
+    Kadın &lt;input type="radio" name="cinsiyet" id="" value="kadın">
+    Diğer &lt;input type="radio" name="cinsiyet" id="" value="diger">
+  &lt;/div>
+  &lt;div class="mb-2">
+    &lt;h4>Ziyaret Ettiğiniz ülkeler&lt;/h4>
+    Almanya &lt;input type="checkbox" name="ulke1" id="" value="almanya">
+    İtalya &lt;input type="checkbox" name="ulke2" id="" value="italya" checked>
+    İspanya &lt;input type="checkbox" name="ulke3" id="" value="İspanya">
+  &lt;/div>
+  &lt;div class="mb-2">
+    &lt;select name="" id="egitim" name="egitim">
+      &lt;option value="universite">Üniversite&lt;/option>
+      &lt;option value="yuksekLisans">Yüksek Lisans&lt;/option>
+      &lt;option value="doktora">Doktora&lt;/option>
+    &lt;/select>
+  &lt;/div>
+  &lt;button type="submit">Gönder&lt;/button>
+  &lt;button type="reset">Temizle&lt;/button>
+&lt;/form>
+              </pre>
+            </div>
+            <div class="col-6 mt-4">
+              <form>
+                <div class="mb-2">
+                  <label for="ad">Adınızı girin :</label> 
+                  <input type="text" name="ad" id="ad"> <br>
+                </div>
+                <div class="mb-2">
+                  <label for="soyad">Soyadınızı girin :</label> 
+                  <input type="text" name="soyad" id="soyad"> <br>
+                </div>
+                <div class="mb-2">
+                  <label for="email">Emailinizi girin :</label> 
+                  <input type="email" name="email" id="email"> <br>
+                </div>
+                <div class="mb-2">
+                  <label for="password">Parolanızı girin :</label> 
+                  <input type="password" name="password" id="password"> <br>
+                </div>
+                <div class="mb-2">
+                  <label for="date">Doğum tarihinizi girin :</label> 
+                  <input type="date" name="date" id="date"> <br>
+                </div>
+                <div class="mb-2">
+                  <textarea name="mesaj" id="mesaj" cols="25" rows="5" placeholder="Mesajınızı yazın"></textarea>
+                </div>
+                <div class="mb-2">
+                  Erkek <input type="radio" name="cinsiyet" id="" value="erkek" checked>
+                  Kadın <input type="radio" name="cinsiyet" id="" value="kadın">
+                  Diğer <input type="radio" name="cinsiyet" id="" value="diger">
+                </div>
+                <div class="mb-2">
+                  <h4>Ziyaret Ettiğiniz ülkeler</h4>
+                  Almanya <input type="checkbox" name="ulke1" id="" value="almanya">
+                  İtalya <input type="checkbox" name="ulke2" id="" value="italya" checked>
+                  İspanya <input type="checkbox" name="ulke3" id="" value="İspanya">
+                </div>
+                <div class="mb-2">
+                  <select name="" id="egitim" name="egitim">
+                    <option value="universite">Üniversite</option>
+                    <option value="yuksekLisans">Yüksek Lisans</option>
+                    <option value="doktora">Doktora</option>
+                  </select>
+                </div>
+                <button type="submit">Gönder</button>
+                <button type="reset">Temizle</button>
+              </form>
+            </div>
+            <p>
+              radio buttonda name değeri aynı verilir. Bu şekilde gruplandırılır.
+            </p>
+
+            <h3>HTML 5 Semantik Elementler</h3>
+            <p>
+              div etiketinin spesifik amaçlar için yenden adlandırılmış halleridir. header, nav, aside, main, section, article, footer vs. 
+            </p>
+            <p>
+              SEO optimizasyonu için bu etiketler önemlidir.
+            </p>
+          </div>
+          <div class="row" id="css">
+            <h1>CSS</h1>
+            <div class="row" id="addCSS">
+              <h2>HTML Sayfamıza CSS Ekleme Yöntemleri</h2>
+              <p>
+                CSS 3 türlü eklenebilir.
+              </p>
+              <h3>inline</h3>
+              <p>
+                Etiketin içinde style parametresi ile. 
+              </p>
+              <div class="col-6">
+                <pre class="prettyprint ms-0">
+&lt;p style="color: red;">Kırmızı yazı&lt;/p>
+                </pre>
+              </div>
+              <div class="col-6 mt-4">
+                <p style="color: red;">Kırmızı yazı</p>
+              </div>
+
+              <h3>Internal CSS</h3>
+              <p>
+                Sayfanın head etiketlerinin arasına:
+              </p>
+              <pre class="prettyprint ms-0">
+&lt;head>
+  ...
+  &lt;style type="text/css">
+    /* type kısmı olmasa da olur */
+    p{
+      color: red;
+    }
+  &lt;/style>
+  ...
+&lt;/head>
+              </pre>
+
+              <h3>External CSS</h3>
+              <p>
+                .css uzantılı bir dosyanın html içinde çağırılması ile:
+              </p>
+              <p>
+                style.css
+                <pre class="prettyprint ms-0">
+p{
+  color: red
+}
+                </pre>
+                index.html
+                <pre class="prettyprint ms-0">
+&lt;head>
+  ...
+  &lt;link rel="stylesheet" href="./style.css">
+  ...
+&lt;/head>
+                </pre>
+              </p>
+            </div>
+            <div class="row" id="cssBacground">
+              <h2>Tüm Özellikleriyle CSS Background Kullanımı</h2>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="bacground-example-div1">
+  &lt;p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam nobis nemo iure, cupiditate, eum quos odit id at, eius natus neque quasi laborum culpa! Eum, tenetur non. Quasi earum ratione iusto corporis amet aliquid eligendi, animi totam, unde architecto ex nihil soluta vero error dignissimos reiciendis quae cupiditate nam sit nobis cumque non ea dolores vitae? Aliquam labore nemo expedita saepe tenetur architecto consectetur temporibus beatae nisi? Amet eligendi voluptate vero consectetur aliquam reprehenderit architecto cum veniam, perferendis vitae dolorem autem deserunt rerum. Mollitia, laborum. Consectetur, possimus earum hic esse ut at, ratione quisquam veniam qui architecto ipsam tenetur?
+  &lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#bacground-example-div1{
+  background-image: url(./images/paper.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <div id="bacground-example-div1">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam nobis nemo iure, cupiditate, eum quos odit id at, eius natus neque quasi laborum culpa! Eum, tenetur non. Quasi earum ratione iusto corporis amet aliquid eligendi, animi totam, unde architecto ex nihil soluta vero error dignissimos reiciendis quae cupiditate nam sit nobis cumque non ea dolores vitae? Aliquam labore nemo expedita saepe tenetur architecto consectetur temporibus beatae nisi? Amet eligendi voluptate vero consectetur aliquam reprehenderit architecto cum veniam, perferendis vitae dolorem autem deserunt rerum. Mollitia, laborum. Consectetur, possimus earum hic esse ut at, ratione quisquam veniam qui architecto ipsam tenetur?
+                  </p>
+                </div>
+              </div>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div class="div" id="bacground-example-div2">
+  &lt;p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam dignissimos officia aut modi illum. Esse ex quia ut necessitatibus tempora vero eveniet quidem voluptate neque odit nulla autem eos cumque nostrum consequuntur laborum doloribus velit, totam veniam nobis cupiditate soluta magnam! Quasi saepe molestiae ex consectetur! Expedita consectetur doloremque saepe facilis tenetur corporis hic laborum ad rem, dicta aspernatur illo praesentium esse necessitatibus quia repudiandae autem amet, sequi rerum. Error eveniet, ipsa dolor libero eligendi id officia repellat necessitatibus similique earum architecto adipisci doloremque, nihil praesentium sunt reiciendis possimus deleniti. Illum, doloremque corporis amet non culpa esse ipsam accusamus accusantium?
+  &lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#bacground-example-div2{
+  background-image: url(./images/small-paper.png);
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <div class="div" id="bacground-example-div2">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam dignissimos officia aut modi illum. Esse ex quia ut necessitatibus tempora vero eveniet quidem voluptate neque odit nulla autem eos cumque nostrum consequuntur laborum doloribus velit, totam veniam nobis cupiditate soluta magnam! Quasi saepe molestiae ex consectetur! Expedita consectetur doloremque saepe facilis tenetur corporis hic laborum ad rem, dicta aspernatur illo praesentium esse necessitatibus quia repudiandae autem amet, sequi rerum. Error eveniet, ipsa dolor libero eligendi id officia repellat necessitatibus similique earum architecto adipisci doloremque, nihil praesentium sunt reiciendis possimus deleniti. Illum, doloremque corporis amet non culpa esse ipsam accusamus accusantium?
+                  </p>
+                </div>
+              </div>
+              <div class="col-6">
+                <p>
+                  index.js
+                  <pre class="prettyprint ms-0">
+&lt;div class="div" id="bacground-example-div3">
+  &lt;p>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem accusantium veniam fugit obcaecati dolorum reiciendis dignissimos modi ipsum necessitatibus aut amet, quae eligendi sequi vero magni animi maxime dolore velit repudiandae error nemo, perferendis iusto! Unde deleniti laborum in inventore consequuntur soluta ea nesciunt quibusdam nihil deserunt. Illum quis in nihil quam aspernatur ducimus officia facere sequi. Voluptatibus obcaecati, alias qui libero neque quis voluptas reprehenderit at error eum consectetur ab mollitia non quae nam esse distinctio doloremque minus, fugit aperiam tenetur, commodi quisquam. Non ducimus, distinctio animi iusto ad repudiandae eum necessitatibus consectetur adipisci minima tenetur quod obcaecati deserunt.
+  &lt;/p>
+&lt;/div>
+                  </pre>
+                </p>
+                style.css
+                <pre class="prettyprint ms-0">
+#bacground-example-div3{
+  background-image: url(./images/manzara.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+                </pre>
+              </div>
+              <div class="col-6 mt-5">
+                <div class="div" id="bacground-example-div3">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem accusantium veniam fugit obcaecati dolorum reiciendis dignissimos modi ipsum necessitatibus aut amet, quae eligendi sequi vero magni animi maxime dolore velit repudiandae error nemo, perferendis iusto! Unde deleniti laborum in inventore consequuntur soluta ea nesciunt quibusdam nihil deserunt. Illum quis in nihil quam aspernatur ducimus officia facere sequi. Voluptatibus obcaecati, alias qui libero neque quis voluptas reprehenderit at error eum consectetur ab mollitia non quae nam esse distinctio doloremque minus, fugit aperiam tenetur, commodi quisquam. Non ducimus, distinctio animi iusto ad repudiandae eum necessitatibus consectetur adipisci minima tenetur quod obcaecati deserunt.
+                  </p>
+                </div>
+              </div>
+              <p>
+                Yukarıdaki css kodu aşağıdaki gibi kısaltılabilir.
+                <pre class="prettyprint ms-0">
+#bacground-example-div3{
+  background: url(./images/manzara.jpg) no-repeat center center;
+  background-size: contain;
+}
+                </pre>
+              </p>
+              <p>
+                background ile arka plana renk de atanabilir.
+              </p>
+            </div>
+            <div class="row" id="selectors">
+              <h2>Selector (Seçiciler)</h2>
+              <p>
+                "*" ile sayfadaki tüm elementler seçilir (evrensel seçici)
+              </p>
+              <p>
+                Etiket içini yazarak tüm etiketler seçilir. "p" tüm paragrafları seçer.
+              </p>
+              <p>
+                id ile seçmek için id'nin başına "#" eklenir. 
+              </p>
+              <p>
+                class seçmek için classname başına "." eklenir. Aynı class içeren elementler içinde bir element tiğini seçmek için elementName.className yazılır (örn "p.firstClass")
+              </p>
+              <p>
+                bir etiketin içindeki başka bir etiketi seçmek için aralarında boşluk ile yazılır (örn "ul li" ul etiketinin altındaki tüm li etiketlerini seçer. Burada li başka bir etiletin daha altındaysa da seçilir.)
+              </p>
+              <p>
+                bir etiketin sadece hemen altındaki başka bir etiketi seçmek için aralarında ">" işareti konur. (örn "ul>li" ul etiketinin hemen altındaki tüm li etiketlerini seçer. Burada li başka bir etiletin daha altındaysa seçilmez.)
+              </p>
+              <p>
+                bir etiketin hemen bitiminden başlayan, bir sonraki etiketi seçmek için aralarına "+" işareti konur. (örn "div+p" div etiketi kapandıktan sonra gelen ilk etiket p ise seçer.)
+              </p>
+              <p>
+                bir etiketin bitiminden sonraki ebeveyn nesneleri seçmek için "~" (Ctrl + Alt + Ü, Space) işareti kullanılır. (Örn: "div ~ p" divden sonra gelen ve herhangi bir etiketin altında olmayan tüm p etiketlerini seçer.)
+              </p>
+              <p>
+                sadece belirli bir özniteliğe sahip olanları seçmek için "[]" kullanılır. (örn "input[type="text"]" type özelliği text olan inputları seçer.)
+              </p>
+              <p>
+                bir grup child elementten belirli bir sıradakini seçmek için "nth:child()" kullanılır. (örn "ul li:nth-child(3)" ile ul altındaki 3. li seçilir.). "first-child" ilkini, "last-child" sonuncuyu seçer. "nth-child(odd)" tek sayıda olanların hepsini, "nth-child(even)" ise çift olanların hepsini seçer.
+              </p>
+            </div>
+            <div class="row" id="cssBorder">
+              <h2>CSS Border Kullanım</h2>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-border1">
+  bu bir divdir
+&lt;/div>
+                  </pre>
+                </p>
+                style.css
+                <pre class="prettyprint ms-0">
+#example-border1{
+  width: 300px;
+  height: 300px;
+  border-width: 5px;
+  border-color: red;
+  border-style: solid;
+  border-radius: 30px; 
+}
+                </pre>
+                veya
+                <pre class="prettyprint ms-0">
+#example-border1{
+  width: 300px;
+  height: 300px;
+  border: 5px solid red;
+  border-radius: 30px; 
+}
+                </pre>
+              </div>
+              <div class="col-6 mt-5">
+                <div id="example-border1">
+                  bu bir divdir
+                </div>
+              </div>
+              <hr>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-border2">
+  bu bir divdir
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-border2{
+  width: 300px;
+  height: 300px;
+  border-left: 5px solid red; 
+  border-top: 5px solid rgb(0, 0, 0); 
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <div id="example-border2">
+                  bu bir divdir
+                </div>
+              </div>
+            </div>
+            <div class="row" id="widthAndHeight">
+              <h2>CSS Genişlik ve Yükseklik Özellikler</h2>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-width1">
+  &lt;p>test&lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-width1{
+  width: 50%;
+  height: 200px;
+  background: red;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <div id="example-width1">
+                  <p>test</p>
+                </div>
+              </div>
+              <hr>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-width2">
+  &lt;p>test&lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-width1{
+  height: 50vh;
+  background:blue;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <div id="example-width2">
+                  <p>test2</p>
+                </div>
+              </div>
+              <p>
+                vh ölçü birimi ekran boyutuna göre orantılama sağlar. 100vh tüm sayfayı kaplar. Ekran boyutu değiştiğinde elementin boyutu da değişir.
+              </p>
+            </div>
+            <div class="row" id="cssFonts">
+              <h2>Font Özellikleri</h2>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;p id="example-font1">
+  Lorem ipsum dolor, sit amet consectetur adipisicing elit. &lt;span id="example-font2">Officiis ad ipsam&lt;/span>, magni delectus odio molestias est &lt;span id="example-font3">repudiandae corporis&lt;/span> quia alias eligendi dignissimos inventore &lt;span id="example-font4">vitae expedita tenetur tempore&lt;/span id="example-font5"> placeat ea deleniti a, &lt;span>ducimus temporibus?&lt;/span> Impedit harum aliquid aperiam &lt;span id="example-font6">laborum soluta deleniti optio quia dolor illum minus nostrum, sapiente maxime&lt;/span> Aperiam nostrum eum molestias quae perspiciatis &lt;span id="example-font7">doloribus enim id nesciunt excepturi&lt;/span> ipsa quisquam?  recusandae delectus earum asperiores voluptatibus nam explicabo commodi corrupti magni voluptate quis provident perferendis dignissimos, repudiandae quibusdam sequi nisi suscipit iure molestiae. Unde, reprehenderit aperiam consequuntur nulla eveniet distinctio, ex ut atque illo id, excepturi impedit minima aut rem!
+&lt;/p>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-font1{
+
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 40px;
+}
+p#example-font1::first-letter{
+  text-transform: capitalize;
+  font-size: 40px;
+  font-family:monospace
+}
+#example-font2{
+  font-size: 25px;
+  background-color: rgb(232, 232, 232);
+}
+#example-font3{
+  letter-spacing: 3px;
+  background-color: rgb(232, 232, 232);
+}
+#example-font4{
+  text-transform: uppercase;
+  background-color: rgb(232, 232, 232);
+}
+#example-font5{
+  font-style: italic;
+  background-color: rgb(232, 232, 232);
+}
+#example-font6{
+  word-spacing: 20px;
+  background-color: rgb(232, 232, 232);
+}
+#example-font7{
+  font-weight: bold;
+  background-color: rgb(232, 232, 232);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <p id="example-font1">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. <span id="example-font2">Officiis ad ipsam</span>, magni delectus odio molestias est <span id="example-font3">repudiandae corporis</span> quia alias eligendi dignissimos inventore <span id="example-font4">vitae expedita tenetur tempore</span id="example-font5"> placeat ea deleniti a, <span>ducimus temporibus?</span> Impedit harum aliquid aperiam <span id="example-font6">laborum soluta deleniti optio quia dolor illum minus nostrum, sapiente maxime</span> Aperiam nostrum eum molestias quae perspiciatis <span id="example-font7">doloribus enim id nesciunt excepturi</span> ipsa quisquam?  recusandae delectus earum asperiores voluptatibus nam explicabo commodi corrupti magni voluptate quis provident perferendis dignissimos, repudiandae quibusdam sequi nisi suscipit iure molestiae. Unde, reprehenderit aperiam consequuntur nulla eveniet distinctio, ex ut atque illo id, excepturi impedit minima aut rem!
+                </p>
+              </div>
+              <p>
+                line-height değeri genelde font-size değerinin 7-8 px fazlasıdır.
+              </p>
+              <p>
+                em değeri body için belirlenen font-size değerini referans alarak orantılar. Body font-size: 10px ise font-size: 1.6em = 1.6*10 = 16px olacaktır.
+              </p>
+            </div>
+            <div class="row" id="googleWebFont">
+              <h2>Google Web Font Kullanımı</h2>
+              <p>
+                <a href="https://fonts.google.com/">Google Fonts</a> adresinden istediğimiz fontu seçiyoruz. Fontu html üzerinden eklemek için google font üzerinde seçim yaptığımız yerde &lt;link> kısmı seçilir ve &lt;head> kısmına yapıştıılır. Css üzerinden eklemek için ise @import kısmı seçilir.
+              </p>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;p id="example-googlefont1">
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur vero repudiandae, cum nobis incidunt dolorem, ea provident at officia aliquid ex quod. Placeat mollitia illo nesciunt sunt est, sapiente enim, et harum distinctio dolore in. Natus perferendis nulla porro. A unde voluptatum dolorum nesciunt facere odit quo alias nulla, vel tempora nostrum! Ipsam esse cupiditate adipisci dicta dolores. Maxime soluta voluptates iure, modi iste optio provident dolor voluptatibus excepturi fugit amet consequuntur? Perferendis velit suscipit architecto nulla odit tempora beatae ex dolores enim vero deserunt voluptate temporibus nisi, similique mollitia esse officia expedita iusto consectetur sint qui quia incidunt dolor.
+&lt;/p>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-googlefont1{
+  font-family: 'Dancing Script', cursive;
+}
+                  </pre>
+                  fontun dahil edilmesi için index.html &lt;head> kısmına: 
+                  <pre class="prettyprint ms-0">
+&lt;head>
+  ...
+  &lt;link rel="preconnect" href="https://fonts.googleapis.com">
+  &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  &lt;link href="https://fonts.googleapis.com/css2?family=Dancing+Script" rel="stylesheet">
+  ...
+&lt;/head>
+                  </pre>
+                  veya style.css içine
+                  <pre class="prettyprint ms-0">
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script');
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <p id="example-googlefont1">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur vero repudiandae, cum nobis incidunt dolorem, ea provident at officia aliquid ex quod. Placeat mollitia illo nesciunt sunt est, sapiente enim, et harum distinctio dolore in. Natus perferendis nulla porro. A unde voluptatum dolorum nesciunt facere odit quo alias nulla, vel tempora nostrum! Ipsam esse cupiditate adipisci dicta dolores. Maxime soluta voluptates iure, modi iste optio provident dolor voluptatibus excepturi fugit amet consequuntur? Perferendis velit suscipit architecto nulla odit tempora beatae ex dolores enim vero deserunt voluptate temporibus nisi, similique mollitia esse officia expedita iusto consectetur sint qui quia incidunt dolor.
+                </p>
+              </div>
+            </div>
+            <div class="row" id="cssPaddingAndMargin">
+              <h2>Padding ve Margin Kullanımı</h2>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-mp1">
+  &lt;p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum nemo at similique enim quam deserunt repellendus nostrum architecto obcaecati perferendis.
+  &lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-mp1{
+  max-width: 500px;
+  height: 400px;
+  border: 2px solid #333;
+  background: #f5f5f5;
+  padding: 20px 80px;
+  margin: 50px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6">
+                <div id="example-mp1">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum nemo at similique enim quam deserunt repellendus nostrum architecto obcaecati perferendis.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssAlignment">
+              <h2>Dikey ve Yatayda Ortalanmış Elemanlar</h2>
+
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;h3 id="example-aligment1">Bu alan başlık alanıdır&lt;/h3>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-aligment1{
+  background: yellow;
+  padding: 15px 0;
+  text-align: center;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <h3 id="example-aligment1">Bu alan başlık alanıdır</h3>
+              </div>
+              <hr>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;p id="example-aligment2">
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolore qui impedit sapiente. Amet corporis a temporibus, inventore nesciunt similique consectetur in voluptas harum exercitationem ipsa, sed voluptatibus. Placeat asperiores, quam nisi eligendi ratione assumenda totam dolorum repellendus illo odio sint corporis, aliquid velit reiciendis dicta dolores iste aut saepe.
+&lt;/p>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-aligment2{
+  text-align: justify;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <p id="example-aligment2">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolore qui impedit sapiente. Amet corporis a temporibus, inventore nesciunt similique consectetur in voluptas harum exercitationem ipsa, sed voluptatibus. Placeat asperiores, quam nisi eligendi ratione assumenda totam dolorum repellendus illo odio sint corporis, aliquid velit reiciendis dicta dolores iste aut saepe.
+                </p>
+              </div>
+              <hr>
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-aligment3">
+  &lt;p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem aut dicta aliquam tenetur! Neque sapiente architecto maxime consequatur officiis dolores!&lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-aligment3{
+  width: 100%;
+  height: 350px;
+  background-color: crimson;
+  color: #fff;
+  display: table;
+}
+div#example-aligment3 p{
+  max-width: 250px;
+  background-color: blue;
+  margin: 0 auto;
+  text-align: center;
+  display: table-cell;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <div id="example-aligment3">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem aut dicta aliquam tenetur! Neque sapiente architecto maxime consequatur officiis dolores!</p>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssPosition">
+              <h2>CSS Konumlandırma - Position</h2>
+              <p>
+                css te position temelde 3 şekildedir: relative, static, absolute. Varsayılan değer static'tir
+              </p>
+              <p>
+                relative özelliği verilen bir elemanın içindeki objeyi istediğimiz şekilde konumlandırabiliriz. Konumlandırılacak olan objenin de absolute olması gerekir. Bu durmda default değer 0, 0 noktasıdır.
+              </p>
+
+              <div class="col-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-position1">
+  &lt;p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem aut dicta aliquam tenetur! Neque sapiente architecto maxime consequatur officiis dolores!&lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-position1{
+  width: 100%;
+  height: 350px;
+  background-color: crimson;
+  color: #fff;
+  position: relative;
+}
+div#example-position1 p{
+  max-width: 250px;
+  background-color: blue;
+  margin: 0 auto;
+  text-align: center;
+  height: 140px;
+  position: absolute;
+  left: 50%; 
+  /* alanın yarısı kadar soldan itildi */
+  margin-left: -125px;
+  /* kendisinin yarısı kadar sola geri çekildi */
+  top: 50%;
+  /* alanın yarısı kadar yukarıdan itildi */
+  margin-top: -70px;
+  /* kendisinin yarısı kadar yukarı çekildi*/
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-6 mt-5">
+                <div id="example-position1">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem aut dicta aliquam tenetur! Neque sapiente architecto maxime consequatur officiis dolores!</p>
+                </div>
+              </div>
+             
+              <p>
+                "position: fixed" sayfanın bir yerine ilgili kısmı sabitler. Sayfanın sağ altında örneği yer alıyor.
+              </p>
+              <p>
+                index.html
+                <pre class="prettyprint ms-0">
+&lt;div>
+  &lt;a href="#end">&lt;img id="example-position2" src="./images/down.svg" alt="">&lt;/a>
+&lt;/div>
+&lt;div>
+  &lt;a href="#">&lt;img id="example-position3" src="./images/up.svg" alt="">&lt;/a>
+&lt;/div>
+                </pre>
+                style.css
+                <pre class="prettyprint ms-0">
+img#example-position2{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 48px;
+}
+img#example-position3{
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  width: 48px;
+}
+                </pre>
+              </p>
+              <div>
+                <a href="#end"><img id="example-position2" src="./images/down.svg" alt=""></a>
+              </div>
+              <div>
+                <a href="#"><img id="example-position3" src="./images/up.svg" alt=""></a>
+              </div>
+            </div>
+          </div> 
         </div>
       </div>
     </div>
+    <div id="end"></div>
   </div>
   <!-- JS -->
 

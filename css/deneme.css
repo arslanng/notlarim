@@ -7,54 +7,54 @@
 } */
 
 /* class -> .text-red {} */
-.text-red{
-    color:red;
+.text-red {
+  color: red;
 }
-.fs-14{
-    font-size: 14px;
+.fs-14 {
+  font-size: 14px;
 }
-.fs-20{
-    font-size: 20px;
+.fs-20 {
+  font-size: 20px;
 }
-.fs-30{
-    font-size: 30px;
+.fs-30 {
+  font-size: 30px;
 }
 /* id -> #id-bilgisi {} */
-#last_p{
-    border: 2px solid purple;
-    color:#202020;
-    font-size: 35px;
+#last_p {
+  border: 2px solid purple;
+  color: #202020;
+  font-size: 35px;
 }
 
 /************** css selectors ****************/
-.color-blue{
-    color:blue
+.color-blue {
+  color: blue;
 }
-.fw-bold{
-    font-weight: bold;
+.fw-bold {
+  font-weight: bold;
 }
-.color-blue.fw-bold{
-    font-size: 42px;
+.color-blue.fw-bold {
+  font-size: 42px;
 }
 /* iki class boşluk olmadan birlikte yazıldğında ikisini beraber alan etikete ilave özellik getirir */
-.color-blue .fw-bold{
-    font-size: 42px;
+.color-blue .fw-bold {
+  font-size: 42px;
 }
 /* iki class boşluk ile birlikte yazıldğında iç içe etiketlerde (örn p>span) ilkine biri ikinciye diğeri yzılırsa ikinciye (iki classı da kapsadığı için) ilave özellik getirir */
-li:last-child{
-    color:red
+li:last-child {
+  color: red;
 }
 /* son elemana özellik atar */
-li:first-child{
-    font-style: italic;
+li:first-child {
+  font-style: italic;
 }
 /* ilk elemana özellik atar */
-li:nth-child(2){
-    font-family: fantasy;
+li:nth-child(2) {
+  font-family: fantasy;
 }
 /* parantez içindeki sayıya denk gelen elemana özellik atar */
-li:nth-child(3n-2){
-    color: blue;
-    text-decoration: overline;
+li:nth-child(3n-2) {
+  color: blue;
+  text-decoration: overline;
 }
 /* parantez içindeki formüle denk gelen elemana özellik atar */
