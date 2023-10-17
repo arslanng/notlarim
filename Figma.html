@@ -204,6 +204,762 @@
       right: 10px;
       width: 48px;
     }
+    div#example-float1{
+      width: 100%;
+      background-color: blue;
+      padding: 20px;
+    }
+    div.example-float2{
+      width: 75px;
+      height: 75px;
+      background: yellow;
+      border: 1px solid #333;
+      float: left;
+    }
+    div#example-float-clear{
+      clear: both;
+    }
+    div.example-float3{
+      width: 75px;
+      height: 75px;
+      background: pink;
+      border: 1px solid #333;
+      float: right;
+    }
+    img.example-float4{
+      width: 200px;
+      float: left;
+    }
+    #example-hover-focus-1{
+      background: url(./images/paper.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 500px;
+      text-align: center;
+    }
+    #example-hover-focus-1 form{
+      padding-top: 120px;
+    }
+    #example-hover-focus-1 input{
+      width: 70%;
+      height: 50px;
+      margin-bottom: 20px;
+    }
+    #example-hover-focus-1 input:focus{
+      border: 3px solid yellow;
+      outline: none;
+    }
+    #example-hover-focus-1 a{
+      display: inline-block;
+      width: 70%;
+      height: 50px;
+      line-height: 50px;
+      background: chocolate;
+      color: #fff;
+      text-decoration: none;
+    }
+    #example-hover-focus-1 a:hover{
+      background-color: red;
+    }
+    ul#example-menu1 li:hover{
+      background: none;
+    } 
+    ul#example-menu2 li:hover{
+      background: none;
+    } 
+    ul#example-navmenu-1 li:hover{
+      background: none;
+    } 
+    /* üstteki kod önceden verdiğimiz li hoverını bu örnekte iptal etmek için. */
+    ul#example-menu1{
+      list-style-type: none;
+      padding-left: 0;
+    }
+    ul#example-menu1 li{
+      margin-bottom: 5px;
+    }
+    ul#example-menu1 li a{
+      display: block;
+      width: 150px;
+      height: 35px;
+      line-height: 35px;
+      background: #ddd;
+      color: #333;
+      text-decoration: none;
+      font-size: 13px;
+      padding-left: 15px;
+    }
+    ul#example-menu1 li a:hover{
+      background-color: #666;
+      color: #f5f5f5;
+    }
+    ul#example-menu2{
+      list-style-type: none;
+      padding-left: 0;
+    }
+    ul#example-menu2 li{
+      margin-bottom: 5px;
+      margin-left: 5px;
+      float: left;
+    }
+    ul#example-menu2 li a{
+      text-align: center;
+      display: block;
+      width: 120px;
+      height: 35px;
+      line-height: 35px;
+      background: #ddd;
+      color: #333;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    ul#example-menu2 li a:hover{
+      background-color: #666;
+      color: #f5f5f5;
+    }
+
+    ul#example-navmenu-1{
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+    }
+    ul#example-navmenu-1 li{
+      float: left;
+      position: relative;
+      width: 95px;
+    }
+    ul#example-navmenu-1 ul{
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 40px;
+    }
+    ul#example-navmenu-1 a{
+      display: block;
+      width: 95px;
+      height: 40px;
+      line-height: 40px;
+      background: rgb(14, 100, 212);
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+    }
+    ul#example-navmenu-1 a:hover{
+      background-color: rgb(9,67,145);
+    }
+    ul#example-navmenu-1 li:hover ul{
+      display: block;
+      z-index: 1;
+    }
+
+    div#example-borderRadius1{
+      width: 400px;
+      height: 300px;
+      background: red;
+      color: white;
+      padding: 30px;
+      border-radius: 25px 0 10px 50px;
+    }
+    p#example-text-shadow1{
+      font-size: 2.5em;
+      text-shadow: 4px 2px 3px rgb(255, 70, 224);
+    }
+    div#example-box-shadow1{
+      width: 400px;
+      height: 300px;
+      background: red;
+      color: white;
+      padding: 30px;
+      box-shadow: 5px 5px 7px black;
+    }
+    div#example-overflow1{
+      width: 100%;
+      height: 300px;
+      background: yellow;
+      border: 1px dotted #333;
+      overflow: auto;
+    }
+
+    div.example-target1{
+      background: #d3d3d3;
+      padding: 15px;
+      margin-bottom: 15px;
+      margin-top: 15px;
+    }
+    div.example-target1:target{
+      background: yellow;
+    }
+    h3#example-afterbefore1:before{
+      content:'';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: chocolate;
+      margin-right: 20px;
+    }
+    h3#example-afterbefore1:after{
+      content:'';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color:aquamarine;
+      margin-left: 20px;
+    }
+    ul#example-afterbefore2 li{
+      list-style-type: none;
+      margin-bottom: 5px;
+    }
+    ul#example-afterbefore2 li::before{
+      content: "";
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      background: url("./images/my-raven.png");
+      background-size: cover;
+      margin-right: 20px;
+    }
+    div#example-column1{
+      column-count: 4;
+      /* içeriğin kaç sütun olacağını belirler */
+
+      /* column-width: 150px; */
+      /* sütun genişliğine göre içeriği böler. Ekran genişliğine göre sütun sayısını kendisi hesaplar. */
+
+      column-gap: 10px;
+      /* sütunlar arası boşluğu belirler. */
+      column-rule: 1px solid green;
+    }
+
+    h2#example-column2{
+      column-span: all;
+      /* tüm kolonları kapsar */
+      background-color: yellow;
+    }
+    div#example-ucgen1{
+      width: 0;
+      height: 0;
+      padding: 0;
+      border-style: solid;
+      border-width: 60px;
+      border-color: chocolate crimson darkmagenta gold ;
+    }
+    div#example-ucgen2{
+      width: 0;
+      height: 0;
+      padding: 0;
+      border-style: solid;
+      border-width: 60px;
+      border-color: chocolate transparent transparent transparent ;
+    }
+    div#example-baloon1{
+      width: 350px;
+      height: 200px;
+      border-radius: 35px;
+      background-color: violet;
+      position: relative;
+    }
+    div#example-baloon2{
+      position: absolute;
+      bottom: -30px;
+      right: 40px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-top-width: 30px;
+      border-left-width: 15px;
+      border-right-width: 15px;
+      border-color: violet transparent transparent transparent;
+    }
+    
+    div#example-transform1{
+      width: 250px;
+      height: 250px;
+      background-color: coral;
+      transition: transform .3s ease-in;
+      /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+    }
+    div#example-transform1:hover{
+      transform: scale(1.4, .7);
+      /* x ekseninde %140 y ekseninde %70 oranlarında ölçülenir. */
+    }
+    div#example-transform2{
+      width: 250px;
+      height: 250px;
+      background-color: coral;
+      transition: transform .3s ease-in;
+      /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+    }
+    div#example-transform2:hover{
+      transform: rotate(45deg);
+    }
+    div#example-transform3{
+      width: 250px;
+      height: 250px;
+      background: url("./images/manzara.jpg");
+      background-size: cover;
+      transition: transform .3s ease-in;
+      /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+    }
+    div#example-transform3:hover{
+      transform: rotateX(180deg)
+    }
+    div#example-transform4{
+      width: 250px;
+      height: 250px;
+      background: url("./images/manzara.jpg");
+      background-size: cover;
+      transition: transform .3s ease-in;
+      /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+    }
+    div#example-transform4:hover{
+      transform: rotateY(180deg)
+    }
+    div#example-transform5{
+      width: 250px;
+      height: 250px;
+      background-color: coral;
+      transition: transform .3s ease-in;
+      /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+    }
+    div#example-transform5:hover{
+      transform: skewX(45deg)
+    }
+    div#example-transform6{
+      width: 250px;
+      height: 250px;
+      background: url("./images/manzara.jpg");
+      background-size: cover;
+      transition: all .3s ease-in;
+      /* tüm geçişlerin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+    }
+    div#example-transform6:hover{
+      transform: rotate(360deg) scale(.7)
+    }
+    div#example-transform7{
+      width: 250px;
+      height: 250px;
+      background-color: coral;
+      transition: transform .3s ease-in;
+      /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+    }
+    div#example-transform7:hover{
+      transform: translate(50px, 25px)
+      /* 50px sola 25px aşağı hareket eder. */
+    }
+    div#example-transform8{
+      width: 100%;
+      height: 400px;
+      padding: 0;
+      background-color: darkgray;
+      position: relative;
+    }
+    div#example-transform9{
+      width: 100px;
+      height: 100px;
+      background-color: coral;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* kendi eninin yarısı kadar sola, yüksekliğini yarısı kadar yukarıya alındı. Bu şekilde kapsayıcısını ortaladı. */
+    }
+    div#example-zIndex1{
+      width: 300px;
+      height: 200px;
+      background-color: crimson;
+      padding: 0;
+      position: relative;
+      margin-top: 40px;
+    }
+    div#example-zIndex2{
+      width: 100px;
+      height: 100px;
+      background-color: darkblue;
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      margin-left: -75px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    div#example-zIndex3{
+      width: 100px;
+      height: 100px;
+      background-color: darkorange;
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      margin-left: -25px;
+      border-radius: 50%;
+    }
+    div#example-zIndex4{
+      width: 100px;
+      height: 100px;
+      background-color: darkorange;
+      position: absolute;
+      top: 50%;
+      left: -50px;
+      margin-top: -50px;
+      border-radius: 50%;
+      z-index: -1;
+    }
+    div#example-gradient1{
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(yellow, black);
+    }
+    div#example-gradient2{
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(to left, yellow, black);
+    }
+    div#example-gradient3{
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(to top, yellow, black);
+    }
+    div#example-gradient4{
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(to top left, yellow, black);
+    }
+    div#example-gradient5{
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(yellow, black, red, blue);
+    }
+    div#example-gradient6{
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(50deg, yellow, black);
+    }
+    div#example-gradient7{
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(yellow 33%, black 33% 66%, blue 66%);
+    }
+    div#example-gradient8{
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(yellow 25%, black 45% 60%, blue 80%);
+    }
+    div#example-gradient9{
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(yellow, blue, red)
+    }
+    div#example-gradient10{
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(at left, yellow, blue, red)
+    }
+    div#example-gradient11{
+      width: 250px;
+      height: 250px;
+      background: repeating-linear-gradient(red 0 50px, blue 50px 100px)
+    }
+    div#example-mediaQueries1{
+      width: 100%;
+      height: 250px;
+      background: red;
+    }
+
+    /* screen: pc */
+    /* aşağıdaki kod maksimum 400px e kadar olan genişlikte arka planı mavi yapar. */
+    @media screen and (max-width: 400px){
+      div#example-mediaQueries1{
+        background-color: blue;
+      }
+    }
+    div#example-mediaQueries2{
+      width: 100%;
+      height: 250px;
+      background: red;
+    }
+
+    /* aşağıdaki kod 200px den 400px e kadar olan genişlikte arka planı mavi yapar. */
+    @media (min-width: 200px) and (max-width: 400px){
+      div#example-mediaQueries2{
+        background-color: blue;
+      }
+    }
+    div#example-mediaQueries3{
+      width: 100%;
+      height: 250px;
+      background: red;
+    }
+
+    /* aşağıdaki kod kullanılan cihazın ekran genişliği 200px den 400px e kadar olan genişlikte ise arka planı mavi yapar. */
+    @media (min-device-width: 200px) and (max-device-width: 400px){
+      div#example-mediaQueries3{
+        background-color: blue;
+      }
+    }
+
+    div#example-boxsizing1{
+      width: 250px;
+      height: 250px;
+      text-align: center;
+      background: red;
+      color: #fff;
+      padding: 20px;
+      border: 5px solid yellow;
+      box-sizing: content-box;
+    }
+    div#example-boxsizing2{
+      width: 250px;
+      height: 250px;
+      text-align: center;
+      background: red;
+      color: #fff;
+      padding: 20px;
+      border: 5px solid yellow;
+      box-sizing: border-box;
+    }
+    div#example-flex1{
+      display: flex;
+      width: 100%;
+      height: 300px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    .example-flex-box{
+      width: 75px;
+      height: 75px;
+      background: #fff;
+      border-radius: 10px;
+      margin: 5px;
+    }
+    div#example-flex2{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 600px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    div#example-flex3{
+      display: flex;
+      width: 100%;
+      height: 300px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    div#example-flex4{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 600px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    div#example-flex5{
+      display: flex;
+      flex-flow: column wrap;
+      width: 100%;
+      height: 600px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    div#example-flex6{
+      display: flex;
+      width: 100%;
+      height: 300px;
+      background: darksalmon;
+      padding: 20px;
+      justify-content: center;
+    }
+    div#example-flex7{
+      display: flex;
+      width: 100%;
+      height: 300px;
+      background: darksalmon;
+      padding: 20px;
+      justify-content: flex-start;
+    }
+    div#example-flex8{
+      display: flex;
+      width: 100%;
+      height: 300px;
+      background: darksalmon;
+      padding: 20px;
+      justify-content: space-evenly;
+    }
+    div#example-flex9{
+      display: flex;
+      width: 100%;
+      height: 600px;
+      background: darksalmon;
+      padding: 20px;
+      align-items: center;
+    }
+    .example-flex-box2{
+      /* height: 100px; */
+      width: 100px;
+      background: #fff;
+      border-radius: 10px;
+      margin: 5px;
+    }
+    div#example-flex10{
+      display: flex;
+      width: 100%;
+      height: 600px;
+      background: darksalmon;
+      padding: 20px;
+      justify-content: space-evenly;
+      align-items: stretch;
+    }
+    div#example-flex11{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 600px;
+      background: darksalmon;
+      padding: 20px;
+      align-content:center;
+    }
+    div#example-flex12{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 400px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    .example-flex-box3{
+      height: 75px;
+      width: 75px;
+      background: #fff;
+      border-radius: 10px;
+      margin: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #example-flex12 .example-flex-item4{
+      background: yellow;
+      order: 5;
+    }
+    #example-flex12 .example-flex-item5{
+      background: blue;
+      order: 4;
+      color: #fff;
+    }
+    div#example-flex13{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 300px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    #example-flex13 .example-flex-item4{
+      background: yellow;
+      order: 5;
+      flex-grow: 2;
+    }
+    #example-flex13 .example-flex-item5{
+      background: blue;
+      order: 4;
+      color: #fff;
+      flex-grow: 3;
+    }
+    div#example-flex14{
+      display: flex;
+      /* flex-wrap: wrap; */
+      width: 100%;
+      height: 300px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    #example-flex14 .example-flex-item4{
+      background: yellow;
+      order: 5;
+      flex-grow: 2;
+    }
+    #example-flex14 .example-flex-item5{
+      background: blue;
+      order: 4;
+      color: #fff;
+      flex-shrink: 3;
+    }
+    div#example-flex15{
+      display: flex;
+      /* flex-wrap: wrap; */
+      width: 100%;
+      height: 300px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    #example-flex15 .example-flex-item4{
+      background: yellow;
+      order: 5;
+      flex-basis: 60%;
+    }
+    #example-flex15 .example-flex-item5{
+      background: blue;
+      order: 4;
+      color: #fff;
+    }
+    div#example-flex16{
+      display: flex;
+      /* flex-wrap: wrap; */
+      width: 100%;
+      height: 600px;
+      background: darksalmon;
+      padding: 20px;
+    }
+    #example-flex16 .example-flex-item4{
+      background: yellow;
+      order: 5;
+      align-self: center;
+    }
+    #example-flex16 .example-flex-item1{
+      align-self: flex-end;
+    }
+    div#example-animation1{
+      width: 150px;
+      height: 150px;
+      background-color: violet;
+      animation: example-myanime1 3s ease 2s 2 normal forwards;
+    }
+
+    @keyframes example-myanime1{
+      0%{
+        width: 150px;
+        opacity: .3;
+        background-color: violet;
+      }
+      100%{
+        width: 100%;
+        opacity: 1;
+        background-color: sienna;
+      }
+    }
+    div#example-animation2{
+      width: 150px;
+      height: 150px;
+      background-color: violet;
+      animation: example-myanime2 3s ease 2s 2 normal backwards;
+    }
+
+    @keyframes example-myanime2{
+      0%{
+        width: 150px;
+        opacity: .3;
+        background-color: violet;
+      }
+      100%{
+        width: 100%;
+        opacity: 1;
+        background-color: sienna;
+      }
+    }
+   
   </style>
 </head>
 
@@ -391,6 +1147,23 @@
               <a class="nav-link ms-3 my-1" href="#cssPaddingAndMargin">Padding ve Margin Kullanımı</a>
               <a class="nav-link ms-3 my-1" href="#cssAlignment">Dikey ve Yatayda Ortalanmış Elemanlar</a>
               <a class="nav-link ms-3 my-1" href="#cssPosition">CSS Konumlandırma - Position</a>
+              <a class="nav-link ms-3 my-1" href="#cssFloat">CSS Float Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssHoverAndFocus">Hover ve Focus Özelliği (Basit Bir Login Form Yapalım)</a>
+              <a class="nav-link ms-3 my-1" href="#cssMenu">Dikey ve Yatay Menü Oluşturma</a>
+              <a class="nav-link ms-3 my-1" href="#cssNavMenu">CSS ile Açılır Menü Oluşturma</a>
+              <a class="nav-link ms-3 my-1" href="#cssShadowBorderRadius">Box Shadow, Text Shadow ve Border Radius Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssOverflow">Overflow Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssTarget">CSS Target Özelliği ile Hedef Elemanlara Stil Uygulama</a>
+              <a class="nav-link ms-3 my-1" href="#cssAfterBefore">CSS'de After ve Before Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssColumn">CSS Column Yapısı</a>
+              <a class="nav-link ms-3 my-1" href="#cssUseBorderMakeSpeekingBaloon">Border Kullanarak Konuşma Balonu ve Üçgen Ok Yapımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssTransform">Transform Özelliklerinin Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssZindex">Z-index Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssGradient">Gradient Kullanımı</a>
+              <a class="nav-link ms-3 my-1" href="#cssMediaQueries">CSS Media Sorguları</a>
+              <a class="nav-link ms-3 my-1" href="#cssBoxSizing">CSS Box Sizing Ne İşe Yarar</a>
+              <a class="nav-link ms-3 my-1" href="#cssFlex">Flex Yapısı ve Özellikler</a>
+              <a class="nav-link ms-3 my-1" href="#cssAnimation">Animation Kullanımı</a>
             </nav>
           </nav>
         </nav>
@@ -1825,7 +2598,7 @@
             <h3>Tablo</h3>
             <p>
               &lt;table> etiketinin içinde satırlar için &lt;tr>, &lt;tr> etiketinin içine ise sütunlar için en üste &lt;th> (başlıklar için), diğer satırlarda ise &lt;td> etiketi kullanılır. 
-                <div class="col-6">
+                <div class="col-sm-6">
                   <pre class="prettyprint ms-0">
 &lt;table border="1" bordercolor="red">
   &lt;tr>
@@ -1851,7 +2624,7 @@
 &lt;/table>
                 </pre>
                 </div>
-                <div class="col-6">
+                <div class="col-sm-6">
                   <table border="1" class="w-100">
                     <tr>
                       <th>Yazılım</th>
@@ -1889,7 +2662,7 @@
             </p>
             <p>
               Listeler iç içe de yazılabilir.
-              <div class="col-6">
+              <div class="col-sm-6">
                 <pre class="prettyprint ms-0">
 &lt;ul>
   &lt;li>Yazılım
@@ -1909,7 +2682,7 @@
 &lt;/ul>
               </pre>
               </div>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <ul>
                   <li>Yazılım
                   <ol>
@@ -1945,7 +2718,7 @@
             </p>
             
             <h4>Varsayılan</h4>
-            <div class="col-6">
+            <div class="col-sm-6">
               <pre class="prettyprint ms-0">
 &lt;p>
   Lorem ipsum dolor sit amet.
@@ -1954,7 +2727,7 @@
 &lt;a href="#">iptal&lt;/a>
             </pre>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6">
               <p>
                 Lorem ipsum dolor sit amet.
               </p>
@@ -1965,7 +2738,7 @@
             <br><br>
             <h4>display: block</h4>
 
-            <div class="col-6">
+            <div class="col-sm-6">
               <pre class="prettyprint ms-0">
 &lt;p>
 Lorem ipsum dolor sit amet.
@@ -1974,7 +2747,7 @@ Lorem ipsum dolor sit amet.
 &lt;a href="#" style="display: block;">iptal&lt;/a>
               </pre>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6">
               <p>
                 Lorem ipsum dolor sit amet.
               </p>
@@ -1985,7 +2758,7 @@ Lorem ipsum dolor sit amet.
             <br><br>
             <h4>display: inline</h4>
 
-            <div class="col-6">
+            <div class="col-sm-6">
               <pre class="prettyprint ms-0">
 &lt;p style="display: inline;">
   Lorem ipsum dolor sit amet.
@@ -1994,7 +2767,7 @@ Lorem ipsum dolor sit amet.
 &lt;a href="#">iptal&lt;/a>
               </pre>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6">
               <p style="display: inline;">
                 Lorem ipsum dolor sit amet.
               </p>
@@ -2033,7 +2806,7 @@ Lorem ipsum dolor sit amet.
             <p>
               input etiketinin aldığı "name" parametresi kodlama sırasında veriye ulaşmamızı sağlar. "placeholder" yer tutucudur. "value" varsayılan değeri belirtir. &lt;label> etiketi for parametresinde ilgili inputun id'sini alır. 
             </p>
-            <div class="col-6">
+            <div class="col-sm-6">
               <pre class="prettyprint ms-0">
 &lt;form>
   Adınızı girin: &lt;input type="text" placeholder="Murat" name="name1"> &lt;br>
@@ -2042,7 +2815,7 @@ Lorem ipsum dolor sit amet.
 &lt;/form>
               </pre>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6">
               <form>
                 Adınızı girin: <input type="text" placeholder="Murat" name="name1"> <br><br>
                 Adınızı girin: <input type="text" value="Murat" name="name2"> <br><br>
@@ -2050,7 +2823,7 @@ Lorem ipsum dolor sit amet.
               </form>
             </div>
 
-            <div class="col-6">
+            <div class="col-sm-6">
               <pre class="prettyprint ms-0">
 &lt;form>
   &lt;div class="mb-2">
@@ -2099,7 +2872,7 @@ Lorem ipsum dolor sit amet.
 &lt;/form>
               </pre>
             </div>
-            <div class="col-6 mt-4">
+            <div class="col-sm-6 mt-4">
               <form>
                 <div class="mb-2">
                   <label for="ad">Adınızı girin :</label> 
@@ -2169,12 +2942,12 @@ Lorem ipsum dolor sit amet.
               <p>
                 Etiketin içinde style parametresi ile. 
               </p>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <pre class="prettyprint ms-0">
 &lt;p style="color: red;">Kırmızı yazı&lt;/p>
                 </pre>
               </div>
-              <div class="col-6 mt-4">
+              <div class="col-sm-6 mt-4">
                 <p style="color: red;">Kırmızı yazı</p>
               </div>
 
@@ -2218,7 +2991,7 @@ p{
             </div>
             <div class="row" id="cssBacground">
               <h2>Tüm Özellikleriyle CSS Background Kullanımı</h2>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2238,14 +3011,14 @@ p{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div id="bacground-example-div1">
                   <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam nobis nemo iure, cupiditate, eum quos odit id at, eius natus neque quasi laborum culpa! Eum, tenetur non. Quasi earum ratione iusto corporis amet aliquid eligendi, animi totam, unde architecto ex nihil soluta vero error dignissimos reiciendis quae cupiditate nam sit nobis cumque non ea dolores vitae? Aliquam labore nemo expedita saepe tenetur architecto consectetur temporibus beatae nisi? Amet eligendi voluptate vero consectetur aliquam reprehenderit architecto cum veniam, perferendis vitae dolorem autem deserunt rerum. Mollitia, laborum. Consectetur, possimus earum hic esse ut at, ratione quisquam veniam qui architecto ipsam tenetur?
                   </p>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2265,16 +3038,16 @@ p{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div class="div" id="bacground-example-div2">
                   <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam dignissimos officia aut modi illum. Esse ex quia ut necessitatibus tempora vero eveniet quidem voluptate neque odit nulla autem eos cumque nostrum consequuntur laborum doloribus velit, totam veniam nobis cupiditate soluta magnam! Quasi saepe molestiae ex consectetur! Expedita consectetur doloremque saepe facilis tenetur corporis hic laborum ad rem, dicta aspernatur illo praesentium esse necessitatibus quia repudiandae autem amet, sequi rerum. Error eveniet, ipsa dolor libero eligendi id officia repellat necessitatibus similique earum architecto adipisci doloremque, nihil praesentium sunt reiciendis possimus deleniti. Illum, doloremque corporis amet non culpa esse ipsam accusamus accusantium?
                   </p>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
-                  index.js
+                  index.html
                   <pre class="prettyprint ms-0">
 &lt;div class="div" id="bacground-example-div3">
   &lt;p>
@@ -2293,7 +3066,7 @@ p{
 }
                 </pre>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div class="div" id="bacground-example-div3">
                   <p>
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem accusantium veniam fugit obcaecati dolorum reiciendis dignissimos modi ipsum necessitatibus aut amet, quae eligendi sequi vero magni animi maxime dolore velit repudiandae error nemo, perferendis iusto! Unde deleniti laborum in inventore consequuntur soluta ea nesciunt quibusdam nihil deserunt. Illum quis in nihil quam aspernatur ducimus officia facere sequi. Voluptatibus obcaecati, alias qui libero neque quis voluptas reprehenderit at error eum consectetur ab mollitia non quae nam esse distinctio doloremque minus, fugit aperiam tenetur, commodi quisquam. Non ducimus, distinctio animi iusto ad repudiandae eum necessitatibus consectetur adipisci minima tenetur quod obcaecati deserunt.
@@ -2348,7 +3121,7 @@ p{
             </div>
             <div class="row" id="cssBorder">
               <h2>CSS Border Kullanım</h2>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2378,13 +3151,13 @@ p{
 }
                 </pre>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div id="example-border1">
                   bu bir divdir
                 </div>
               </div>
               <hr>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2403,7 +3176,7 @@ p{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div id="example-border2">
                   bu bir divdir
                 </div>
@@ -2411,7 +3184,7 @@ p{
             </div>
             <div class="row" id="widthAndHeight">
               <h2>CSS Genişlik ve Yükseklik Özellikler</h2>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2429,13 +3202,13 @@ p{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div id="example-width1">
                   <p>test</p>
                 </div>
               </div>
               <hr>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2452,7 +3225,7 @@ p{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div id="example-width2">
                   <p>test2</p>
                 </div>
@@ -2463,7 +3236,7 @@ p{
             </div>
             <div class="row" id="cssFonts">
               <h2>Font Özellikleri</h2>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2510,7 +3283,7 @@ p#example-font1::first-letter{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <p id="example-font1">
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit. <span id="example-font2">Officiis ad ipsam</span>, magni delectus odio molestias est <span id="example-font3">repudiandae corporis</span> quia alias eligendi dignissimos inventore <span id="example-font4">vitae expedita tenetur tempore</span id="example-font5"> placeat ea deleniti a, <span>ducimus temporibus?</span> Impedit harum aliquid aperiam <span id="example-font6">laborum soluta deleniti optio quia dolor illum minus nostrum, sapiente maxime</span> Aperiam nostrum eum molestias quae perspiciatis <span id="example-font7">doloribus enim id nesciunt excepturi</span> ipsa quisquam?  recusandae delectus earum asperiores voluptatibus nam explicabo commodi corrupti magni voluptate quis provident perferendis dignissimos, repudiandae quibusdam sequi nisi suscipit iure molestiae. Unde, reprehenderit aperiam consequuntur nulla eveniet distinctio, ex ut atque illo id, excepturi impedit minima aut rem!
                 </p>
@@ -2527,7 +3300,7 @@ p#example-font1::first-letter{
               <p>
                 <a href="https://fonts.google.com/">Google Fonts</a> adresinden istediğimiz fontu seçiyoruz. Fontu html üzerinden eklemek için google font üzerinde seçim yaptığımız yerde &lt;link> kısmı seçilir ve &lt;head> kısmına yapıştıılır. Css üzerinden eklemek için ise @import kısmı seçilir.
               </p>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2557,7 +3330,7 @@ p#example-font1::first-letter{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <p id="example-googlefont1">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur vero repudiandae, cum nobis incidunt dolorem, ea provident at officia aliquid ex quod. Placeat mollitia illo nesciunt sunt est, sapiente enim, et harum distinctio dolore in. Natus perferendis nulla porro. A unde voluptatum dolorum nesciunt facere odit quo alias nulla, vel tempora nostrum! Ipsam esse cupiditate adipisci dicta dolores. Maxime soluta voluptates iure, modi iste optio provident dolor voluptatibus excepturi fugit amet consequuntur? Perferendis velit suscipit architecto nulla odit tempora beatae ex dolores enim vero deserunt voluptate temporibus nisi, similique mollitia esse officia expedita iusto consectetur sint qui quia incidunt dolor.
                 </p>
@@ -2565,7 +3338,7 @@ p#example-font1::first-letter{
             </div>
             <div class="row" id="cssPaddingAndMargin">
               <h2>Padding ve Margin Kullanımı</h2>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2588,7 +3361,7 @@ p#example-font1::first-letter{
                   </pre>
                 </p>
               </div>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <div id="example-mp1">
                   <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum nemo at similique enim quam deserunt repellendus nostrum architecto obcaecati perferendis.
@@ -2599,7 +3372,7 @@ p#example-font1::first-letter{
             <div class="row" id="cssAlignment">
               <h2>Dikey ve Yatayda Ortalanmış Elemanlar</h2>
 
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2615,11 +3388,11 @@ p#example-font1::first-letter{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <h3 id="example-aligment1">Bu alan başlık alanıdır</h3>
               </div>
               <hr>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2635,13 +3408,13 @@ p#example-font1::first-letter{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <p id="example-aligment2">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolore qui impedit sapiente. Amet corporis a temporibus, inventore nesciunt similique consectetur in voluptas harum exercitationem ipsa, sed voluptatibus. Placeat asperiores, quam nisi eligendi ratione assumenda totam dolorum repellendus illo odio sint corporis, aliquid velit reiciendis dicta dolores iste aut saepe.
                 </p>
               </div>
               <hr>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2668,7 +3441,7 @@ div#example-aligment3 p{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div id="example-aligment3">
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem aut dicta aliquam tenetur! Neque sapiente architecto maxime consequatur officiis dolores!</p>
                 </div>
@@ -2683,7 +3456,7 @@ div#example-aligment3 p{
                 relative özelliği verilen bir elemanın içindeki objeyi istediğimiz şekilde konumlandırabiliriz. Konumlandırılacak olan objenin de absolute olması gerekir. Bu durmda default değer 0, 0 noktasıdır.
               </p>
 
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   index.html
                   <pre class="prettyprint ms-0">
@@ -2719,7 +3492,7 @@ div#example-position1 p{
                   </pre>
                 </p>
               </div>
-              <div class="col-6 mt-5">
+              <div class="col-sm-6 mt-5">
                 <div id="example-position1">
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem aut dicta aliquam tenetur! Neque sapiente architecto maxime consequatur officiis dolores!</p>
                 </div>
@@ -2760,6 +3533,2229 @@ img#example-position3{
               <div>
                 <a href="#"><img id="example-position3" src="./images/up.svg" alt=""></a>
               </div>
+            </div>
+            <div class="row" id="cssFloat">
+              <h2>CSS Float Kullanımı</h2>
+              <p>
+                float grid ve flex yapısından önce kullanılan bir obje konumlandırma özelliği. 
+              </p>
+              <p>
+                kapsayıcını içinde yan yana gelmesini istediğimiz blok elementlere "float" özelliği ekliyoruz. Düzgün çalışması için ise en sona eklediğimiz boş blok elemanına "clear" özelliği ekliyoruz.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-float1">
+  &lt;div class="example-float2">&lt;/div>
+  &lt;div class="example-float2">&lt;/div>
+  &lt;div class="example-float2">&lt;/div>
+  &lt;div class="example-float3">&lt;/div>
+  &lt;div id="example-float-clear">&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-float1{
+  width: 100%;
+  background-color: blue;
+  padding: 20px;
+}
+div.example-float2{
+  width: 75px;
+  height: 75px;
+  background: yellow;
+  border: 1px solid #333;
+  float: left;
+}
+div#example-float-clear{
+  clear: both;
+}
+div.example-float3{
+  width: 75px;
+  height: 75px;
+  background: pink;
+  border: 1px solid #333;
+  float: right;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-float1">
+                  <div class="example-float2"></div>
+                  <div class="example-float2"></div>
+                  <div class="example-float2"></div>
+                  <div class="example-float3"></div>
+                  <div id="example-float-clear"></div>
+                </div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div>
+  &lt;img src="./images/My Raven.png" alt="" class="example-float4">
+  &lt;p>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod quae facere non inventore vel, repudiandae fuga aut repellendus est? A nostrum adipisci asperiores deleniti laborum earum laboriosam quod molestiae quas! Magni minima hic totam natus, maxime impedit. Sunt alias dolore eveniet consequuntur consectetur beatae, assumenda a iusto inventore dicta! Recusandae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit placeat aliquam dignissimos fugit, debitis ullam provident totam saepe asperiores fuga. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae odio hic itaque perspiciatis molestiae deserunt, earum ullam similique vero expedita, magnam odit nostrum non suscipit laudantium corporis. Nemo qui similique, necessitatibus dolores eaque quidem doloremque laboriosam ducimus ipsa cumque enim laborum repellat consequatur architecto animi suscipit cupiditate hic eum reiciendis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque, minima alias quas suscipit eaque. Rerum beatae alias non quae?
+  &lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+img.example-float4{
+  width: 200px;
+  float: left;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div>
+                  <img src="./images/My Raven.png" alt="" class="example-float4">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod quae facere non inventore vel, repudiandae fuga aut repellendus est? A nostrum adipisci asperiores deleniti laborum earum laboriosam quod molestiae quas! Magni minima hic totam natus, maxime impedit. Sunt alias dolore eveniet consequuntur consectetur beatae, assumenda a iusto inventore dicta! Recusandae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit placeat aliquam dignissimos fugit, debitis ullam provident totam saepe asperiores fuga. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae odio hic itaque perspiciatis molestiae deserunt, earum ullam similique vero expedita, magnam odit nostrum non suscipit laudantium corporis. Nemo qui similique, necessitatibus dolores eaque quidem doloremque laboriosam ducimus ipsa cumque enim laborum repellat consequatur architecto animi suscipit cupiditate hic eum reiciendis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque, minima alias quas suscipit eaque. Rerum beatae alias non quae?
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssHoverAndFocus">
+              <h2>Hover ve Focus Özelliği (Basit Bir Login Form Yapalım)</h2>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-hover-focus-1">
+  &lt;form>
+    &lt;h4>Kullanıcı Kaydı&lt;/h4>
+    &lt;input type="text" name="isim" placeholder="İsminiz">&lt;br>
+    &lt;input type="text" name="soyisim" placeholder="Soy isminiz">&lt;br>
+    &lt;a href="#">Kayıt Ol&lt;/a>
+  &lt;/form>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+#example-hover-focus-1{
+  background: url(./images/paper.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 500px;
+  text-align: center;
+}
+#example-hover-focus-1 form{
+  padding-top: 120px;
+}
+#example-hover-focus-1 input{
+  width: 70%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+#example-hover-focus-1 input:focus{
+  border: 3px solid yellow;
+  outline: none;
+}
+#example-hover-focus-1 a{
+  display: inline-block;
+  width: 70%;
+  height: 50px;
+  line-height: 50px;
+  background: chocolate;
+  color: #fff;
+  text-decoration: none;
+}
+#example-hover-focus-1 a:hover{
+  background-color: red;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-hover-focus-1">
+                  <form>
+                    <h4>Kullanıcı Kaydı</h4>
+                    <input type="text" name="isim" placeholder="İsminiz"><br>
+                    <input type="text" name="soyisim" placeholder="Soy isminiz"><br>
+                    <a href="#">Kayıt Ol</a>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssMenu">
+              <h2>Dikey ve Yatay Menü Oluşturma</h2>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;ul id="example-menu1">
+  &lt;li>&lt;a href="#">Anasayfa&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">Hakkımızda&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">Referanslarımız&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">Galeri&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">İletişim&lt;/a>&lt;/li>
+&lt;/ul>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+ul#example-menu1{
+  list-style-type: none;
+  padding-left: 0;
+}
+ul#example-menu1 li{
+  margin-bottom: 5px;
+}
+ul#example-menu1 li a{
+  display: block;
+  width: 150px;
+  height: 35px;
+  line-height: 35px;
+  background: #ddd;
+  color: #333;
+  text-decoration: none;
+  font-size: 13px;
+  padding-left: 15px;
+}
+ul#example-menu1 li a:hover{
+  background-color: #666;
+  color: #f5f5f5;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <ul id="example-menu1">
+                  <li><a href="#">Anasayfa</a></li>
+                  <li><a href="#">Hakkımızda</a></li>
+                  <li><a href="#">Referanslarımız</a></li>
+                  <li><a href="#">Galeri</a></li>
+                  <li><a href="#">İletişim</a></li>
+                </ul>
+              </div>
+              <hr>
+              <p>
+                Listeyi dikeyden yataya çevirmek için li etiketine "float: left;" atanır.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;ul id="example-menu2">
+  &lt;li>&lt;a href="#">Anasayfa&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">Hakkımızda&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">Referanslarımız&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">Galeri&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">İletişim&lt;/a>&lt;/li>
+&lt;/ul>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+ul#example-menu2{
+  list-style-type: none;
+  padding-left: 0;
+}
+ul#example-menu2 li{
+  margin-bottom: 5px;
+  margin-left: 5px;
+  float: left;
+}
+ul#example-menu2 li a{
+  text-align: center;
+  display: block;
+  width: 120px;
+  height: 35px;
+  line-height: 35px;
+  background: #ddd;
+  color: #333;
+  text-decoration: none;
+  font-size: 13px;
+}
+ul#example-menu2 li a:hover{
+  background-color: #666;
+  color: #f5f5f5;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <ul id="example-menu2">
+                  <li><a href="#">Anasayfa</a></li>
+                  <li><a href="#">Hakkımızda</a></li>
+                  <li><a href="#">Referanslarımız</a></li>
+                  <li><a href="#">Galeri</a></li>
+                  <li><a href="#">İletişim</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="row" id="cssNavMenu">
+              <h2>CSS ile Açılır Menü Oluşturma</h2>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;ul id="example-navmenu-1">
+  &lt;li>&lt;a href="#">Anasayfa&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">Hakkımızda&lt;/a>
+  &lt;ul>
+    &lt;li>&lt;a href="#">Misyonumuz&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="#">Vizyonumuz&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="#">Değerlerimiz&lt;/a>&lt;/li>
+  &lt;/ul>&lt;/li>
+  &lt;li>&lt;a href="#">Haberler&lt;/a>
+  &lt;ul>
+    &lt;li>&lt;a href="#">Spor&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="#">Magazin&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="#">Siyaset&lt;/a>&lt;/li>
+  &lt;/ul>&lt;/li>
+  &lt;li>&lt;a href="#">Galeri&lt;/a>&lt;/li>
+  &lt;li>&lt;a href="#">İletişim&lt;/a>&lt;/li>
+&lt;/ul>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+ul#example-navmenu-1{
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+ul#example-navmenu-1 li{
+  float: left;
+  position: relative;
+  width: 90px;
+}
+ul#example-navmenu-1 ul{
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 40px;
+}
+ul#example-navmenu-1 a{
+  display: block;
+  width: 90px;
+  height: 40px;
+  line-height: 40px;
+  background: rgb(14, 100, 212);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+}
+ul#example-navmenu-1 a:hover{
+  background-color: rgb(9,67,145);
+}
+ul#example-navmenu-1 li:hover ul{
+  display: block;
+  z-index: 1;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <ul id="example-navmenu-1">
+                  <li><a href="#">Anasayfa</a></li>
+                  <li><a href="#">Hakkımızda</a>
+                  <ul>
+                    <li><a href="#">Misyonumuz</a></li>
+                    <li><a href="#">Vizyonumuz</a></li>
+                    <li><a href="#">Değerlerimiz</a></li>
+                  </ul></li>
+                  <li><a href="#">Haberler</a>
+                  <ul>
+                    <li><a href="#">Spor</a></li>
+                    <li><a href="#">Magazin</a></li>
+                    <li><a href="#">Siyaset</a></li>
+                  </ul></li>
+                  <li><a href="#">Galeri</a></li>
+                  <li><a href="#">İletişim</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="row" id="cssShadowBorderRadius">
+              <h2>Box Shadow, Text Shadow ve Border Radius Kullanımı</h2>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div class="col-sm-6">
+  &lt;div id="example-borderRadius1">
+    Bu bir test dividir
+  &lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-borderRadius1{
+  width: 400px;
+  height: 300px;
+  background: red;
+  color: white;
+  padding: 30px;
+  border-radius: 25px 0 10px 50px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-borderRadius1">
+                  Bu bir test dividir
+                </div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;p id="example-text-shadow1">
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, facere?
+&lt;/p>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+p#example-text-shadow1{
+  font-size: 2.5em;
+  text-shadow: 4px 2px 3px rgb(255, 70, 224);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <p id="example-text-shadow1">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, facere?
+                </p>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-box-shadow1">
+  Bu bir test dividir
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-box-shadow1{
+  width: 400px;
+  height: 300px;
+  background: red;
+  color: white;
+  padding: 30px;
+  box-shadow: 5px 5px 7px black;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-box-shadow1">
+                  Bu bir test dividir
+                </div>
+              </div>
+              <p>
+                "box-shadow" özelliğinde parametre olarak inset yazılırsa gölge içeriden verilir.
+              </p>
+            </div>
+            <div class="row" id="cssOverflow">
+              <h2>Overflow Kullanımı</h2>
+              <p>
+                İçerik öğenin içine sığmadığında içeriğin nasıl davranacağını belirtmek için kullanılır. Sadece blok level elemanlarda çalışır.
+              </p>
+              <p>
+                <b>hidden</b>: taşan alanları gizler
+              </p>
+              <p>
+                <b>auto</b>: sığmazsa scroll çıkar. sığarsa scroll görünmez.
+              </p>
+              <p>
+                varsayılan değer <b>visible</b>'dır. taşan alanın da görünmesini sağlar.
+              </p>    
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-overflow1">
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perspiciatis eius laudantium eos fuga perferendis, maiores fugiat cum soluta ducimus adipisci assumenda laboriosam minus libero eum quasi sed. Iure ea corporis sed quia ex! Distinctio odit quas, in repudiandae obcaecati consectetur perferendis eius itaque! Dignissimos necessitatibus culpa consequatur dolorem quisquam eum nam maiores reiciendis ullam delectus repellendus vel vero dicta, dolorum veniam optio ipsam voluptatum provident ad repellat voluptate earum quaerat sint molestias. Possimus odio sit minus maxime numquam dignissimos eum adipisci alias ratione excepturi libero, tempore nesciunt incidunt totam molestias dolorem dicta ea reiciendis! Distinctio amet, soluta corrupti sit autem hic voluptate iure quis sapiente ducimus neque commodi perferendis eum libero, cum atque asperiores cupiditate, quasi fugit possimus fuga dolores illo recusandae ipsum? Asperiores optio laudantium distinctio officiis est. Omnis fuga voluptates consequatur veniam possimus, sed repudiandae eaque mollitia magnam voluptatibus molestias obcaecati. 
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-overflow1{
+  width: 100%;
+  height: 300px;
+  background: yellow;
+  border: 1px dotted #333;
+  overflow: auto;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-overflow1">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perspiciatis eius laudantium eos fuga perferendis, maiores fugiat cum soluta ducimus adipisci assumenda laboriosam minus libero eum quasi sed. Iure ea corporis sed quia ex! Distinctio odit quas, in repudiandae obcaecati consectetur perferendis eius itaque! Dignissimos necessitatibus culpa consequatur dolorem quisquam eum nam maiores reiciendis ullam delectus repellendus vel vero dicta, dolorum veniam optio ipsam voluptatum provident ad repellat voluptate earum quaerat sint molestias. Possimus odio sit minus maxime numquam dignissimos eum adipisci alias ratione excepturi libero, tempore nesciunt incidunt totam molestias dolorem dicta ea reiciendis! Distinctio amet, soluta corrupti sit autem hic voluptate iure quis sapiente ducimus neque commodi perferendis eum libero, cum atque asperiores cupiditate, quasi fugit possimus fuga dolores illo recusandae ipsum? Asperiores optio laudantium distinctio officiis est. Omnis fuga voluptates consequatur veniam possimus, sed repudiandae eaque mollitia magnam voluptatibus molestias obcaecati. 
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssTarget">
+              <h2>CSS Target Özelliği ile Hedef Elemanlara Stil Uygulama</h2>
+              <p>
+                Link ile ulaşılan (hedeflenen) elemanın özelliğini değiştirmek için kullanılır.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div>
+  &lt;a href="#istanbul">İstanbul&lt;/a> |
+  &lt;a href="#ankara">Ankara&lt;/a> |
+  &lt;a href="#izmir">İzmir&lt;/a> |
+  &lt;a href="#kocaeli">Kocaeli&lt;/a>
+&lt;/div>
+
+&lt;div id="istanbul" class="example-target1">
+  &lt;h3>İstanbul&lt;/h3>
+  &lt;p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum reiciendis unde deleniti totam temporibus velit est! Nulla quos sequi quisquam quod ab dolores optio sint!
+  &lt;/p>
+&lt;/div>
+&lt;div id="ankara" class="example-target1">
+  &lt;h3>Ankara&lt;/h3>
+  &lt;p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque quidem ea sequi minima, maiores pariatur quibusdam nam veniam nobis ut ad sed odio ab doloribus?
+  &lt;/p>
+&lt;/div>
+&lt;div id="izmir" class="example-target1">
+  &lt;h3>İzmir&lt;/h3>
+  &lt;p>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque dignissimos obcaecati delectus provident! Aperiam atque recusandae qui quaerat veniam quibusdam facilis excepturi magnam dicta mollitia.
+  &lt;/p>
+&lt;/div>
+&lt;div id="kocaeli" class="example-target1">
+  &lt;h3>Kocaeli&lt;/h3>
+  &lt;p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut quaerat id dolore eaque voluptatum, at corporis ducimus velit doloribus soluta. Debitis esse dolorum accusamus aliquam!
+  &lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div.example-target1:target{
+  background: yellow;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div>
+                  <a href="#istanbul">İstanbul</a> |
+                  <a href="#ankara">Ankara</a> |
+                  <a href="#izmir">İzmir</a> |
+                  <a href="#kocaeli">Kocaeli</a>
+                </div>
+  
+                <div id="istanbul" class="example-target1">
+                  <h3>İstanbul</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum reiciendis unde deleniti totam temporibus velit est! Nulla quos sequi quisquam quod ab dolores optio sint!
+                  </p>
+                </div>
+                <div id="ankara" class="example-target1">
+                  <h3>Ankara</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque quidem ea sequi minima, maiores pariatur quibusdam nam veniam nobis ut ad sed odio ab doloribus?
+                  </p>
+                </div>
+                <div id="izmir" class="example-target1">
+                  <h3>İzmir</h3>
+                  <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque dignissimos obcaecati delectus provident! Aperiam atque recusandae qui quaerat veniam quibusdam facilis excepturi magnam dicta mollitia.
+                  </p>
+                </div>
+                <div id="kocaeli" class="example-target1">
+                  <h3>Kocaeli</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut quaerat id dolore eaque voluptatum, at corporis ducimus velit doloribus soluta. Debitis esse dolorum accusamus aliquam!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssAfterBefore">
+              <h2>CSS'de After ve Before Kullanımı</h2>
+              <p>
+                "before" seçili elementten hemen önce "after" ise hemen sonra bir şey eklemek için kullanılır.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;h3 id="example-afterbefore1">Bu alan h3 seviyesinde bir başlıktır&lt;/h3>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+h3#example-afterbefore1:before{
+  content:'';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: chocolate;
+  margin-right: 20px;
+}
+h3#example-afterbefore1:after{
+  content:'';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color:aquamarine;
+  margin-left: 20px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <h3 id="example-afterbefore1">Bu alan h3 seviyesinde bir başlıktır</h3>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;ul id="example-afterbefore2">
+  &lt;li>Lorem ipsum dolor sit.&lt;/li>
+  &lt;li>Laudantium voluptatem tempora labore.&lt;/li>
+  &lt;li>Nobis molestiae consequuntur illum.&lt;/li>
+  &lt;li>Suscipit veritatis dicta quam!&lt;/li>
+  &lt;li>Vel eveniet natus nisi.&lt;/li>
+&lt;/ul>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+ul#example-afterbefore2 li{
+  list-style-type: none;
+  margin-bottom: 5px;
+}
+ul#example-afterbefore2 li::before{
+  content: "";
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: url("./images/my-raven.png");
+  background-size: cover;
+  margin-right: 20px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <ul id="example-afterbefore2">
+                  <li>Lorem ipsum dolor sit.</li>
+                  <li>Laudantium voluptatem tempora labore.</li>
+                  <li>Nobis molestiae consequuntur illum.</li>
+                  <li>Suscipit veritatis dicta quam!</li>
+                  <li>Vel eveniet natus nisi.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="row" id="cssColumn">
+              <h2>CSS Column Yapısı</h2>
+              <p>
+                index.html
+                <pre class="prettyprint ms-0">
+&lt;div id="example-column1">
+  &lt;p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima optio voluptas similique illo sed porro nulla, maiores veritatis ullam molestiae! Facilis quaerat ut quod aspernatur dolorem saepe aliquid deserunt reiciendis atque modi adipisci, laboriosam est dolorum cupiditate labore. Ad obcaecati molestias sapiente sequi, doloremque consequatur magni vitae quos quibusdam maxime excepturi modi at ab consectetur corrupti a error? &lt;h2 id="example-column2">Lorem ipsum dolor sit amet consectetur.&lt;/h2> Repellendus iusto quo at labore facilis itaque quia eius, sunt distinctio eveniet, dignissimos eligendi adipisci, sequi soluta ducimus sed molestias quibusdam! Explicabo nisi asperiores ducimus veritatis molestias culpa dignissimos dolorem omnis ab voluptatum assumenda fugiat eaque, cupiditate blanditiis beatae dolor illum dolorum dolores odio possimus?&lt;/p>
+&lt;/div>
+                </pre>
+                style.css
+                <pre class="prettyprint ms-0">
+div#example-column1{
+  column-count: 4;
+  /* içeriğin kaç sütun olacağını belirler */
+
+  /* column-width: 150px; */
+  /* sütun genişliğine göre içeriği böler. Ekran genişliğine göre sütun sayısını kendisi hesaplar. */
+
+  column-gap: 10px;
+  /* sütunlar arası boşluğu belirler. */
+  column-rule: 1px solid green;
+}
+
+h2#example-column2{
+  column-span: all;
+  /* tüm kolonları kapsar */
+  background-color: yellow;
+}
+                </pre>
+              </p>
+              <div id="example-column1">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima optio voluptas similique illo sed porro nulla, maiores veritatis ullam molestiae! Facilis quaerat ut quod aspernatur dolorem saepe aliquid deserunt reiciendis atque modi adipisci, laboriosam est dolorum cupiditate labore. Ad obcaecati molestias sapiente sequi, doloremque consequatur magni vitae quos quibusdam maxime excepturi modi at ab consectetur corrupti a error? <h2 id="example-column2">Lorem ipsum dolor sit amet consectetur.</h2> Repellendus iusto quo at labore facilis itaque quia eius, sunt distinctio eveniet, dignissimos eligendi adipisci, sequi soluta ducimus sed molestias quibusdam! Explicabo nisi asperiores ducimus veritatis molestias culpa dignissimos dolorem omnis ab voluptatum assumenda fugiat eaque, cupiditate blanditiis beatae dolor illum dolorum dolores odio possimus?</p>
+              </div>
+            </div>
+            <div class="row" id="cssUseBorderMakeSpeekingBaloon">
+              <h2>Border Kullanarak Konuşma Balonu ve Üçgen Ok Yapımı</h2>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-ucgen1">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-ucgen1{
+  width: 0;
+  height: 0;
+  padding: 0;
+  border-style: solid;
+  border-width: 60px;
+  border-color: chocolate crimson darkmagenta gold ;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-ucgen1"></div>
+              </div>
+              <p>
+                Önce yukarıdaki gibi border özelliği ile 4 üçgen oluşturduk. Sonra bunlardan biri hariç hepsinin renk özelliğini "transparent" seçerek görüntüden kaldırdık.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-ucgen2">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-ucgen2{
+  width: 0;
+  height: 0;
+  padding: 0;
+  border-style: solid;
+  border-width: 60px;
+  border-color: chocolate transparent transparent transparent ;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-ucgen2"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-baloon1">
+  &lt;div id="example-baloon2">&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-baloon1{
+  width: 350px;
+  height: 200px;
+  border-radius: 35px;
+  background-color: violet;
+  position: relative;
+}
+div#example-baloon2{
+  position: absolute;
+  bottom: -30px;
+  right: 40px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-top-width: 30px;
+  border-left-width: 15px;
+  border-right-width: 15px;
+  border-color: violet transparent transparent transparent;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-baloon1">
+                  <div id="example-baloon2"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssTransform">
+              <h2>Transform Özelliklerinin Kullanımı</h2>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-transform1">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-transform1{
+  width: 250px;
+  height: 250px;
+  background-color: coral;
+  transition: transform .3s ease-in;
+  /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+}
+div#example-transform1:hover{
+  transform: scale(1.4, .7);
+  /* x ekseninde %140 y ekseninde %70 oranlarında ölçülenir. */
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-transform1"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-transform2">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-transform2{
+  width: 250px;
+  height: 250px;
+  background-color: coral;
+  transition: transform .3s ease-in;
+  /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+}
+div#example-transform2:hover{
+  transform: rotate(45deg);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-transform2"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-transform3">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-transform3{
+  width: 250px;
+  height: 250px;
+  background: url("./images/manzara.jpg");
+  background-size: cover;
+  transition: transform .3s ease-in;
+  /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+}
+div#example-transform3:hover{
+  transform: rotateX(180deg)
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-transform3"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-transform4">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-transform4{
+  width: 250px;
+  height: 250px;
+  background: url("./images/manzara.jpg");
+  background-size: cover;
+  transition: transform .3s ease-in;
+  /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+}
+div#example-transform4:hover{
+  transform: rotateY(180deg)
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-transform4"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-transform5">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-transform5{
+  width: 250px;
+  height: 250px;
+  background-color: coral;
+  transition: transform .3s ease-in;
+  /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+}
+div#example-transform5:hover{
+  transform: skewX(45deg)
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-transform5"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-transform6">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-transform6{
+  width: 250px;
+  height: 250px;
+  background: url("./images/manzara.jpg");
+  background-size: cover;
+  transition: all .3s ease-in;
+  /* tüm geçişlerin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+}
+div#example-transform6:hover{
+  transform: rotate(360deg) scale(.7)
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-transform6"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-transform7">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-transform7{
+  width: 250px;
+  height: 250px;
+  background-color: coral;
+  transition: transform .3s ease-in;
+  /* transform işleminin saniyenin %30 unda "easy-in" efekti ile değişmesini sağlar. */
+}
+div#example-transform7:hover{
+  transform: translate(50px, 25px)
+  /* 50px sola 25px aşağı hareket eder. */
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-transform7"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-transform8">
+  &lt;div id="example-transform9">&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-transform8{
+  width: 100%;
+  height: 400px;
+  padding: 0;
+  background-color: darkgray;
+  position: relative;
+}
+div#example-transform9{
+  width: 100px;
+  height: 100px;
+  background-color: coral;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* kendi eninin yarısı kadar sola, yüksekliğini yarısı kadar yukarıya alındı. Bu şekilde kapsayıcısını ortaladı. */
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-transform8">
+                  <div id="example-transform9"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssZindex">
+              <h2>Z-index Kullanımı</h2>
+              <p>
+                z index hangi layerin üstte olduğunu belirler. Genelde position özellikleri ile kullanılır. z index varsayılan değeri 0 dır. 
+              </p>
+              <p>
+                Normalde içteki etiket üstte görünür. Altta görünmesi için "eksi" bir değer verilebilir.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-zIndex1">
+  &lt;div id="example-zIndex2">&lt;/div>
+  &lt;div id="example-zIndex3">&lt;/div>
+  &lt;div id="example-zIndex4">&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-zIndex1{
+  width: 300px;
+  height: 200px;
+  background-color: crimson;
+  padding: 0;
+  position: relative;
+  margin-top: 40px;
+}
+div#example-zIndex2{
+  width: 100px;
+  height: 100px;
+  background-color: darkblue;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  margin-left: -75px;
+  border-radius: 50%;
+  z-index: 1;
+}
+div#example-zIndex3{
+  width: 100px;
+  height: 100px;
+  background-color: darkorange;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  margin-left: -25px;
+  border-radius: 50%;
+}
+div#example-zIndex4{
+  width: 100px;
+  height: 100px;
+  background-color: darkorange;
+  position: absolute;
+  top: 50%;
+  left: -50px;
+  margin-top: -50px;
+  border-radius: 50%;
+  z-index: -1;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5 px-5">
+                <div id="example-zIndex1">
+                  <div id="example-zIndex2"></div>
+                  <div id="example-zIndex3"></div>
+                  <div id="example-zIndex4"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssGradient">
+              <h2>Gradient Kullanımı</h2>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient1">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient1{
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(yellow, black);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient1"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient2">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient2{
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(to left, yellow, black);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient2"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient3">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient3{
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(to top, yellow, black);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient3"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient4">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient4{
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(to top left, yellow, black);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient4"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient5">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient5{
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(yellow, black, red, blue);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient5"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient6">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient6{
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(50deg, yellow, black);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient6"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient7">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient7{
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(yellow 33%, black 33% 66%, blue 66%);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient7"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient8">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient8{
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(yellow 25%, black 45% 60%, blue 80%);
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient8"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient9">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient9{
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(yellow, blue, red)
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient9"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient10">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient10{
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(at left, yellow, blue, red)
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient10"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-gradient11">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-gradient11{
+  width: 250px;
+  height: 250px;
+  background: repeating-linear-gradient(red 0 50px, blue 50px 100px)
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-gradient11"></div>
+              </div>
+              <hr>
+              <p>
+                Gradient oluşturmak için <a href="https://www.colorzilla.com/tr/gradient-editor/">Colorzilla Gradient Generator</a> veya <a href="https://uigradients.com/">uigradients.com</a> veya <a href="https://cssgradient.io/">cssgradient.io</a> kullanılabilir
+              </p>
+            </div>
+            <div class="row" id="cssMediaQueries">
+              <h2>CSS Media Sorguları</h2>
+              <p>
+                Ekran çözünürlüğü değiştiğinde içeriğin değişmesi için kullanılırlar.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-mediaQueries1">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-mediaQueries1{
+  width: 100%;
+  height: 250px;
+  background: red;
+}
+
+/* screen: pc */
+/* aşağıdaki kod maksimum 400px e kadar olan genişlikte arka planı mavi yapar. */
+@media screen and (max-width: 400px){
+  div#example-mediaQueries1{
+    background-color: blue;
+  }
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-mediaQueries1"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-mediaQueries2">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-mediaQueries2{
+  width: 100%;
+  height: 250px;
+  background: red;
+}
+
+/* aşağıdaki kod 200px den 400px e kadar olan genişlikte arka planı mavi yapar. */
+@media (min-width: 200px) and (max-width: 400px){
+  div#example-mediaQueries2{
+    background-color: blue;
+  }
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-mediaQueries2"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-mediaQueries3">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-mediaQueries3{
+  width: 100%;
+  height: 250px;
+  background: red;
+}
+
+/* aşağıdaki kod kullanılan cihazın ekran genişliği 200px den 400px e kadar olan genişlikte ise arka planı mavi yapar. */
+@media (min-device-width: 200px) and (max-device-width: 400px){
+  div#example-mediaQueries3{
+    background-color: blue;
+  }
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-mediaQueries3"></div>
+              </div>
+              <p>
+                Örneklerin anlaşılması için tarayıcıya sağ tıklayıp "incele" menüsünü açarak ekran genişliğini değiştirin
+              </p>
+            </div>
+            <div class="row" id="cssBoxSizing">
+              <h2>CSS Box Sizing Ne İşe Yarar</h2>
+              <p>
+                Blok elemanlarda genişlik ve yüksekliğe padding ve border dahil değer vermek için "box-sizing: border-box" kullanılır. Aksi durumda genişlik ve yükseklik padding ve border hariç değer alır ve sadece content alanı için kullanılmış olur.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-boxsizing1">
+  &lt;p>
+    total size: 300*300
+  &lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-boxsizing1{
+  width: 250px;
+  height: 250px;
+  text-align: center;
+  background: red;
+  color: #fff;
+  padding: 20px;
+  border: 5px solid yellow;
+  box-sizing: content-box;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-boxsizing1">
+                  <p>
+                    total size: 300*300
+                  </p>
+                </div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-boxsizing2">
+  &lt;p>
+    total size: 250*250
+  &lt;/p>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-boxsizing2{
+  width: 250px;
+  height: 250px;
+  text-align: center;
+  background: red;
+  color: #fff;
+  padding: 20px;
+  border: 5px solid yellow;
+  box-sizing: border-box;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-boxsizing2">
+                  <p>
+                    total size: 250*250
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="cssFlex">
+              <h2>Flex Yapısı ve Özellikler</h2>
+              <h3>Kapsayıcılar için genel özellikler</h3>
+              <p>
+                flex bir kapsayıcıya atandıysa içindekiler varsayılan olarak yanyana gelir (row). Bunu "flex-direction" ile değiştirebiliriz (columb vs).
+                Ters sıralanması istersek "flex-direction: row-reverse;" seçilir.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex1">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex1{
+  display: flex;
+  width: 100%;
+  height: 300px;
+  background: darksalmon;
+  padding: 20px;
+}
+.example-flex-box{
+  width: 75px;
+  height: 75px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 5px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex1">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                </div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex2">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+  &lt;div class="example-flex-box">4&lt;/div>
+  &lt;div class="example-flex-box">5&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex2{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 600px;
+  background: darksalmon;
+  padding: 20px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex2">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                  <div class="example-flex-box">4</div>
+                  <div class="example-flex-box">5</div>
+                </div>
+              </div>
+              <p>
+                flex kapsayıcısında elemanlar satıra sığmayacak kadar çok olursa elemanları daraltır.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex3">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+  &lt;div class="example-flex-box">4&lt;/div>
+  &lt;div class="example-flex-box">5&lt;/div>
+  &lt;div class="example-flex-box">6&lt;/div>
+  &lt;div class="example-flex-box">7&lt;/div>
+  &lt;div class="example-flex-box">8&lt;/div>
+  &lt;div class="example-flex-box">9&lt;/div>
+  &lt;div class="example-flex-box">10&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex3{
+  display: flex;
+  width: 100%;
+  height: 300px;
+  background: darksalmon;
+  padding: 20px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex3">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                  <div class="example-flex-box">4</div>
+                  <div class="example-flex-box">5</div>
+                  <div class="example-flex-box">6</div>
+                  <div class="example-flex-box">7</div>
+                  <div class="example-flex-box">8</div>
+                  <div class="example-flex-box">9</div>
+                  <div class="example-flex-box">10</div>
+                </div>
+              </div>
+              <p>
+                Bunu engellemek ve fazla gelenleri alt satıra almak için kapsayıcıya "flex-wrap: wrap;" eklenir. "flex-wrap: wrap-reverse;" ise fazlaları yukarıya alacak şekilde taşır.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex4">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+  &lt;div class="example-flex-box">4&lt;/div>
+  &lt;div class="example-flex-box">5&lt;/div>
+  &lt;div class="example-flex-box">6&lt;/div>
+  &lt;div class="example-flex-box">7&lt;/div>
+  &lt;div class="example-flex-box">8&lt;/div>
+  &lt;div class="example-flex-box">9&lt;/div>
+  &lt;div class="example-flex-box">10&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex4{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 600px;
+  background: darksalmon;
+  padding: 20px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex4">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                  <div class="example-flex-box">4</div>
+                  <div class="example-flex-box">5</div>
+                  <div class="example-flex-box">6</div>
+                  <div class="example-flex-box">7</div>
+                  <div class="example-flex-box">8</div>
+                  <div class="example-flex-box">9</div>
+                  <div class="example-flex-box">10</div>
+                </div>
+              </div>
+              <p>
+                "flex-direction" ve "flex-wrap" özellikleri "flex-flow" içinde birlikte yazılabilir.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex5">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+  &lt;div class="example-flex-box">4&lt;/div>
+  &lt;div class="example-flex-box">5&lt;/div>
+  &lt;div class="example-flex-box">6&lt;/div>
+  &lt;div class="example-flex-box">7&lt;/div>
+  &lt;div class="example-flex-box">8&lt;/div>
+  &lt;div class="example-flex-box">9&lt;/div>
+  &lt;div class="example-flex-box">10&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex5{
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+  height: 600px;
+  background: darksalmon;
+  padding: 20px;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex5">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                  <div class="example-flex-box">4</div>
+                  <div class="example-flex-box">5</div>
+                  <div class="example-flex-box">6</div>
+                  <div class="example-flex-box">7</div>
+                  <div class="example-flex-box">8</div>
+                  <div class="example-flex-box">9</div>
+                  <div class="example-flex-box">10</div>
+                </div>
+              </div>
+              <p>
+                yatayda hizalama için "justify-content" özelliğini kullanırız.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex6">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex6{
+  display: flex;
+  width: 100%;
+  height: 300px;
+  background: darksalmon;
+  padding: 20px;
+  justify-content: center;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex6">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                </div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex7">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex7{
+  display: flex;
+  width: 100%;
+  height: 300px;
+  background: darksalmon;
+  padding: 20px;
+  justify-content: flex-start;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex7">
+                <div class="example-flex-box">1</div>
+                <div class="example-flex-box">2</div>
+                <div class="example-flex-box">3</div>
+              </div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex8">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex8{
+  display: flex;
+  width: 100%;
+  height: 300px;
+  background: darksalmon;
+  padding: 20px;
+  justify-content: space-evenly;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex8">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                </div>
+              </div>
+              <p>
+                dikeyde hizalama için "align-items" özelliği kullanılır. 
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex9">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+  &lt;div class="example-flex-box">4&lt;/div>
+  &lt;div class="example-flex-box">5&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex9{
+  display: flex;
+  width: 100%;
+  height: 600px;
+  background: darksalmon;
+  padding: 20px;
+  align-items: center;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex9">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                  <div class="example-flex-box">4</div>
+                  <div class="example-flex-box">5</div>
+                </div>
+              </div>
+              <p>
+                "align-items: stretch;" özelliği yükseklik değeri olmayan içeriğin tüm alanı kaplamasını sağlar.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex10">
+  &lt;div class="example-flex-box2">1&lt;/div>
+  &lt;div class="example-flex-box2">2&lt;/div>
+  &lt;div class="example-flex-box2">3&lt;/div>
+  &lt;div class="example-flex-box2">4&lt;/div>
+  &lt;div class="example-flex-box2">5&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+.example-flex-box2{
+  /* height: 100px; */
+  width: 100px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 5px;
+}
+div#example-flex10{
+  display: flex;
+  width: 100%;
+  height: 600px;
+  background: darksalmon;
+  padding: 20px;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex10">
+                  <div class="example-flex-box2">1</div>
+                  <div class="example-flex-box2">2</div>
+                  <div class="example-flex-box2">3</div>
+                  <div class="example-flex-box2">4</div>
+                  <div class="example-flex-box2">5</div>
+                </div>
+              </div>
+              <p>
+                Birden fazla satır olduğunda ortada birleşmesi için "align-content: center;" kullanılır. Birden fazla satır varsa "align-items" yerine "align-content" kullanılır.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex11">
+  &lt;div class="example-flex-box">1&lt;/div>
+  &lt;div class="example-flex-box">2&lt;/div>
+  &lt;div class="example-flex-box">3&lt;/div>
+  &lt;div class="example-flex-box">4&lt;/div>
+  &lt;div class="example-flex-box">5&lt;/div>
+  &lt;div class="example-flex-box">6&lt;/div>
+  &lt;div class="example-flex-box">7&lt;/div>
+  &lt;div class="example-flex-box">8&lt;/div>
+  &lt;div class="example-flex-box">9&lt;/div>
+  &lt;div class="example-flex-box">10&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex11{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 600px;
+  background: darksalmon;
+  padding: 20px;
+  align-content:center;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex11">
+                  <div class="example-flex-box">1</div>
+                  <div class="example-flex-box">2</div>
+                  <div class="example-flex-box">3</div>
+                  <div class="example-flex-box">4</div>
+                  <div class="example-flex-box">5</div>
+                  <div class="example-flex-box">6</div>
+                  <div class="example-flex-box">7</div>
+                  <div class="example-flex-box">8</div>
+                  <div class="example-flex-box">9</div>
+                  <div class="example-flex-box">10</div>
+                </div>
+              </div>
+
+              <h3>Kapsananlar için genel özellikler</h3>
+              <p>
+                "order" özelliği nesnenin sırasını belirler.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex12">
+  &lt;div class="example-flex-box3 example-flex-item1">1&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item3">2&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item4">3&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item5">4&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex12{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 400px;
+  background: darksalmon;
+  padding: 20px;
+}
+.example-flex-box3{
+  height: 75px;
+  width: 75px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#example-flex12 .example-flex-item4{
+  background: yellow;
+  order: 5;
+}
+#example-flex12 .example-flex-item5{
+  background: blue;
+  order: 4;
+  color: #fff;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex12">
+                  <div class="example-flex-box3 example-flex-item1">1</div>
+                  <div class="example-flex-box3 example-flex-item3">2</div>
+                  <div class="example-flex-box3 example-flex-item4">3</div>
+                  <div class="example-flex-box3 example-flex-item5">4</div>
+                </div>
+              </div>
+              <p>
+                "flex-grow" özelliği bir elemanın diğerlerinden büyük olmasını sağlar. 
+                varsayılan değeri "0" dır
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex13">
+  &lt;div class="example-flex-box3 example-flex-item3">1&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item4">2&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item5">3&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex13{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 300px;
+  background: darksalmon;
+  padding: 20px;
+}
+#example-flex13 .example-flex-item4{
+  background: yellow;
+  order: 5;
+  flex-grow: 2;
+}
+#example-flex13 .example-flex-item5{
+  background: blue;
+  order: 4;
+  color: #fff;
+  flex-grow: 3;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex13">
+                  <div class="example-flex-box3 example-flex-item3">1</div>
+                  <div class="example-flex-box3 example-flex-item4">2</div>
+                  <div class="example-flex-box3 example-flex-item5">3</div>
+                </div>
+              </div>
+              <p>
+                "flex-shrink" ise tam aksine nesneyi küçültür. Varsayılan değeri "1" dir.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex14">
+  &lt;div class="example-flex-box3 example-flex-item1">1&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item2">2&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item3">3&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item4">4&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item5">5&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex14{
+  display: flex;
+  /* flex-wrap: wrap; */
+  width: 100%;
+  height: 300px;
+  background: darksalmon;
+  padding: 20px;
+}
+#example-flex14 .example-flex-item4{
+  background: yellow;
+  order: 5;
+  flex-grow: 2;
+}
+#example-flex14 .example-flex-item5{
+  background: blue;
+  order: 4;
+  color: #fff;
+  flex-shrink: 3;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex14">
+                  <div class="example-flex-box3 example-flex-item1">1</div>
+                  <div class="example-flex-box3 example-flex-item2">2</div>
+                  <div class="example-flex-box3 example-flex-item3">3</div>
+                  <div class="example-flex-box3 example-flex-item4">4</div>
+                  <div class="example-flex-box3 example-flex-item5">5</div>
+                </div>
+              </div>
+              <p>
+                "flex-basis" yüzde cinsinden kaplanacak maksimum alanı verir.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex15">
+  &lt;div class="example-flex-box3 example-flex-item1">1&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item4">2&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item5">3&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex15{
+  display: flex;
+  /* flex-wrap: wrap; */
+  width: 100%;
+  height: 300px;
+  background: darksalmon;
+  padding: 20px;
+}
+#example-flex15 .example-flex-item4{
+  background: yellow;
+  order: 5;
+  flex-basis: 60%;
+}
+#example-flex15 .example-flex-item5{
+  background: blue;
+  order: 4;
+  color: #fff;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex15">
+                  <div class="example-flex-box3 example-flex-item1">1</div>
+                  <div class="example-flex-box3 example-flex-item4">4</div>
+                  <div class="example-flex-box3 example-flex-item5">5</div>
+                </div>
+              </div>
+              <p>
+                tek bir elemanın hizasını ayarlama için "align-self" özelliği kullanılır.
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-flex16">
+  &lt;div class="example-flex-box3 example-flex-item1">1&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item2">2&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item3">3&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item4">4&lt;/div>
+  &lt;div class="example-flex-box3 example-flex-item5">5&lt;/div>
+&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-flex16{
+  display: flex;
+  /* flex-wrap: wrap; */
+  width: 100%;
+  height: 600px;
+  background: darksalmon;
+  padding: 20px;
+}
+#example-flex16 .example-flex-item4{
+  background: yellow;
+  order: 5;
+  align-self: center;
+}
+#example-flex16 .example-flex-item1{
+  align-self: flex-end;
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-flex16">
+                  <div class="example-flex-box3 example-flex-item1">1</div>
+                  <div class="example-flex-box3 example-flex-item2">2</div>
+                  <div class="example-flex-box3 example-flex-item3">3</div>
+                  <div class="example-flex-box3 example-flex-item4">4</div>
+                  <div class="example-flex-box3 example-flex-item5">5</div>
+                </div>
+              </div>
+              <p>
+                flex kullanımı için yardımcı siteler:
+                <ul>
+                  <li><a href="https://the-echoplex.net/flexyboxes/">flexyboxes</a></li>
+                  <li><a href="https://flexbox.help/">flexbox.help</a></li>
+                  <li><a href="https://flexbox.buildwithreact.com/">flexbox.buildwithreact</a></li>
+                  <li><a href="https://angrytools.com/css-flex/">angrytools.com/css-flex</a></li>
+                </ul>
+              </p>
+            </div>
+            <div class="row" id="cssAnimation">
+              <h2>Animation Kullanımı</h2>
+              <p>
+                Animasyonu tanımlarken
+                <pre class="prettyprint ms-0">
+@keyframes benim-animasyonım {
+  0%{
+    property: value
+  }
+  100%{
+    property: value
+  }
+}
+                </pre>
+                veya
+                <pre class="prettyprint ms-0">
+@keyframes benim-animasyonım {
+  from{
+    property: value
+  }
+  to{
+    property: value
+  }
+}
+                </pre>
+                sintaxı kullanılır.
+              </p>
+              <p>
+                animasyon eklenecek obje css'te seçildikten sonra
+                <pre class="prettyprint ms-0">
+animation: name duration timing-function delay iteration-count direction fill-mode;
+                </pre>
+                sintaxı ile kullanılır.
+                <ul>
+                  <li><b>name</b>: animasyonun ismi</li>
+                  <li><b>duration</b>: animasyonun süresi(sn cinsinden)</li>
+                  <li><b>timing-function</b>: animasyonun nasıl gerçekleşeceği (easy-in, easy-out vs)</li>
+                  <li><b>delay</b>: animasyonun başlamasından önce geçen süre (sn cinsinden)</li>
+                  <li><b>iteration-count</b>: animasyonun tekrar sayısı (1, 5, infinite vs)</li>
+                  <li><b>direction</b>: animasyonun yönü (normal, alternate(sondan başa), reverse(geriye doğru), alternate-reverse(ilkinde ters, sonra düz.))</li>
+                  <li><b>fill-mode</b>: animasyon bittikten sonra ne olacağını belirtir (forwards (son halinde kal), backwards (ilk haline dön) vs )</li>
+                </ul>
+              </p>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-animation1">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-animation1{
+  width: 150px;
+  height: 150px;
+  background-color: violet;
+  animation: example-myanime1 3s ease 2s 2 normal forwards;
+}
+
+@keyframes example-myanime1{
+  0%{
+    width: 150px;
+    opacity: .3;
+    background-color: violet;
+  }
+  100%{
+    width: 100%;
+    opacity: 1;
+    background-color: sienna;
+  }
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-animation1"></div>
+              </div>
+              <hr>
+              <div class="col-sm-6">
+                <p>
+                  index.html
+                  <pre class="prettyprint ms-0">
+&lt;div id="example-animation2">&lt;/div>
+                  </pre>
+                  style.css
+                  <pre class="prettyprint ms-0">
+div#example-animation2{
+  width: 150px;
+  height: 150px;
+  background-color: violet;
+  animation: example-myanime2 3s ease 2s 2 normal backwards;
+}
+
+@keyframes example-myanime2{
+  0%{
+    width: 150px;
+    opacity: .3;
+    background-color: violet;
+  }
+  100%{
+    width: 100%;
+    opacity: 1;
+    background-color: sienna;
+  }
+}
+                  </pre>
+                </p>
+              </div>
+              <div class="col-sm-6 mt-5">
+                <div id="example-animation2"></div>
+              </div>
+              <p>
+                Örnekleri canlandırmak için sayfayı yenileyin.
+              </p>
             </div>
           </div> 
         </div>
