@@ -1165,6 +1165,10 @@
               <a class="nav-link ms-3 my-1" href="#cssFlex">Flex Yapısı ve Özellikler</a>
               <a class="nav-link ms-3 my-1" href="#cssAnimation">Animation Kullanımı</a>
             </nav>
+            <a class="nav-link" href="#figmaToHtml">Figma'da Yaptığımız Tasarımı Responsive Olarak HTML ve CSS'e Aktarma</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ms-3 my-1" href="#figmaToHtmlCss">CSS ve HTML Kısmının Kodlanması</a>
+            </nav>
           </nav>
         </nav>
       </div>
@@ -5756,6 +5760,280 @@ div#example-animation2{
               <p>
                 Örnekleri canlandırmak için sayfayı yenileyin.
               </p>
+            </div>
+          </div>
+          <div class="row" id="figmaToHtml">
+            <h1>Figma'da Yaptığımız Tasarımı Responsive Olarak HTML ve CSS'e Aktarma</h1>
+            <p>
+              Figmada yaptığımız çalışma "figma-to-html" dosyasında.
+            </p>
+            <p>
+              "auto layout" düzenleri ile resimdeki componentleri ve tasarımı yaptık 
+            </p>
+            <img src="./images/figma/67.jpg" alt="">
+            <div class="row" id="figmaToHtmlCss">
+              <h2>CSS ve HTML Kısmının Kodlanması</h2>
+              <p>
+                Figma içinde oluşturduğumuz tasarıma uygun olarak iç içe bölümler halinde html kısmını yazdık.
+                <pre class="prettyprint ms-0">
+&lt;!DOCTYPE html>
+&lt;html lang="tr">
+
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>Figma to Html&lt;/title>
+    &lt;link rel="stylesheet" href="css/style.css" type="text/css">
+&lt;/head>
+
+&lt;body>
+    &lt;div class="wrapper">
+        &lt;div class="left">
+            &lt;div class="left-content">
+                &lt;h1 class="title title-white">KAYIT OL&lt;/h1>
+                &lt;p class="paragraph">
+                    Lorem ipsum dolor sit amet consectetur. Neque pharetra id sed blandit semper sit. Enim sit sed
+                    luctus sagittis at interdum. Diam lacus neque est volutpat augue.
+                &lt;/p>
+                &lt;a href="#" class="btn-white">KAYIT OL&lt;/a>
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="right">
+            &lt;div class="right-content">
+                &lt;h1 class="title title-dark">GİRİŞ YAP&lt;/h1>
+                &lt;div class="input-button">
+                    &lt;div class="input-link">
+                        &lt;form action="/action_page.php" method="post" name="loginform" id="loginform">
+                            &lt;input type="text" id="name" name="name" value="" placeholder="Kullanıcı adınız">
+                            &lt;input type="password" id="password" name="password" value="" placeholder="Şifreniz">
+                            &lt;div class="check">
+                                &lt;label for="check">
+                                    &lt;input type="checkbox" name="" id="check" checked/>Beni hatırla
+                                &lt;/label>
+                                &lt;a href="#">Şifremi unuttum&lt;/a>
+                            &lt;/div>
+                            &lt;a class="btn-dark">GİRİŞ YAP&lt;/a>
+                        &lt;/form>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/body>
+
+&lt;/html>
+                </pre>
+              </p>
+              <p>
+                style.css içinde önce temel tanımları ve font import işlemini yaptık.
+                <pre class="prettyprint ms-0">
+:root {
+  --main-color: #1853d0;
+  --black: #000000;
+  --white: #ffffff;
+  --btn-hover: #0b3387;
+  --stroke-color: #acacac;
+}
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+* {
+  box-sizing: border-box;
+}
+                </pre>
+                Sonra iç içe div yapılarımızın "display: flex" özelliğini almasını ve buna bağlı ayarlarını girdik.
+                <pre class="prettyprint ms-0">
+body {
+  background: url("../images/bg.jpg") no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+.wrapper {
+  display: flex;
+  width: 800px;
+  height: 600px;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: var(--white);
+}
+.left {
+  width: 400px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url("../images/left-bg.jpg") no-repeat;
+  background-size: cover;
+}
+.left-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 296px;
+}
+.right {
+  display: flex;
+  width: 400px;
+  height: 600px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.right-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 296px;
+}
+                </pre>
+                Daha sonra bu alanların içindeki elementleri tanımladık.
+                <pre class="prettyprint ms-0">
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: normal;
+  text-align: center;
+  margin: 0;
+}
+
+.title-dark {
+  color: var(--black);
+}
+.title-white {
+  color: var(--white);
+}
+
+.paragraph {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: normal;
+  text-align: center;
+  color: var(--white);
+  margin: 0;
+}
+
+.btn-white {
+  padding: 10px 16px;
+  background: var(--white);
+  color: var(--main-color);
+  border-radius: 36px;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-white:hover {
+  color: var(--white);
+  background-color: var(--main-color);
+}
+.btn-dark {
+  padding: 10px 16px;
+  background-color: var(--main-color);
+  color: var(--white);
+  border-radius: 36px;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  margin-top: 36px;
+  text-align: center;
+}
+.btn-dark:hover {
+  color: var(--white);
+  background-color: var(--btn-hover);
+}
+
+input[type="text"],
+input[type="password"] {
+  border-radius: 4px;
+  border: 1px solid var(--stroke-color);
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.check {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.check a {
+  text-decoration: none;
+  color: var(--main-color);
+}
+                </pre>
+                Kodumuz bu hali ile büyük ekranlarda sorunsuz çalışacaktır. Bundan sonraki kodları küçük ekranda da düzgün çalışması için responsive yapı adına yazdık.
+                <pre class="prettyprint ms-0">
+@media (max-width: 799px) {
+  .wrapper {
+    width: 90%;
+    flex-direction: column;
+    height: auto;
+  }
+  .left {
+    width: 100%;
+    height: auto;
+    min-height: 305px;
+    background-size: cover;
+    padding: 24px 12px;
+  }
+  .left-content {
+    width: 100%;
+  }
+  .right {
+    width: 100%;
+    height: auto;
+    padding: 24px 12px;
+  }
+  .right-content {
+    width: 100%;
+    gap: 0
+  }
+  .title{
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .title-dark{
+    margin-bottom: 24px;
+  }
+}
+                </pre>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <h1>Kariyer Gelişimi ve Sektöre Dair İpuçları</h1>
+            <div class="row">
+              <h2>Freelance Gelir Etme ve Portfolio</h2>
+
+              <h3>Freelance</h3>
+              <ul>
+                <li><a href="https://www.tr.freelancer.com/">freelancer.com</a></li>
+                <li><a href="https://www.fiverr.com/">fiverr.com</a></li>
+                <li><a href="https://www.upwork.com/">upwork.com</a></li>
+                <li><a href="https://www.projekurdu.com/">projekurdu.com</a></li>
+                <li><a href="https://bionluk.com/">bionluk.com</a></li>
+                <li><a href="https://themeforest.net/">themeforest.net: Yaptığımız projeleri satabildiğimiz site</a></li>
+                <li><a href="https://www.freepik.com/">freepik.com: Yaptığımız görselleri satabildiğimiz site</a></li>
+                <li><a href="https://gumroad.com/">gumroad.com: Yaptığımız projeleri satabildiğimiz site</a></li>
+                <li><a href="https://ui8.net/">ui8.net: UI kompanentleri satabildiğimiz site</a></li>
+              </ul>
+
+              <h4>Portfolio</h4>
+              <p>
+                İş alabilmemiz için portfolio oluşturmamız gerekiyor. Bunun için de UI/UX makalelerini okumak ve var olan sitelerin tasarımlarını düzelterek portfolyoya eklemek önemli. behance ve linkedinde portfolyo sunmak önemli. Portfolyo ilhamı için de bu sitelere bakılabilir.
+              </p>
+              <ul>
+                <li><a href="https://www.behance.net/">behance.net</a>: portfolyomuzu paylaştığımız sitelerden.</li>
+                <li><a href="https://dribbble.com/">dribbble.com</a>: portfolyomuzu paylaştığımız sitelerden.</li>
+                <li><a href="https://www.linkedin.com/">linkedin.com</a>: Belirli zaman aralıkları ile yaptığımız projeleri paylaşıyoruz.</li>
+                <li>Kendi web sitemiz</li>
+                <li><a href="https://medium.com/">medium.com</a>: Sektörden yazılar vs için. Her konuda güzel yazılar var.</li>
+              </ul>
             </div>
           </div> 
         </div>
