@@ -1188,6 +1188,12 @@ console.log(data); });
                     </pre>
                     ile veriler okunur ve konsola yazdırılır.
                 </p>
+                <p class="alert alert-warning">
+                    Yeni mongoose versiyonları callback fonksiyonu desteklemiyor. Bunu yerine aşağıdaki sintax uygulanır.
+                    <pre>
+Photo.find().then(data => console.log(data));
+                    </pre>
+                </p>
                 <p>
                     Verileri güncellemek: <br />
                     <pre class="prettyprint ms-0"> 
@@ -1405,6 +1411,9 @@ app.get('/photos/:id', async (req, res) => { // ile yakaladığımız id üzerin
     mv: [Function: mv] 
 }
                     </pre>
+                </p>
+                <p>
+                    app.js içine fs çağırılır. <pre class="prettyprint ms-0">const fs = require('fs');</pre>
                 </p>
                 <p>
                     Yukarıda bilgileri alabildiğimizi gördükten sonra app.post(...) aşağıdaki gibi düzenlenir. <br>
@@ -3235,7 +3244,7 @@ exports.sendEmail = async(req, res) => {
                     flash dan gelen mesajı lokalde bir değişkene kaydetmek için middleware alanına: <br>
                     <pre class="prettyprint ms-0">
 app.use((req, res, next)=>{ 
-    res.locale.flashMessages = req.flash(); 
+    res.locals.flashMessages = req.flash(); 
     next(); 
 })
                     </pre>

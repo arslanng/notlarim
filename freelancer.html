@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer İş Süreçleri</title>
+    <link rel="stylesheet" href="css/sql.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .menu ul{
+            list-style-position: inside;
+            list-style: none;
+        }
+        li a{
+            color: black;
+            text-decoration: none;
+        }
+        li:hover{
+            background-color: rgba(0, 0, 0, 0.103);
+        }
+        h1{
+            border-bottom: 1px solid black;
+        }
+        h3{
+            margin-top: 4px;
+            margin-bottom: -3px;
+            font-size: normal;
+        }
+        ul{
+            list-style-position: inside;
+        }
+        table, th ,td{
+            border: 1px black solid;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        nav{
+            background-color: white;
+        }
+        .nav-pills .nav-link.active {
+            background-color: rgba(0, 0, 0, 0.51);
+        }
+        .nav-pills .nav-link {
+            color: black
+        }
+        </style>
+</head>
+<body>
+    <div class="nav bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Deployment</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Ana Sayfa</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Eğitim Notları
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                          <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                          <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                          <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                          <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                          <li><a class="dropdown-item" href="sql.html" target="_blank">SQL notları</a></li>
+                          <li><a class="dropdown-item" href="nodejs.html" target="_blank">NodeJS notları</a></li>
+                          <li><a class="dropdown-item" href="restAPI.html" target="_blank">Rest Api notları</a></li>
+                          <li><a class="dropdown-item" href="react.html" target="_blank">React</a></li>
+                          <li><a class="dropdown-item" href="redux.html" target="_blank">Redux</a></li>
+                          <li><a class="dropdown-item" href="GraphQL.html" target="_blank">GraphQL</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- İçerik Start -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top menu d-none d-lg-block" style="height: fit-content;">
+            <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
+            <h2>Konu Listesi </h2>
+            <hr>
+            <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end " style="max-height: 400px; overflow: auto;">
+                <nav class="nav nav-pills flex-column ">
+                  <a class="nav-link" href="#1">Kendimi Hangi Konularda Geliştirmeliyim</a>
+                  <a class="nav-link" href="#2">İlk İşi Almanın Yolları Nelerdir Nasıl İlk İşi Alabilirim</a>
+                  <a class="nav-link" href="#3">Bir Ürünü Nasıl Anlarım Ürünü Anlama Yolları</a>
+                  <a class="nav-link" href="#4">Hayat Kurtaran Bir Belge: Gereksinim Dokümanı</a>
+                  <a class="nav-link" href="#7">Örnek Gereksinim Dokümanı</a>
+                  <a class="nav-link" href="#5">Tasarım Konusunun Netleştirilmesi</a>
+                  <a class="nav-link" href="#6">Gelir Modeli Olarak Uzun Vadede Ürün ve Ücretli Servisler</a>
+                  <a class="nav-link" href="#8">Teklif Formu</a>
+                  <a class="nav-link" href="#9">Örnek Teklif Formu</a>
+                  <a class="nav-link" href="#10">Bir İşin Bütçesi Nasıl Hesaplanır</a>
+                  <a class="nav-link" href="#11">Ödemeler ve Ara Ödemelerin Yönetimi</a>
+                  <a class="nav-link" href="#12">Benim bir Tanıdığım Var Sorunsalı ile Başa Çıkmak</a>
+                  <a class="nav-link" href="#13">Sözleşmede Dikkat Edilmesi Gerekenler</a>
+                  <a class="nav-link" href="#14">Danışmanlık ve Bakım Anlaşması</a>
+                  <a class="nav-link" href="#15">Profesyonel İletişimin Sırları</a>
+                  <a class="nav-link" href="#16">Profesyonel İletişim - Konuşma Kuralları</a>
+                  <a class="nav-link" href="#17">Profesyonel İletişim - E-mail Kuralları</a>
+                  <a class="nav-link" href="#18">Kötü İtibar Nasıl Avantaja Çevirilir</a>
+                  <a class="nav-link" href="#19">Proje Yönetimi</a>
+                  <a class="nav-link" href="#20">Zaman Yönetimi</a>
+                  <a class="nav-link" href="#21">Pitch Deck Nedir?</a>
+                  <a class="nav-link" href="#22">Kendinizi Duyurun</a>
+                  <a class="nav-link" href="#23">Hazır İçerikler ve Dikkat Edilmesi Gerekenler</a>
+                  <a class="nav-link" href="#24">Ağızdan Ağıza Pazarlama</a>
+                  <a class="nav-link" href="#25">İşin Muhasebe Boyutu - Fatura kesmeli miyiz?</a>
+                </nav>
+              </nav>
+        </div>
+        <div class="col-sm-9">
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+            <div id="1">
+              <h1>Kendimi Hangi Konularda Geliştirmeliyim</h1>
+              <ul>
+                <li>Teknik konular</li>
+                <li>İnsan ilişkileri</li>
+                <li>İletişim (hızlı geri dönüş yap)</li>
+              </ul>
+            </div>
+            <div id="2">
+              <h1>İlk İşi Almanın Yolları Nelerdir Nasıl İlk İşi Alabilirim</h1>
+              <ul>
+                <li>Çevrenize haber verin</li>
+                <li>Web sayfaları: <ul>
+                  <li>Fiver: Türkiyedeki bi onluğun karşılığı</li>
+                  <li>Freelancer: referansın olmasa bile içinde bazı sınavlar var. Yapıp badge kazanılabilir.</li>
+                  <li>Upwork</li>
+                  <li>CrossOver: bu işin üst noktası. Büyük firmalardan işi alıp gerekli personeli bulup ona işi veriyor. CrossOver yüz yüze mülakat ile belirli dönemlerde alım yapıyor. Girmesi zor ama sonrası güzel.</li>
+                  <li>Stackoverflow: Sorulara cevap verdikçe puanımız artıyor. İş ilanları var.</li>
+                  <li>İndeed</li>
+                  <li>SecretCV</li>
+                  <li>Bionluk</li>
+                  <li>Kariyer.net</li>
+                  <li>YeniBirİş</li>
+                  <li>İŞKUR: işkura kayıt oluyoruz. işkur bizi eğitimlere gönderiyor. Sonra da işe yerleştiriyorlar.</li>
+                </ul> </li>
+                <li>LinkedIN <ul>
+                  <li>Ağınızda en az bir headhunter olsun.</li>
+                </ul></li>
+                <li>Sosyal medya
+                  <ul>
+                    <li>Whatsaap, telegram grupları</li>
+                    <li>Facebook grupları</li>
+                    <li>Twitterda iş ilanı paylaşan kişiler var. takip edin.</li>
+                  </ul>
+                </li>
+                <li>
+                  Kendinizi duyurun <ul>
+                    <li>Medium yazıları</li>
+                    <li>Twitter paylaşımları</li>
+                    <li>Youtube kanalı</li>
+                  </ul>
+                </li>
+                <li>
+                  İlk iş ücretsiz olabilir. Referans ve tecrübe sağlar. Maliyetleri iş sahibinden alın.
+                </li>
+              </ul>
+            </div>
+            <div id="3">
+              <h1>Bir Ürünü Nasıl Anlarım Ürünü Anlama Yolları</h1>
+              <ul>
+                <li>Gereksinim dökümanını isteyin*</li>
+                <li>Statik ve dinamik bölümleri ayırın.</li>
+                <li>SEO çalışmasına ne kadar uyumlu olduğunu analiz edin. <ul>
+                  <li>Statik siteler SEO için çok da uyumlu olmayabilir.</li>
+                </ul></li>
+                <li>Tasarım konusunu netleştirin.*</li>
+                <li>Uzun vadede ne kadar gelişime açık bir ürün olacağını öğrenin</li>
+                <li>Ücretli servis kullanılıp kullanılmayacağına karar verin.</li>
+              </ul>
+            </div>
+            <div id="4">
+              <h1>Hayat Kurtaran Bir Belge: Gereksinim Dokümanı</h1>
+              <p>
+                Gereksinim dökümanı SİZİ KORUR
+              </p>
+              <ul>
+                <li>Yazılı olmalı. Mail ile gelmeli. Elden alınacak ise imzalı alınmalı.</li>
+                <li>İşin kapsamını belirler.</li>
+                <li>İşin ne kadar sürede biteceğini kafanızda belirler.</li>
+                <li>Ücretlendirme için referanstır.</li>
+                <li>Projeyi fazlara bölebilmemizi sağlar. (tasarım - demo -faz1 - faz2 vs). Her faz sonunda müşteri ile görüşülür.</li>
+                <li>Gereksiz revizelerden korur.</li>
+                <li>Hukuki olarak bir güvencedir.</li>
+                <li>Rahat koşullarda çalışma sağlar. Gereksinim dokümanı yoksa projenin bitimine müşteri karar verir.</li>
+              </ul>
+              <ul>Gereksinim dökümanı yoksa
+                <li>İş uzar, motivasyon kaybı olur.</li>
+                <li>Referans kaybı olur.</li>
+                <li>İtibar kaybı olur.</li>
+                <li>Uzun vadede mutsuz olursunuz.</li>
+              </ul>
+            </div>
+            <div id="7">
+              <h1>Örnek Gereksinim Dokümanı:</h1>
+              <ul>
+                <li>Müşteri taraftan gönderilebilir.</li>
+                <li>Toplantıda alınan notları karşı tarafa göndererek ve onay alınarak oluşturulabilir.</li>
+                <li>Tasarımı kimin yapacağı muhakkak yazılmalı</li>
+                <li>Kullanılacak teknoloji net ve ayrıntılı yazılmalı</li>
+              </ul>
+              <p>
+                Mesleğimizin dışındaki işleri üstüne alma
+              </p>
+            </div>
+            <div id="5">
+              <h1>Tasarım Konusunun Netleştirilmesi</h1>
+              <p>
+                Tasarımı tasarımcı yapar -> Frontend developer HTML ve CSS e çevirir
+              </p>
+              <ul>
+                <li>Tasarım konusu bizden mi bekleniyor/müşteriden mi gelecek</li>
+                <li>Hazır bir template mi alınacak? Öyle ise bu işin mockup'ı var mı? (mockup tasarımın karakalem taslağı gibidir.) Mockupa göre template değiştirilecek olabilir. Bu da sıfırdan tasarım gibidir. Kimin yapacağına karar verilmeli.</li>
+              </ul>
+              <p>
+                Tasarım ek ücrete tabidir.
+              </p>
+            </div>
+            <div id="6">
+              <h1>Gelir Modeli Olarak Uzun Vadede Ürün ve Ücretli Servisler</h1>
+              <ul>Ürün uzun vadeli bir ürün ise:
+                <li>Bakım onarım anlaşması fırsatı tanır. (sürekli pasif gelir)</li>
+              </ul>
+              <ul>Proje içinde ücretli servis varsa:
+                <li>Bu ücretler projenin bütçesi ile karıştırılmamalı (amazon web servisler, domain ücreti vs)</li>
+                <li>Bakım anlaşması yapılacaksa bu ücretler içine ilave edilebilir.</li>
+              </ul>
+            </div>
+            <div id="8">
+              <h1>Teklif Formu:</h1>
+              <p>
+                Teklif formu gereksinim dokümanını da kapsar. (gereksinim dökümanı eke konulabilir)
+              </p>
+              <ul>
+                <li>Ürünü parçalayarak ayrı ayrı yazın</li>
+                <li>Teknik anlamda hiç bir ayrıntıyı atlamayın. <ul>
+                  <li>Yine de teknoloji seçimi bana aittir ibaresi yazılır.</li>
+                  <li>Sunucu özelliklerini mutlaka yazın</li>
+                  <li>Varsa ücretli teknolojileri muhakkak belirtin</li>
+                </ul></li>
+                <li>Proje uygunsa fazlarını belirtin.</li>
+                <li>Proje bitimini belirtin</li>
+                <li>Tasarımın kabulü (HTML - CSS, mockup, frimework vs.): tasarım onaylanıp bana gönderildikten sonra projeye başlanacaktır vs.</li>
+                <li>Ücretlendirme kriterlerini belirtin. <ul>
+                  <li>Projenin bütçesi: Emek + ücretli servisler + sunucu vs</li>
+                  <li>Alınacak ek hizmet (başka bir geliştirici vs) maliyeti</li>
+                  <li>Revizyon maliyetleri <ul>
+                    <li>Küçük revize: 1 satten daha fazla zaman almayan</li>
+                    <li>Büyük revize: bir günden uzun süren</li>
+                  </ul></li>
+                </ul></li>
+                <li>Baby sitting: proje bitimindeki kullanım eğitimi ve bug ayıklanması</li>
+                <li>İletişim yöntemleri (toplantı tarihleri, yöntemleri vs)</li>
+                <li>Hangi zaman dilimlerinde iş ile ilgili çalışacağınız (opsiyonel)</li>
+                <li>İletişim saatleri</li>
+                <li>Teklifin geçerli olduğu tarih</li>
+              </ul>
+            </div>
+            <div id="9">
+              <h1>Örnek Teklif Formu</h1>
+              <ul>
+                <li>%40 başlangıçta %60 domaine kurulum öncesinde</li>
+                <li>Site sadece size özel hazırlanır. Başkasına satılmaz.</li>
+              </ul>
+            </div>
+            <div id="10">
+              <h1>Bir İşin Bütçesi Nasıl Hesaplanır</h1>
+              <p>
+                Ücret tecrübe ile artar.
+              </p>
+              <p><b>PROJE ÜCRETİ</b> = GÜNLÜK ÜCRET X PROJE SÜRESİ + Ek ücretler</p>
+
+              <ul>
+                <li><b>MAAŞ</b>: sizin tecrübenizdeki kişinin maaşı + %20 (yan haklar yerine)</li>
+                <li><b>SAAT</b>: Günde araştırmalar hariç kaç saat çalışacaksınız.</li>
+                <li><b>GÜNLÜK ÜCRET</b> = MAAŞ/22</li>
+                <li><b>SAATLİK ÜCRET</b> = MAAŞ/(22XSAAT)</li>
+                <li><b>HARİCİ İŞ SAATLİK ÜCRET</b> = 1.5 X SAATLİK ÜCRET (Çarpan değiştirilebilir)</li>
+                <li>Ek ücretler <ul>
+                  <li>Ücretli servisler</li>
+                  <li>KDV</li>
+                  <li>Sunucu masrafı</li>
+                  <li>Tema ve tasarım ücretleri</li>
+                  <li>vs</li>
+                </ul></li>
+              </ul>
+            </div>
+            <div id="11">
+              <h1>Ödemeler ve Ara Ödemelerin Yönetimi</h1>
+              <p>Ödeme = Motivasyon</p>
+              <ul>
+                <li>Ödeme tarihleri sözleşmede yer almalı</li>
+                <li>İşe başlamadan peşinat alın</li>
+                <li>Ara ödemeler almaktan çekinmeyin <ul>
+                  <li>Uzun süreli bir proje ise fazlar arasında ödeme alın.</li>
+                </ul></li>
+                <li>Ödeme oranları kişisel olarak belirlenir fakat: <ul>
+                  <li>peşinat için %40 peşinat tanınmıyorken iyidir. Tanınırlık arttıkça peşinat arttırılabilir.</li>
+                </ul></li>
+              </ul>
+            </div>
+            <div id="12">
+              <h1>Benim bir Tanıdığım Var Sorunsalı ile Başa Çıkmak</h1>
+              <p>Bu tarz müşteriler hep olacak</p>
+              <ul>
+                <li>İlk zamanlarda kırıcı olmayın yapıcı olun. Kişiye durumu uygun bir dilde anlatın. <ul>
+                  <li>Yapılan iki işin aynı olmadığını anlatın. Uzun vadede sizin yaptığınız işin daha kaliteli olduğunu anlatın. İkna olmuyorsa zorlamayın.</li>
+                  <li>Tanınır olduktan sonra bu tarz müşteriler azalır.</li>
+                </ul></li>
+                <li>Geri döndüğünde: <ul>
+                  <li>O iş artık sizin</li>
+                  <li>Son geçerlilik tarihi geçtiyse fiyatı arttırın.</li>
+                </ul></li>
+              </ul>
+            </div>
+            <div id="13">
+              <h1>Sözleşmede Dikkat Edilmesi Gerekenler</h1>
+              <ul>
+                <li>Gereksinim dokümanı doğru yapıldı mı?</li>
+                <li>Teknolojiler net mi? Gerektiğinde değiştirilebiliyor mu?</li>
+                <li>Sizin için handikap olacak maddeler var mı?</li>
+                <li>Tasarım onaylanmadan projeye başlanmayacak maddesi var mı?</li>
+                <li>İletişim kuralları mevcut mu?</li>
+                <li>Ücretlendirmeler net mi?</li>
+                <li>Ödemeler yapılandırıldı mı?</li>
+              </ul>
+            </div>
+            <div id="14">
+              <h1>Danışmanlık ve Bakım Anlaşması</h1>
+              <p>
+                <b>Bakım anlaşması</b>: Proje bittikten sonra proje kaynaklı minör ve orta seviye revizeler için. (majör revizeler için ek ücret istenir)
+                <ul>
+                  <li>Senelik</li>
+                </ul>
+              </p>
+              <p>
+                <b>Danışmanlık</b>: Uzmanı olduğumuz konuda görüşümüz istenir. Bu süreçte sadece fikir verilir. Kod yazılmaz. Veya çok iyi bildiğimiz bir konuyu uzaktan bizim çözmemiz istenir.
+                <ul>
+                  <li>Senelik</li>
+                  <li>Çalıştığınız kadar: En'ler belirlenmeli (en fazla kaç gün en fazla kaç saat?)</li>
+                </ul>
+              </p>
+              <ul>Diğer
+                <li>Hizmet bölgesi: Lokasyonda / Remote</li>
+                <li>Ücretlendirme</li>
+              </ul>
+            </div>
+            <div id="15">
+              <h1>Profesyonel İletişimin Sırları</h1>
+              <ul>
+                <li>İlk temas önemlidir. <ul>
+                  <li>Durumu özetleyen ve takvimi açıklayan bir mail atın.</li>
+                </ul></li>
+                <li>Müşteriniz durumu görüntüleyebilsin.</li>
+                <li>Her gün bilgilendirme maili artın.</li>
+                <li>Sözleşmede varsa ve uygunsanız haftada bir toplantı yapın</li>
+                <li>Müşteri gelişmelerden haber aldıkça rahatlar.</li>
+                <li>Sürekli müşteriyi aramayın. Rahatsız etmeyin</li>
+                <li>Müşteri mağdur edilmemeli</li>
+                <li>Müşterinin sizi sık boğaz etmesine izin vermeyin. <ul>
+                  <li>İletişim için zaman sınırı koyun.</li>
+                  <li>Siz müşteriyi bilgilendirirseniz o sizi sıkboğaz etmez.</li>
+                </ul></li>
+              </ul>
+            </div>
+            <div id="16">
+              <h1>Profesyonel İletişim - Konuşma Kuralları</h1>
+              <ul>
+                <li>Müşteri ile profesyonel yakınlığı sakın bozmayın <ul>
+                  <li>Çalışma yoğunluğu artar</li>
+                  <li>Emeğin karşılığını almak zorlaşır</li>
+                </ul></li>
+                <li>"Hallederiz" demeyin</li>
+                <li>Alaycı bir tonlama ile konuşmayın. Teknik jargonu anlaşılır seviyeye indir.</li>
+                <li>Bahane üreten cümlelerden uzak durun</li>
+                <li>Problem varsa açık açık söyleyin</li>
+                <li>Soru sormaktan çekinmeyin</li>
+                <li>Her zaman düzgün görünmeye özen gösterin</li>
+              </ul>
+            </div>
+            <div id="17">
+              <h1>Profesyonel İletişim - E-mail Kuralları</h1>
+              <ul>
+                <li>24 saat kuralı: e-maile 24 saat içinde cevap ver. Tam cevap vermeye vaktin yoksa kısa bir mail ile ne zaman cevap verebileceğini yaz.</li>
+                <li>Pozitif bir yazı dili geliştirin.</li>
+                <li>Özel fontlar kullanmayın. Profesyonel bir font seçin.</li>
+                <li>Karşı tarafı incitecek kelimeler seçmediğinizden emin olun.</li>
+                <li>Çok fazla ünlem kullanmayın.</li>
+                <li>Karşı tarafa imada bulunan yazımlardan uzak durun: "ben size söylemiştim aslında..." vs</li>
+                <li>"Bitirirsem" yerine "bitirdiğimde"</li>
+                <li>Mailde HEPSİ BÜYÜK yazmamaya dikkat edin.</li>
+                <li>Sinirliyken mail atmayın.</li>
+                <li>Göndermeden önce kontrol edin</li>
+              </ul>
+            </div>
+            <div id="18">
+              <h1>Kötü İtibar Nasıl Avantaja Çevirilir</h1>
+              <ul>
+                <li>Freelancerlar tarafından maqdur edilen bir kitle var: ulaşılabilir değiller, işi yarım bırakıyorar vs.</li>
+                <li>Yukarıdaki maddeler bunu engeller ve itibarımızı olumluya çevirir. <ul>
+                  <li>Müşterinin kendini rahat ve güvende hissetmesi için düzenli geri bildirim ver</li>
+                </ul></li>
+                <li>Diğer freelancerlara göre planlamanın iyi olması ile farkını ortaya koy.</li>
+                <li>Kurumsal şirket profesyonelliğinde freelancer olun</li>
+              </ul>
+            </div>
+            <div id="19">
+              <h1>Proje Yönetimi</h1>
+              <ul>
+                <li>Ana hatları belirleyin</li>
+                <li>Kırılma anlarını belirleyin: Hangi anlarda işin yapısı değişecek?</li>
+                <li>Varsa fazları belirleyin</li>
+                <li>Fazlara deadline ekleyin <ul>
+                  <li>Bu deadlinelara uyun.</li>
+                  <li>Müşteri ile paylaşın</li>
+                </ul></li>
+                <li>Yönetim araçları <ul>
+                  <li>Tek çalışıyorsanız: Trello </li>
+                  <li>Ekiple çalışıyorsanız: Asana (özellikle ücretli versiyon), Monday, JIRA, Azure (başlangıçtan bitişe kadar tüm süreci takip edebilir. github reposunu bile kontrol edebilir.)</li>
+                </ul></li>
+              </ul>
+            </div>
+            <div id="20">
+              <h1>Zaman Yönetimi</h1>
+              <ul>
+                <li>Çalışma saatlerini net olarak belirleyin</li>
+                <li>Günlük ileri planlayın / yazın</li>
+                <li>Her 30 dk. da 5 dk., her 2 saatte 15 dk mola verin</li>
+                <li>Gün içinde sosyal medya ve telefondan uzak durun <ul>
+                  <li>Uzak duramıyorsanız sosyal medyayı kendinize ödül olarak kullanın</li>
+                </ul></li>
+                <li>Ailenizle konuşun <ul>
+                  <li>Sizi gün içinde yok saysınlar</li>
+                </ul></li>
+                <li>İş saatleri dışında işe bakmayın</li>
+                <li>Hayatınızı planlayın: Haftalık, aylık, üç aylık</li>
+              </ul>
+            </div>
+            <div id="21">
+              <h1>Pitch Deck Nedir?</h1>
+              <p><b>Pitch Deck</b>: Girişimcilerin yatırımcıdan yatırım almak için yaptığı bilgi veren sunumlardır.</p>
+              <ul>
+                <li>Giriş sunumu</li>
+                <li>Misyon ve vizyon</li>
+                <li>Takım</li>
+                <li>Analize göre problem ne?</li>
+                <li>Çözüm</li>
+                <li>Ürünün bölümleri</li>
+                <li>İletişim</li>
+              </ul>
+              <ul>Uzak durun
+                <li>Sıralı maddeler</li>
+                <li>Dikkat dağıtacak unsurlar</li>
+                <li>Sunumu okumak</li>
+              </ul>
+            </div>
+            <div id="22">
+              <h1>Kendinizi Duyurun</h1>
+              <ul>
+                <li>Youtube</li>
+                <li>Medium.com/Blog</li>
+              </ul>
+            </div>
+            <div id="23">
+              <h1>Hazır İçerikler ve Dikkat Edilmesi Gerekenler</h1>
+              <ul>
+                <li>Css frameworkleri: bootstrap, tailwind (çok fazla esnek), bulma, UIKit, materialize, bpptstrap vue</li>
+                <li>Görseller: freepik, pexels, pixabay</li>
+                <li>İkonlar: fontawesome, fontello, iconfinder, flaticon, icons8, materialCss</li>
+                <li>Hazır tema siteleri: envato, themeforest, templatemonster, wrapbootstrap, bootstrapmade</li>
+              </ul>
+              <ul>Dikkat et
+                <li>Hazır bir şey kullanıyorsak telif hakkı olabilir.</li>
+                <li>Bulunan siteleri indirilen hazır araçları kullanmayın.</li>
+              </ul>
+            </div>
+            <div id="24">
+              <h1>Ağızdan Ağıza Pazarlama</h1>
+              <p>Memnun müşteri sizi başkalarına tavsiye eder</p>
+            </div>
+            <div id="25">
+              <h1>İşin Muhasebe Boyutu - Fatura kesmeli miyiz?</h1>
+              <ul>Şirket açmadan:
+                <li>Serbest meslek makbuzu: vergi dairesinden başvuruluyor.</li>
+                <li>Fatura kesen şirketler</li>
+                <li>Arkadaşın şirketinden fatura kesmek</li>
+              </ul>
+              <p>
+                Şirketiniz olmasa da sözleşme hukuksal olarak geçerli
+              </p>
+              <ul>Hangi aşamada şirket açmalıyız?
+                <li>Düzenli iş akışı olmalı</li>
+                <li>Birden fazla çalışan</li>
+                <li>Büyük meblağlı iş</li>
+              </ul>
+              <ul>Şirket nasıl açılır:
+                <li>Şahıs firması: Hızlı açılıp kapatılır</li>
+                <li>Bir muhasebeciniz olmalı. <ul>
+                  <li>Aslı ile birlikte kimlik fotokopisi</li>
+                  <li>Sözleşme</li>
+                  <li>İkametgah</li>
+                  <li>Şirket adresi: <ul>
+                    <li>Kendi evinizi şirket adresi olarak gösterebilirsiniz</li>
+                    <li>Yeni bir yer tutabilirsiniz</li>
+                    <li>Sanal ofis çözümleri</li>
+                  </ul></li>
+                </ul></li>
+              </ul>
+              <ul>Online şirket açma yolları
+                <li>Mukellef.co</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JS -->
+    
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=js&amp;skin=sunburst"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

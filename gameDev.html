@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yazılım Mühendisliği 101</title>
+    <title>Game Development</title>
     <link rel="stylesheet" href="css/sql.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <style>
@@ -51,7 +51,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-light">
                 <div class="container-fluid">
-                  <a class="navbar-brand" href="#">Yazılım Mühendisliği 101</a>
+                  <a class="navbar-brand" href="#">Deployment</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
@@ -76,7 +76,6 @@
                           <li><a class="dropdown-item" href="react.html" target="_blank">React</a></li>
                           <li><a class="dropdown-item" href="redux.html" target="_blank">Redux</a></li>
                           <li><a class="dropdown-item" href="GraphQL.html" target="_blank">GraphQL</a></li>
-                          <li><a class="dropdown-item" href="Figma.html" target="_blank">Figma</a></li>
                           </ul>
                       </li>
                     </ul>
@@ -95,43 +94,110 @@
             <hr>
             <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end " style="max-height: 400px; overflow: auto;">
                 <nav class="nav nav-pills flex-column ">
-                  <a class="nav-link" href="#lifeCircle">Yazılımın Yaşam Döngüsü</a>
-                  <nav class="nav nav-pills flex-column">
-                    <a class="nav-link ms-3 my-1" href="#planning">Planlama Adımı</a>
-                    <a class="nav-link ms-3 my-1" href="#analysis">Analiz Adımı</a>
-                  </nav>
+                  <a class="nav-link" href="#install">Unity ve Visual Studio Kurulumu</a>
+                  <a class="nav-link" href="#firstProject">Unity Hub ve İlk Proje</a>
+                  <a class="nav-link" href="#interface">Arayüz</a>
+                  <a class="nav-link" href="#sceneTab">Scene Ekranı</a>
+                  <a class="nav-link" href="#gameTab">Game Sekmesi</a>
+                  <a class="nav-link" href="#assetStore">Asset Store</a>
                 </nav>
               </nav>
         </div>
         <div class="col-sm-9">
           <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
-            <div class="row" id="lifeCircle">
-              <h1>Yazılımın Yaşam Döngüsü</h1>
+            <div id="install">
+              <h1>Unity ve Visual Studio Kurulumu</h1>
               <p>
-                Yazılım sürecinin "Planlama -> Analiz -> Tasarım -> Uygulama -> Bakım -> Planlama -> Analiz -> Tasarım -> ...." şeklinde döngüsel bir yapısı vardır.
+                Önce Unity hub kuruldu. Ardından unity hub içinden unity 2021.3.22f kuruldu (hoca ile uyumlu olması için). Unity hub üzerinden kurulamadı. Unity hub ile <a href="https://unity.com/releases/editor/archive">archive</a> açılıp manuel kuruldu.
+                <ul>
+                  <li>Microsoft Visual Studio Comminity 2022</li>
+                  <li>Android Build Support</li>
+                  <li>WebGL Build Support</li>
+                  <li>Windows Build Support</li>
+                  <li>Windows Dedicated Server Build Support</li>
+                  <li>Documantation</li>
+                </ul>
+              </p>
+            </div>
+            <div id="firstProject">
+              <h1>Unity Hub ve İlk Proje</h1>
+              <p>
+                Unity Hub > New Project 
               </p>
               <p>
-                Şirketten şirkete döngüler değişebilir.
+                İlk proje için template alanından 3D Core seçildi ve proje adı ve proje yeri gösterildi. "Create Project" denilerek ilk proje yaratıldı.
               </p>
-              <div class="row" id="planning">
-                <h2>Planlama Adımı</h2>
+              <p>
+                Projemizi açtıktan sonra edit>preferences>external tools segmesi içinde external script editor: microsoft visual studio seçilir.
+              </p>
+            </div>
+            <div id="interface">
+              <h1>Arayüz</h1>
+              <p>
+                Kısayol: Duplicate: Ctrl + D
+              </p>
+              <p>
+                Kısayol: Focus: F + Left Click (Hierarchy)
+              </p>
+              <p>
+                Ekran Kısayolları
                 <ul>
-                  <li>Veri Toplama</li>
-                  <li>Tasarım Dökümanı: Yazılımın bel kemiğidir. Ekibe ortak bir bakış açısı sağlar.</li>
-                  <li>İş birliği: Proje yönetici tüm ekiplerle ayrı ayrı toplanmalı. Her ekibin yetenekleri ve sınırları ortaya çıkmalı.</li>
+                  <li>"W": move</li>
+                  <li>"E": rotate</li>
+                  <li>"R": skale</li>
                 </ul>
-                <p>
-                  Veri toplama için en güzel yöntemlerden biri prototiplemedir.
-                </p>
-              </div>
-              <div class="row" id="analysis">
-                <h2>Analiz Adımı</h2>
-                <ul>
-                  <li>İsterleri kazma: isterleri tester kafası ile görüp yapılan iş ile istenen uyuyor mu analizi. Developer, designer'ın yapılsın dediği konuları irdeler.</li>
-                  <li>Risk analizi: "Kim olmazsa iş yürümez?", "Kimsenin sorumlu olmadığı bir alan var mı?", "Bizden istenen iş için bizim niteliğimiz uygun mu?", "İş için gereken süre işe değer mi" vs</li>
-                  <li>Kilometre Taşı: "Zaman analizi doğru yapıldı mı?"</li>
-                </ul>
-              </div>
+              </p>
+              <p>
+                Yaptığımız bir tasarımı alttaki asset menüsünden prefabs (hazır kalıp) olarak ekleyebiliriz. Bunun için asset>new>folder (dosya adı: prefabs) ile dosya oluşturup bu dosyayı açıp hazır şeklimizi içine sürükleyip bıraktık. 
+              </p>
+              <p>
+                Sesler için "Sounds", kaplamalar için "Textures", kodlar için "Scripts" vs klasörler Assets altına açılır.
+              </p>
+              <p>
+                Right Click basılı iken "WASD" ile ekranda gezinilebilir. "Q" ve "E" ile de yukarı - aşağı hareket edilebilir.
+              </p>
+              <p>
+                Console: hataların ve bizim istediğimiz durumların sonucunun bildirildiği kısım.
+              </p>
+              <p>
+                File>Build Settings altından uygulama build edilebilir.
+              </p>
+            </div>
+            <div id="sceneTab">
+              <h1>Scene Ekranı</h1>
+              <p>
+                Scene ekranında üstteki menüyü inceliyoruz.
+              </p>
+              <p>
+                Birden fazla objeyi seçtiğimiz bir senaryoda "center" seçili ise grubun ağırlık merkezine göre işlem yapılır ve bütün grup tek nesne gibi davranır. "pivot" seçili ise her nesne kendi içinde hareket eder.
+              </p>
+              <p>
+                ikici sembolde "local" seçili ise eksenler objeye göre verilir. "global" seçili ise eksenler sahneye göre verilir.
+              </p>
+              <p>
+                Üçüncü sembol rehber grid yapısını ayarlar
+              </p>
+              <p>
+                ekranın sağındakiler görünümler ile ilgi.
+              </p>
+            </div>
+            <div id="gameTab">
+              <h1>Game Sekmesi</h1>
+              <p>
+                Game sekmesi uygulamanın nasıl göründüğü konusunda bize yardımcı olur.
+              </p>
+              <p>
+                İlk segme "Game/Simılator" kısmı. Simulator mobil cihazlarda sahnenin nasıl görüneceği konusunda bilgi verir. "Simulator" kısmında "safe area" çeltikli telefonlarda hangi alanın aktif kullanılabileceğini gösterir.
+              </p>
+            </div>
+            <div id="assetStore">
+              <h1>Asset Store</h1>
+              <p>
+                "window" > "asset store" > "search online"
+              </p>
+              <p>
+                Gelen sayfadan istenilen asset seçilir ve alınır. Sonra "Open in unity" ile unity paket yöneticisinde açılır. İndirilir ve import edilir. Gelen paket "Asset" içinde görüntülenir.
+              </p>
             </div>
           </div>
         </div>
