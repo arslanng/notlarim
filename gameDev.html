@@ -187,7 +187,22 @@
                   <a class="nav-link" href="#arAddObject">Ortama Objenin Eklenmesi</a>
                   <a class="nav-link" href="#faydaliSayfalar">Faydalı Sayfalar (Asset)</a>
                   <a class="nav-link" href="#arFaceManager">Yüz Algılama</a>
-                  <a class="nav-link" href="#arTrackedImageManager">Resim Algılamaa</a>
+                  <a class="nav-link" href="#arTrackedImageManager">Resim Algılama</a>
+                  <a class="nav-link" href="#arYoutube1">Project-Based Augmented Reality Course with Unity Engine and AR Foundation</a>
+                  <a class="nav-link" href="#photon2">Photon2</a>
+                  <a class="nav-link" href="#connectPUN2">Uygulama PUN2 Bağlantısı</a>
+                  <a class="nav-link" href="#photon2NetworkManager">Network Manager</a>
+                  <a class="nav-link" href="#photon2RPCandPhotonView">RPC ve PhotonView</a>
+                  <a class="nav-link" href="#photon2MenuScrit">Menu Script</a>
+                  <a class="nav-link" href="#photon2PlayerController">PlayerController</a>
+                  <a class="nav-link" href="#photon2GameManager">Game Manager - Spawn Player</a>
+                  <a class="nav-link" href="#photon2UI">UI</a>
+                  <a class="nav-link" href="#cityBuilder">City Builder Ortam Hazırlık</a>
+                  <a class="nav-link" href="#cityBuilderCamController">CameraControl</a>
+                  <a class="nav-link" href="#cityBuilderBuildingPreset">Yapıları Hazırlama</a>
+                  <a class="nav-link" href="#cityBuilderUI">UI</a>
+                  <a class="nav-link" href="#cityBuilderMousePosition">Mouse Pozisyonunu Tespit Etme</a>
+                  <a class="nav-link" href="#cityBuilderPlacemetAndEconomy">Yapı Yerleştirme ve Şehir Ekonomisi</a>
                   <a class="nav-link" href="#patikaBlender">Patika.dev Blender notları</a>
                 </nav>
               </nav>
@@ -3677,6 +3692,9 @@ public class ObjectSpawner : MonoBehaviour
                 <p>
                   Yüze nesne eklemek için (bıyık vs) internetten incelenecek. Body ve hand tracking konularını da internetten kendimiz araştıracağız.
                 </p>
+                <p>
+                  Yüze nesne eklemek için <a href="https://www.youtube.com/watch?v=5-kpTHO3MpA">videoda</a> verilen assetten faydalandık. "AR Default Face" prefabı içine asset içindeki "canonical_face_mesh" dosyasını attık. Bu bize yüz için referans verdi. Daha sonra bunun ve "AR Default Face" in kaplamasının görünmemesi için asset içindek "Occlusion" materyalini atadık. Bu materyali kendimiz de Shader özelliğini "VR/SpatialMapping/Occlusion" olarak oluşturabiliriz.
+                </p>
               </div>
               <div id="arTrackedImageManager">
                 <h1>Resim Algılama</h1>
@@ -3815,7 +3833,7 @@ public class DragonController : MonoBehaviour
                   İleri eğitim için video: <a href="https://www.youtube.com/watch?v=FJAO6jDYljs">youtube.com: Project-Based Augmented Reality Course with Unity Engine and AR Foundation</a>
                 </p>
               </div>
-              <div>
+              <div id="arYoutube1">
                 <h1>Project-Based Augmented Reality Course with Unity Engine and AR Foundation</h1>
                 <p>
                   <a href="https://www.youtube.com/watch?v=FJAO6jDYljs&ab_channel=freeCodeCamp.org">Dersin videosu</a>
@@ -3828,6 +3846,1314 @@ public class DragonController : MonoBehaviour
                 </p>
                 <p>
                   Textures materiale atandıktan sonra materyal seçiliyken "Inspector" menüsünde "Shader" ayarı için "Unlit/Texture" veya "Legacy Shaders/Diffuse" da kullanılabilir.
+                </p>
+                <p>
+                  Mobilya projesinin kodları
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+public class FurniturePlacementManager : MonoBehaviour
+{
+    public GameObject SpawnableFurniture; // Yerleştirilecek mobilya objesi
+
+    public ARSessionOrigin sessionOrigin; // ARSessionOrigin bileşeni
+    public ARRaycastManager raycastManager; // ARRaycastManager bileşeni
+    public ARPlaneManager planeManager; // ARPlaneManager bileşeni
+
+    private List&lt;ARRaycastHit> raycastHits = new(); // Raycast atış sonuçlarını depolamak için liste
+
+    void Start()
+    {
+        // Ekranın sürekli açık kalmasını sağlar
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
+
+    private void Update()
+    {
+        // Ekrana dokunulduğunda
+        if(Input.touchCount > 0)
+        {
+            if(Input.GetTouch(0).phase == TouchPhase.Began) // Dokunma başlangıcı kontrol ediliyor
+            {
+                // Ekranın dokunulan noktasında bir düzlem algılanıyor mu kontrol ediliyor
+                bool collision = raycastManager.Raycast(Input.GetTouch(0).position, raycastHits, TrackableType.PlaneWithinPolygon);
+
+                // Çarpışma varsa ve bir düğme basılı değilse
+                if(collision && isBottonPressed() == false)
+                {
+                    // Yerleştirilecek mobilya objesi klonlanıyor ve dokunulan noktaya yerleştiriliyor
+                    GameObject _object = Instantiate(SpawnableFurniture);
+                    _object.transform.position = raycastHits[0].pose.position;
+                    _object.transform.rotation = raycastHits[0].pose.rotation;
+                }
+
+                // Tüm düzlemler gizleniyor
+                foreach(var planes in planeManager.trackables)
+                {
+                    planes.gameObject.SetActive(false);
+                }
+
+                // ARPlaneManager devre dışı bırakılıyor
+                planeManager.enabled = false;
+            }
+        }
+    }
+
+    // Bir düğme basılı mı kontrol eden fonksiyon
+    public bool isBottonPressed()
+    {
+        // Eğer hiçbir düğme seçili değilse
+        if(EventSystem.current.currentSelectedGameObject?.GetComponent&lt;Button>() == null)
+        {
+            return false; // Düğme basılı değil
+        }
+        else
+        {
+            return true; // Düğme basılı
+        }
+    }
+
+    // Mobilya değiştirme fonksiyonu
+    public void SwitchFurniture(GameObject furniture)
+    {
+        SpawnableFurniture = furniture; // Yerleştirilecek mobilya objesini değiştir
+    }
+}
+
+                  </pre>
+                </p>
+              </div>
+            </div>
+            <div id="11">
+              <div id="photon2">
+                <h1>Photon2</h1>
+                <p>
+                  Alternatifi: <a href="https://mirror-networking.com/">Mirror</a>
+                </p>
+                <p>
+                  Online oyun serverı
+                </p>
+                <p>
+                  <ul>Ücretsiz
+                    <li>Aynı anda 20 kişi</li>
+                    <li>Saniyede 20 hamle</li>
+                  </ul>
+                </p>
+              </div>
+              <div id="connectPUN2">
+                <h1>Uygulama PUN2 Bağlantısı</h1>
+                <p>
+                  <a href="https://www.photonengine.com/">Photon ana sayfası.</a> Bu sayfadan kayıt oldundu.
+                </p>
+                <p>
+                  <a href="https://dashboard.photonengine.com/">Dashboard sayfasında</a> "Create a New App" tıklanır. 
+                </p>
+                <p>
+                  "Multiplayer Game" ve "Pun" (Photon Unity Network) seçilir. Diğer alanlar doldurulur. "Create" tıklanır.
+                </p>
+                <p>
+                  Unity projesi pluşturduk. "Asset Store" içinden <a href="https://assetstore.unity.com/packages/tools/network/pun-2-free-119922">PUN 2 - FREE</a> projeye eklenir. (asset store içindeki diğer photon eklentilerini de incele.)
+                </p>
+                <p>
+                  İmport işleminin bitiminde proton dashboard içinde oluşturduğumuz proje idsi ilgili yere eklenir. "Setup Project" tıklanır.
+                </p>
+                <p>
+                  "Game" adında bir scene yaratıldı. Ortama oyunun oynanacağı alan eklendi.
+                </p>
+              </div>
+              <div id="photon2NetworkManager">
+                <h1>Network Manager</h1>
+                <p>
+                  Menü adında bir sahne yaratıldı. Oyuncular bu sahnede toplandıktan sonra Game sahnesine geçecekler.
+                </p>
+                <p>
+                  Scriptleri tutması için "_NetworManager" adında boş gameobject oluşturduk. "NetworManager" adı ile oluşturduğumuz scripti içine attık.
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Photon.Pun; // Photon Unity Networking (PUN) ayarları için
+
+public class NetworkManager : MonoBehaviourPunCallbacks // "MonoBehaviour" kalıtımı Unity için özel fonksiyonlar tanımlar. "MonoBehaviourPunCallbacks" ise hem Unity özelliklerini korur hem de PUN callbacks özellikleri ekler.
+{
+    public static NetworkManager instance;
+
+    private void Awake() // starttan önce çalışır. Ortam oluşmadan önce bu fonksiyon çalışır.
+    {
+        if (instance != null && instance != this)
+            gameObject.SetActive(false); // Eğer instance zaten varsa ve bu instance bu değilse, bu nesneyi etkisiz hale getirir.
+        else
+        {
+            instance = this; // Bu instance'ı belirle
+            DontDestroyOnLoad(gameObject); // Bu oyun nesnesini sahne değiştikçe yok etme.
+        }
+    }
+    
+    void Start()
+    {
+        PhotonNetwork.ConnectUsingSettings(); // Oyun ayarları kullanılarak Photon sunucusuna bağlan.
+    }
+
+    public override void OnConnectedToMaster() // "override" mevcut kalıp fonksiyonun üzerine yazmamızı sağlar.
+    {
+        Debug.Log("Master sunucuya bağlandı");
+        CreateRoom("OyunSalonu 1"); // Yeni bir oda oluştur.
+    }
+
+    public void CreateRoom(string roomName) // Oda oluştur.
+    {
+        PhotonNetwork.CreateRoom(roomName); // Photon ağı üzerinde belirtilen isimde bir oda oluşturur.
+    }
+
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("Belirtilen isimde oda oluşturuldu: " + PhotonNetwork.CurrentRoom.Name); // Oda oluşturulduğunda log olarak oluşturulan oda ismini gösterir.
+    }
+
+    public void JoinRoom(string roomName) // Odaya katıl.
+    {
+        PhotonNetwork.JoinRoom(roomName); // Belirtilen isimdeki odaya katılır.
+    }
+
+    public void ChangeScene(string sceneName) // Sahne değiştir.
+    {
+        PhotonNetwork.LoadLevel(sceneName); // Belirtilen sahneyi yükler.
+    }  
+}
+
+                  </pre>
+                </p>
+              </div>
+              <div id="photon2MenuUI">
+                <h1>Menu UI</h1>
+                <p>
+                  InputField(TMP) eklerken "Inspector" alanından "Content Type: Alphanumeric" seçilir.
+                </p>
+                <p>
+                  Boş bir gameObject oluşturup "Horizontal Layout Group" komponenti eklenirse child ögelerinin yerleşimi horizontal olarak düzenlenebilir. Aynı şekilde "Vertical Layout Group" da kullanılabilir.
+                </p>
+                <p>
+                  Canvas içine "MainScreen" ve "LobbyScreen" adında iki ayrı menü oluşturduk. Hangisinin görüneceğini kodlarla ayarlayacağız.
+                </p>
+              </div>
+              <div id="photon2RPCandPhotonView">
+                <h1>RPC ve PhotonView</h1>
+                <p>
+                  RPC (Remote Procedure Calls): fonksiyonu başkasının bilgisayarında çalıştırmamızı sağlayan fonksiyondur.
+                </p>
+                <p>
+                  İki şekilde kullanılır.
+                  <ul>
+                    <li>PhotonViev.RPC("FunctionName", Player, parameters); // sadece belirtilen playera bilgi iletir.</li>
+                    <li>PhotonViev.RPC("FunctionName", RpcTarget, parameters); // RpcTarget olarak belirlenen gruba iletir.</li>
+                  </ul>
+                  <ul>RpcTarget
+                    <li><b>All:</b> Mevcuttaki herkeze ilet</li>
+                    <li><b>AllBuffered:</b> Oyuna daha sonra girecekler de dahil herkese ilet</li>
+                    <li><b>AllViaServer:</b> Tüm servera ilet</li>
+                    <li><b>AllBufferedViaServer:</b> Tüm servera ilet ve sonra gelenlere de ilet</li>
+                    <li><b>Others:</b> benim dışımdakilere ilet</li>
+                    <li><b>OthersBuffered:</b> benim dışımdakilere ilet ve sonra gelenlere de ilet</li>
+                    <li><b>MasterClient:</b> Oyun kurucuya ilet</li>
+                  </ul>
+                </p>
+                <p>
+                  PhotonView ile işlem yapacaksak NetworkManager scripti için PhotonView oluşturmamız gerekiyor.
+                </p>
+                <p>
+                  Playerların hangi özelliklerinin gitmesini istiyorsak PlayerController scripti için PhotonView metodu ile göndermeliyiz.
+                </p>
+                <p>
+                  "_NetworManager" nesnesine komponent olarak "Photon View" eklendi. Oturum numarası ile oturum açması için gerekiyor.
+                </p>
+                <p>
+                  NetworkManager içindeki override işlemler kaldırıldı. Serverda takip edilmesi istenen işlem için [PunRPC] fonksiyonun hemen öncesine yerleştirildi.
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Photon.Pun; // PUN ayarları için
+
+public class NetworkManager : MonoBehaviourPunCallbacks // "MonoBehaviour" kalıtımı unity için özel fonksiyonlar tanımlar. "MonoBehaviourPunCallbacks" ise hem unity özelliklerini korur hem de PUN callbacks özellikleri ekler.
+{
+    public static NetworkManager instance;
+    private void Awake() // startttan önce çalışır. Daha ortam oluşmadan önce bu fonksiyon çalışır.
+    {
+        if (instance != null && instance != this)
+            gameObject.SetActive(false);
+        else
+        {
+            instance = this; // oturum aç
+            DontDestroyOnLoad(gameObject); // oyunu kapatmadığın sürece oturumu açık tut
+        }
+    }
+    
+    void Start()
+    {
+        PhotonNetwork.ConnectUsingSettings(); //kullanıcı ayarları ile bağlantı kur.
+    }
+
+    public void CreateRoom(string roomName) // oda yarat
+    {
+        PhotonNetwork.CreateRoom(roomName);
+    }
+   
+    public void JoinRoom(string roomName) // odaya katıl
+    {
+        PhotonNetwork.JoinRoom(roomName);
+    }
+    [PunRPC] // Bu işaret, bir yöntemin bir Photon ağı çağrısı (network call) olarak işaretlenmesini sağlar. Bir sonraki fonksiyonun çalışmasını Photon ağına iletir.
+    public void ChangeScene(string sceneName) // sahne değiştir.
+    {
+        PhotonNetwork.LoadLevel(sceneName);
+    }
+    
+}
+
+                  </pre>
+                </p>
+              </div>
+              <div id="photon2MenuScrit">
+                <h1>Menu Script</h1>
+                <p>
+                  "_Menu" adında boş bir gameObject yaratıldı. "Menu" adında bir script yazılıp bu gameObjecte atıldı. Değişkenler ilgili yerlere atandı.
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using Photon.Pun;
+using Photon.Realtime;
+
+public class Menu : MonoBehaviourPunCallbacks // PUN Callbacks özelliklerini de almak için.
+{
+    [Header("Sceens")] // Ekranlara erişim için değişkenlerin başlığı
+    public GameObject mainScreen; // Ana ekran oyun nesnesi
+    public GameObject lobbyScreen; // Lobby ekranı oyun nesnesi
+
+    [Header("Main Screen")] // Ana Ekran için değişkenlerin başlığı
+    public Button createRoomButton; // Oda oluşturma düğmesi
+    public Button joinRoomButton; // Odaya katılma düğmesi
+
+    [Header("Lobby Screen")] // Lobby Ekranı için değişkenlerin başlığı
+    public TextMeshProUGUI playerListText; // Oyuncu listesi metni
+    public Button startGameButton; // Oyun başlatma düğmesi
+    public Button leaveLobbyButton; // Lobby'den ayrılma düğmesi
+
+    private void Start()
+    {
+        createRoomButton.interactable = false; // Oda oluşturma düğmesini etkisiz hale getir
+        joinRoomButton.interactable = false; // Odaya katılma düğmesini etkisiz hale getir
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        createRoomButton.interactable = true; // Oda oluşturma düğmesini etkin hale getir
+        joinRoomButton.interactable = true; // Odaya katılma düğmesini etkin hale getir
+    }
+
+    // Ekranları değiştirmek için bir yardımcı fonksiyon
+    void SetScreen(GameObject screen)
+    {
+        mainScreen.SetActive(false); // Ana ekranı devre dışı bırak
+        lobbyScreen.SetActive(false); // Lobby ekranını devre dışı bırak
+        screen.SetActive(true); // Belirtilen ekranı etkinleştir
+    }
+
+    // Oda oluşturma düğmesine tıklandığında çağrılan fonksiyon
+    public void OnCreateRoomButton(TMP_InputField roomNameInput)
+    {
+        NetworkManager.instance.CreateRoom(roomNameInput.text); // Ağ yöneticisine oda oluşturma isteği gönder
+    }
+
+    // Odaya katılma düğmesine tıklandığında çağrılan fonksiyon
+    public void OnJoinRoomButton(TMP_InputField roomNameInput)
+    {
+        NetworkManager.instance.JoinRoom(roomNameInput.text); // Ağ yöneticisine odaya katılma isteği gönder
+    }
+
+    // Oyuncu adı güncellendiğinde çağrılan fonksiyon
+    public void OnPlayerNameUpdate(TMP_InputField playerNameInput)
+    {
+        PhotonNetwork.NickName = playerNameInput.text; // Photon ağı oyuncu adını güncelle
+    }
+
+    // Bir odaya katıldığında çağrılan fonksiyon
+    public override void OnJoinedRoom()
+    {
+        SetScreen(lobbyScreen); // Lobby ekranını göster
+        photonView.RPC("UpdateLobbyUI", RpcTarget.All); // Lobby arayüzünü güncelleme RPC'si gönder
+    }
+
+    // Lobby arayüzünü güncellemek için RPC
+    [PunRPC]
+    public void UpdateLobbyUI()
+    {
+        playerListText.text = ""; // Oyuncu listesi metnini temizle
+        foreach(Player player in PhotonNetwork.PlayerList) // Her oyuncu için döngü
+        {
+            playerListText.text += player.NickName + "\n"; // Oyuncu adını oyuncu listesi metnine ekle
+        }
+
+        if(PhotonNetwork.IsMasterClient) // Eğer yerel oyuncu odanın sahibi ise
+        {
+            startGameButton.interactable = true; // Oyun başlatma düğmesini etkin hale getir
+        }
+        else // Değilse
+        {
+            startGameButton.interactable = false; // Oyun başlatma düğmesini etkisiz hale getir
+        }
+    }
+
+    // Bir oyuncu odayı terk ettiğinde çağrılan fonksiyon
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        UpdateLobbyUI(); // Lobby arayüzünü güncelle
+    }
+
+    // Lobby'den ayrılma düğmesine tıklandığında çağrılan fonksiyon
+    public void OnLeaveLobbyButton()
+    {
+        PhotonNetwork.LeaveRoom(); // Odadan ayrıl
+        SetScreen(mainScreen); // Ana ekranı göster
+    }
+
+    // Oyunu başlatma düğmesine tıklandığında çağrılan fonksiyon
+    public void OnStrartGameButton()
+    {
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game"); // Oyun sahnesini değiştirme RPC'si gönder
+    }
+}
+
+                  </pre>
+                  Butonlara da ilgili fonksiyonlar atandı ve değişkenleri eklendi. "_Menu" elementine komponent olarak "Photon View" eklendi (RPC kullanılan tüm kodların olduğu elementlere eklemek gerekiyormuş.).
+                </p>
+              </div>
+              <div id="photon2PlayerController">
+                <h1>PlayerController</h1>
+                <p>
+                  "Game" scene içinde işlem yapıyoruz. 
+                </p>
+                <p>
+                  Player adında bir küp yaratıldı ve tagı "Player" olarak ayarlandı.
+                </p>
+                <p>
+                  Playerin altında bir boş gameObject (adı: Hat) oluşturup içinde küplerle şapka oluşturuldu. Şapkayı oluşturan küplerin Box Collider'ı kaldırıldı.
+                </p>
+                <p>
+                  Player'a rigidbody eklendi. "Constraints" altından tüm yönlerde "Freeze Rotation" işaretlendi.
+                </p>
+                <p>
+                  Player'a "Photon View" eklendi. "Photon Transform View" eklendi ve "Synchronize Options" kısmından sadece position seçili bırakıldı. "Photon View" -> "Observables" -> "Observable Search" ayarı "manuel" yapıldı ve "Observed Components" alanına "Photon Transform View" sürüklendi. "Observed Components" alanı takip edilecek veriyi belirler.
+                </p>
+                <p>
+                  "PlayerController" adında bir script yazıp "Player" elementine ekledik.
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+
+public class PlayerController : MonoBehaviour
+{
+    [HideInInspector] public int id; // Oyuncu kimliği
+
+    [Header("Info")] // Bilgi başlığı
+    public float moveSpeed; // Hareket hızı
+    public float jumpForce; // Zıplama kuvveti
+    public GameObject hatObject; // Şapka nesnesi
+
+    [HideInInspector] public float curHatTime; // Mevcut şapka süresi
+
+    [Header("Components")] // Bileşenler başlığı
+    public Rigidbody rig; // Rigidbody bileşeni
+    public Player photonPlayer; // Photon oyuncu bileşeni
+
+    private void Update()
+    {
+        Move(); // Hareket fonksiyonu çağrılır
+        if (Input.GetKeyDown(KeyCode.Space)) // Space tuşuna basıldığında
+            TryJump(); // Zıplama denenir
+    }
+
+    // Hareket fonksiyonu
+    void Move()
+    {
+        float x = Input.GetAxis("Horizontal") * moveSpeed; // Yatay eksen hareketi
+        float z = Input.GetAxis("Vertical") * moveSpeed; // Dikey eksen hareketi
+
+        rig.velocity = new Vector3(x, rig.velocity.y, z); // Hareket vektörü atanır
+    }
+
+    // Zıplama denemesi fonksiyonu
+    void TryJump()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down); // Aşağıya doğru bir ışın oluşturulur
+        if(Physics.Raycast(ray, 0.7f)) // Işının belirli bir mesafede bir yere çarptığı kontrol edilir
+        {
+            rig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Zıplama kuvveti uygulanır
+        }
+    }
+}
+
+                  </pre>
+                </p>
+              </div>
+              <div id="photon2GameManager">
+                <h1>Game Manager - Spawn Player</h1>
+                <p>
+                  "_GameManager" adında bir boş gameObject oluşturuldu. "GameManager" adıyla oluşturduğumuz script içine atıldı.
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Linq; // Find() çalışsın diye eklendi
+
+public class GameManager : MonoBehaviourPunCallbacks
+{
+    [Header("Stats")]
+    public bool gameEnded = false; // Oyunun sona erip ermediğini belirten bir işaretçi
+    public float timeToWin; // Oyunun kazanılması için gereken süre
+    public float invictableDuration; // Hat özelliğini alınca yenilmezlik süresi
+
+    private float hatPickupTime; // Şapkanın alındığı zaman
+
+    [Header("Players")]
+    public string playerPrefabLocation; // Oyuncu prefabının dosya konumu
+    public Transform[] spawnPoints; // Oyuncuların doğacağı noktalar
+    public PlayerController[] players; // Oyuncuların listesi
+    public int playerWithHat; // Şu anda hatta sahip olan oyuncunun kimliği
+    private int playersInGame; // Oyunda bulunan oyuncuların sayısı
+
+    public static GameManager instance; // GameManager'ın tek örneği
+
+    private void Awake()
+    {
+        instance = this; // GameManager'ı tek örneğe atama
+    }
+
+    private void Start()
+    {
+        players = new PlayerController[PhotonNetwork.PlayerList.Length]; // Oyuncu listesini PhotonNetwork'ten alınan oyuncu sayısı kadar ayarlama
+        photonView.RPC("ImInGame", RpcTarget.All); // Tüm oyunculara "ImInGame" RPC'sini gönderme
+    }
+
+    [PunRPC]
+    void WinGame(int playerId)
+    {
+        gameEnded = true; // Oyunun sona erdiğini belirtme
+        PlayerController player = GetPlayer(playerId); // Kazanan oyuncuyu al
+        GameUI.instance.SetWinText(player.photonPlayer.NickName); // Oyun arayüzünde kazanan oyuncuyu gösterme
+
+        Invoke("GoBackToMenu", 3.0f); // Belirli bir süre sonra menüye dönme işlemini çağırma
+    }
+
+    void GoBackToMenu()
+    {
+        PhotonNetwork.LeaveRoom(); // Odadan ayrılma
+        NetworkManager.instance.ChangeScene("Menu"); // Sahne değiştirme
+    }
+
+    [PunRPC]
+    void ImInGame()
+    {
+        playersInGame++; // Oyunda olan oyuncu sayısını artırma
+
+        if (playersInGame == PhotonNetwork.PlayerList.Length) // Eğer oyundaki oyuncu sayısı PhotonNetwork'ten alınan oyuncu sayısına eşitse
+            SpawnPlayer(); // Oyuncu doğurma
+    }
+
+    [PunRPC]
+    public void GiveHat(int playerId, bool initialGive)
+    {
+        if(!initialGive) // başlangıçta şapka var mı?
+            GetPlayer(playerWithHat).SetHat(false); // Eğer başlangıç verilmiyorsa, şapkayı gösterme
+        playerWithHat = playerId; // şapkalı playerı değiştir
+        GetPlayer(playerId).SetHat(true); // yeni playerda şapkayı göster
+        hatPickupTime = Time.time; // şapkanın alındığı zamanı kaydet
+    }
+
+    public bool CanGetHat()
+    {
+        if (Time.time > hatPickupTime + invictableDuration) // Eğer geçen süre, alınabilirlik süresinden fazlaysa
+            return true; // Şapka alınabilir
+        else 
+            return false; // Şapka alınamaz
+    }
+
+    void SpawnPlayer()
+    {
+        GameObject playerObj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity); // Oyuncu objesini rastgele bir noktada oluşturma
+
+        PlayerController playerScript = playerObj.GetComponent&lt;PlayerController>(); // Oyuncu kontrolcüsünü al
+
+        playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer); // Tüm oyunculara oyuncuyu başlatma RPC'sini gönderme
+    }
+
+    public PlayerController GetPlayer(int playerId)
+    {
+        return players.First(x => x.id == playerId); // Verilen oyuncu kimliğine sahip oyuncuyu döndürme
+    }
+
+    public PlayerController GetPlayer(GameObject playerObj)
+    {
+        return players.First(x => x.gameObject == playerObj); // Verilen oyuncu objesine sahip oyuncuyu döndürme
+    }
+}
+
+                  </pre>
+                  <ul>
+                    <li>Time to Win: 15</li>
+                    <li>Invictable Duration: 0.5</li>
+                    <li>Player Prefab Location: Player</li>
+                    <li>Spawn Points: -Bu kısım için adı "_SpawnPoints" olan boş gameObject içinde "SpawnPoint" adında gameObjectler oluşturup onları buraya ekledik- </li>
+                  </ul>
+                </p>
+                <p>
+                  "PlayerController" scripti aşağıdaki gibi güncellendi.
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
+{
+    [HideInInspector] public int id; // Oyuncunun benzersiz kimliğini saklar.
+
+    [Header("Info")]
+    public float moveSpeed; // Oyuncunun hareket hızı.
+    public float jumpForce; // Oyuncunun zıplama kuvveti.
+    public GameObject hatObject; // Oyuncunun şapka nesnesi.
+
+    [HideInInspector] public float curHatTime; // Oyuncunun şapka süresi.
+
+    [Header("Components")]
+    public Rigidbody rig; // Oyuncunun fizik bileşeni.
+    public Player photonPlayer; // Oyuncunun Photon oyuncu nesnesi.
+
+    private void Update()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            // Eğer bu istemci oyun odasının ana istemcisi ise:
+            if(curHatTime >= GameManager.instance.timeToWin && !GameManager.instance.gameEnded)
+            {
+                // Eğer oyuncunun şapka süresi, oyunu kazanmak için gereken süreyi aştıysa ve oyun henüz bitmediyse:
+                GameManager.instance.gameEnded = true; // Oyunun bittiğini belirten bayrak true olarak ayarlanır.
+                GameManager.instance.photonView.RPC("WinGame", RpcTarget.All, id); // Tüm oyunculara oyunu kazananı belirten bir RPC çağrısı yapılır.
+            }
+        }
+        if(photonView.IsMine)
+        {
+            // Eğer bu istemci yerel oyuncuya aitse:
+            Move(); // Oyuncunun hareketini sağlar.
+            
+            if (Input.GetKeyDown(KeyCode.Space))
+                TryJump(); // Oyuncunun zıplamasını denetler.
+                
+            if(hatObject.activeInHierarchy)
+            {
+                curHatTime += Time.deltaTime; // Eğer oyuncunun şapkası aktifse, şapka süresini günceller.
+            }
+        }
+    }
+
+    void Move()
+    {
+        float x = Input.GetAxis("Horizontal") * moveSpeed; // Yatay (x) yöndeki hareketi belirler.
+        float z = Input.GetAxis("Vertical") * moveSpeed; // Dikey (z) yöndeki hareketi belirler.
+
+        rig.velocity = new Vector3(x, rig.velocity.y, z); // Oyuncunun hızını günceller.
+    }
+
+    void TryJump()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down); // Aşağıya doğru bir ışın oluşturur.
+        if(Physics.Raycast(ray, 0.7f)) // Yer altındaki bir yüzey ile temas kontrol edilir.
+        {
+            rig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Oyuncuyu yukarı doğru zıplatır.
+        }
+    }
+
+    public void SetHat(bool hasHat)
+    {
+        hatObject.SetActive(hasHat); // Şapka nesnesinin görünürlüğünü belirler.
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(!photonView.IsMine)
+            return;
+        
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            // Çarpışma, başka bir oyuncu ile gerçekleştiyse:
+            if(GameManager.instance.GetPlayer(collision.gameObject).id == GameManager.instance.playerWithHat)
+            {
+                // Çarpışma yapan oyuncunun, şu anda şapka taşıyan oyuncu olup olmadığını kontrol eder.
+                if(GameManager.instance.CanGetHat())
+                {
+                    // Eğer şapka taşıyan oyuncuysa ve oyuncu şapka alabilir durumdaysa:
+                    GameManager.instance.photonView.RPC("GiveHat", RpcTarget.All, id, false); // Şapka verme işlemini tüm oyunculara bildirir.
+                }
+            }
+        }
+    }
+
+    [PunRPC]
+    public void Initialize(Player player)
+    {
+        // Oyuncunun Photon oyuncu nesnesi atanır.
+        photonPlayer = player;
+        // Oyuncunun benzersiz kimliği atanır.
+        id = player.ActorNumber;
+        // GameManager'daki oyuncular listesine bu oyuncu eklenir.
+        GameManager.instance.players[id - 1] = this;
+        print("id :" + id);
+
+        // İlk oyuncu ise, şapka verme işlemi başlatılır.
+        if (id == 1)
+        {
+            GameManager.instance.GiveHat(id, true);
+        }
+            
+
+        if(!photonView.IsMine)
+        {
+            rig.isKinematic = true; // Eğer bu istemci yerel oyuncuya ait değilse, fiziksel simulasyon devre dışı bırakılır.
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+        {
+            // Şapka süresi yazılır.
+            stream.SendNext(curHatTime);
+        }
+        else if(stream.IsReading)
+        {
+            // Şapka süresi okunur.
+            curHatTime = (float)stream.ReceiveNext();
+        }
+    }
+}
+
+                  </pre>
+                </p>
+                <p>
+                  "Player" elementi "Assets" -> "Resorces" dosyasına sürüklendi. "Hierarchy" alanından silindi.
+                </p>
+              </div>
+              <div id="photon2UI">
+                <h1>UI</h1>
+                <p>
+                  "Game" sahnesine "Canvas" eklendi. Kazananı göstermesi için "WinText" ve her bir playeri ve süresini göstermesi için "Player" altında text ve slider oluşturuldu. sliderların "interactable" özelliği kaldırıldı.
+                </p>
+                <p>
+                  "GameIU" adında bir script oluşturuldu ve "_GameManager" nesnesine eklendi.
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using Photon.Pun;
+
+public class GameUI : MonoBehaviour
+{
+    public PlayerUIContainer[] playerContainers; // Oyuncu arayüzü için konteynerlerin dizisi.
+    public TextMeshProUGUI winText; // Oyunu kazananın bildirildiği metin alanı.
+
+    public static GameUI instance; // Oyun arayüzü için tekil örnek.
+
+    private void Awake()
+    {
+        instance = this; // Singleton örneğini oluşturur.
+    }
+
+    private void Start()
+    {
+        InitilazePlayerUI(); // Oyuncu arayüzünü başlatır.
+    }
+
+    // Oyuncu arayüzlerini başlatır.
+    void InitilazePlayerUI()
+    {
+        for(int x = 0; x &lt; playerContainers.Length; ++x)
+        {
+            PlayerUIContainer container = playerContainers[x];
+
+            if(x &lt; PhotonNetwork.PlayerList.Length)
+            {
+                container.obj.SetActive(true); // Konteyner nesnesini etkinleştirir.
+                container.nameText.text = PhotonNetwork.PlayerList[x].NickName; // Oyuncu adını belirtilen metin nesnesine yazar.
+                container.hatTimeSlider.maxValue = GameManager.instance.timeToWin; // Şapka zamanlayıcısının maksimum değerini ayarlar.
+            }
+            else
+            {
+                container.obj.SetActive(false); // Konteyner nesnesini devre dışı bırakır.
+            }
+        }
+    }
+
+    private void Update()
+    {
+        UpdatePlayerUI(); // Oyuncu arayüzlerini günceller.
+    }
+
+    // Oyuncu arayüzlerini günceller.
+    void UpdatePlayerUI()
+    {
+        for(int x = 0; x &lt; GameManager.instance.players.Length; ++x)
+        {
+            if(GameManager.instance.players[x] != null)
+            {
+                playerContainers[x].hatTimeSlider.value = GameManager.instance.players[x].curHatTime; // Oyuncunun şapka zamanlayıcısını günceller.
+            }
+        }
+    }
+
+    // Kazananın adını metin alanında görüntüler.
+    public void SetWinText(string winnerName)
+    {
+        winText.gameObject.SetActive(true); // Kazanan metin alanını etkinleştirir.
+        winText.text = winnerName + " win"; // Kazananın adını metin alanına yazar.
+    }
+}
+
+// Oyuncu arayüzü öğelerini içeren sınıf.
+[System.Serializable]
+public class PlayerUIContainer
+{
+    public GameObject obj; // Konteyner nesnesi.
+    public TextMeshProUGUI nameText; // Oyuncu adı metin nesnesi.
+    public Slider hatTimeSlider; // Şapka zamanlayıcı kaydırıcısı.
+}
+
+                  </pre>
+                  ilgili değişkenler yerine eklendi.
+                </p>
+                <p>
+                  "Player" prefabında "Observed Components" olarak "Player Controller" eklendi.
+                </p>
+              </div>
+            </div>
+            <div id="12">
+              <div id="cityBuilder">
+                <h1>City Builder Ortam Hazırlık</h1>
+                <p>
+                  Hocanın verdiği asseti klasörlerimize ekledik. İkonları "Texture Type: Sprite(2D and UI)" olarak ayarladık.
+                </p>
+                <p>
+                  "Models" klasörüne attığımız dosyalardan ilgili "texture" dosyalarını ilgili "material" dosyalarına atadık.
+                </p>
+                <p>
+                  "Scrips" klasörü içinde "Building", "BuildingPlacement", "BuildingPreset", "CameraController", "City" ve "Selector" adında scriptler oluşturduk.
+                </p>
+                <p>
+                  "Ground" adında 5x5 bir plane oluşturduk.
+                </p>
+                <p>
+                  Ekranın en alt sağında "Auto Generate Lighting" tıklanıp "New Lighting Setting"ctıklanarak yeni ışık ayarı yaratıldı. "Inspector" ekranından "Auto Generate" seçildi.
+                </p>
+                <p>
+                  "Materials" klasöründe "Ground" adında bir materyal oluşturuldu. Texture > Grass buna atandı. Tiding (50,50) yapıldı. Offset(0.5, 0.5) yapıldı(bu sayede yeni yaratılan küp tam olarak karelerden merkezdekinin içine yerleşir.). "Ground" elementine atandı. 
+                </p>
+              </div>
+              <div id="cityBuilderCamController">
+                <h1>CameraControl</h1>
+                <p>
+                  "CameraAnchor" adında boş bir gameObject oluşturguk. Rotation (-50, 45, 0) ayarladık. 
+                </p>
+                <p>
+                  "MainCamera" yı "CameraAnchor" içine attık ve transformunu resetledik. Sonra position (0, 20, 0) rotation (90, 0, 0) ayarladık.
+                </p>
+                <p>
+                  "CameraAnchor" içine komponent olarak "CameraController" scriptini ekledik.
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+    public float moveSpeed;
+    
+    [Header("Rotation")]
+    public float minXRot;
+    public float maxXRot;
+    public float rotateSpeed;
+
+    private float curXRot;
+
+    [Header("Zoom")]
+    public float maxZoom;
+    public float minZoom;
+    public float zoomSpeed;
+
+    private float curZoom;
+
+    private Camera cam;
+
+    private void Start()
+    {
+        cam = Camera.main;
+        curZoom = cam.transform.localPosition.y;
+        curXRot = -50;
+    }
+
+    private void Update()
+    {
+        // Zoom işlemleri
+        curZoom += Input.GetAxis("Mouse ScrollWheel") * -zoomSpeed;
+        curZoom = Mathf.Clamp(curZoom, minZoom, maxZoom);
+
+        cam.transform.localPosition = Vector3.up * curZoom;
+
+        // Rotation işlemleri
+        if(Input.GetMouseButton(1))
+        {
+            float x = Input.GetAxis("Mouse X");
+            float y = Input.GetAxis("Mouse Y");
+
+            curXRot += -y * rotateSpeed;
+            curXRot = Mathf.Clamp(curXRot, minXRot, maxXRot);
+
+            transform.eulerAngles = new Vector3(curXRot, transform.eulerAngles.y+(x*rotateSpeed), 0.0f);
+        }
+
+        //Movement işlemleri
+        Vector3 forward = cam.transform.forward;
+        forward.y = 0.0f;
+        forward.Normalize(); // y = 0 değerine göre forwardı ayarlar. Normalized() ile Vektörün yönü sabit kalırken boyutu 1 birim olur.
+
+        Vector3 right = cam.transform.right;
+
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+
+        Vector3 dir = moveX * right + moveZ * forward;
+        dir.Normalize();
+
+        dir *= moveSpeed * Time.deltaTime;
+
+        transform.position += dir;
+    }
+}
+
+                  </pre>
+                </p>
+                <p>
+                  CameraController komponenti "Move Speed: 10", "Min X Rot: -85", "Max X Rot: -10", "Rotate Speed: 3", "Max Zoom: 50", "Min Zoom: 5" ve "Zoom Speed: 20" olarak ayarlandı.
+                </p>
+              </div>
+              <div id="cityBuilderBuildingPreset">
+                <h1>Yapıları Hazırlama</h1>
+                  <p>
+                    "BuildingPreset" scripti içine
+                    <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+[CreateAssetMenu(fileName ="Building Preset", menuName = "New Building Preset")] // Assets içindeki sağ click menü içinde "New Building Preset" seçeneği eklendi.
+public class BuildingPreset : ScriptableObject // scriptable obje oluşturmak için
+{
+    public int cost;
+    public int costPerTurn;
+    public GameObject prefab;
+
+    public int population;
+    public int jobs;
+    public int food;
+}
+                    </pre>
+                    yazıldı. Bu script kullanılarak Assets içindeki sağ click menü içinde "New Building Preset" seçeneği ile dosyalar oluşturabiliyoruz. "Building Preset" klasöründe "House" adında bir "Bulding Preset" dosyası oluşturduk.
+                  </p>
+                  <p>
+                    Bu preseti kullanmak için "Building" scripti içine
+                    <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Building : MonoBehaviour
+{
+    public BuildingPreset preset;
+}
+
+                    </pre>
+                    yazıldı.
+                  </p>
+                  <p>
+                    "Models" klasöründeki "house" modeli "Building_House" adıyla oluşturduğumuz boş gameObject içine atıldı ve boyutlandırıldı. Bu modele hazır materyali atandı. GameObjecte("Building_House") "Building" scripti komponent olarak atandı. "Preset: House (Building Preset)" olarak ayarlandı. "Building_House" nesnesi "Prefabs" klasörüne sürüklendi.
+                  </p>
+                  <p>
+                    "Building Presets" altındaki "House" dosyasında "Prefab: Building_House" atandı ve diğer ayarlar girildi.
+                  </p>
+                  <p>
+                    Aynı işlem "factory" ve "farm" için de yapıldı.
+                  </p>
+                  <p>
+                    "road" için kendimiz bir prefab oluşturup aynı işlemleri gerçekleştirdik.
+                  </p>
+                
+              </div>
+              <div id="cityBuilderUI">
+                <h1>UI</h1>
+                <p>
+                  Ekranın altında boydan boya bir panelimiz, panelin solunda nesne ekleme butonlarımız ve silme butonumuz, sağında ise "End Turn" butonumuz mevcut. İki tarafın ortasında ise oyun bilgileri için text oluşturduk.
+                </p>
+              </div>
+              <div id="cityBuilderMousePosition">
+                <h1>Mouse Pozisyonunu Tespit Etme</h1>
+                <p>
+                  Scriptleri tutması için "_GameManager" adında boş bir gameObject oluşturuldu. İçine "City", "Selector" ve "Building Placement" scriptleri eklendi.
+                </p>
+                <p>
+                  Selector scripti:
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems; // tüm projeden scripte erişilebilmesi için.
+
+public class Selector : MonoBehaviour
+{
+    private Camera cam;
+    public static Selector instance; // bu scripte erişilebilmesi için
+    private void Awake()
+    {
+        instance = this;
+    }
+    private void Start()
+    {
+        cam = Camera.main;
+    }
+
+    public Vector3 GetCurTilePosition()
+    {
+        if(EventSystem.current.IsPointerOverGameObject()) //bu UI a dokunduysa
+        {
+            return new Vector3(0, -99, 0); // alakasız bir pozisyon verdik.
+        }
+
+        Plane plane = new Plane(Vector3.up, Vector3.zero); // yukarı bakan ve positionu (0, 0, 0) olan bir plane oluşturduk.
+
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+        float rayOut = 0.0f;
+
+        if(plane.Raycast(ray, out rayOut)) // mouse zemine dokundu ise
+        {
+            Vector3 newPos = ray.GetPoint(rayOut) - new Vector3(0.05f, 0.0f, 0.05f); // zeminde dokunulan yerin pozisyonunu aldık.
+
+            newPos = new Vector3(Mathf.CeilToInt(newPos.x), 0.0f, Mathf.CeilToInt(newPos.z)); // pozisyonu tam sayıya tamamladık.
+            return newPos;
+        }
+
+        return new Vector3(0, -99, 0); // alakasız bir pozisyon verdik.
+    }
+}
+
+                  </pre>
+                </p>
+              </div>
+              <div id="cityBuilderPlacemetAndEconomy">
+                <h1>Yapı Yerleştirme ve Şehir Ekonomisi</h1>
+                <p>
+                  "PlacementIndicator" adında bir boş gameObject oluşturuldu. Altına bir küp ekledik ve küpün BoxCollider komponentini kaldırıldı. "position.y = 0.5" ayarlandı.
+                </p>
+                <p>
+                  Bu küp için bir materyal yaratıldı. "Rendering Mode: Fade" seçildi. Mavimsi bir renk verildi. Renk seçeneklerinden "A: 118" yapılarak nesne saydamlaştırıldı.
+                </p>
+                <p>
+                  Aynı şekilde "BulldozerIndicator" oluşturuldu. Kırmızımsı bir renk verildi.
+                </p>
+                <p>
+                  Her iki nesne de pasif yapıldı.
+                </p>
+                <p>
+                  "Building Placement" scripti:
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BuildingPlacement : MonoBehaviour
+{
+    private bool currentlyPlacing;
+    private bool currentlyBulldozering;
+
+    private BuildingPreset curBuildingPreset;
+
+    private float indicatorUpdateTime = 0.05f;
+    private float lastUpdateTime;
+    private Vector3 curIndicatorPos;
+
+    public GameObject placementIndicator;
+    public GameObject bulldozerIndicator;
+
+    public void BeginNewBuildingPlacement(BuildingPreset preset)
+    {
+        /*if(City.instance.money&lt;preset.cost) // city scriptini yazarken money değişkeni oluşturacağız.
+        {
+            return;
+        }*/
+
+        currentlyPlacing = true;
+        curBuildingPreset = preset;
+        placementIndicator.SetActive(true);
+    }
+
+    void CancelBuildingPlacement()
+    {
+        currentlyPlacing = false;
+        placementIndicator.SetActive(false);
+    }
+
+    public void ToogleBulldozer()
+    {
+        currentlyBulldozering = !currentlyBulldozering;
+        bulldozerIndicator.SetActive(currentlyBulldozering);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            CancelBuildingPlacement();
+
+        if(Time.time - lastUpdateTime > indicatorUpdateTime)
+        {
+            lastUpdateTime = Time.time;
+
+            curIndicatorPos = Selector.instance.GetCurTilePosition();
+
+            if (currentlyPlacing)
+                placementIndicator.transform.position = curIndicatorPos;
+            else if (currentlyBulldozering)
+                bulldozerIndicator.transform.position = curIndicatorPos;
+        }
+    }
+}
+
+                  </pre>
+                  Değişkenleri atadık.
+                </p>
+                <p>
+                  "HouseButton", "FactoryButton", "FarmButton" ve "RoadButton" On Click() fonksiyonu için "BeginNewBuildingPlacement(BuildingPreset preset)" fonksiyonunu kullanıldı. ve her birine uygun preset yerleştirildi.
+                </p>
+                <p>
+                  "BulldozerButton" On Click() fonksiyonu için ToogleBulldozer() fonksiyonu kullanıldı.
+                </p>
+                <p>
+                  "City" scripti:
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class City : MonoBehaviour
+{
+    public int money;
+    public int day;
+    public int curPopulation;
+    public int curJobs;
+    public int curFood;
+    public int maxPopulation;
+    public int maxJobs;
+    public int incomePerJob;
+    public Text statsText;
+    public List&lt;Building> buildings = new List&lt;Building>();
+
+    public static City instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private void Start()
+    {
+        UpdateStatText();
+    }
+
+    public void OnPlaceBuilding(Building building)
+    {
+        money -= building.preset.cost;
+        maxPopulation += building.preset.population;
+        maxJobs += building.preset.jobs;
+        buildings.Add(building);
+        UpdateStatText();
+    }
+
+    public void OnRemoveBuilding(Building building)
+    {
+        maxPopulation -= building.preset.population;
+        maxJobs -= building.preset.jobs;
+        buildings.Remove(building);
+        Destroy(building.gameObject);
+        UpdateStatText();
+    }
+
+    void UpdateStatText()
+    {
+        statsText.text = string.Format("Day: {0} Money: {1}$ Pop: {2}/{3} Jobs: {4}/{5} Food: {6}", new object[7] {day, money, curPopulation, maxPopulation, curJobs, maxJobs, curFood});
+    }
+
+    public void EndTurn() // End Turn butonunun fonksiyonu.
+    {
+        day++;
+        CalculateMoney();
+        CalculatePopulation();
+        CalculateJobs();
+        CalculateFoot();
+        UpdateStatText();
+    }
+    // Buradaki işlemler oyunun ekonomisini belirliyor.
+    void CalculateMoney()
+    {
+        money += curJobs * incomePerJob;
+        foreach (Building building in buildings)
+            money -= building.preset.costPerTurn;
+    }
+
+    void CalculatePopulation()
+    {
+        if(curFood>=curPopulation && curPopulation&lt;maxPopulation)
+        {
+            curPopulation = Mathf.Min(curPopulation + (curFood / 4), maxPopulation);
+        }
+        else if(curFood&lt;curPopulation)
+        {
+            curPopulation = curFood;
+        }
+    }
+
+    void CalculateJobs()
+    {
+        curJobs = Mathf.Min(curPopulation, maxJobs);
+    }
+    void CalculateFoot()
+    {
+        foreach(Building building in buildings)
+        {
+            curFood += building.preset.food;
+        }
+        curFood -= curPopulation / 4;
+    }
+
+}
+
+                  </pre>
+                  "EndTurn" butonu ile fonksiyonu eşleştirildi.
+                </p>
+                <p>
+                  "BuildingPlacement" scripti son hali:
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BuildingPlacement : MonoBehaviour
+{
+    private bool currentlyPlacing;
+    private bool currentlyBulldozering;
+
+    private BuildingPreset curBuildingPreset;
+
+    private float indicatorUpdateTime = 0.05f;
+    private float lastUpdateTime;
+    private Vector3 curIndicatorPos;
+
+    public GameObject placementIndicator;
+    public GameObject bulldozerIndicator;
+
+    public void BeginNewBuildingPlacement(BuildingPreset preset)
+    {
+        if(City.instance.money&lt;preset.cost) 
+        {
+            return;
+        }
+
+        currentlyPlacing = true;
+        currentlyBulldozering = false;
+        curBuildingPreset = preset;
+        placementIndicator.SetActive(true);
+        bulldozerIndicator.SetActive(false);
+    }
+
+    void CancelBuildingPlacement()
+    {
+        currentlyPlacing = false;
+        placementIndicator.SetActive(false);
+    }
+
+    public void ToogleBulldozer()
+    {
+        currentlyBulldozering = !currentlyBulldozering;
+        bulldozerIndicator.SetActive(currentlyBulldozering);
+        CancelBuildingPlacement();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            CancelBuildingPlacement();
+
+        if(Time.time - lastUpdateTime > indicatorUpdateTime)
+        {
+            lastUpdateTime = Time.time;
+
+            curIndicatorPos = Selector.instance.GetCurTilePosition();
+
+            if (currentlyPlacing)
+                placementIndicator.transform.position = curIndicatorPos;
+            else if (currentlyBulldozering)
+                bulldozerIndicator.transform.position = curIndicatorPos;
+        }
+
+        if(Input.GetMouseButtonDown(0) && currentlyPlacing && curIndicatorPos.y == 0)
+        {
+            PlaceBuilding();
+        } else if(Input.GetMouseButtonDown(0) && currentlyBulldozering && curIndicatorPos.y == 0)
+        {
+            Bulldoze();
+        }
+    }
+
+    void PlaceBuilding()
+    {
+        GameObject buildObj = Instantiate(curBuildingPreset.prefab, curIndicatorPos, Quaternion.identity);
+        City.instance.OnPlaceBuilding(buildObj.GetComponent&lt;Building>());
+        CancelBuildingPlacement();
+    }
+
+    void Bulldoze()
+    {
+        Building buildingToDestroy = City.instance.buildings.Find(x => x.transform.position == curIndicatorPos);
+        if(buildingToDestroy!=null)
+        {
+            City.instance.OnRemoveBuilding(buildingToDestroy);
+        }
+    }
+}
+
+                  </pre>
                 </p>
               </div>
             </div>
