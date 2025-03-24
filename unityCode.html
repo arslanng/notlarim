@@ -95,6 +95,7 @@
             <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end " style="max-height: 400px; overflow: auto;">
                 <nav class="nav nav-pills flex-column ">
                   <a class="nav-link" href="#basicCarController">Basit Araç Kontroller</a>
+                  <a class="nav-link" href="#animalFeeding">Proje 2: Hayvan Besleme</a>
                 </nav>
               </nav>
         </div>
@@ -166,6 +167,198 @@ public class FollowPlayer : MonoBehaviour // Kameranın nesneyi takip etmesi iç
 }
 
                   </pre>
+              </div>
+            </div>
+            <div id="2">
+              <div id="animalFeeding">
+                <h1>Proje 2: Hayvan Besleme</h1>
+                <h2>Oyuncu kontrolleri</h2>
+                <p>
+                  Bu komut dosyası player GameObject'ine eklenir ve oyuncunun yatay hareketini ve yemek atmasını kontrol eder.
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    [Header("Player Movement")] //Kullanıcı hareketi için gerekli değişkenler
+    public float horizontalInput;
+    public float speed = 10.0f;
+    public float xRange = 10.0f;
+
+    [Header("Player Bullet")] // Kullanıcı mermisi için gerekli değişkenler
+    public GameObject projectilePrefab;
+
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Yatay input alındı
+        horizontalInput = Input.GetAxis("Horizontal");
+
+        //Yatay sınırlara gelindiğinde pozisyonun sabitlenip değişmemesi sağlandı
+        if(transform.position.x &lt; -xRange)
+        {
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+        }
+
+        if (transform.position.x > xRange)
+        {
+            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+        }
+
+        //Yatay hareket
+        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+
+        if (Input.GetKeyDown(KeyCode.Space)) //Space tuşuna basıldığında projectilePrefab oluşturur.
+        {
+            Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+        }
+    }
+}
+
+                  </pre>
+                </p>
+                <h2>İleri Doğru Hareket</h2>
+                <p>
+                  Bu komut dosyası hayvan GameObject'ine ve atılacak gıda GameObject'ine eklenir ve GameObject'in ileri doğru hareketini kontrol eder.
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class MoveForward : MonoBehaviour
+{
+    public float speed = 40.0f; // başlangıç hız değeri. public olduğundan unity içinde düzenlenir.
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+    }
+}
+
+                  </pre>
+                </p>
+                <h2>Oyun Alanı Sınırını Aşanları Yok Et</h2>
+                <p>
+                  Bu komut dosyası hayvan GameObject'ine ve atılacak gıda GameObject'ine eklenir ve GameObject'in alan sınırını aşınca yok olmasını sağlar.
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class DestroyOutOfBounds : MonoBehaviour
+{
+    public float topBound = 30.0f; // nesne için üst sınır değeri
+    public float lowerBound = -10.0f; // nesne için alt sınır değeri
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (transform.position.z > topBound) // nesnenin z pozisyonu sınır değerinden büyükse 
+        {
+            Destroy(gameObject); //nesneyi yok et
+        }
+        else if (transform.position.z &lt; lowerBound) // nesnenin z pozisyonu sınır değerinden küçükse 
+        {
+            Destroy(gameObject); //nesneyi yok et
+            Debug.Log("Game Over"); // konsola gameover yaz
+        }
+    }
+}
+                  </pre>
+                </p>
+                <h2>Çarpışmaları Tespit Et</h2>
+                <p>
+                  Bu komut dosyası hayvan GameObject'ine ve atılacak gıda GameObject'ine eklenir ve GameObject'lerin çarpışmasını kontrol eder. Çarpışanların yok olmasını sağlar
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class DetectCollisions : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject); // mevcut gameObject'i yok eder
+        Destroy(other.gameObject); // Çarpışılan diğer gameObject'i yok eder.
+    }
+}
+                  </pre>
+                </p>
+                <h2>Rasgele Hayvan Üret</h2>
+                <p>
+                  Adından da anlaşıldığı gibi.
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class SpawnManager : MonoBehaviour
+{
+    public GameObject[] animalPrefabs; // animal Prefableri tutan dizi
+
+    private float spawnDelay = 2;
+    private float spawnInterval = 1.5f;
+    void Start()
+    {
+        InvokeRepeating("SpawnRandomAnimal", spawnDelay, spawnInterval); // başlanıçtan sonra bir fonksiyonu uyandırmak için kullanılır. ilk parametre fonksiyon adı. ikincisi başlangıştan itibaren kaç saniyede başlatılacağı. üçüncüsü ise hangi aralıkla tekrar edeceği.
+    }
+
+    void Update()
+    {
+        
+    }
+    void SpawnRandomAnimal() //Random Animal üreten fonksiyon
+    {
+        int animalIndex = Random.Range(0, animalPrefabs.Length); // animalPrefabs dizisinin uzunluğu arasında rastgele bir sayı oluştur
+        Vector3 spawnPos = new Vector3(Random.Range(-15, 15), 0, 20); // x eksenlerinde rastgele bir konum oluştur
+        Instantiate(animalPrefabs[animalIndex], spawnPos, animalPrefabs[animalIndex].transform.rotation); // rastgele bir hayvanı rastgele bir konumda oluştur
+    }
+}
+                  </pre>
+                </p>
+              </div>
+              <div id="colorChange">
+                <h1>Renk Değiştirme</h1>
+                <p>
+                  Atandığı nesneye random renk atayan kod:
+                  <pre class="prettyprint ms-0">
+using System.Collections;
+using System.Collections.Generic;
+using JetBrains.Annotations;
+using UnityEngine;
+
+public class Cube : MonoBehaviour
+{
+    public MeshRenderer Renderer; // MeshRenderer component tanımlandı
+
+    void Start()
+    {        
+        Material material = Renderer.material; // Renderer component'ine erişildi ve material değişkenine atandı
+
+        material.color = new Color(Random.Range(0.1f, 1f), Random.Range(0.1f, 1f), Random.Range(0.1f, 1f), Random.Range(0.5f, 1f)); // material değişkeninin rengi rastgele olarak değiştirildi
+    }
+}
+                  </pre>
+                </p>
               </div>
             </div>
           </div>
