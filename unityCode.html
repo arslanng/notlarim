@@ -97,6 +97,7 @@
                   <a class="nav-link" href="#basicCarController">Basit Araç Kontroller</a>
                   <a class="nav-link" href="#animalFeeding">Proje 2: Hayvan Besleme</a>
                   <a class="nav-link" href="#colorChange">Renk Değiştirme</a>
+                  <a class="nav-link" href="#runnerGame">Proje 3: Koşu Oyunu</a>
                 </nav>
               </nav>
         </div>
@@ -358,6 +359,184 @@ public class Cube : MonoBehaviour
         material.color = new Color(Random.Range(0.1f, 1f), Random.Range(0.1f, 1f), Random.Range(0.1f, 1f), Random.Range(0.5f, 1f)); // material değişkeninin rengi rastgele olarak değiştirildi
     }
 }
+                  </pre>
+                </p>
+              </div>
+            </div>
+            <div id="3">
+              <div id="runnerGame">
+                <h1>Proje 3: Koşu Oyunu</h1>
+                <p>
+                  Bu projede engellerin üzerinden atlayan ve durmadan koşan bir karakter yapacağız. Karakter konumunda sabitken arkaplan ve engeller karaktere doğru gelecek. Karakter engelle çarpışana kadar bu döngü sonsuz devam edecek.
+                </p>
+                <h2>PlayerController.cs</h2>
+                <p>
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    private Rigidbody playerRb; // bir nesneye kuvvet uygulayacaksak rigitbody kompanentine ihtiyacımız var
+
+    // Animasyolar:
+    private Animator playerAnim; // objenin animasyonlarını kontrol eder
+
+    // VFX
+    public ParticleSystem explosionParticle;
+    public ParticleSystem dirtParticle;
+
+    // SFX
+    public AudioClip jumpSound;
+    public AudioClip crashSound;
+    private AudioSource playerAudio;
+
+    // Zıplama
+    public float jumpForce = 10; // objenin zıplama kuvveti
+    public float gravityModifier; // objenin düşme hızını ayarlar
+    bool isGrounded = true; // objenin yere değip değmediğini kontrol eder
+
+    // Oyun devam durumu
+    public bool gameOver = false; // oyunun bitip bitmediğini kontrol eder
+
+    void Start()
+    {
+        // Zıplama
+        playerRb = GetComponent&lt;Rigidbody>(); // objenin rigidbody bileşenini alır
+        Physics.gravity *= gravityModifier; // fizik motorunun yerçekimini ayarlar
+
+        // Animasyon
+        playerAnim = GetComponent&lt;Animator>(); // objenin animator bileşenini alır
+
+        // SFX
+        playerAudio = GetComponent&lt;AudioSource>();
+    }
+
+    void Update()
+    {
+        // Space ile zıplama:
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded && !gameOver) // space tuşuna basıldığında, obje yere değdiğinde ve oyun bitmediyse
+        {
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // objenye yukarı doğru bir kuvvet uygular (birinci parametre yön, ikinci parametre kuvvet)
+            isGrounded = false; // objenin yere değmediğini belirtir
+            playerAnim.SetTrigger("Jump_trig"); // objenin zıplama animasyonunu çalıştırır
+            dirtParticle.Stop(); // Ayaktan çıkan toz efektini durdur
+            playerAudio.PlayOneShot(jumpSound, 1.0f); // Zıplama sesini çal
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground")) // obje yere değdiğinde
+        {
+            isGrounded = true; // objenin yere değdiğini belirtir
+            dirtParticle.Play(); // ayaktan çıkan toz efektini başlat
+        }
+        else if (collision.gameObject.CompareTag("Obstacle")) // obje engelle çarpıştığında (Oyun bittiğinde)
+        {
+            gameOver = true; // oyunun bittiğini belirtir
+            Debug.Log("Game Over!"); // konsola "Game Over!" yazar
+            playerAnim.SetBool("Death_b", true); // objenin ölüm animasyonunu çalıştırır
+            playerAnim.SetInteger("DeathType_int", 1); // objenin ölüm animasyonunu çalıştırır
+            explosionParticle.Play(); // patlama VFX
+            dirtParticle.Stop(); // Ayaktan çıkan toz efektini durdur
+            playerAudio.PlayOneShot(crashSound, 1.0f); // oyun sonu SFX
+        }
+    }
+}
+
+
+                  </pre>
+                </p>
+                <h2>MoveLeft.cs</h2>
+                <p>
+                  engellerin ve backgroundun sola doğru hareket etmesini sağlayan kod
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class MoveLeft : MonoBehaviour
+{
+    public float speed = 30;
+    private PlayerController playerControllerScript; // PlayerController scripti
+    private float leftBound = -15; // objenin hareket edebileceği en sol sınır
+
+    void Start()
+    {
+        playerControllerScript = GameObject.Find("Player").GetComponent&lt;PlayerController>(); // PlayerController scriptini alır
+    }
+    void Update()
+    {
+        if(playerControllerScript.gameOver == false) // PlayerController scriptindeki gameOver değişkeni false olduğu sürece 
+        {
+            transform.Translate(Vector3.left * Time.deltaTime * speed); // hareket ettirir
+        }
+        if(transform.position.x &lt; leftBound && gameObject.CompareTag("Obstacle")) // obje sınıra ulaştığında ve engelse
+        {
+            Destroy(gameObject); // objeyi yok eder
+        }
+    }
+}
+
+                  </pre>
+                </p>
+                <h2>RepeatBackground</h2>
+                <p>
+                  Yarısı hareket ettiğinde backgroundu başlangıç konumuna tekrar çeken kod.
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class RepeatBackground : MonoBehaviour
+{
+    private Vector3 startPos;
+    private float repeatWidth;
+    void Start()
+    {
+        startPos = transform.position;
+        repeatWidth = GetComponent&lt;BoxCollider>().size.x / 2; // BoxCollider'ın yarısını alır. Bunun için nesneye box collider eklendi.
+    }
+
+    void Update()
+    {
+        if(transform.position.x &lt; startPos.x - repeatWidth)
+        {
+            transform.position = startPos;
+        }
+    }
+}
+
+                  </pre> 
+                </p>
+                <h2>SpawnManager.cs</h2>
+                <p>
+                  Prefab olarak atanan engelleri belirlenen zaman aralıklarında oluşturan kod
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class SpawnManager : MonoBehaviour
+{
+    public GameObject obstaclePrefab;
+    private Vector3 spawnPos = new Vector3(25, 0, 0); // engellerin oluşturulacağı konum
+    private float startDelay = 2;
+    private float repeatRate = 2;
+    PlayerController playerControllerScript; // PlayerController scripti
+    void Start()
+    {
+        playerControllerScript = GameObject.Find("Player").GetComponent&lt;PlayerController>(); // PlayerController scriptini alır
+        InvokeRepeating("SpawnObstacle", startDelay, repeatRate); // belirli aralıklarla SpawnObstacle fonksiyonunu çağırır
+    }
+
+    void Update()
+    {
+        
+    }
+    void SpawnObstacle() // engel oluşturur
+    {
+        if(playerControllerScript.gameOver == false) // PlayerController scriptindeki gameOver değişkeni false olduğu sürece
+        {
+            Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+        }
+    }
+}
+
                   </pre>
                 </p>
               </div>
