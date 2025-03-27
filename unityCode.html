@@ -98,6 +98,7 @@
                   <a class="nav-link" href="#animalFeeding">Proje 2: Hayvan Besleme</a>
                   <a class="nav-link" href="#colorChange">Renk Değiştirme</a>
                   <a class="nav-link" href="#runnerGame">Proje 3: Koşu Oyunu</a>
+                  <a class="nav-link" href="#physicsGameController">Physics Game Controller</a>
                 </nav>
               </nav>
         </div>
@@ -539,6 +540,110 @@ public class SpawnManager : MonoBehaviour
 
                   </pre>
                 </p>
+              </div>
+              <div id="physicsGameController">
+                <h1>Physics Game Controller</h1>
+                <p>
+                  Bu bölümde fizik tabanlı bir oyun kontrolcüsü anlatılmıştır.
+                </p>
+                <h2>PlayerController.cs</h2>
+                <p>
+                  <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public float speed = 10.0f;
+    // inputları almak için değişkenler
+    private float verticalInput;
+    private float horizontalInput;
+    // sınırlar için değişkenler
+    private float bottomBound = -2.0f;
+    private float zxBound = 24.0f;
+    // zıplama ve yerde olup olmadığını kontrol etmek için değişkenler
+    private bool isGrounded;
+    private bool jumpInput;
+    // Rigidbody ve konum değişkenleri
+    private Rigidbody playerRb;
+    private Vector3 playerPos;
+    void Start()
+    {
+        playerRb = GetComponent&lt;Rigidbody>();
+        playerPos = transform.position; // Oyuncunun başlangıç konumunu alıyoruz. Aşağı düşerse konum sıfırlama için kullanacağız.
+    }
+
+    void Update() // Kullanıcıdan gelen inputları almak için Update fonksiyonunu kullanıyoruz. FixedUpdate Inputları almak için uygun değil.
+    {
+        // Inputları alıyoruz.
+        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) // Zıplama inputu
+        {
+            jumpInput = true;
+        }
+    }
+    void FixedUpdate() // Fiziksel işlemleri yapmak için FixedUpdate fonksiyonunu kullanıyoruz.
+    {
+
+        MovePLayer(); // Oyuncuyu hareket ettiriyoruz.
+        Jump();     // Zıplama işlemini yapıyoruz.
+        ConstainPlayerPosition();   // Oyuncunun sınırlarını belirliyoruz.
+    }
+    private void OnCollisionEnter(Collision collision)      // Yerde olup olmadığını kontrol etmek için OnCollisionEnter fonksiyonunu kullanıyoruz.
+    {
+        if (collision != null)
+        {
+            isGrounded = true;
+        }
+    }
+
+    void MovePLayer()
+    {
+        // Fizik temelli hareket ettirme işlemi. Uyguladığımız gücün yönüne göre hareket eder.
+        playerRb.AddForce(verticalInput * speed * Vector3.forward);
+        playerRb.AddForce(horizontalInput * speed * Vector3.right);
+    }
+
+    void Jump()
+    {
+        if (jumpInput) // Zıplama
+        {
+            playerRb.AddForce(Vector3.up * speed, ForceMode.Impulse);
+            isGrounded = false;
+            jumpInput = false;
+        }
+    }
+
+    void ConstainPlayerPosition()
+    {
+        // Aşağı düşerse konum sıfırlama
+        if (transform.position.y &lt; bottomBound)
+        {
+            transform.position = playerPos;
+        }
+
+        // Görünmez sınırlar
+        if (transform.position.x > zxBound)
+        {
+            transform.position = new Vector3(zxBound, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x &lt; -zxBound)
+        {
+            transform.position = new Vector3(-zxBound, transform.position.y, transform.position.z);
+        }
+        if (transform.position.z > zxBound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zxBound);
+        }
+        if (transform.position.z &lt; -zxBound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zxBound);
+        }
+    }
+}
+
+                  </pre>
               </div>
             </div>
           </div>
