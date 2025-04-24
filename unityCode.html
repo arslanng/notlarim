@@ -99,6 +99,7 @@
                   <a class="nav-link" href="#colorChange">Renk Değiştirme</a>
                   <a class="nav-link" href="#runnerGame">Proje 3: Koşu Oyunu</a>
                   <a class="nav-link" href="#physicsGameController">Physics Game Controller</a>
+                  <a class="nav-link" href="#sumoGame">Proje 4: Sumo Game</a>
                 </nav>
               </nav>
         </div>
@@ -645,6 +646,163 @@ public class PlayerController : MonoBehaviour
 
                   </pre>
               </div>
+            </div>
+            <div id="4">
+                <div id="sumoGame">
+                    <h1>Proje 4: Sumo Gam</h1>
+                    <p>
+                        Oyunumuzda sınırlı bir alanda küresel bir karakteri yönetiyoruz. Her dalgada o dalga sayısı kadar düşman küre bizi alanın dışına atmaya çalışıyor. Player kontrol mantığı rigidbody üzerinden addforce fonksiyonu ile bakış açısına göre ileri - geri ile yapılıyor. horizontalInput ile de bakış açısı değiştiriliyor.
+                    </p>
+                    <h2>PlayerController</h2>
+                    <pre class="prettyprint ms-0">
+using System.Collections; // IEnumerator kullanabilmek için gerekli
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour // Player gameobjetine atanan script
+{
+    public float speed = 5f;
+    private Rigidbody playerRb; // player bileşenine güç uygulamak için kullanılır
+    private GameObject focalPoint; // ana kameranın parenti olarak atanan gameobject. Kamera bakış açısını ayarlamak için kullanılır
+    private float powerUpStrength = 15f;
+    public bool hasPowerUp = false; // oyuncunun güçlendirme alıp almadığını kontrol etmek için kullanılır
+    public GameObject powerupIndicator; // güçlendirme alındığında gösterilecek olan gameobject
+    void Start()
+    {
+        playerRb = GetComponent&lt;Rigidbody>(); // Rigidbody bileşenini alır
+        focalPoint = GameObject.Find("Focal Point"); // sahnedeki "Focal Point" isimli gameobjecti bulur
+    }
+
+    void Update()
+    {
+        float forwardInput = Input.GetAxis("Vertical"); // W ve S tuşları ile ileri geri hareket için kullanılır
+        playerRb.AddForce(forwardInput * speed * focalPoint.transform.forward); // oyuncunun bakış açısına göre hareket ettirir
+
+        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0); // güçlendirme göstergesinin oyuncunun altında görünmesini sağlar  
+    }
+
+    private void OnTriggerEnter(Collider other)    // oyuncunun bir nesneye çarpması durumunda tetiklenir
+    {
+        if (other.CompareTag("Powerup")) // "Powerup" tagine sahip bir nesneye çarparsa
+        {
+            hasPowerUp = true; // güçlendirme alındı
+            powerupIndicator.gameObject.SetActive(true); // güçlendirme göstergesini aktif eder
+            Destroy(other.gameObject); //  güçlendirme nesnesini yok eder
+            StartCoroutine(PowerUpCooldownRoutine()); // güçlendirme süresini başlatır
+        }
+    }
+
+    IEnumerator PowerUpCooldownRoutine() // güçlendirme süresini başlatan coroutine
+    {
+        yield return new WaitForSeconds(7); // 7 saniye bekler
+        hasPowerUp = false; // güçlendirme süresi doldu
+        powerupIndicator.gameObject.SetActive(false); // güçlendirme göstergesini kapatır
+    }
+    
+    private void OnCollisionEnter(Collision collision) // oyuncunun bir nesneye çarpması durumunda tetiklenir
+    {
+        if (collision.gameObject.CompareTag("Enemy") && hasPowerUp) // "Enemy" tagine sahip bir nesneye çarparsa ve güçlendirme almışsa
+        {
+            Rigidbody enemyRb = collision.gameObject.GetComponent&lt;Rigidbody>(); // çarpılan nesnenin Rigidbody bileşenini alır
+            Vector3 awayFromPlayer = collision.transform.position - transform.position; // oyuncunun pozisyonundan çarpılan nesnenin pozisyonunu çıkararak oyuncudan uzak bir vektör oluşturur
+
+            enemyRb.AddForce(awayFromPlayer * powerUpStrength, ForceMode.Impulse); // çarpılan nesneye güç uygular
+        }
+    }
+}
+
+                    </pre>
+                    <h2>RotateCamera</h2>
+                    <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class RotateCamera : MonoBehaviour // Kamerayı döndürmek için kullanılan ve focal point gameobjectine atanan script
+{
+    public float rotationSpeed = 50f;
+
+    void Update()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
+    }
+}
+                    </pre>
+                    <h2>Enemy</h2>
+                    <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class Enemy : MonoBehaviour // Düşman gameobjectine atanan script
+{
+    public float speed = 3f;
+    private Rigidbody enemyRb;
+    private GameObject player;
+    void Start()
+    { 
+        enemyRb = GetComponent&lt;Rigidbody>(); // Rigidbody bileşenini alır
+        player = GameObject.Find("Player"); // sahnedeki "Player" isimli gameobjecti bulur
+    }
+
+    void Update()
+    {
+        Vector3 lookDirection = (player.transform.position - transform.position).normalized; // Düşmanın bakış açısını oyuncunun pozisyonuna göre ayarlar
+        enemyRb.AddForce(lookDirection * speed); // Düşmanı oyuncuya doğru hareket ettirir
+
+        if (transform.position.y &lt; -10) // Düşman y ekseninde -10'un altına düşerse
+        {
+            Destroy(gameObject); // Düşmanı yok eder
+        }
+    }
+}
+                    </pre>
+                    <h2>SpawnManager</h2>
+                    <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class SpawnManager : MonoBehaviour // SpawnManager gameobjectine atanan script. 
+{
+    public GameObject enemyPrefab; // düşman prefabı
+    public GameObject powerupPrefab; // güçlendirme prefabı
+    private float spawnRange = 9f; // düşmanların spawn olacağı alanın boyutu
+    public int enemyCount; // düşman sayısı
+    public int waveNumber = 1; // dalga numarası
+    void Start()
+    {
+        SpawnEnemyWave(waveNumber); // ilk dalga düşmanları spawn edilir
+        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation); // ilk güçlendirme spawn edilir
+    }
+
+    void Update()
+    {
+        enemyCount = FindObjectsByType&lt;Enemy>(FindObjectsSortMode.None).Length; // sahnedeki düşman sayısını alır
+
+        if (enemyCount == 0) // sahnedeki düşman sayısı 0 ise
+        {
+            waveNumber++; // dalga numarasını artırır
+            SpawnEnemyWave(waveNumber); // yeni dalga düşmanları spawn edilir
+            Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation); // yeni güçlendirme spawn edilir
+        }
+    }
+
+    void SpawnEnemyWave(int enemiesToSpawn) // düşman dalgasını spawn eden fonksiyon
+    {
+        for(int i = 0; i &lt; enemiesToSpawn; i++) // düşman sayısı kadar döngü oluşturur
+        {
+            Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation); // düşman prefabını rastgele bir pozisyonda spawn eder
+        }
+    }
+
+    private Vector3 GenerateSpawnPosition() // rastgele spawn pozisyonu oluşturan fonksiyon. void fonksiyonu yerine Vector3 döndürür.
+    {
+        float spawnPosX = Random.Range(-spawnRange, spawnRange);
+        float spawnPosZ = Random.Range(-spawnRange, spawnRange);
+
+        Vector3 randomPos = new Vector3(spawnPosX, 0, spawnPosZ);
+
+        return randomPos; // rastgele pozisyonu döndürür
+    }
+}
+
+                    </pre>
+                </div>
             </div>
           </div>
         </div>
