@@ -101,6 +101,9 @@
                   <a class="nav-link" href="#physicsGameController">Physics Game Controller</a>
                   <a class="nav-link" href="#sumoGame">Proje 4: Sumo Game</a>
                   <a class="nav-link" href="#extraChallenges4">Proje 4 için Daha Fazla Mücadele</a>
+                  <a class="nav-link" href="#userInterface">Proje 5: Clicky Crates</a>
+                  <a class="nav-link" href="#extraChallenges5">Proje 5 için Daha Fazla Mücadele</a>
+                  <a class="nav-link" href="#optimization">Proje Optimizasyonu</a>
                 </nav>
               </nav>
         </div>
@@ -1354,6 +1357,612 @@ public class Enemy : MonoBehaviour
 }
 
                         </pre>
+                    </p>
+                </div>
+            </div>
+            <div id="5">
+                <div id="userInterface">
+                    <h1>Proje 5: Clicky Crates</h1>
+                    <p>
+                        Basit bir giriş sayfasında zorluk seçtikten sonra nesnelerin yukarıya uçtuğu, bizim de ekrana gelen nesneleri tıklayarak yok ettiğimiz bir oyun hazırladık.
+                    </p>
+                    <h2>GameManager</h2>
+                    <pre class="prettyprint ms-0">
+using System.Collections; // IEnumerator için 
+using System.Collections.Generic; // List kullanabilmek için
+using TMPro; // TextMeshPro kullanabilmek için
+using UnityEngine.SceneManagement; // SceneManager kullanabilmek için
+using UnityEngine.UI; // UI kullanabilmek için
+using UnityEngine;
+
+public class GameManager : MonoBehaviour // Oyun yöneticisi scripti. Game Manager adında bir empty Game Objecte atandı.
+{
+    [Header("UI References")] // UI referansları için başlık ekliyoruz.
+    public TextMeshProUGUI scoreText; // TextMeshProUGUI kullanarak scoreText'i tanımlıyoruz.
+    public TextMeshProUGUI gameOverText; // TextMeshProUGUI kullanarak gameOverText'i tanımlıyoruz.
+    public Button restartButton; // Restart butonunu tanımlıyoruz.
+    public GameObject titleScreen; // Başlangıç ekranını tanımlıyoruz. (Title ve zorluk butonları bunun child'idır.)
+
+    [Header("Spawn Object References")] // Spawn nesne referansları için başlık ekliyoruz.
+    public List&lt;GameObject> targets;
+    public bool isGameActive; // Oyun aktif mi değil mi kontrol etmek için bir boolean değişkeni tanımlıyoruz.
+    private int score; // Skor değişkenini tanımlıyoruz.
+    public float spawnRate = 1.0f;
+
+    
+    IEnumerator SpawnTarget() // Nesnekeri Spawn eden fonksiyon. Başlatıldıktan sonra belirli aralıklarla tekrarlayan bir işlem olduğundan bu yöntemle yazıldı.
+    {
+        while (isGameActive) // while şart true olduğu sürece içerideki döngüyü devam ettirir.
+        {
+            yield return new WaitForSeconds(spawnRate); // spawnRate kadar bekle.
+            int index = Random.Range(0, targets.Count);
+            Instantiate(targets[index]); // targets listesinden rastgele bir nesne seçip instantiate ediyoruz.
+        }
+    }
+
+    public void UpdateScore(int scoreToAdd) // Skor güncelleme fonksiyonu.
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score: " + score; // Skor metnini güncelliyoruz.
+    }
+
+    public void GameOver() // Oyun bitti fonksiyonu.
+    {
+        gameOverText.gameObject.SetActive(true); // Oyun bitti metnini gösteriyoruz.
+        restartButton.gameObject.SetActive(true); // Yeniden başlat butonunu gösteriyoruz.
+
+        isGameActive = false; // Oyun artık aktif değil.
+    }
+
+    public void RestartGame() // Yeniden başlatma fonksiyonu.
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Mevcut sahneyi yeniden yüklüyoruz.
+    }
+    public void StartGame(int difficulty) // Oyun başlatma fonksiyonu. Zorluk seviyesini parametre olarak alır.
+    {
+        isGameActive = true; // Oyun aktif.
+        score = 0; // Skor değişkenini sıfırlıyoruz.
+        spawnRate /= difficulty; // Zorluk seviyesine göre spawnRate'i ayarlıyoruz.
+        titleScreen.gameObject.SetActive(false); // Başlangıç ekranını gizliyoruz.
+
+        StartCoroutine(SpawnTarget()); // SpawnTarget() fonksiyonunu başlatır.
+        UpdateScore(0); // Skor metnini güncelliyoruz.
+    }
+}
+
+                    </pre>
+
+                    <h2>Target</h2>
+                    <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class Target : MonoBehaviour // Hedef nesnesi için bir script. Bu script, hedef nesnelerin hareketini ve etkileşimlerini kontrol eder. Hedef olarak kullanılacak prefablara eklendi.
+{
+    private Rigidbody targetRb;
+    private float minSpeed = 12;
+    private float maxSpeed = 16;
+    private float maxTorque = 10;
+    private float xRange = 4;
+    private float ySpawnPos = -6;
+
+    private GameManager gameManager; // GameManager scriptini tanımlıyoruz.
+
+    public int pointValue; // Target'ın puan değerini tanımlıyoruz.
+
+    public ParticleSystem explosionParticle;
+    void Start() // Nesne oluşturulduğunda çalışacak olan fonksiyon.
+    {
+        targetRb = GetComponent<Rigidbody>();
+        
+        targetRb.AddForce(RandomForce(), ForceMode.Impulse);
+        targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
+
+        transform.position = RandomSpawnPos();
+
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>(); // GameManager scriptini buluyoruz.
+
+    }
+
+    private void OnMouseDown() // Obje mouse ile tıklandığında çalışacak olan fonksiyon.
+    {
+        if(gameManager.isGameActive) // Eğer oyun aktifse
+        {
+            Destroy(gameObject); // Mouse tıklandığında gameObject'i yok eder.
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation); // Patlama efektini oluşturur.
+            gameManager.UpdateScore(pointValue); // GameManager'daki UpdateScore fonksiyonunu çağırır ve 1 ekler.
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) // Bir nesne triger özellikli collider'a girdiğinde çalışacak olan fonksiyon. Bunun için nesnelerin ekranı terkettiği yerde isTrigger = true bir nesne yer alır 
+    {
+        Destroy(gameObject); // Eğer bir nesne collider'a girerse onu yok eder.
+        if (!gameObject.CompareTag("Bad")) // Eğer nesne "Bad" tag'ine sahip değilse
+        {
+            gameManager.GameOver(); // GameManager'daki GameOver fonksiyonunu çağırır.
+        }
+
+    }
+
+    Vector3 RandomForce() // Rastgele bir kuvvet oluşturur.
+    {
+        return Vector3.up * Random.Range(minSpeed, maxSpeed);
+    }
+
+    float RandomTorque() // Rastgele bir tork oluşturur.
+    {
+        return Random.Range(-maxTorque, maxTorque);
+    }
+
+    Vector3 RandomSpawnPos() // Rastgele bir konum oluşturur.
+    {
+        return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
+    }
+}
+
+                    </pre>
+
+                    <h2>DiffucltyButton</h2>
+                    <pre class="prettyprint ms-0">
+using UnityEngine.UI;
+using UnityEngine;
+
+public class DiffucltyButton : MonoBehaviour // Zorluk seviyesini ayarladığımız butonlara atadığımız script
+{
+    private Button button;
+    private GameManager gameManager; // GameManager scriptini tanımlıyoruz.
+
+    public int difficulty; // Zorluk seviyesini tanımlıyoruz.
+    void Start()
+    {
+        button = GetComponent&lt;Button>();
+        gameManager = GameObject.Find("Game Manager").GetComponent&lt;GameManager>(); // GameManager scriptini buluyoruz.
+
+        button.onClick.AddListener(SetDifficulty); // Butona tıklandığında SetDifficulty fonksiyonunu çağırır.
+    }
+
+    void Update()
+    {
+        
+    }
+    void SetDifficulty()
+    {
+        gameManager.StartGame(difficulty); // GameManager'daki StartGame fonksiyonunu çağırır.
+    }
+}
+
+                    </pre>
+                </div>
+                <div id="extraChallenges5">
+                    <h1>Proje 5 için Daha Fazla Mücadele</h1>
+                    <h2>LiveUI</h2>
+                    <p>
+                        Canvas içinde "Live Text" oluşturuldu ve yerleştirildi. "GameManager" scriptinde değişken olarak eklendi. Game Manager içinde inspectorde ataması yapıldı. "GameManager" scriptinde LiveUpdate() fonksiyonu oluşturuldu ve bu fonksiyon "Target" scriptinde kullanıldı
+                    </p>
+                    <h3>GameManager</h3>
+                    <pre class="prettyprint ms-0">
+using System.Collections; 
+using System.Collections.Generic; 
+using TMPro; 
+using UnityEngine.SceneManagement; 
+using UnityEngine.UI; 
+using UnityEngine;
+
+public class GameManager : MonoBehaviour 
+{
+    [Header("UI References")] 
+    public TextMeshProUGUI scoreText; 
+    public TextMeshProUGUI gameOverText; 
+    public TextMeshProUGUI liveText; // TextMeshProUGUI kullanarak liveText'i tanımlıyoruz.
+    public Button restartButton; 
+    public GameObject titleScreen; 
+
+    [Header("Spawn Object References")] 
+    public List &lt;GameObject> targets;
+    public bool isGameActive; 
+    private int score; 
+    private int lives; // can değişkeni
+    public float spawnRate = 1.0f;
+
+    IEnumerator SpawnTarget() 
+    {
+        while (isGameActive) 
+        {
+            yield return new WaitForSeconds(spawnRate);  
+            int index = Random.Range(0, targets.Count);
+            Instantiate(targets[index]); 
+        }
+    }
+
+    public void UpdateScore(int scoreToAdd) 
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score: " + score; 
+    }
+    public void LiveUpdate() // Can güncelleme fonksiyonu
+    {
+        lives--; // Her can kaybında 1 azaltıyoruz.
+        liveText.text = "Lives: " + lives; // Can sayısını güncelliyoruz.
+        if (lives &lt;= 0) // Eğer can sayısı 0 veya daha az ise
+        {
+            GameOver(); // Oyun bitiyor.
+            lives = 0; // Can sayısını 0 yapıyoruz.
+        }
+    }
+    public void GameOver() 
+    {
+        gameOverText.gameObject.SetActive(true); 
+        restartButton.gameObject.SetActive(true); 
+
+        isGameActive = false; 
+    }
+
+    public void RestartGame() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+    }
+    public void StartGame(int difficulty) 
+    {
+        lives = 3; // Oyuna başlarken can sayısını 3 yapıyoruz.
+        isGameActive = true; 
+        score = 0; 
+        spawnRate /= difficulty; 
+        titleScreen.gameObject.SetActive(false);
+
+        liveText.text = "Lives: " + lives; // Can sayısını başlatıyoruz.
+
+        StartCoroutine(SpawnTarget()); 
+        UpdateScore(0); 
+    }
+}
+
+                    </pre>
+                    <h3>Target</h3>
+                    <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class Target : MonoBehaviour 
+{
+    private Rigidbody targetRb;
+    private float minSpeed = 12;
+    private float maxSpeed = 16;
+    private float maxTorque = 10;
+    private float xRange = 4;
+    private float ySpawnPos = -6;
+
+    private GameManager gameManager; 
+
+    public int pointValue; 
+
+    public ParticleSystem explosionParticle;
+    void Start() 
+    {
+        targetRb = GetComponent&lt;Rigidbody>();
+        
+        targetRb.AddForce(RandomForce(), ForceMode.Impulse);
+        targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
+
+        transform.position = RandomSpawnPos();
+
+        gameManager = GameObject.Find("Game Manager").GetComponent&lt;GameManager>(); 
+
+    }
+
+    private void OnMouseDown() 
+    {
+        if(gameManager.isGameActive) 
+        {
+            Destroy(gameObject); 
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation); 
+            gameManager.UpdateScore(pointValue); 
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        Destroy(gameObject); 
+        if (!gameObject.CompareTag("Bad")) // buradaki GameOver() fonksiyonunu sildik ve can azalma fonksiyonunu çağırdık. GameOver() fonksiyonu bir şarta bağlanarak LiveUpdate() içinden çağırılıyor.
+        {
+            gameManager.LiveUpdate(); 
+        }
+
+    }
+
+    Vector3 RandomForce() 
+    {
+        return Vector3.up * Random.Range(minSpeed, maxSpeed);
+    }
+
+    float RandomTorque() 
+    {
+        return Random.Range(-maxTorque, maxTorque);
+    }
+
+    Vector3 RandomSpawnPos() 
+    {
+        return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
+    }
+}
+
+                    </pre>
+                    <h2>Pause Button</h2>
+                    <p>
+                        Oyunu duraklatacak bir buton ve duraklatmada gösterilecek bir panel oluşturduk. "GameManager" scriptine aşağıdaki fonksiyonu ekleyip foksiyonu butona atadık.
+                    </p>
+                    <pre class="prettyprint ms-0">
+using System.Collections; 
+using System.Collections.Generic; 
+using TMPro; 
+using UnityEngine.SceneManagement; 
+using UnityEngine.UI; 
+using UnityEngine;
+
+public class GameManager : MonoBehaviour 
+{
+    [Header("UI References")] 
+    public TextMeshProUGUI scoreText; 
+    public TextMeshProUGUI gameOverText; 
+    public TextMeshProUGUI liveText; 
+    public Button restartButton; 
+    public GameObject titleScreen;
+    public GameObject pausePanel; // pause paneli için referans
+
+    [Header("Spawn Object References")] 
+    public List&lt;GameObject> targets;
+
+    public bool isGameActive = false; 
+    private int score; 
+    private int lives; 
+    public float spawnRate = 1.0f;
+    bool isPaused = false; // oyunun duraklatılıp duraklatılmadığını kontrol etmek için bir değişken
+
+    IEnumerator SpawnTarget() 
+    {
+        while (isGameActive) 
+        {
+            yield return new WaitForSeconds(spawnRate);  
+            int index = Random.Range(0, targets.Count);
+            Instantiate(targets[index]); 
+        }
+    }
+
+    public void UpdateScore(int scoreToAdd) 
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score: " + score; 
+    }
+    public void LiveUpdate() 
+    {
+        lives--; 
+        liveText.text = "Lives: " + lives; 
+        if (lives &lt;= 0) 
+        {
+            GameOver(); 
+            lives = 0; 
+        }
+    }
+    public void GameOver() 
+    {
+        gameOverText.gameObject.SetActive(true); 
+        restartButton.gameObject.SetActive(true); 
+
+        isGameActive = false; 
+    }
+
+    public void RestartGame() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+    }
+    public void StartGame(int difficulty) 
+    {
+        lives = 3; 
+        isGameActive = true; 
+        score = 0; 
+        spawnRate /= difficulty; 
+        titleScreen.gameObject.SetActive(false);
+
+        liveText.text = "Lives: " + lives; 
+
+        StartCoroutine(SpawnTarget()); 
+        UpdateScore(0); 
+    }
+
+    public void PauseGame()
+    {
+        if(isGameActive)
+        {
+            isPaused = !isPaused; // Oyunun duraklatılıp duraklatılmadığını tersine çeviriyoruz.
+            if (isPaused)
+            {
+                Time.timeScale = 0; // Zamanı duraklatıyoruz.
+                pausePanel.SetActive(true); // Pause panelini açıyoruz.
+            }
+            else
+            {
+                Time.timeScale = 1; // Zamanı devam ettiriyoruz.
+                pausePanel.SetActive(false); // Pause panelini kapatıyoruz.
+            }
+        }
+    }
+}
+
+                    </pre>
+                    <h2>Click and Swipe</h2>
+                    <p>
+                        Tıklayıp kaydırdığında bir iz bırakan ve temas ettiği hedefleri yok eden fruit ninja tarzı bir yapı için "ClickAndSwipe" adında bir script oluşturduk ve bunu EmtyGameObject oluşturup içine attık.
+                    </p>
+                    <pre class="prettyprint ms-0">
+using UnityEngine;
+
+[RequireComponent(typeof(TrailRenderer), typeof(BoxCollider))] // Bu bileşenin ekli olduğu GameObject'e TrailRenderer ve BoxCollider bileşenlerinin zorunlu olarak eklenmesini sağlar.
+
+public class ClickAndSwipe : MonoBehaviour
+{
+    private GameManager gameManager;    // GameManager scriptine erişim için bir referans
+    private Camera cam;                 // Ana kameraya referans
+    private Vector3 mousePos;           // Fare konumunun dünya koordinatındaki karşılığı
+    private TrailRenderer trail;        // İz (trail) çizmek için TrailRenderer bileşeni
+    private BoxCollider col;            // Çarpışmaları algılamak için BoxCollider bileşeni
+
+    private bool swiping = false;       // Kullanıcının şu anda sürükleme yapıp yapmadığını tutar
+
+    void Awake()
+    {
+        cam = Camera.main; // Ana kamerayı bulur ve referansa atar
+        trail = GetComponent&lt;TrailRenderer>(); // Aynı GameObject'teki TrailRenderer bileşenini alır
+        col = GetComponent&lt;BoxCollider>();     // Aynı GameObject'teki BoxCollider bileşenini alır
+
+        trail.enabled = false; // Başlangıçta iz çizilmesin
+        col.enabled = false;   // Başlangıçta çarpışma olmasın
+
+        gameManager = GameObject.Find("Game Manager").GetComponent&lt;GameManager>(); // "Game Manager" isimli GameObject'i bulup içindeki GameManager scriptine erişir
+    }
+
+    void UpdateMousePosition() // Fare pozisyonunu dünya koordinatlarına çevirip GameObject'in pozisyonunu günceller
+    {
+        mousePos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f)); // Fare pozisyonu ekran koordinatlarında. Kamera z= -10f olduğundan bunu 10f derinliğe sahip dünya koordinatına çeviriyoruz.
+        transform.position = mousePos; // GameObject'in pozisyonu fare konumuna ayarlanıyor
+    }
+
+    void UpdateComponents() // TrailRenderer ve BoxCollider bileşenlerini swiping durumuna göre aktif/pasif yapar
+    {
+        trail.enabled = swiping; // Eğer swiping true ise trail çizilir
+        col.enabled = swiping;   // Eğer swiping true ise collider aktif olur
+    }
+
+    void Update()
+    {
+        if(gameManager) // Eğer gameManager referansı varsa çalışmaya devam eder
+        {
+            if (Input.GetMouseButtonDown(0)) // Sol fare tuşuna basıldıysa
+            {
+                swiping = true;     // Sürükleme başlatılır
+                UpdateComponents(); // Bileşenler aktif hale getirilir
+            }
+            else if (Input.GetMouseButtonUp(0)) // Sol fare tuşu bırakıldıysa
+            {
+                swiping = false;    // Sürükleme durdurulur
+                UpdateComponents(); // Bileşenler pasif hale getirilir
+            }
+
+            if(swiping) // Eğer sürükleme devam ediyorsa pozisyon güncellenir
+            {
+                UpdateMousePosition(); // Fare konumuna göre nesne konumu güncellenir
+            }
+        }   
+    }
+
+    private void OnCollisionEnter(Collision collision) // Başka bir nesneyle çarpışma gerçekleştiğinde çalışır
+    {
+        // Eğer çarpılan nesnenin tag'i "Target" ya da "Bad" ise:
+        if(collision.gameObject.CompareTag("Target") || collision.gameObject.CompareTag("Bad"))
+        {
+            // O nesnenin Target scriptine ulaşıp yok etme fonksiyonunu çağırır
+            collision.gameObject.GetComponent&lt;Target>().DestroyTarget();
+        }
+    }
+}
+
+                    </pre>
+                    <p>
+                        Kodu eklediğimiz EmptyGameObject seçiliyken inspectorde BoxCollider ve TrailRenderer içinde ayarlar değiştirilir.
+                    </p>
+                </div>
+            </div>
+            <div id="6">
+                <div id="optimization">
+                    <h1>Proje Optimizasyonu</h1>
+                    <p>
+                        Değişkenler ve event fonksiyonlar için <a href="https://chatgpt.com/share/68234f7d-0fa8-8004-b5e5-5206fb73da30">referans chatgpt konuşması</a>
+                    </p>
+                    <h2>Nesne Havuzu</h2>
+                    <p>
+                        Tekrar tekrak kullanılacak mermi vs nesneler için Object Pooling diye bir teknik kullanılabilir. Bunun için önce prefabı ve prefabdan oluşturulan nesneleri de tutan bir fonksiyon oluşturulur ve sahnede çağırılması için bir gameobjecte atanır.
+                        <pre class="prettyprint ms-0">
+using System.Collections.Generic;
+using UnityEngine;
+
+// Bu sınıf bir nesne havuzu (object pool) yöneticisi olarak kullanılacak
+public class ObjectPool : MonoBehaviour
+{
+    // Singleton mantığıyla tek bir örneğe erişmek için static değişken tanımlanır
+    public static ObjectPool SharedInstance;
+
+    // Havuzda tutulacak (hazır bekletilecek) GameObject listesidir
+    public List&lt;GameObject> pooledObjects;
+
+    // Havuzda üretilecek olan prefab (örn: mermi prefabı)
+    public GameObject objectToPool;
+
+    // Havuzda başlangıçta kaç tane nesne üretileceğini belirler
+    public int amountToPool;
+
+    // Awake() fonksiyonu, script aktif olduğunda Start'tan önce çalışır
+    void Awake()
+    {
+        // Bu sınıfın örneğini static olarak saklıyoruz (Singleton gibi)
+        SharedInstance = this;
+    }
+
+    // Start() fonksiyonu oyun başladığında bir kez çalışır
+    void Start()
+    {
+        // Boş bir liste oluşturuyoruz
+        pooledObjects = new List&lt;GameObject>();
+
+        GameObject tmp;
+
+        // Belirtilen sayıda nesneyi havuzda oluşturuyoruz
+        for (int i = 0; i &lt; amountToPool; i++)
+        {
+            // Prefab'den bir nesne oluştur
+            tmp = Instantiate(objectToPool);
+
+            // Şimdilik bu nesneyi sahnede aktif etme (gizli tut)
+            tmp.SetActive(false);
+
+            // Havuz listesine ekle
+            pooledObjects.Add(tmp);
+        }
+    }
+
+    public GameObject GetPooledObject()
+    {
+        // Havuzda aktif olmayan bir nesne bul
+        for (int i = 0; i &lt; pooledObjects.Count; i++)
+        {
+            // Eğer nesne aktif değilse, onu döndür
+            if (!pooledObjects[i].activeInHierarchy)
+            {
+                return pooledObjects[i];
+            }
+        }
+        // Eğer havuzda aktif olmayan bir nesne yoksa, null döndür
+        return null;
+    }
+}
+
+
+                        </pre>
+                    </p>
+                    <p>
+                        Daha sonra ateş etme fonksiyonu olarak Instantiate(...) yerine:
+                        <pre class="prettyprint ms-0">
+...
+    {
+        GameObject bullet = ObjectPool.SharedInstance.GetPooledObject(); //ObjectPool'dan bir nesne alır
+        bullet.transform.position = transform.position; //Nesnenin pozisyonunu oyuncunun pozisyonuna ayarlar
+        bullet.transform.rotation = transform.rotation; //Nesnenin rotasını oyuncunun rotasına ayarlar
+        bullet.SetActive(true); //Nesneyi aktif hale getirir
+    }
+...
+                        </pre>
+                        Destroy() ile nesne yok etmek yerine de:
+                        <pre class="prettyprint ms-0">
+...
+    gameObject.SetActive(false);
+...
+                        </pre>
+                        kodları kullanılır. Herhangi bir şekilde nesne havuzunda oluşturulan ve kullanılan nesnelerden silinen olursa kod hata verir.
                     </p>
                 </div>
             </div>
