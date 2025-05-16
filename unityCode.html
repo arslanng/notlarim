@@ -104,6 +104,7 @@
                   <a class="nav-link" href="#userInterface">Proje 5: Clicky Crates</a>
                   <a class="nav-link" href="#extraChallenges5">Proje 5 için Daha Fazla Mücadele</a>
                   <a class="nav-link" href="#optimization">Proje Optimizasyonu</a>
+                  <a class="nav-link" href="#dataManage">Data Kalıcılığı</a>
                 </nav>
               </nav>
         </div>
@@ -1963,6 +1964,70 @@ public class ObjectPool : MonoBehaviour
 ...
                         </pre>
                         kodları kullanılır. Herhangi bir şekilde nesne havuzunda oluşturulan ve kullanılan nesnelerden silinen olursa kod hata verir.
+                    </p>
+                </div>
+            </div>
+            <div id="7">
+                <div id="dataManage">
+                    <h1>Data Kalıcılığı</h1>
+                    <p>
+                        Data kalıcılığı için iki ayrı senaryo için iki farklı metot kullandık. İlk metot datanın scene değiştiğinde de varlığını koruması için kullanıldı. "Singleton" olarak adlandırılan bu metotta bir gameobject oluşturduk. Bu nesneyi DontDestroyOnLoad() metotu ile scene değişikliklerinde de korunur hale getirdik. Bu sayede nesnede yer alan data korunmuş oldu. "static" özelliği de değişkenin içeriğinin sınıf üzerinden doğrudan ulaşılabilmesini sağladı.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using System.IO; // File işlemleri için gerekli
+
+public class MainManager : MonoBehaviour
+{
+    public static MainManager Instance; // static niteliği verinin dışarıdan erişilmesini sağlar.
+    public Color TeamColor;
+
+    private void Awake()
+    {
+        // Singleton pattern: Bu sınıfın tek bir örneği olmasını sağlar
+        if (Instance != null) 
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject); // nesnenin sayfa geçişlerinde silinmesini engeller.
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        Verimizin proje kapatıldığında da saklanabilmesi için veri JSON formatına çevirilip bir dosyaya kaydedilir. Bu şekilde saklanabilmesi için verinin bir kalıbının (class) oluşturulması gerelir. Verinin JSONa çevirilebilmesi için class kalıbının [System.Serializable] ön eki ile serializable yapılması gerekir.
+                        <pre class="prettyprint ms-0">
+...
+ [System.Serializable] // Bu sınıfın JSON formatında serileştirilmesini sağlar
+ class SaveData // Veri kaydetmek için kullanılacak sınıf
+ {
+     public Color TeamColor;
+ }
+
+ public void SaveColor() // Rengi kaydetmek için kullanılacak fonksiyon
+ {
+     SaveData data = new SaveData(); // Yeni bir veri nesnesi oluştur
+     data.TeamColor = TeamColor; // Rengi ata
+
+     string json = JsonUtility.ToJson(data); // Veriyi JSON formatına çevir
+
+     File.WriteAllText(Application.persistentDataPath + "/savefile.json", json); // Veriyi dosyaya kaydet
+ }
+
+ public void LoadColor() // Rengi yüklemek için kullanılacak fonksiyon
+ {
+     string path = Application.persistentDataPath + "/savefile.json"; // Dosya yolu
+     if (File.Exists(path)) // Dosya var mı kontrol et
+     {
+         string json = File.ReadAllText(path); // Dosyadan veriyi oku
+         SaveData data = JsonUtility.FromJson&lt;SaveData>(json); // JSON formatından nesneye çevir
+
+         TeamColor = data.TeamColor; // Rengi ayarla
+     }
+ }
+ ...
+                        </pre>
                     </p>
                 </div>
             </div>
