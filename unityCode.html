@@ -105,6 +105,8 @@
                   <a class="nav-link" href="#extraChallenges5">Proje 5 için Daha Fazla Mücadele</a>
                   <a class="nav-link" href="#optimization">Proje Optimizasyonu</a>
                   <a class="nav-link" href="#dataManage">Data Kalıcılığı</a>
+                  <a class="nav-link" href="#onyEditorCode">Sadece Editörde Çalışan if Örneği</a>
+                  <a class="nav-link" href="#opp">OOP-Nesne Yönelimli PRogramlama İlkeleri</a>
                 </nav>
               </nav>
         </div>
@@ -2029,6 +2031,242 @@ public class MainManager : MonoBehaviour
  ...
                         </pre>
                     </p>
+                </div>
+                <div id="onyEditorCode">
+                    <h1>Sadece Editörde Çalışan if Örneği</h1>
+                    <p>
+                        Aşağıdaki kod sadece Unity testlerinde şartlı çalışır. Amacı da zaten editörde mi reel de mi olduğunu anlayıp ona göre davranmaktır.
+                        <pre class="prettyprint ms-0">
+    public void QuitGame()
+    {
+#if UNITY_EDITOR // editörde isek çalışır
+        UnityEditor.EditorApplication.isPlaying = false;
+#else // editörde değilsek çalışır
+        Application.Quit();
+#endif // şartı sonlandırır.
+    }
+                        </pre>
+                    </p>
+                </div>
+            </div>
+            <div id="8">
+                <div id="opp">
+                    <h1>OOP-Nesne Yönelimli PRogramlama İlkeleri</h1>
+                <p>
+                    Nesne yönelimli programlama (OOP), birbirleriyle ilişkili yöntem ve değişkenlerin bir nesne (OOP'deki "nesne"!) olarak adlandırılan şeyi oluşturmak üzere bir araya getirildiği bir programlama modelidir.
+                </p>
+                <p>
+                    Nesne yönelimli programlamanın dört ana ilkesi vardır ve bunlar genellikle OOP'nin sütunları olarak adlandırılır. Bunlar: <b>soyutlama</b>, <b>kapsülleme</b>, <b>kalıtım</b> ve <b>polimorfizm</b>dir. Nesne yönelimli programlama modelini başarılı bir şekilde kullanmak için bu dört ilkeyi öğrenmeniz ve uygulamanız yeterlidir!
+                </p>
+                <div>
+                    <h2>Soyutlama</h2>
+                    <p>
+                        Soyutlamanın temeli bir fonksiyon ve kavram olarak ayrılabilecek kodları ayrı bir fonksiyon haline getirmek ve kullanılacağı yerde bir fonksiyon olarak çağırmaktır.
+                    </p>
+                    <pre class="prettyprint ms-0">
+public void Update()
+{
+    if (Input.GetMouseButtonDown(0))
+    {
+        sayi++;
+        Debug.Log("Sayı kazanıldı");
+        UIMainScene.Instance.SetNewInfoContent(uiInfo);
+    }
+}
+                    </pre>
+                    yerine
+                    <pre class="prettyprint ms-0">
+public void Update()
+{
+    if (Input.GetMouseButtonDown(0))
+    {
+        SayiArtisi();
+    }
+}
+
+pubic void SayiArtisi()
+{
+    sayi++;
+    Debug.Log("Sayı kazanıldı");
+    UIMainScene.Instance.SetNewInfoContent(uiInfo);
+}
+                    </pre>
+                    <p>
+                        Bu şekilde "sayı arttırma" görevi ile bağlantılı kodlar SayiArtisi(); fonksiyonunda soyutlandı. Bu sayede hem okunaklı hale geldi, hem başka bir yerde gerekirse tekrar kullanılabilir hem de diğer kodlarla karışmadan bu işlevle ilgili düzenleme yapılabilir. 
+                    </p>
+                    <p>
+                        Soyutlama, kodunuzu basitleştirir ve temiz tutarak programcıların kullanımını kolaylaştırır. Soyutlamanın temel ilkesi, gereksiz karmaşıklığı diğer programcılardan gizlemek ve yalnızca kodun olması gerektiği gibi çalışması için gerekenleri ortaya çıkarmaktır. Bu, karmaşık iç işleyişi alıp yerine soyut, daha yeniden kullanılabilir kod parçaları koymak anlamına gelir.  Bu ilkeye uymak, daha sonra yeniden düzenleme sürecini de basitleştirir. 
+                    </p>
+                </div>
+                <div>
+                    <h2>Kalıtım ve Polimorfizm</h2>
+                    <p>
+                        Nesne yönelimli programlamanın sonraki iki ayağı olan kalıtım ve çok biçimlilik birbiriyle derinden ilişkilidir. Kalıtım, adından da anlaşılacağı gibi, farklı nesneler arasındaki ebeveyn-çocuk ilişkilerine odaklanır. Çok biçimlilik kalıtımın bir sonucudur ve bir alt sınıfın bir üst sınıftan miras aldığı şeyi değiştirmesi sürecini ifade eder. Kalıtım ve çok biçimlilik birlikte kullanıldığında bir uygulamada yazmanız gereken kod miktarını azaltabilir.
+                    </p>
+                    <p>
+                        <b>Kalıtım</b>, kendisinden diğer sınıfların (alt sınıflar olarak adlandırılır) oluşturulabileceği bir ana sınıf (üst sınıf olarak da bilinir) oluşturma sürecidir. Bir alt sınıf, ana sınıfın tüm özelliklerini otomatik olarak üstlenir veya miras alır. Bir uygulamada farklı sınıfların benzer özellikleri paylaşması yaygın bir durumdur. Örneğin, bir video oyununda birçok farklı türde düşman sınıfı bulunabilir, ancak kendi sağlıklarını yönetme ve oyuncuya hasar verme yeteneği gibi aynı temel özellikleri paylaşmaları muhtemeldir. Kalıtım sayesinde, her bir düşman sınıfı için bu sağlık ve hasar işlevlerini yazma ihtiyacı ortadan kalkar, böylece her bir sınıfa özgü işlevleri yazmaya odaklanabilirsiniz.
+                    </p>
+                    <p>
+                        MonoBehaviour, tüm temel Unity komut dosyası işlevlerinin miras aldığı temel sınıftır. MonoBehaviour olmadan, OnTriggerEnter, GetComponent'i çağıramaz, hatta Start ya da Update'i bile kullanamazdınız! 
+                    </p>
+                    <p>
+                        Yukarıdaki diyagramda, miras aldıkları sınıfı MonoBehaviour'dan Enemy'ye değiştirdikleri için tüm alt düşman sınıflarının Unity işlevselliğine erişme yeteneklerini kaybedecekleri görülebilir. Neyse ki, Enemy sınıfı Monobehaviour'dan miras aldığından, Enemy sınıfının çocukları da MonoBehaviour'un çocukları olarak kabul edilir!
+                    </p>
+                    <p>
+                        Bir üst sınıftan temel işlevselliği miras almak yararlı olsa da, alt sınıfın üst sınıfla tam olarak aynı eylemi gerçekleştirmesini istemediğiniz birçok durum vardır. <b>polimorfizm</b>, bir nesnenin ana sınıfından miras aldığı işlevselliği değiştirmenize olanak tanır.
+                    </p>
+                    <pre class="prettyprint ms-0">
+public class Enemy : MonoBehaviour 
+{ 
+    public void DealDamage () 
+    {
+        Player.Health -= 10;
+    }
+}
+                    </pre>
+                    <p>
+                        Yukarıdaki örnekte, Enemy sınıfının, çağrıldığında Oyuncunun canından 10 puan silen bir DealDamage yöntemi vardır. Enemy sınıfının bir çocuğu olan Thief sınıfı, bu yöntemi sınıf içinde bildirmeden çağırabilir.
+                    </p>
+                    <pre class="prettyprint ms-0">
+public class Thief : Enemy
+{
+    private void Update()
+    {
+        if (Player.isSeen)
+        {
+            DealDamage(); // üst sınıftaki yöntem çağrılabilir
+        }
+    }
+}
+                    </pre>
+                    <p>
+                        Hırsız'ın Düşman sınıfıyla tam olarak aynı miktarda hasar vermesini istiyorsanız bu iyidir, ancak bunun farklı bir değer olmasını istiyorsanız ne olur? Bu değişiklikler, yöntem geçersiz kılma olarak bilinen süreçle gerçekleştirilir.
+                    </p>
+                    <p>
+                        Ana sınıfta geçersiz kılmak istediğiniz yöntem öncelikle geçersiz kılınmak üzere işaretlenmelidir. Bu, onu sanal bir yöntem haline getirerek yapılır:
+                    </p>
+                    <pre class="prettyprint ms-0">
+public class Enemy : MonoBehaviour { 
+
+    public virtual void DealDamage () { // virtual anahtar sözcüğü geçersiz kılmaya izin verir
+
+        Player.Health -= 10;
+    }
+}
+                    </pre>
+                    <p>
+                        Bir metodun sanal olarak tanımlanması, o metodun geçersiz kılınabileceğini ancak geçersiz kılınmak zorunda olmadığını gösterir. Bu mevcut örnek için idealdir, çünkü Thief alt sınıfının DealDamage yöntemini değiştirmesi gerekebilirken, Scoundrel sınıfı gibi başka bir alt sınıfın bunu yapması gerekmeyebilir.
+                    </p>
+                    <p>
+                        DealDamage virtual olarak ayarlandıktan sonra, Thief sınıfı DealDamage için kendi yöntemini oluşturarak bunu geçersiz kılabilir. Burada virtual yerine override notasyonunu kullanacağız. Artık yönteme özellikle Hırsız sınıfı için yeni işlevler ekleyebilirsiniz:
+                    </p>
+                    <pre class="prettyprint ms-0">
+public class Thief : Enemy
+{
+    public override void DealDamage() // üst sınıftaki sanal yöntemleri geçersiz kılabilir
+    {
+        Player.Health -= 2;
+        CommitPettyTheft();
+    }
+    private void Update()
+    {
+        if (Player.isSeen)
+        {
+            DealDamage();
+        }
+    }
+}
+                    </pre>
+                    <p>
+                        Thief sınıfı artık ana Düşman sınıfından daha az miktarda hasar verir ve ayrıca Thief'e özgü yöntemlerden birini çağırır. Artık DealDamage bir Thief nesnesi tarafından Update içinde çağrıldığında, ana yöntem yerine özelleştirilmiş DealDamage yöntemi çağrılacaktır.
+                    </p>
+                    <p>
+                        override edildikten sonra parent class'taki kalıtılan koda ihtiyaç duyarsak da "base" üzerinden çağırabiliriz.  
+                    </p>
+                    <pre class="prettyprint ms-0">
+...
+base.DealDamage();
+...
+                    </pre>
+                </div>
+                <div>
+                    <h2>Kapsülleme</h2>
+                    <p>
+                        Soyutlama gibi, kapsülleme de kodunuzun altında yatan karmaşıklık ile onu kullanan diğer kodlar arasında bir ayrım seviyesinin korunmasına büyük ölçüde odaklanır. Benzerlikleri nedeniyle, bazen OOP uygulamalarının bazı takipçilerinin soyutlama ve kapsüllemeyi tipik olarak kapsülleme başlığı altında tek bir sütunda grupladığını göreceksiniz. Ancak, biz önemli olduğunu düşündüğümüz bir ayrım yapıyoruz: soyutlama tamamen kodu diğer programcılar için daha basit hale getirmek üzere özetlemekle ilgiliyken, kapsülleme tamamen değerleri ve verileri bir kapsülün içindeymiş gibi korumakla ilgilidir, böylece başkalarının neye erişip erişemeyeceğini kontrol edersiniz.
+                    </p>
+                    <p>
+                        Özetle verilere dışarıdan erişimi kısıtlamakla ilgilidir.
+                    </p>
+                    <p>
+                        Esasen, yapmak istediğimiz şey değişkeni "salt okunur" yapmak, diğer sınıfların değeri almasına izin vermek, ancak değeri ayarlamamaktır. Bunu yapmak için, değişkenimizin nasıl ve ne zaman kullanılabileceğini kontrol edecek olan C# get ve set yöntemlerini kullanabiliriz.
+                    </p>
+                    <pre class="prettyprint ms-0">
+public static MainManager Instance { get; } 
+                    </pre>
+                    <p>
+                        Bir değişkene get veya set erişimcisi eklediğiniz anda, bu değişken bir Özellik haline gelir - bu özel yöntemler aracılığıyla dahili verilere erişim sağlayan özel bir değişken türü.
+                    </p>
+                    <p>
+                        Bu haliyle başka bir script üzerinden veri alınabilir ama değiştirilemez.
+                    </p>
+                    <pre class="prettyprint ms-0">
+public static MainManager Instance { get; private set; }
+                    </pre>
+                    <p>
+                        Bu kodla, artık özelliğin değerini sınıf içinden ayarlayabilir, ancak yalnızca sınıf dışından alabilirsiniz. Yalnızca kendi sınıfından değişiklikleri kabul edecek şekilde kapsüllenmiştir, dış dünyadan kötüye kullanım ve bozulmaya karşı güvenlidir!
+                    </p>
+                    <p>
+                        Negatif değerler almasını istemediğimiz bir kodumuz olsun.
+                    </p>
+                    <pre class="prettyprint ms-0">
+public float ProductionSpeed;
+                    </pre>
+                    <p>
+                        Değerleri sınırlamak için bir yedekleme alanına ihtiyacımız var.
+                    </p>
+                    <pre class="prettyprint ms-0">
+private float m_ProductionSpeed = 0,5f; // yedekleme alanı ekledik.
+public float ProductionSpeed;
+                    </pre>
+                    <p>
+                        public olan ProductionSpeed'e erişildiğinde verilecek default değeri yedekleme alanından (m_ProductionSpeed) aldık. Set edilecek değer olarak da yedekleme alanını gösterdik.
+                    </p>
+                    <pre class="prettyprint ms-0">
+private float m_ProductionSpeed = 0.5f;
+public float ProductionSpeed // semicolonu sildik
+{
+    get { return m_ProductionSpeed; } // yedekleme alanı değerini gönder
+    set { m_ProductionSpeed = value; } // yedekleme alanı değişkenini değiştir.
+}
+                    </pre>
+                    <p>
+                        Aynı scrips içinde değişiklikleri yedekleme alanından almamız gerektiğinden bu scriptteki <i>ProductionSpeed</i> kısımlarını <i>m_ProductionSpeed</i> ile değiştirdik.
+                    </p>
+                    <p>
+                        ProductionSpeed için set edilen değeri kısıtladık.
+                    </p>
+                    <pre class="prettyprint ms-0">
+private float m_ProductionSpeed = 0.5f;
+public float ProductionSpeed // semicolonu sildik
+{
+    get { return m_ProductionSpeed; } 
+    set
+    {
+        if (value &lt; 0.0f) 
+        {
+            Debug.LogError("You can't set a negative production speed!");
+        }
+        else
+        {
+            m_ProductionSpeed = value; 
+        }
+    }
+}
+                    </pre>
+                    <p>
+                        Kapsülleme, kodunuzun yalnızca açıkça tasarlandığı şekilde kullanılması için değerlere erişme ve bunları değiştirme yollarını kontrol ederek kodunuzu korur. Soyutlama gibi, kapsülleme de kodunuzun altında yatan karmaşıklık ile ona erişebilecek programcılar arasına bir ayrım katmanı yerleştirir.
+                    </p>
+                </div>
                 </div>
             </div>
           </div>
