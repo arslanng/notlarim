@@ -96,7 +96,15 @@
                 <nav class="nav nav-pills flex-column ">
                   <a class="nav-link" href="#giris">Giriş</a>
                   <a class="nav-link" href="#degiskenler">Değişkenler</a>
-                  
+                  <a class="nav-link" href="#tipDonusumleri">Tip Dönüşümleri</a>
+                  <a class="nav-link" href="#tryCatch">Hata Yönetimi</a>
+                  <a class="nav-link" href="#ifelse">Koşul Durumları</a>
+                  <a class="nav-link" href="#forLoop">for Döngüsü</a>
+                  <a class="nav-link" href="#whileAndForeach">while Ve foreach</a>
+                  <a class="nav-link" href="#list">Liste Yapıları: Tanımlama, Erişim ve Döngüde Kullanma</a>
+                  <a class="nav-link" href="#array">Array Sınıfı Methodları</a>
+                  <a class="nav-link" href="#createFunction">Metot Tanımlama</a>
+                  <a class="nav-link" href="#overloading">Out Parametre ve Metot Overloading</a>
                 </nav>
               </nav>
         </div>
@@ -195,9 +203,564 @@ string dateTime3 = DateTime.Now.ToString("hh:mm:ss"); // 04:45:57
 Console.WriteLine(dateTime3);
                     </pre>
                 </div>
+                <div id="tipDonusumleri">
+                  <h1>Tip Dönüşümleri</h1>
+                  <pre class="prettyprint ms-0">
+// Implicit Conversion (bilinçli dönüşüm): Düşük kapasiteli değişkenin daha yüksek kapasiteli değişkene dönüşmesi. C# kendisi yapar.
+
+byte a = 5;
+sbyte b = 30;
+short c = 10;
+int d = a + b + c; // int daha yüksek kapasiteli olduğundan hata vermeden dönüşür. 
+
+long h = d; // long da int den daha büyük kapasiteli
+
+float i = h;
+
+char e = 'A';
+string f = "Murat";
+string g = f + e; 
+object j = e + f + d; // string charı, object ise hepsini kapsar.
+
+// Explicit Conversion (bilinçli Dönüşüm) C# kendisi yapamaz. Biz kod ile yaparız.
+int x = 4;
+byte y = (byte)x; // sağdaki veriyi parantez içindekine dönüştürmeye çalışır.
+
+int z = 100;
+byte t = (byte)z;
+
+float w = 10.3f;
+byte v = (byte)w; // v = 10 olur.
+
+// ToString(): veriyi string yapar.
+int xx = 6;
+string yy = xx.ToString();
+
+string zz = 12.5f.ToString();
+
+//System.Convert
+string s1 = "10", s2 = "20";
+int sayi1, sayi2;
+int toplam;
+
+sayi1 = Convert.ToInt32(s1);
+sayi2 = Convert.ToInt32(s2);
+
+toplam = sayi1 + sayi2;
+
+//Parse(string): sadece string ifadelerde kullanılır.
+ParseMethod(); // değişken isimlerini tekrar kullanabilmek için ayrı bir fonksiyon oluştuldu ve bu fonksiyon burada çağırıldı.
+
+void ParseMethod()
+{
+    string metin1 = "10";
+    string metin2 = "10.25";
+    int rakam1;
+    double double1;
+
+    rakam1 = Int32.Parse(metin1); // 10
+    double1 = Double.Parse(metin2); // 10.25
+}
+                  </pre>
+                </div>
+                <div id="tryCatch">
+                  <h1>Hata Yönetimi</h1>
+                  <p>
+                    Hatalar ikiye ayrılır. <b>Compile-time hatalar</b> derleme sırasında derleyicinin verdiği hatalardır. Söz dizimi hataları, değişken hataları vs. <b>Run Time hatalar</b> ise kod çalıştırıldığında ortaya çıkar. Bunları yakalamak için try-catch-finally yapısı kullanılabilir.
+                  </p>
+                  <pre class="prettyprint ms-0">
+try // hataya neden olabilecek kodu yazıyoruz.
+{
+    Console.WriteLine("Bir Sayı Gİriniz");
+    int sayi = Convert.ToInt32(Console.ReadLine()); // int bir değer girilmezse hata verir.
+    Console.WriteLine("Girdiğiniz sayı: " + sayi);
+}
+catch (Exception ex) //Exception classında ex değişkeni ile hata yakalandı.
+{
+    Console.WriteLine("Hata1: " + ex);
+}
+finally // kod hata alsın veya almasın çalışacak kodlar buraya yazılır. Bu alanın varlığı opsiyonel.
+{
+    Console.WriteLine("İşlem Tamamlandı");
+}
+
+// Boş arguman yakalama örneği
+try
+{
+    int a = int.Parse(null); // hata vermesi için null verildi.
+}
+catch (ArgumentNullException ex) // hata null hatası ise aşağıdaki kodu çalıştırır.
+{
+    Console.WriteLine("Boş değer girdiniz");
+    Console.WriteLine("hata2: " + ex);
+}
+
+// Hatalı format yakalama örneği
+try
+{
+    int a = int.Parse("aaa"); // hata vermesi için yanlış format verildi.
+}
+catch (FormatException ex) // hata format hatası ise aşağıdaki kodu çalıştırır.
+{
+    Console.WriteLine("Veri tipi uygun değil");
+    Console.WriteLine("hata3: " + ex);
+}
+
+// değişkenin aralığının dışında hata yakalama örneği
+try
+{
+    int i = int.Parse("-2000000000000"); // hata vermesi için int kapsamı dışında bir değer verildi.
+}
+catch (OverflowException ex)
+{
+    Console.WriteLine("Çok küçük veya çok büyük değer girdiniz.");
+    Console.WriteLine("hata4: " + ex);
+}
+                  </pre>
+                  <p>
+                    Konsoldan dönen cevaplar:
+                    <pre class="prettyprint ms-0">
+Bir Sayı Gİriniz
+To send text to the target process's standard input, enter text into the Debug Console's evaluation box while the target process is running. See https://aka.ms/VSCode-CS-LaunchJson-Console for more information.
+a
+Exception thrown: 'System.FormatException' in System.Private.CoreLib.dll
+Hata1: System.FormatException: The input string 'a' was not in a correct format.
+   at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Convert.ToInt32(String value)
+   at Program.&lt;Main>$(String[] args) in C:\Users\at00648\OneDrive - Alliance\Masaüstü2\Patika CSharp101\Hata Yönetimi\Program.cs:line 4
+İşlem Tamamlandı
+Exception thrown: 'System.ArgumentNullException' in System.Private.CoreLib.dll
+Boş değer girdiniz
+hata2: System.ArgumentNullException: Value cannot be null. (Parameter 's')
+   at System.Int32.Parse(String s)
+   at Program.&lt;Main>$(String[] args) in C:\Users\at00648\OneDrive - Alliance\Masaüstü2\Patika CSharp101\Hata Yönetimi\Program.cs:line 18
+Exception thrown: 'System.FormatException' in System.Private.CoreLib.dll
+Veri tipi uygun değil
+hata3: System.FormatException: The input string 'aaa' was not in a correct format.
+   at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Int32.Parse(String s)
+   at Program.&lt;Main>$(String[] args) in C:\Users\at00648\OneDrive - Alliance\Masaüstü2\Patika CSharp101\Hata Yönetimi\Program.cs:line 27
+Exception thrown: 'System.OverflowException' in System.Private.CoreLib.dll
+Çok küçük veya çok büyük değer girdiniz.
+hata4: System.OverflowException: Value was either too large or too small for an Int32.
+   at System.Number.ThrowOverflowException[TInteger]()
+   at System.Int32.Parse(String s)
+   at Program.&lt;Main>$(String[] args) in C:\Users\at00648\OneDrive - Alliance\Masaüstü2\Patika CSharp101\Hata Yönetimi\Program.cs:line 37
+The program '[17296] Hata Yönetimi.exe' has exited with code 0 (0x0).
+                    </pre>
+                  </p>
+                  <p>
+                    VSC kodlarımızın satır numarasının soluna tıklarsak "breakpoint" oluşturur. "Debug and Run" ekranında "run" yaptığımızda kodumuz bu "breakpoint"lerde durur ve bizim en üstte çıkan menüden devam ettirmemizi bekler. Run sırasında takip etmek istediğimiz değişkenleri sağ tıklayıp "add the watch" seçerek değişkeni watch ekranında takip edip değişiklik yapabiliyormuşuz.
+                  </p>
+                </div>
+                <div id="ifelse">
+                  <h1>Koşul Durumları</h1>
+                  <h2>Else - If</h2>
+                  <p>
+                    Normal bildiğimiz if yapısının yaı sıra değişkene şartlı bir şey atarken aşağıdaki yapı da kullanılabilir.
+                  </p>
+                  <pre class="prettyprint ms-0">
+int time = DateTime.Now.Hour
+string selamlama = time>18 ? "iyi akşamlar" : "iyi geceler"
+                  </pre>
+                  <p>
+                    Soru işaretinden önceki şart true ise ilk kısım değil ise ikinci kısım "selamlama" değişkenine atanır.
+                  </p>
+                  <p>
+                    Birden fazla koşul iç içe de yazılabilir.
+                  </p>
+                  <pre class="prettyprint ms-0">
+string selamlama = time >= 6 && time &lt;  12  ? "Günaydın" : time &lt; 18 ?  "iyi akşamlar" : "iyi geceler"
+                  </pre>
+                  <h2>Switch - Case</h2>
+                  <p>
+                    Sabit değerlerle (sayı, harf, enum) kontrol yapılacaksa kullanılır. 
+                  </p>
+                  <pre class="prettyprint ms-0">
+int mounth = DateTime.Now.Month;
+
+switch (mounth) // parantez içinde kontrol edeceğimiz değişken verilir.
+{
+    case 1: // case ifadesinden sonra kontrol edilecek değişkenin eşit olması istenen değer yazıldı. Sırayla kontrol eder
+        Console.WriteLine("Ocak Ayındasınız");
+        break; // switch - case bloğunu sonlandırır.
+    case 2:
+        Console.WriteLine("Şubat Ayındasınız");
+        break;
+    case 3:
+        Console.WriteLine("Mart Ayındasınız");
+        break;
+    case 4:
+        Console.WriteLine("Nisan Ayındasınız");
+        break;
+    case 5:
+        Console.WriteLine("Mayıs Ayındasınız");
+        break;
+    case 6:
+        Console.WriteLine("Haziran Ayındasınız");
+        break;
+    case 7:
+        Console.WriteLine("Temmuz Ayındasınız");
+        break;
+    case 8:
+        Console.WriteLine("Ağustos Ayındasınız");
+        break;
+    case 9:
+        Console.WriteLine("Eylül Ayındasınız");
+        break;
+    case 10:
+        Console.WriteLine("Ekim Ayındasınız");
+        break;
+    case 11:
+        Console.WriteLine("Kasım Ayındasınız");
+        break;
+    case 12:
+        Console.WriteLine("Aralık Ayındasınız");
+        break;
+    default:
+        Console.WriteLine("Hatalı veri girişi");
+        break;
+}
+
+switch (mounth) // birden fazla koşul için aynı sonuç alınacaksa bu koşullar alt alta yazılır. en alta yapılacak işlem ve break yazılır. Breakten önceki doğru olan şartlardan biri uyuyorsa o kod çalışır. yoksa atlayıp bir sonraki grubu değerlendirir.
+{
+    case 12:
+    case 1:
+    case 2:
+        Console.WriteLine("Kış Mevsimindesiniz");
+        break;
+    case 3:
+    case 4:
+    case 5:
+        Console.WriteLine("Bahar Mevsimindesiniz");
+        break;
+    case 6:
+    case 7:
+    case 8:
+        Console.WriteLine("Yaz Mevsimindesiniz");
+        break;
+    case 9:
+    case 10:
+    case 11:
+        Console.WriteLine("Sonbahar mevsimindesiniz");
+        break;
+    default:
+        Console.WriteLine("Hatalı veri");
+        break;
+}
+
+// Switch Expression ve Pattern Matching (C# 8.0+)
+// üstteki ifadelerin switch expression ile yazılmışları:
+
+string ayMesaj = mounth switch
+{
+    1 => "Ocak Ayındasınız",
+    2 => "Şubat Ayındasınız",
+    3 => "Mart Ayındasınız",
+    4 => "Nisan Ayındasınız",
+    5 => "Mayıs Ayındasınız",
+    6 => "Haziran Ayındasınız",
+    7 => "Temmuz Ayındasınız",
+    8 => "Ağustos Ayındasınız",
+    9 => "Eylül Ayındasınız",
+    10 => "Ekim Ayındasınız",
+    11 => "Kasım Ayındasınız",
+    12 => "Aralık Ayındasınız",
+    _ => "hata"
+};
+Console.WriteLine(ayMesaj);
+
+string mevsimMesaj = mounth switch 
+{
+    12 or 1 or 2 => "Kış Mevsimindesiniz",
+    3 or 4 or 5 => "İlkbahar mevsimindesiniz",
+    6 or 7 or 8 => "Yaz Mevsimindesiniz",
+    9 or 10 or 11 => "Sonbahar Mevsimindesiniz",
+    _ => "Geçersiz ay"
+};
+Console.WriteLine(mevsimMesaj);
+                  </pre>
+                </div>
+                <div id="forLoop">
+                    <h1>for Döngüsü</h1>
+                    <pre class="prettyprint ms-0">
+// ekrandan verilen değere kadar olan tek sayıları yazdır.
+int sayac = int.Parse(Console.ReadLine());
+for (int i = 1; i &lt;= sayac; i++)
+{
+    if (i % 2 == 1)
+    {
+        Console.WriteLine(i);
+    }
+}
+
+//1 den 1000 e kadar olan tek sayıların ve çift sayıların toplamını ayrı ayrı yazdır.
+int tekToplam = 0;
+int ciftToplam = 0;
+for (int i = 1; i &lt; 1000; i++)
+{
+    if (i % 2 == 1)
+        tekToplam += i; // şartın sonucunda çalışacak kod tek satır ise {} gerekmiyor.
+    else
+        ciftToplam += i;
+}
+
+Console.WriteLine("Tek toplam: " + tekToplam);
+Console.WriteLine("Çift toplam: " + ciftToplam);
+
+// break: for döndüsünden çıkartır, continue mevcut loopu atlayıp fora devam ettirir.
+
+//break
+for (int i = 1; i &lt;= 10; i++)
+{
+    if (i == 4) // i=4 ise
+        break; // döngü biter. İç içe döngülerde sadece içinde olduğu döngüyü sonlandırır. Dıştaki döngü devam eder.
+    Console.WriteLine(i); // çıktı: 1, 2, 3 
+}
+
+//continue
+for (int i = 1; i &lt;= 10; i++)
+{
+    if (i == 4) // i=4 ise
+        continue; // döngüyü atlar
+    Console.WriteLine(i); // çıktı: 1, 2, 3, 5, 6, 7, 8, 9, 10 (4 yok) 
+}
+
+                    </pre>
+                </div>
+                <div id="whileAndForeach">
+                    <h2>while Ve foreach</h2>
+                    <pre class="prettyprint ms-0">
+//While: bir koşul true olduğu sürece döngüyü çalıştırır.
+
+// 1 den başlayarak konsolda girilen sayıya kadar, sayı dahil ortalama hesaplayıp konsola yazdıran kod:
+using System.Diagnostics;
+
+Console.Write("Lütfen bir Sayi Giriniz");
+int sayi = int.Parse(Console.ReadLine());
+int sayac = 1;
+int toplam = 0;
+while (sayac &lt;= sayi)// parantez içimdeki ifade true olduğu sürece içerideki fonksiyonu devam ettirir
+{
+    toplam += sayac;
+    sayac++;
+}
+float ortalama = toplam / sayi;
+Console.WriteLine(ortalama);
+
+//a-z tüm harfleri konsola yazdır
+char character = 'a';
+while (character &lt;= 'z')
+{
+    Console.Write(character);
+    character++;
+}
+
+//foreach: Bir listedeki tüm ögeler için döngüyü çalıştırır.
+string[] arabalar = { "bmw", "ford", "toyota", "nissan" };
+foreach (var araba in arabalar)// verilen listedeki her elemanı araba değişkenine alır ve onunla işlem yapar.
+{
+    Console.WriteLine(araba);
+}
+                    </pre>
+                </div>
+                <div id="list">
+                    <h1>Liste Yapıları: Tanımlama, Erişim ve Döngüde Kullanma</h1>
+                    <pre class="prettyprint ms-0">
+// dizi oluşturma
+string[] renkler = new string[5]; // adı renkler olan 5 elemanlı elemanları belli olmayan dizi.
+
+string[] hayvanlar = { "kedi", "köpek", "tavuk", "kuş" }; // elemanları belli olan bir dizi.
+
+int[] sayilar; // eleman sayısı ve elemanları belirsiz dizi
+sayilar = new int[5]; // dizinin eleman sayısını 5 yaptık.
+
+// dizilere değer atama ve erişim
+renkler[0] = "mavi"; //renkler dizisinin ilk elamnını "mavi" olarak atadık.
+string hayvan1 = hayvanlar[1]; // hayvan1 değişkenine dizinin ikinci elemanı olan "köpek" atandı
+sayilar[3] = 10; // sayilar dizisinin 4. elemanını 10 olarak atadık.
+
+// döngülerle dizi kullanımı
+// klavyeden girilen "n" kadar sayının ortalamasını alan fonksiyon:
+Console.Write("Lütfen dizinin eleman sayısını giriniz :");
+int diziUzunlugu = int.Parse(Console.ReadLine());
+int[] sayiDizisi = new int[diziUzunlugu];
+
+for (int i = 0; i &lt; diziUzunlugu; i++)
+{
+    Console.Write("Lütfen {0}. sayıyı giriniz", i + 1);
+    sayiDizisi[i] = int.Parse(Console.ReadLine());
+}
+
+int toplam = 0;
+foreach (var sayi in sayiDizisi)
+{
+    toplam += sayi;
+}
+
+Console.Write(toplam / diziUzunlugu);
+                    </pre>
+                </div>
+                <div id="array">
+                    <h1>Array Sınıfı Methodları</h1>
+                    <pre class="prettyprint ms-0">
+int[] sayiDizisi = { 23, 12, 86, 72, 4, 3, 11, 17 };
+// ListeyiYazdir(sayiDizisi); // Çıktı: 23, 12, 86, 72, 4, 3, 11, 17
+
+//Array.Sort(dizi)
+Array.Sort(sayiDizisi);
+// ListeyiYazdir(sayiDizisi); // Çıktı: 3, 4, 11, 12, 17, 23, 72, 86
+
+//Array.Clear(dizi, index, uzunluk) verilen parametreye göre dizideki değerleri sıfırlar
+Array.Clear(sayiDizisi, 2, 3); // index 2 den itibaren 3 tane sıfırla
+// ListeyiYazdir(sayiDizisi); // Çıktı: 3, 4, 0, 0, 0, 23, 72, 86
+
+//Array.Reverse(dizi) dizinin yönünü değiştirir
+Array.Reverse(sayiDizisi);
+// ListeyiYazdir(sayiDizisi); // Çıktı: 86, 72, 23, 0, 0, 0, 4, 3
+
+//Array.IndexOf(dizi, değer) //verilen değer hangi indexte
+// Console.WriteLine(Array.IndexOf(sayiDizisi, 23)); // çıktı: 2
+
+//Array.Resize&lt;tip>(ref dizi, boyut);
+Array.Resize&lt;int>(ref sayiDizisi, 9); // başlangıçta 8 elemanlı sayıDizisini sonuna eleman ekleyerek 9 elemanlı yaptık. Eleman sayısını azaltınca da sondan siliyor.
+ListeyiYazdir(sayiDizisi); // Çıktı: 86, 72, 23, 0, 0, 0, 4, 3, 0
+
+
+void ListeyiYazdir(int[] sayiDizisi)// değişiklikleri konsolda takip etmek icin fonksiyon.
+{
+    foreach (var sayi in sayiDizisi)
+        Console.WriteLine(sayi);
+}
+
+
+                    </pre>
+                </div>
+                <div id="createFunction">
+                    <h1>Metot Tanımlama</h1>
+                    <pre class="prettyprint ms-0">
+// METOT
+/* 
+Erişim_belirteci geri_dönüş_tipi metot_adı(parametre listesi)
+{
+    fonksiyon
+};
+*/
+
+int a = 2;
+int b = 3;
+
+int sonuc = Topla(a, b); // fonksiyon çağırıldı.
+
+static int Topla(int deger1, int deger2) // Aynı classta tanımlı fonkisyon
+{
+    return deger1 + deger2;
+}
+
+
+// Başka Bir Klastan Fonksiyon Çağırmak 
+Metotlar ornek = new Metotlar(); //farklı bir classta tanımlı fonksiyona erişmek için önce o klasın bir örneği alındı.
+ornek.EkranaYazdir(sonuc.ToString()); //alınan örneğin altındaki public fonksiyon çağırıldı.
+
+//Referans ve Kopya Değer ile Çalışmak
+int sonuc2 = ornek.ArttırVeTopla(a, b); // kopyalarla çalışan fonksiyon
+ornek.EkranaYazdir(sonuc2.ToString()); // 7
+ornek.EkranaYazdir((a+b).ToString()); // orijinal değerlerin toplamı başlangıçtaki ile aynı: 5
+
+//ref
+sonuc2 = ornek.ArttırVeTopla2(ref a, ref b); // orijinalleri etkileyen fonksiyon
+ornek.EkranaYazdir(sonuc2.ToString()); // 7
+ornek.EkranaYazdir((a+b).ToString()); // orijinal değerlerin toplamı değişti: 7
+
+class Metotlar // Harici klas 
+{
+    public void EkranaYazdir(string veri)
+    {
+        Console.WriteLine(veri);
+    }
+
+    public int ArttırVeTopla(int deger1, int deger2) // referans olarak alınan değeri içerideki değişkene atar. Değeri değiştirmez. Atanan yeni değişken de fonksiyonun işlevi bitince silinir. (kopyalarla çalışır)
+    {
+        deger1 += 1;
+        deger2 += 1;
+        return deger1 + deger2;
+    }
+// ref (Referans)
+    public int ArttırVeTopla2(ref int deger1, ref int deger2) // referans olarak verilen değerin kendisini alır. Değeri değiştirir. (orijinal değerlerle çalışır)
+    {
+        deger1 += 1;
+        deger2 += 1;
+        return deger1 + deger2;
+    }
+}
+                    </pre>
+                </div>
+                <div id="overloading">
+                    <h1>Out Parametre ve Metot Overloading</h1>
+                    <pre class="prettyprint ms-0">
+// Out parametreler
+string sayi = Console.ReadLine();
+
+bool sonuc = int.TryParse(sayi, out int outSayi); // outdan sonra verilen değişken fonksiyon dışında da kullanılabilir. Global bir değişkendir.
+/*
+bu kod şu şekilde de yazılabilir:
+int outSayi;
+bool sonuc = int.TryParse(sayi, out outSayi);
+*/
+
+if (sonuc)
+{
+    Console.WriteLine("Başarılı");
+    Console.WriteLine(outSayi);
+}
+else
+{
+    Console.WriteLine("Başarısız");
+}
+
+Metotlar instance = new Metotlar();
+instance.Toplam(4, 5, out int toplamaSonucu); // out pramaetre ile yazılan fonksiyon çağırıldı. parametre içinde yaratılan out özellikli değişkenle sonuç yakalandı.
+Console.WriteLine(toplamaSonucu);
+
+// Metot Aşırıyükleme
+/*
+fonksiyonun adı aynı kalarak ama imzası değişerek aynı ada farklı parametre verildiğinde farklı işlem yapması sağlanması durumudur.
+fonksiyonun imzası:
+metod_adı + parametre_sayısı + parametre_tipleri 
+*/
+
+// değişken tipi ve sayısı değiştiğinde çalışan fonksiyon da değişir.
+instance.EkranaYazdir("Murat"); // string: Murat
+instance.EkranaYazdir(18); // int: 18
+instance.EkranaYazdir("Murat", "Esra"); // Strings: Murat ve Esra
+
+class Metotlar
+{
+    public void Toplam(int a, int b, out int toplam) // return yerine out parametre ile yazılan fonksiyon. return edilen değer olmadığından void olarak yazıldı.
+    {
+        toplam = a + b;
+    }
+
+
+    //Aşırı yüklenen fonksiyon(EkranaYazdir();)
+    public void EkranaYazdir(string veri)
+    {
+        Console.WriteLine("string: " + veri);
+    }
+
+    public void EkranaYazdir(int veri)
+    {
+        Console.WriteLine("int: " + veri);
+    }
+
+    public void EkranaYazdir(string veri1, string veri2)
+    {
+        Console.WriteLine("Strings: " + veri1 + " ve " + veri2);
+    }
+}
+                    </pre>
+                </div>
             </div>
-           
-       
           </div>
         </div>
       </div>
