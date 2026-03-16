@@ -107,6 +107,12 @@
                   <a class="nav-link" href="#dataManage">Data Kalıcılığı</a>
                   <a class="nav-link" href="#onyEditorCode">Sadece Editörde Çalışan if Örneği</a>
                   <a class="nav-link" href="#opp">OOP-Nesne Yönelimli PRogramlama İlkeleri</a>
+                  <a class="nav-link" href="#newController">Unity 6 Input Sistemi</a>
+                  <a class="nav-link" href="#inputSystemScripting">Unity 6 Giriş Sistemi Komut Dosyası Oluşturma</a>
+                  <a class="nav-link" href="#inputSystemMobileControls">Unity 6 Giriş Sistemi Mobil Cihaz Kontrolleri</a>
+                  <a class="nav-link" href="#inputSystemUIToolkit">Unity 6 Giriş Sistemi UI Toolkit</a>
+                  <a class="nav-link" href="#rebindInputSystemControls">Unity 6 Input Sistem Kontrollerini Yeniden Bağlama</a>
+                  <a class="nav-link" href="#playerInputComponent">Unity 6 Input Sistem Player Input Component</a>
                 </nav>
               </nav>
         </div>
@@ -115,6 +121,9 @@
             <div id="1">
               <div id="basicCarController">
                 <h1>Basit Araç Kontrolleri</h1>
+                <p>
+                    <i>Bu kısımdaki bilgiler Unity 6 ile değişti. Günceli için <a href="#newController">tıklayınız</a></i>
+                </p>
                 <p>
                   Bu bölümde basit araç kontrolü ve basit kamera kontrolü yazıldı.
                 </p>
@@ -2267,6 +2276,1094 @@ public float ProductionSpeed // semicolonu sildik
                         Kapsülleme, kodunuzun yalnızca açıkça tasarlandığı şekilde kullanılması için değerlere erişme ve bunları değiştirme yollarını kontrol ederek kodunuzu korur. Soyutlama gibi, kapsülleme de kodunuzun altında yatan karmaşıklık ile ona erişebilecek programcılar arasına bir ayrım katmanı yerleştirir.
                     </p>
                 </div>
+                </div>
+            </div>
+            <div id="9">
+                <div id="newController">
+                    <h1>Unity 6 Input Sistemi</h1>
+                <p>
+                    Kaynak video için <a href="https://youtu.be/TiTKAseu17A?si=fQGJ8zKAm3aZ-2Gc">tıklayınız</a>.
+                </p>
+                <p>
+                    Yeni unity 6 projesi içinde window > package manager içinde <b>Input SyStem</b> kurulu ve 1.9 ve üzeri olması gerekmekteder.
+                </p>
+                <p>
+                    Asset klasöründe <b>InputSystem_Actions</b> dosyası yok ise Edit > Project Settings > Input System Package içinden <b>Create and assin a defaut project-wide Action Asset</b> ile oluşturulabilir.
+                </p>
+                <p>
+                    InputSystem_Actions çift tıklandığında oyunda kullanılabilecek bir dizi yaygın giriş kontrolü ile açılır.
+                </p>
+                <p>
+                    Soldaki barda eylem haritaları yer alır. Buraya yeni eylem haritaları eklenebilir. Her eylem haritası bir dizi eylem girişi içerir. "+" simgesinden yeni eylem girişi eklenebilir.
+                </p>
+                <p>
+                    En sağdaki menüde Action Type kısmından girişin ana özelliği verilir. <b>Value</b> sayısal değer alır. Mouse pozisyonu gibi. <b>Button</b> düğme basma durumların algılar. <b>Pass Through</b> value ye benzer ama daha az işlem gerçekleştirir.
+                </p>
+                <p>
+                    Yeni eylemin sol yanındaki üçgene basılarak altındaki kısım açılıp seçildiğinde sağ menüde Path kısmından eylemi çalıştıracak işlem seçilir. Listen butonuna bastıktan sonra klavyede bir tuşa basarsak da eylemi o tuşa atar.
+                </p>
+                <p>
+                    Value değerinin altında <b>Control Type</b> kısmı var. Buradan <b>axis</b> seçilirse giriş tek eksene sınırlandırılır. <b>Integer</b> tıklama veya dokunma saymak için kullanılabilir. <b>Vector 2</b> iki boyutlu vektör bilgisi almak için kullanılır. <b>Delta</b> konumdaki değişimleri takip etmekte kullanılabilir.
+                    <b>Vector 3</b> ve <b>Quaternion</b> üç boyutlu düzlemde jiroskoptan alınan hareketi ve dönüşü almak için kullanılabilir.
+                </p>
+                <p>
+                    Yeni eylemin en sağındaki "+" butonundan yeni bağlantı eklenebilir. Buradan birden fazla bağlantı türü seçilebilir.
+                </p>
+                <p>
+                    Hem ana eylemde hem de bağlantılarda yer alan <b>Interaction</b> kısmı kullanılan buton veya eksenle nasıl iletişim kurulacağını belirler. <b>Hold</b> eklendiğinde butona ne kadar basılı tutulduğunda eylemin gerçekleşeceğini belirler. <b>Multitap</b> belirli sayıda dokunma ve her dokunma arasındaki süreyi tanımlar. <b>Press</b> eyemin basılma sırasında mı, bırakıldığı anda mı yoksa her ikisinde birden mi yapılacağını seçer. <b>Slow Tap</b> minimum dokunma süresi belirler. Süre boyunca basıldığında eylemi tetikler. <b>Tab</b> eylemi gerçekleştirmek için düğmeye ne kadar hızlı basılması gerektiğini belirler.
+                </p>
+                <p>
+                    <b>Processors</b> verinin nasıl işleneceğini gösterir. Seçilen işlem türüne göre değişiklik gösterebilirler. Button türünde: <b>Clamp</b> dönüş değerini sınırlamaya olanak tanır. <b>Invert</b> değerleri tersine çevirir. <b>Normalize</b> seçilen başlangıç değeri ile max ve min değerlerine doğrudan geçiş sağlar. <b>Scale</b> mevcut değeri çarpanla çarpar. Birden fazla processor alt alta eklenebilir ve yukarıdan aşağıya çalışırlar.
+                </p>
+                <p>
+                    Value tipinde: <b>Delta Time Scale</b> girdinin kare hızına bağlı olmamasını sağlar. <b>Invert Vector 2</b> x ve y eksenini bağımsız olarak tersine çevirmenizi sağlar. <b>Stict Deadzone</b> anolog çubuk hassasiyetini etkiler.
+                </p>
+                </div>
+                <div id="inputSystemScripting">
+                    <h1>Unity 6 Giriş Sistemi Komut Dosyası Oluşturma</h1>
+                    <p>
+                        Kaynak video için <a href="https://youtu.be/Cd2Erk_bsRY?si=5IAG52YQdcvYKh0t">tıklayınız</a>.
+                    </p>
+                    <p>
+                        Bu örnek için Package Manager içinden <b>Cinemachine</b> eklentisi yüklendi.
+                    </p>
+                    <p>
+                        Bu örnek için kullanılan <b>InputSystemAssetPack.unitypackage (11.3 MB)</b> için <a href="https://discussions.unity.com/uploads/short-url/tORoBerTxoXUlv55rjWOC1fHye6.unitypacka">tıklayınız</a>
+                    </p>
+                    <p>
+                        <b>Playground</b> sahnesini açtığımızda rigitbody atanmış olan <b>PlayerArmature</b> game objecti bizim hareket vereceğimiz karakter olacak. <b>Animator</b> ekranında ise parametre olarak speed bulunmakta.
+                    </p>
+                    <h2>Kodlama</h2>
+                    <p>
+                        PlayerWalk adında yeni bir c# sripti oluşturduk.
+                    </p>
+                    <p>
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerWalk : MonoBehaviour
+{
+   // Input System içinde oluşturulan InputActionAsset referansı
+   // Inspector üzerinden atanır
+   public InputActionAsset inputActions;
+
+    // Hareket (WASD / analog stick) aksiyonunu tutar
+    private InputAction m_moveAction;
+
+    // Kamera veya karakter dönüşü için kullanılan aksiyon
+    private InputAction m_lookAction;
+
+    // Zıplama aksiyonu
+    private InputAction m_jumpAction;
+
+    // Hareket inputundan gelen X-Y değerleri
+    private Vector2 m_moveAmt;
+
+    // Mouse veya stick ile gelen dönüş inputu
+    private Vector2 m_lookAmt;
+
+    // Karakter animasyonlarını kontrol eden Animator
+    private Animator m_animator;
+
+    // Fizik tabanlı hareket için Rigidbody
+    private Rigidbody m_rigidbody;
+
+    // Yürüme hızı
+    public float WalkSpeed = 5f;
+
+    // Dönme hızı
+    public float RotateSpeed = 5f;
+
+    // Zıplama kuvveti
+    public float JumpSpeed = 5f;
+
+    private void OnEnable()
+    {
+        // Player Action Map'i aktif eder
+        // Böylece input okumaya başlanır
+        inputActions.FindActionMap("Player").Enable();
+    }
+
+    private void OnDisable()
+    {
+        // Script devre dışı kalınca input sistemi de kapatılır
+        inputActions.FindActionMap("Player").Disable();
+    }
+
+    private void Awake()
+    {
+        // InputActionAsset içinden ilgili aksiyonlar alınır
+        m_moveAction = inputActions.FindAction("Move");
+        m_lookAction = inputActions.FindAction("Look");
+        m_jumpAction = inputActions.FindAction("Jump");
+
+        // Aynı GameObject üzerindeki Animator alınır
+        m_animator = GetComponent&lt;Animator>();
+
+        // Aynı GameObject üzerindeki Rigidbody alınır
+        m_rigidbody = GetComponent&lt;Rigidbody>();
+    }
+
+    private void Update()
+    {
+        // Move aksiyonundan Vector2 değer okunur
+        // (x = sağ-sol, y = ileri-geri)
+        m_moveAmt = m_moveAction.ReadValue&lt;Vector2>();
+
+        // Look aksiyonundan dönüş değeri okunur
+        m_lookAmt = m_lookAction.ReadValue&lt;Vector2>();
+        
+        // Eğer Jump tuşuna bu frame içinde basıldıysa
+        if(m_jumpAction.WasPressedThisFrame())
+        {
+            Jump();
+        }
+    }
+
+    public void Jump()
+    {
+        // Rigidbody'e yukarı doğru ani kuvvet uygulanır (Impulse)
+        // Bu karakteri zıplatır
+        m_rigidbody.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.up, ForceMode.Impulse);
+
+        // Animator içindeki Jump trigger'ı tetiklenir
+        m_animator.SetTrigger("Jump");
+    }
+
+    private void FixedUpdate()
+    {
+        // Fizik işlemleri FixedUpdate içinde yapılır
+
+        // Yürüme fonksiyonu
+        Walking();
+
+        // Dönüş fonksiyonu
+        Rotating();
+    }
+
+    public void Walking()
+    {
+        // Animator'a hareket hızı gönderilir
+        // (animasyon blend tree için)
+        m_animator.SetFloat("Speed", m_moveAmt.y);
+
+        // Rigidbody kullanarak karakteri ileri doğru hareket ettirir
+        // transform.forward = karakterin baktığı yön
+        m_rigidbody.MovePosition(
+            m_rigidbody.position +
+            transform.forward * m_moveAmt.y * WalkSpeed * Time.deltaTime
+        );
+    }
+
+    public void Rotating()
+    {
+        // Mouse X hareketine göre dönüş miktarı hesaplanır
+        float rotationAmount = m_lookAmt.x * RotateSpeed * Time.deltaTime;
+
+        // Y ekseni etrafında Quaternion rotasyonu oluşturulur
+        Quaternion rotation = Quaternion.Euler(0, rotationAmount, 0);
+
+        // Rigidbody üzerinden dönüş uygulanır
+        m_rigidbody.MoveRotation(m_rigidbody.rotation * rotation);
+    }
+}
+
+                        </pre>
+                    </p>
+                    <p>
+                        Bu script PlayerArmature gameobjectine komponent olarak atandı atandı. Komponentin <b>Input Actions</b> alanına da <b>InputSystem_Actions</b> atandı.
+                    </p>
+                    <h2>Eylem Haritası Değiştirme</h2>
+                    <p>
+                        Mevcutta aktif olan "Player" eylem haritasına <b>Pause</b> eylemini ekledik. Bağlantı kısmından da Path: "Enter [Keyboard]", Use in control scheme: "Keyboard&Mouse" seçildi. Aynı işlem "UI" eylem haritasında tekrarlandı. 
+                    </p>
+                    <p>
+                        Kod aşağıdaki hale getirildi
+                    </p>
+                    <p>
+                        <pre class="prettyprint ms-0">
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerWalk : MonoBehaviour
+{
+    public InputActionAsset inputActions;
+    private InputAction m_moveAction;
+    private InputAction m_lookAction;
+    private InputAction m_jumpAction;
+    private Vector2 m_moveAmt;
+    private Vector2 m_lookAmt;
+    private Animator m_animator;
+    private Rigidbody m_rigidbody;
+
+    private InputAction m_Pause; // Player Action Map içindeki pause tuşunu temsil eden input aksiyonu
+    private InputAction m_PauseUI; // UI Action Map içinde pause menüsünü kapatmak için kullanılan pause aksiyonu
+    private bool isPaused = false; // Oyunun şu anda pause durumunda olup olmadığını tutan değişken
+    public GameObject pauseMenu; // Pause olduğunda ekranda gösterilecek pause menüsü GameObject'i
+
+    public float WalkSpeed = 5f;
+    public float RotateSpeed = 5f;
+    public float JumpSpeed = 5f;
+
+    private void OnEnable()
+    {
+        inputActions.FindActionMap("Player").Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.FindActionMap("Player").Disable();
+    }
+
+    private void Awake()
+    {
+        m_moveAction = inputActions.FindAction("Move");
+        m_lookAction = inputActions.FindAction("Look");
+        m_jumpAction = inputActions.FindAction("Jump");
+
+        m_animator = GetComponent&lt;Animator>();
+
+        m_rigidbody = GetComponent&lt;Rigidbody>();
+
+        m_Pause = inputActions.FindAction("Player/Pause"); // Player Action Map içindeki pause inputu alınır
+        m_PauseUI = inputActions.FindAction("UI/Pause"); // UI Action Map içindeki pause inputu alınır
+    }
+
+    private void Update()
+    {
+        m_moveAmt = m_moveAction.ReadValue&lt;Vector2>();
+        m_lookAmt = m_lookAction.ReadValue&lt;Vector2>();
+
+        if (m_jumpAction.WasPressedThisFrame())
+        {
+            Jump();
+        }
+        Pause();
+
+    }
+
+    public void Jump()
+    {
+        m_rigidbody.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.up, ForceMode.Impulse);
+
+        m_animator.SetTrigger("Jump");
+    }
+
+    private void FixedUpdate()
+    {
+        Walking();
+        Rotating();
+    }
+
+    public void Walking()
+    {
+        m_animator.SetFloat("Speed", m_moveAmt.y);
+
+        m_rigidbody.MovePosition(
+            m_rigidbody.position +
+            transform.forward * m_moveAmt.y * WalkSpeed * Time.deltaTime
+        );
+    }
+
+    public void Rotating()
+    {
+        float rotationAmount = m_lookAmt.x * RotateSpeed * Time.deltaTime;
+        Quaternion rotation = Quaternion.Euler(0, rotationAmount, 0);
+        m_rigidbody.MoveRotation(m_rigidbody.rotation * rotation);
+    }
+
+    public void Pause()
+    {
+        
+        if(m_Pause.WasPressedThisFrame() || m_PauseUI.WasPressedThisFrame()) // Player veya UI içindeki pause tuşuna basıldığını kontrol eder
+        {
+            isPaused = !isPaused;
+            Debug.Log(isPaused ? "game Paused" : "Game returned");
+            if (isPaused)
+            {
+                pauseMenu.SetActive(true); 
+                inputActions.FindActionMap("Player").Disable(); // Pause sırasında player kontrol inputları kapatılır
+                inputActions.FindActionMap("UI").Enable(); // Pause menüsünü kontrol edebilmek için UI inputları açılır
+
+            }
+            else
+            {
+                pauseMenu.SetActive(false); 
+                inputActions.FindActionMap("Player").Enable(); // Oyuna dönüldüğünde player kontrol inputları tekrar açılır
+                inputActions.FindActionMap("UI").Disable(); // UI inputları kapatılır
+            }
+        }
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        Pause için atanan tuşa bastığımızda Player eylem haritası pasife alındığından karakter hareket etmiyor. Aynı tuşa tekrar basılınca UI pasife alınıyor ve Player aktif hale geliyor. 
+                    </p>
+                    <p>
+                        "Pause Menu" değişkenine hazır verilen "UIDocument" game objecti atandığında hata aldım. Bu gameobjecti <b>Canvas</b> içine taşıyınca hata düzeldi.
+                    </p>
+                </div>
+                <div id="inputSystemMobileControls">
+                    <h1>Unity 6 Giriş Sistemi Mobil Cihaz Kontrolleri</h1>
+                    <p>
+                        Kaynak video için <a href="https://youtu.be/aI-r7ILNDug?si=4gqzY6QZmQABBFRV">tıklayınız</a>.
+                    </p>
+                    <p>
+                        Bu örnek için Package Manager içinden <b>Cinemachine</b> eklentisi yüklendi.
+                    </p>
+                    <p>
+                        Bu örnek için kullanılan <b>InputSystemAssetPack.unitypackage (11.3 MB)</b> için <a href="https://discussions.unity.com/uploads/short-url/tORoBerTxoXUlv55rjWOC1fHye6.unitypacka">tıklayınız</a>
+                    </p>
+                    <p>
+                        "Mobile Control" sahnesi açıldı. Sahnedeki PlayerArmature daha önceki eğitimde yazdığımız kodun benzeri ile klavye ve mause ile yönetilebiliyor. Bu yapının Inspector ekranında gördüğümüz üzere Player Walk komponentinin Input Actions kısmına Scene > ActionMaps içindeki "InputSystem_Actions_Mobile" atanmış. 
+                    </p>
+                    <p>
+                        MobileControls gameobject altında Mobil için gereken UI elemanları var. Bunlarla InputSystem haberleşmesi için bunlara gereken komponentleri atayacağız.
+                        <ul>
+                            <li><b>MoveButton için</b> On-Screen Stick: Control Path > Left Stick [Gamepad]</li>
+                            <li><b>LookButton için</b> On-Screen Stick: Control Path > Right Stick [Gamepad]</li>
+                            <li><b>ActionButton için</b> On-Screen Button: Control Path > Space [Keyboard]</li>
+                        </ul>
+                    </p>
+                    <p>
+                        Ekrana dokunma durumuna göre bu kontrolcülerin görünme durumunu belirlemek için:                      InputSystem_Actions_Mobile içindeki Player eylem haritası içine TapOn eylemini yarattık. Bağomlılık Path: TouchScreen > Single Touch. TapOff eylemini de yarattık. Bağımlılık Path: TouchScreen > Single Touch. Buna Interactions içinden Mutli Tap ekledik. Tap Count: 2. Bu durumda ekrana bir kez dokunduğumuzda TapOn eylemini, iki kez dokunduğumuzda TapOff eylemini çağırmış oluyoruz.
+                    </p>
+                    <p>
+                        PlayerArmature komponenti Player_Walk script olarak açılıp aşağıdaki şekilde düzenlendi.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Player_Walk : MonoBehaviour
+{
+	public InputActionAsset InputActions;
+
+	private InputAction m_moveAction;
+	private InputAction m_lookAction;
+	private InputAction m_jumpAction;
+	private InputAction m_tapOn; // TapOn adında yeni bir InputAction ekleyin
+    private InputAction m_tapOff; // TapOff adında yeni bir InputAction ekleyin
+    public GameObject mobileControls; // TapOn ve TapOff ile kontrol edilecek mobil kontrolleri temsil eden GameObject
+
+    private Vector2 m_moveAmt;
+	private Vector2 m_lookAmt;
+	private Animator m_animator;
+	private Rigidbody m_rigidbody;
+
+	public float WalkSpeed = 5;
+	public float RotateSpeed = 5;
+	public float JumpSpeed = 5;
+
+	private void OnEnable()
+	{
+		InputActions.FindActionMap("Player").Enable();		
+	}
+
+	private void OnDisable()
+	{
+		InputActions.FindActionMap("Player").Disable();
+	}
+
+	private void Awake()
+	{
+		m_moveAction = InputActions.FindAction("Move");
+		m_lookAction = InputActions.FindAction("Look");
+		m_jumpAction = InputActions.FindAction("Jump");
+
+		m_tapOn = InputActions.FindAction("TapOn"); // Eylem haritasında TapOn adında yeni bir InputAction bulun
+        m_tapOff = InputActions.FindAction("TapOff"); // Eylem haritasında TapOff adında yeni bir InputAction bulun
+
+
+        m_animator = GetComponent&lt;Animator>();
+		m_rigidbody = GetComponent&lt;Rigidbody>();
+	}
+
+	private void Update()
+	{
+		m_moveAmt = m_moveAction.ReadValue&lt;Vector2>();
+		m_lookAmt = m_lookAction.ReadValue&lt;Vector2>();
+
+		if (m_jumpAction.WasPressedThisFrame())
+		{
+			Jump();
+		}
+
+		if(m_tapOn.WasPerformedThisFrame()) // TapOn eylemi bu karede gerçekleştirildiyse, mobil kontrolleri aç
+        {
+			MobileControlsOn();
+        }
+        if (m_tapOff.WasPerformedThisFrame()) // TapOff eylemi bu karede gerçekleştirildiyse, mobil kontrolleri kapat
+        {
+			MobileControlsOff();
+        }
+    }
+
+	private void Jump()
+	{	
+		m_rigidbody.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.up, ForceMode.Impulse);
+		m_animator.SetTrigger("Jump");
+	}
+
+	private void FixedUpdate()
+	{
+		Walking();
+		Rotating();
+	}
+
+	private void Walking()
+	{
+		m_animator.SetFloat("Speed", m_moveAmt.y);
+		m_rigidbody.MovePosition(m_rigidbody.position + transform.forward * m_moveAmt.y * WalkSpeed * Time.deltaTime);
+	}
+
+	private void Rotating()
+	{
+		if (m_moveAmt.y != 0)
+		{
+			float rotationAmount = m_lookAmt.x * RotateSpeed * Time.deltaTime;
+
+			Quaternion deltaRotation = Quaternion.Euler(0, rotationAmount, 0);
+			m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);
+		}
+	}
+
+	public void MobileControlsOn() // Mobile kontrolleri açmak için yeni bir yöntem ekleyin
+    {
+		mobileControls.SetActive(true); // Mobile kontrolleri aktif hale getirin
+    }
+
+	public void MobileControlsOff() // Mobile kontrolleri kapatmak için yeni bir yöntem ekleyin
+    { 		
+		mobileControls.SetActive(false); // Mobile kontrolleri pasif hale getirin
+    }
+
+}
+
+                        </pre>
+                    </p>
+                </div>
+                <div id="inputSystemUIToolkit">
+                    <h1>Unity 6 Giriş Sistemi UI Toolkit</h1>
+                    <p>
+                        Kaynak video için <a href="https://youtu.be/GdjP5pggaHw?si=Futuy-OTVVg3FNAW">tıklayınız</a>.
+                    </p>
+                    <p>
+                        Bu örnek için Package Manager içinden <b>Cinemachine</b> eklentisi yüklendi.
+                    </p>
+                    <p>
+                        Bu örnek için kullanılan <b>InputSystemAssetPack.unitypackage (11.3 MB)</b> için <a href="https://discussions.unity.com/uploads/short-url/tORoBerTxoXUlv55rjWOC1fHye6.unitypacka">tıklayınız</a>
+                    </p>
+                    <p>
+                        "UI Menu" sahnesi açıldı. UIDocument gameObject inspector ekranından UI kaynağı için kullanılan ve Source Asset alanında yer alan <b>UI Menu Panel</b> bulundu ve çift tıklanarak açıldı. Buradan UI elemanları incelenebilir.
+                    </p>
+                    <p>
+                        UI elemanlarının çalışmasını düzenlemek için "UIScrit" adında script dosyası oluşturuldu.
+                        <pre class="prettyprint ms-0">
+using UnityEngine; // Unity'nin temel sınıflarını kullanabilmek için gerekli namespace
+using UnityEngine.UIElements; // UI Toolkit (UIDocument, Button vb.) kullanmak için gerekli namespace
+
+public class UIScript : MonoBehaviour // Bu script bir Unity componentidir ve GameObject'e eklenir
+{
+    Button m_swordButton; // Kılıç ikonuna ait UI buton referansı
+    Button m_axeButton; // Balta ikonuna ait UI buton referansı
+    Button m_magicButton; // Büyü ikonuna ait UI buton referansı
+    Button m_stealthButton; // Gizlilik ikonuna ait UI buton referansı
+
+    Button m_earthButton; // Toprak ikonuna ait UI buton referansı
+    Button m_monsterButton; // Canavar ikonuna ait UI buton referansı
+    Button m_healButton; // Heal ikonuna ait UI buton referansı
+    Button m_rageButton; // Rage ikonuna ait UI buton referansı
+
+    Button[] m_buttonsSet1 = new Button[4]; // İlk 4 butonu tutacak dizi
+    Button[] m_buttonsSet2 = new Button[4]; // İkinci 4 butonu tutacak dizi
+
+    private void Awake() // Unity lifecycle: obje oluşturulurken çalışan ilk fonksiyonlardan biri
+    {
+        VisualElement root = GetComponent&lt;UIDocument>().rootVisualElement; // UIDocument componentinden UI ağacının kök elemanını alır
+
+        m_swordButton = root.Q&lt;Button>("sword-icon__button"); // UXML içindeki "sword-icon__button" isimli butonu bulur
+        m_axeButton = root.Q&lt;Button>("axe-icon__button"); // "axe-icon__button" isimli butonu bulur
+        m_magicButton= root.Q&lt;Button>("magic-icon__button"); // "magic-icon__button" isimli butonu bulur
+        m_stealthButton = root.Q&lt;Button>("stealth-icon__button"); // "stealth-icon__button" isimli butonu bulur
+
+        m_buttonsSet1[0] = m_swordButton; // İlk diziye sword butonunu koyar
+        m_buttonsSet1[1] = m_axeButton; // İlk diziye axe butonunu koyar
+        m_buttonsSet1[2] = m_magicButton; // İlk diziye magic butonunu koyar
+        m_buttonsSet1[3] = m_stealthButton; // İlk diziye stealth butonunu koyar
+
+        m_earthButton = root.Q&lt;Button>("earth-icon__button"); // "earth-icon__button" isimli butonu bulur
+        m_monsterButton= root.Q&lt;Button>("monster-icon__button"); // "monster-icon__button" isimli butonu bulur
+        m_healButton = root.Q&lt;Button>("heal-icon__button"); // "heal-icon__button" isimli butonu bulur
+        m_rageButton = root.Q&lt;Button>("rage-icon__button"); // "rage-icon__button" isimli butonu bulur
+
+        m_buttonsSet2[0] = m_earthButton; // İkinci diziye earth butonunu koyar
+        m_buttonsSet2[1] = m_monsterButton; // İkinci diziye monster butonunu koyar
+        m_buttonsSet2[2] = m_healButton; // İkinci diziye heal butonunu koyar
+        m_buttonsSet2[3] = m_rageButton; // İkinci diziye rage butonunu koyar
+    }
+
+    private void OnEnable() // GameObject aktif olduğunda çalışır
+    {
+        ButtonActionsSubsicribe(); // Buton click eventlerine abone olur
+    }
+
+    private void OnDisable() // GameObject pasif olduğunda çalışır
+    {
+        ButtonActionsUnsubsicribe(); // Buton click event aboneliklerini kaldırır
+    }
+
+    private void ButtonActionsSubsicribe() // Butonlara click event ekleyen fonksiyon
+    {
+        m_swordButton.clicked += OnSwordButtonClicked; // Sword butonuna tıklanınca OnSwordButtonClicked çalışır
+        m_axeButton.clicked += OnAxeButtonClicked; // Axe butonuna tıklanınca OnAxeButtonClicked çalışır
+        m_magicButton.clicked += OnMagicButtonClicked; // Magic butonuna tıklanınca OnMagicButtonClicked çalışır
+        m_stealthButton.clicked += OnStealthButtonClicked; // Stealth butonuna tıklanınca OnStealthButtonClicked çalışır
+
+        m_earthButton.clicked += OnEarthButtonClicked; // Earth butonuna tıklanınca OnEarthButtonClicked çalışır
+        m_monsterButton.clicked += OnMonsterButtonClicked; // Monster butonuna tıklanınca OnMonsterButtonClicked çalışır
+        m_healButton.clicked += OnHealButtonClicked; // Heal butonuna tıklanınca OnHealButtonClicked çalışır
+        m_rageButton.clicked += OnRageButtonClicked; // Rage butonuna tıklanınca OnRageButtonClicked çalışır
+    }
+
+    private void ButtonActionsUnsubsicribe() // Event aboneliklerini kaldıran fonksiyon
+    {
+        m_swordButton.clicked -= OnSwordButtonClicked; // Sword butonunun click eventini kaldırır
+        m_axeButton.clicked -= OnAxeButtonClicked; // Axe butonunun click eventini kaldırır
+        m_magicButton.clicked -= OnMagicButtonClicked; // Magic butonunun click eventini kaldırır
+        m_stealthButton.clicked -= OnStealthButtonClicked; // Stealth butonunun click eventini kaldırır
+
+        m_earthButton.clicked -= OnEarthButtonClicked; // Earth butonunun click eventini kaldırır
+        m_monsterButton.clicked -= OnMonsterButtonClicked; // Monster butonunun click eventini kaldırır
+        m_healButton.clicked -= OnHealButtonClicked; // Heal butonunun click eventini kaldırır
+        m_rageButton.clicked -= OnRageButtonClicked; // Rage butonunun click eventini kaldırır
+    }
+
+    private void OnSwordButtonClicked() => InventoryButtonClicked("Sword"); // Sword butonuna basılınca InventoryButtonClicked çağrılır
+    private void OnAxeButtonClicked() => InventoryButtonClicked("Axe"); // Axe butonuna basılınca InventoryButtonClicked çağrılır
+    private void OnMagicButtonClicked() => InventoryButtonClicked("Magic"); // Magic butonuna basılınca InventoryButtonClicked çağrılır
+    private void OnStealthButtonClicked() => InventoryButtonClicked("Stealth"); // Stealth butonuna basılınca InventoryButtonClicked çağrılır
+    private void OnEarthButtonClicked() => InventoryButtonClicked("Earth"); // Earth butonuna basılınca InventoryButtonClicked çağrılır
+    private void OnMonsterButtonClicked() => InventoryButtonClicked("Monster"); // Monster butonuna basılınca InventoryButtonClicked çağrılır
+    private void OnHealButtonClicked() => InventoryButtonClicked("Heal"); // Heal butonuna basılınca InventoryButtonClicked çağrılır
+    private void OnRageButtonClicked() => InventoryButtonClicked("Rage"); // Rage butonuna basılınca InventoryButtonClicked çağrılır
+
+    private void InventoryButtonClicked(string message) // Ortak buton click fonksiyonu
+    {
+        Debug.Log($"{message} button clicked!"); // Console'a hangi butonun tıklandığını yazdırır
+    }
+}
+                        </pre> 
+                    </p>
+                    <p>
+                       <b>root.Q&lt;Button>("name")</b> UXML içindeki name="..." olan UI elementini bulur. <br><b>clicked +=</b> Butona event listener ekler.
+                    </p>
+                    <p>
+                        Bu scripti "UIDocument" içine komponent olarak atadığımızda basılan butonun adı konsolda yazar.
+                    </p>
+                    <h2>Input Sistemi Kontrol Etmek</h2>
+                    <p>
+                        Gamepadde hangi yöndeki tetik tuşuna basarsak sadece o taraftaki menü elemanları aktif diğer taraf pasif olsun istiyoruz. Bizde gamepad olmadığından klavyedeki "Q" ve "E" tuşlarını kullanacağız.
+                    </p>
+                    <p>
+                        "InputSystem_Actions" asseti çift tıklanarak açıldı. UI eylem haritası içine "ShowRightButtons" eklendi.
+                        İlk bağımlılık olarak "Right Shoulder [Gamepad]" seçildi ve "Use in control scheme: Gamepad" yapıldı. İkinci bağımlılık olarak "E [Keyboard]" seçildi ve "Use in control scheme: Keyboard/Mouse" yapıldı.
+                    </p>
+                    <p>
+                        İkinci olarak UI eylem haritası içine "ShowLeftButtons" eklendi. İlk bağımlılık olarak "Left Shoulder [Gamepad]" seçildi ve "Use in control scheme: Gamepad" yapıldı. İkinci bağımlılık olarak "Q [Keyboard]" seçildi ve "Use in control scheme: Keyboard/Mouse" yapıldı.
+                    </p>
+                    <p>
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.InputSystem; // Unity'nin yeni Input System paketini kullanabilmek için gerekli
+
+public class UIScript : MonoBehaviour
+{
+    public InputActionAsset InputActions; // Input System'de tanımlı tüm action'ları içeren asset referansı (Inspector'dan atanır)
+
+    Button m_swordButton;
+    Button m_axeButton;
+    Button m_magicButton;
+    Button m_stealthButton;
+
+    Button m_earthButton;
+    Button m_monsterButton;
+    Button m_healButton;
+    Button m_rageButton;
+
+    Button[] m_buttonsSet1 = new Button[4];
+    Button[] m_buttonsSet2 = new Button[4];
+
+    private void Awake()
+    {
+        VisualElement root = GetComponent&lt;UIDocument>().rootVisualElement;
+
+        m_swordButton = root.Q&lt;Button>("sword-icon__button");
+        m_axeButton = root.Q&lt;Button>("axe-icon__button");
+        m_magicButton= root.Q&lt;Button>("magic-icon__button");
+        m_stealthButton = root.Q&lt;Button>("stealth-icon__button");
+
+        m_buttonsSet1[0] = m_swordButton;
+        m_buttonsSet1[1] = m_axeButton;
+        m_buttonsSet1[2] = m_magicButton;
+        m_buttonsSet1[3] = m_stealthButton;
+
+        m_earthButton = root.Q&lt;Button>("earth-icon__button");
+        m_monsterButton= root.Q&lt;Button>("monster-icon__button");
+        m_healButton = root.Q&lt;Button>("heal-icon__button");
+        m_rageButton = root.Q&lt;Button>("rage-icon__button");
+
+        m_buttonsSet2[0] = m_earthButton;
+        m_buttonsSet2[1] = m_monsterButton;
+        m_buttonsSet2[2] = m_healButton;
+        m_buttonsSet2[3] = m_rageButton;
+    }
+
+    private void OnEnable()
+    {
+        ButtonActionsSubsicribe();
+        ButtonSelection(); // UI açıldığında hangi buton grubunun aktif olacağını ayarlar
+        InputActions.FindActionMap("UI").Enable(); // UI için tanımlı Input Action Map'i aktif hale getirir
+        InputSwitch(); // Klavye/gamepad inputlarının buton grupları arasında geçiş yapmasını sağlar
+    }
+
+    private void OnDisable()
+    {
+        ButtonActionsUnsubsicribe();
+        InputActions.FindActionMap("UI").Disable(); // UI kapandığında ilgili Input Action Map'i devre dışı bırakır
+        InputSwitchDisable(); // Input event aboneliklerini kaldırarak gereksiz tetiklenmeleri önler
+    }
+
+    private void ButtonActionsSubsicribe()
+    {
+        m_swordButton.clicked += OnSwordButtonClicked;
+        m_axeButton.clicked += OnAxeButtonClicked;
+        m_magicButton.clicked += OnMagicButtonClicked;
+        m_stealthButton.clicked += OnStealthButtonClicked;
+
+        m_earthButton.clicked += OnEarthButtonClicked;
+        m_monsterButton.clicked += OnMonsterButtonClicked;
+        m_healButton.clicked += OnHealButtonClicked;
+        m_rageButton.clicked += OnRageButtonClicked;
+    }
+
+    private void ButtonActionsUnsubsicribe()
+    {
+        m_swordButton.clicked -= OnSwordButtonClicked;
+        m_axeButton.clicked -= OnAxeButtonClicked;
+        m_magicButton.clicked -= OnMagicButtonClicked;
+        m_stealthButton.clicked -= OnStealthButtonClicked;
+
+        m_earthButton.clicked -= OnEarthButtonClicked;
+        m_monsterButton.clicked -= OnMonsterButtonClicked;
+        m_healButton.clicked -= OnHealButtonClicked;
+        m_rageButton.clicked -= OnRageButtonClicked;
+    }
+
+    private void OnSwordButtonClicked() => InventoryButtonClicked("Sword");
+    private void OnAxeButtonClicked() => InventoryButtonClicked("Axe");
+    private void OnMagicButtonClicked() => InventoryButtonClicked("Magic");
+    private void OnStealthButtonClicked() => InventoryButtonClicked("Stealth");
+    private void OnEarthButtonClicked() => InventoryButtonClicked("Earth");
+    private void OnMonsterButtonClicked() => InventoryButtonClicked("Monster");
+    private void OnHealButtonClicked() => InventoryButtonClicked("Heal");
+    private void OnRageButtonClicked() => InventoryButtonClicked("Rage");
+
+    private void InventoryButtonClicked(string message)
+    {
+        Debug.Log($"{message} button clicked!");
+    }
+
+    private void ButtonSelection() // Başlangıçta ikinci buton grubunu pasif yapıp ilk gruba odak verir
+    {
+        for(int i = 0; i &lt; m_buttonsSet2.Length; i++)
+        {
+            m_buttonsSet2[i].SetEnabled(false);
+            //m_buttonsSet2[i].style.display = DisplayStyle.None;
+        }
+        m_buttonsSet1[0].Focus();
+    }
+
+    private void InputSwitch() // Input System'de tanımlı aksiyonlara fonksiyon bağlar
+    {
+        InputActions.FindAction("UI/ShowRightButtons").performed += RightButtons;
+        InputActions.FindAction("UI/ShowLeftButtons").performed += LeftButtons;
+    }
+
+    private void InputSwitchDisable() // Daha önce bağlanan input eventlerini kaldırır
+    {
+        InputActions.FindAction("UI/ShowRightButtons").performed -= RightButtons;
+        InputActions.FindAction("UI/ShowLeftButtons").performed -= LeftButtons;
+    }
+
+    private void LeftButtons(InputAction.CallbackContext context) // Sol buton grubunu aktif eder, sağ grubu pasif yapar
+    {
+        for(int i = 0; i &lt; m_buttonsSet2.Length; i++)
+        {
+            m_buttonsSet2[i].SetEnabled(false);
+            //m_buttonsSet2[i].style.display = DisplayStyle.None; // Tamamen görünmez yapar
+        }
+        for (int i = 0; i &lt; m_buttonsSet1.Length; i++)
+        {
+            m_buttonsSet1[i].SetEnabled(true);
+            //m_buttonsSet1[i].style.display = DisplayStyle.Flex;
+        }
+        m_buttonsSet1[0].Focus();
+    }
+
+    private void RightButtons(InputAction.CallbackContext context) // Sağ buton grubunu aktif eder, sol grubu pasif yapar
+    {
+        for(int i = 0; i &lt; m_buttonsSet1.Length; i++)
+        {
+            m_buttonsSet2[i].SetEnabled(true);
+            //m_buttonsSet2[i].style.display = DisplayStyle.Flex;
+        }
+        for (int i = 0; i &lt; m_buttonsSet2.Length; i++)
+        {
+            m_buttonsSet1[i].SetEnabled(false);
+            //m_buttonsSet1[i].style.display = DisplayStyle.None;
+        }
+        m_buttonsSet2[0].Focus();
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        "UIDocument" Inspector içinde "Input Actions" alanına "InputSystem_Actions" eklenir.
+                    </p>
+                </div>
+                <div id="rebindInputSystemControls">
+                    <h1>Unity 6 Input Sistem Kontrollerini Yeniden Bağlama</h1>
+                    <p>
+                        Kaynak video için <a href="https://youtu.be/JfuqMaOiNPs?si=IiI6VkkZTwt6qTJh">tıklayınız</a>.
+                    </p>
+                    <p>
+                        Bu örnek için Package Manager içinden <b>Cinemachine</b> eklentisi yüklendi.
+                    </p>
+                    <p>
+                        Bu örnek için kullanılan <b>InputSystemAssetPack.unitypackage (11.3 MB)</b> için <a href="https://discussions.unity.com/uploads/short-url/tORoBerTxoXUlv55rjWOC1fHye6.unitypacka">tıklayınız</a>
+                    </p>
+                    <p>
+                        Bu kısımda gameplay sırasında ilgili eylem için yeniden tuş atama örneği yapacağız.
+                    </p>
+                    <p>
+                        "Rebinding" sahnesi açıldı. Bu sahnede "RebindingMenu" hazırda hiyerarşide yer almakta. Buradan inspector kısmıyla "RebindingUI" kısmına ulaşabiliriz ve çift tıklayarak ayarlarını görebiliriz.
+                    </p>
+                    <p>
+                        RebindingMenu kısmının gameplay sırasında aktifleşmesi için "InputSystem_Actions_Mobile" içinde Player eylem haritasına "Menu" eylemi eklendi. Bağımlılık olarak "Start [Gamepad]" ve "Tab [Keyboard]" eklendi. 
+                    </p>
+                    <p>
+                        Player_Walk scripti içinde aşağıdaki düzenleme yapıldı.
+                        <pre class="prettyprint ms-0">
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Player_Walk : MonoBehaviour
+{
+	public InputActionAsset InputActions;
+
+	private InputAction m_moveAction;
+	private InputAction m_lookAction;
+	private InputAction m_jumpAction;
+	private InputAction m_menuAction; // Menü açma/kapatma input action'ını temsil eder (örneğin ESC veya gamepad start tuşu)
+
+    private InputAction m_tapOn; 
+    private InputAction m_tapOff; 
+
+    public GameObject mobileControls;
+	public GameObject menuObject; // Açılıp kapanacak olan menü GameObject referansı
+
+    private Vector2 m_moveAmt;
+	private Vector2 m_lookAmt;
+	private Animator m_animator;
+	private Rigidbody m_rigidbody;
+
+	public float WalkSpeed = 5;
+	public float RotateSpeed = 5;
+	public float JumpSpeed = 5;
+
+	private void OnEnable()
+	{
+		InputActions.FindActionMap("Player").Enable();		
+	}
+
+	private void OnDisable()
+	{
+		InputActions.FindActionMap("Player").Disable();
+	}
+
+	private void Awake()
+	{
+		m_moveAction = InputActions.FindAction("Move");
+		m_lookAction = InputActions.FindAction("Look");
+		m_jumpAction = InputActions.FindAction("Jump");
+		m_menuAction = InputActions.FindAction("Menu"); // Input System içindeki "Menu" action'ını bulup referans alır
+
+        m_tapOn = InputActions.FindAction("TapOn"); 
+        m_tapOff = InputActions.FindAction("TapOff"); 
+
+        m_animator = GetComponent&lt;Animator>();
+		m_rigidbody = GetComponent&lt;Rigidbody>();
+	}
+
+	private void Update()
+	{
+		m_moveAmt = m_moveAction.ReadValue&lt;Vector2>();
+		m_lookAmt = m_lookAction.ReadValue&lt;Vector2>();
+
+		if (m_jumpAction.WasPressedThisFrame())
+		{
+			Jump();
+		}
+
+		if (m_tapOn.WasPerformedThisFrame())
+		{
+			MobileControlsOn();
+		}
+		if (m_tapOff.WasPerformedThisFrame())
+		{
+			MobileControlsOff();
+		}
+		if (m_menuAction.WasPressedThisFrame()) // Menu input'u bu frame'de tetiklenmişse
+		{
+			Menu();
+		}
+	}
+
+	private void Jump()
+	{	
+		m_rigidbody.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.up, ForceMode.Impulse);
+		m_animator.SetTrigger("Jump");
+	}
+
+	private void FixedUpdate()
+	{
+		Walking();
+		Rotating();
+	}
+
+	private void Walking()
+	{
+		m_animator.SetFloat("Speed", m_moveAmt.y);
+		m_rigidbody.MovePosition(m_rigidbody.position + transform.forward * m_moveAmt.y * WalkSpeed * Time.deltaTime);
+	}
+
+	private void Rotating()
+	{
+		if (m_moveAmt.y != 0)
+		{
+			float rotationAmount = m_lookAmt.x * RotateSpeed * Time.deltaTime;
+
+			Quaternion deltaRotation = Quaternion.Euler(0, rotationAmount, 0);
+			m_rigidbody.MoveRotation(m_rigidbody.rotation * deltaRotation);
+		}
+	}
+
+	public void MobileControlsOn() 
+    {
+		mobileControls.SetActive(true); 
+    }
+
+	public void MobileControlsOff() 
+    { 		
+		mobileControls.SetActive(false); 
+    }
+
+	public void Menu() // Menü GameObject'ini aktif/pasif yaparak açma ve kapama işlemini gerçekleştirir
+	{
+		if(menuObject.activeInHierarchy)
+		{
+			menuObject.SetActive(false);
+		}
+        else
+		{
+            menuObject.SetActive(true);
+        }
+    }
+
+}
+                        </pre>
+                    </p>
+                    <h2>Yeni Tuş Atama</h2>
+                    <p>
+                        "RebindScript" adında bir script oluşturduk.
+                        <pre class="prettyprint ms-0">
+using UnityEngine; // Unity'nin temel sınıflarını kullanabilmek için gerekli namespace
+using UnityEngine.InputSystem; // Unity'nin yeni Input System paketini kullanmak için gerekli namespace
+using UnityEngine.UIElements; // UI Toolkit (Button, Label, UIDocument vb.) kullanmak için gerekli namespace
+
+
+public class RebindScript : MonoBehaviour // Unity sahnesindeki bir GameObject'e eklenebilen script
+{
+    public InputActionAsset InputActions; // Inspector üzerinden atanacak olan Input Action Asset referansı
+
+    private InputActionRebindingExtensions.RebindingOperation m_rebindingOperation; // Aktif rebind işlemini tutan nesne
+
+    private InputAction m_jumpAction; // Rebind yapılacak olan Jump input action referansı
+    private Button m_rebindButton; // UI'daki rebind işlemini başlatacak buton
+    private Label m_rebindLabel; // Kullanıcıya bilgi göstermek için kullanılan label
+
+    private void Awake() // Oyun objesi oluşturulduğunda çalışan başlangıç fonksiyonu
+    {
+        m_jumpAction = InputActions.FindAction("Jump"); // Input Action Asset içinden "Jump" action'ını bulur
+
+        VisualElement root = GetComponent&lt;UIDocument>().rootVisualElement; // UIDocument içindeki UI ağacının kök elemanını alır
+
+        m_rebindButton = root.Q&lt;Button>("RebindButton"); // UXML içindeki "RebindButton" isimli butonu bulur
+        m_rebindLabel = root.Q&lt;Label>("RebindLabel"); // UXML içindeki "RebindLabel" isimli label'ı bulur
+    }
+
+    private void OnEnable() // GameObject aktif olduğunda çalışan Unity lifecycle fonksiyonu
+    {
+        m_rebindButton.Focus(); // UI açıldığında butonun seçili (focus) olmasını sağlar
+        m_rebindButton.clicked += Rebind; // Butona tıklandığında Rebind fonksiyonunun çalışmasını sağlar
+    }
+
+    private void OnDisable() // GameObject devre dışı kaldığında çalışan Unity lifecycle fonksiyonu
+    {
+        m_rebindButton.clicked -= Rebind; // Buton event aboneliğini kaldırarak gereksiz çağrıları önler
+    }
+
+    void Rebind() // Kullanıcı butona bastığında çalışacak rebind başlatma fonksiyonu
+    {
+        InputActions.FindActionMap("Player").Disable(); // Rebind sırasında yanlış input alınmaması için Player Action Map'i devre dışı bırakır
+
+        m_rebindLabel.text = "Choose a new button"; // Kullanıcıya yeni bir tuş seçmesi gerektiğini bildirir
+
+        m_rebindButton.SetEnabled(false); // Rebind süresince butonun tekrar basılmasını engellemek için butonu pasif yapar
+
+        m_rebindingOperation = m_jumpAction.PerformInteractiveRebinding() // Jump action için etkileşimli rebind işlemi başlatır
+            .OnComplete(operation => RebindCompleted()); // Rebind işlemi tamamlandığında RebindCompleted fonksiyonunu çağırır
+
+        m_rebindingOperation.Start(); // Rebind işlemini başlatır ve kullanıcıdan yeni tuş girişi bekler
+    }
+
+    void RebindCompleted() // Kullanıcı yeni tuşa bastığında çalışacak fonksiyon
+    {
+        m_rebindingOperation.Dispose(); // Rebind işlemi tamamlandığı için kullanılan operasyon nesnesini temizler
+
+        string newBinding = m_jumpAction.bindings[0].effectivePath; // Jump action için yeni atanan input binding yolunu alır
+
+        m_rebindLabel.text = $"Rebind completed: {newBinding}"; // Kullanıcıya rebind işleminin tamamlandığını ve yeni tuşu gösterir
+
+        InputActions.FindActionMap("Player").Enable(); // Rebind işlemi bittikten sonra Player Action Map'i tekrar aktif eder
+
+        var rebinds = InputActions.SaveBindingOverridesAsJson(); // Yapılan rebind değişikliklerini JSON formatında kaydeder
+
+        PlayerPrefs.SetString("rebinds", rebinds); // Rebind verisini PlayerPrefs içine kaydederek oyun yeniden açıldığında kullanılmasını sağlar
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        Yapılan güncelleme uygulama tekrar açıldığında kullanılabilsin diye "Player_Walk" scriptinde Awake fonksiyonuna ekleme yapıldı.
+                        <pre class="prettyprint ms-0">
+var rebinds = PlayerPrefs.GetString("rebinds"); //veri alındı
+if(!string.IsNullOrEmpty(rebinds)) //veri boş değilse
+{
+	InputActions.LoadBindingOverridesFromJson(rebinds); //eylem haritası güncellendi.
+}
+                        </pre>
+                    </p>
+                </div>
+                <div id="playerInputComponent">
+                    <h1>Unity 6 Input Sistem Player Input Component</h1>
+                    <p>
+                        Bu kısımda lokal multiplayer sistem için birden fazla player yönetmeyi öğreneceğiz. İki farklı gamepad kullanımı gibi.
+                    </p>
+                    <p>
+                        Kaynak video için <a href="https://youtu.be/beDfIBLfx4c?si=47m1c6KeLersXYdO">tıklayınız</a>.
+                    </p>
+                    <p>
+                        Bu örnek için Package Manager içinden <b>Cinemachine</b> eklentisi yüklendi.
+                    </p>
+                    <p>
+                        Bu örnek için kullanılan <b>InputSystemAssetPack.unitypackage (11.3 MB)</b> için <a href="https://discussions.unity.com/uploads/short-url/tORoBerTxoXUlv55rjWOC1fHye6.unitypacka">tıklayınız</a>
+                    </p>
+                    <p>
+                        <b>Player Input Manager</b> komponenti lokal multiplayerda birden fazla karakterin yönetilebilmesini sağlar. Kaç kontrolcü varsa o kadar da karakter olmasına izin verir.
+                    </p>
+                    <p>
+                        Asset > Art > Prefab klasöründeki "Player1" prefabını ayarlayacağız. Alt elemanı olan PlayerArmature içine komponent olarak "Player Input" eklendi.
+                    </p>
+                    <p>
+                        PlayerInput komponentinin kodla haberleşmesinin nasıl olacağanı <b>Behavior</b> kısmı belirler. Burada 4 seçenek vardır. "Send Messages", "Broadcast Messages", "Invoke Unity Events" ve "Invoke C Sharp Events".
+                    </p>
+                    <h2>Send Messages ve Broadcast Messages</h2>
+                    <p>
+                        <b>Send Messages</b> PlayerInput bileşeni ile haberleşeceği kod aynı nesnenin komponentleri iken kullanılır. <b>Broadcast Messages</b> de PlayerInput üzerinden yapılan iletişim tüm childObjectler içindeki kodlarla haberleşir. 
+                    </p>
+                    <p>
+                        Bu iki durumda Inspector içinden hangi mesajların yayınlanacağı PlayerInput komponentinde Behavior kısmının altında incelenebilir. Örneğin: "Move" için "OnMOve", "Look" için "OnLook" vb.
+                    </p>
+                    <p>
+                        <pre class="prettyprint ms-0">
+public void OnMove(InputValue value) // iletiyi almak için public olmalı. "value" değişkeni ile gelen bilgiyi alır.
+{
+	m_moveAmt = value.Get&lt;Vector2>();
+}
+public void OnLook(InputValue value)
+{
+	m_lookAmt = value.Get&lt;Vector2>();
+}
+                        </pre>
+                    </p>
+                    <h2>Invoke Unity Events</h2>
+                    <p>
+                        Komponentin inspector kısmında event listesi yer alır. O event sırasında çalışacak fonksiyon ilgili alana atanır.
+                    </p>
+                    <p>
+                        Örneğin <b>Device Lost Event</b> cihaz bağlantısı kopunca tetiklenir. Listede PlayerInput içindeki tüm eylemler için event yer alır.
+                    </p>
+                    <p>
+                        Move eylemi için.
+                        <pre class="prettyprint ms-0">
+public void Move(InputAction.CallbackContext ctx) // Fonksiyon adı önemsizdir. Inspector alanında kendimiz bulup evente ekleyeceğiz.
+{
+	m_moveAmt = ctx.ReadValue&lt;Vector2>();
+}
+                        </pre>
+                        bu fonksiyon event listesinde Move eylemine atanarak çalıştırılır.
+                    </p>
+                    <h2>Invoke C# Events</h2>
+                    <p>
+                        Multiplayer için en uygun metot.
+                    </p>
+                    <p>
+                        "InputSystem_Actions" dosyası Asset içinde tıklandığında Inspector alanından "Generate C# Class" seçilip apply edilir. Bu işlem "InputSystem_Actions.cs" adında bir script oluşturur.
+                    </p>
+                    <p>
+                        PlayerControl scripti içinde 
+                        <pre class="prettyprint ms-0">
+void Awake()
+{
+    ...
+	m_actions = new InputSystem_Actions();//Multiplayer oyunlarda her player için ayrı Input System oluşturulması gerekiyor. Bu yüzden Awake fonksiyonunda yeni bir Input System oluşturuyoruz.
+}
+private void OnEnable()//GameObject aktif olduğunda inputları dinlemeye başlamak için Enable fonksiyonunu çağırıyoruz ve ilgili actionlara callback ekliyoruz.
+{
+    m_actions.Player.Enable();//Player action map'ini aktif ediyoruz.
+    m_actions.Player.Move.performed += Move; //Move action'ı performed olduğunda Move fonksiyonunu çağırmak için callback ekliyoruz. 
+    m_actions.Player.Move.canceled += Move; //eylem Action Type "Value" olduğunda veri almaya devam etmek için. Action Type "PassThrough" ise sadece performed eklemek yeterli olurdu.
+} //Action Type "Value" olduğunda performed ve canceled callback'lerini eklemek gerekiyor çünkü bu action sürekli veri gönderir. Action Type "PassThrough" ise sadece performed eklemek yeterli olurdu çünkü bu action sadece bir kez veri gönderir.
+
+private void OnDisable() //GameObject devre dışı bırakıldığında inputları dinlemeyi durdurmak için Disable fonksiyonunu çağırıyoruz ve ilgili actionlardan callback kaldırıyoruz.
+{
+    m_actions.Player.Disable();
+	m_actions.Player.Move.performed -= Move;
+	m_actions.Player.Move.canceled -= Move;
+}
+public void Move(InputAction.CallbackContext ctx) //Move eylemline eklenen callback fonksiyon.
+{
+	m_moveAmt = ctx.ReadValue&lt;Vector2>();
+}
+                        </pre>
+                        eklemeleri yapıldı.
+                    </p>
                 </div>
             </div>
           </div>

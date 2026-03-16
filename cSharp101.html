@@ -105,6 +105,7 @@
                   <a class="nav-link" href="#array">Array Sınıfı Methodları</a>
                   <a class="nav-link" href="#createFunction">Metot Tanımlama</a>
                   <a class="nav-link" href="#overloading">Out Parametre ve Metot Overloading</a>
+                  <a class="nav-link" href="#rekursifAndEkstension">Rekürsif ve Extension Metotlar</a>
                 </nav>
               </nav>
         </div>
@@ -756,6 +757,101 @@ class Metotlar
     public void EkranaYazdir(string veri1, string veri2)
     {
         Console.WriteLine("Strings: " + veri1 + " ve " + veri2);
+    }
+}
+                    </pre>
+                </div>
+                <div id="rekursifAndEkstension">
+                    <h1>Rekürsif Metotlar</h1>
+                    <pre class="prettyprint ms-0">
+// Rekürsif fonksiyon: öz yenilemeli. kendi kendini çağıran fonksiyon
+// 3^4 for döngüsü:
+int result = 1;
+for (int i = 1; i &lt; 5; i++)
+    result *= 3;
+Console.WriteLine(result);
+
+//aşağıda tanımlanan rekürsif fonksiyonu çağırma
+Islemler ornek = new(); // ayrı klasta tanımladığımız için klasın bir kopyasını ismini bizim seçtiğimiz değişkene aldık.
+Console.WriteLine(ornek.Expo(3, 4));
+
+// aynı iş içib Rekürsif fonksiyon tanımlama
+public class Islemler // Elimiz alışsın diye ayrı class içinde yazıldı. Şart değil
+{
+    public int Expo(int sayi1, int us)
+    {
+        if (us &lt; 2)
+            return sayi1;
+        return Expo(sayi1, us - 1) * sayi1;
+
+    }
+}
+                    </pre>
+                    <h1>ekstension method</h1>
+                    <pre class="prettyprint ms-0">
+string ifade = "Murat GÖKDUMAN";
+
+bool sonuc = ifade.CheckSpaces(); // ekstension method bu şekilde çağırılır
+Console.WriteLine(sonuc);
+
+if (sonuc)
+{
+    Console.WriteLine(ifade.RemoveWhitespaces());
+}
+
+Console.WriteLine(ifade.MakeUpperCase());
+Console.WriteLine(ifade.MakeLowerCase());
+
+int[] dizi = { 9, 3, 6, 2, 1, 5, 0 };
+dizi.SortArray().EkranaYazdir();
+
+int sayi = 5;
+Console.WriteLine(sayi.IsEvenNumber());
+
+Console.WriteLine(ifade.GetFirstChar());
+
+public static class Extensions // Ekstension metotlarımız için olan klasın statik olması gerekiyor.
+{
+    public static bool CheckSpaces(this string param)// parametrenin başındaki this bu metodu ekstension metot yapar.
+    {
+        return param.Contains(" "); // boşluk içeriyorsa true döner
+    }
+
+    public static string RemoveWhitespaces(this string param)
+    {
+        string[] dizi = param.Split(" "); //arasında boşluk olan ifadeleri ayırıp diziye ekler.
+        return string.Join("", dizi); // dizideki elemanları arasına ilk parametresindeki ifadeyi koyarak birleştirir.
+    }
+
+    public static string MakeUpperCase(this string param)
+    {
+        return param.ToUpper(); //hepsini büyük harf yapar
+    }
+
+    public static string MakeLowerCase(this string param)
+    {
+        return param.ToLower(); //hepsini küçük harf yapar
+    }
+
+    public static int[] SortArray(this int[] param)
+    {
+        Array.Sort(param);
+        return param;
+    }
+    public static void EkranaYazdir(this int[] param)
+    {
+        for (int i = 0; i &lt; param.Length; i++)
+        {
+            Console.Write(param[i] + " ");
+        }
+    }
+    public static bool IsEvenNumber(this int param)
+    {
+        return param % 2 == 0;
+    }
+    public static string GetFirstChar(this string param)
+    {
+        return param.Substring(0, 1); // Substring() için ilk parametre indeksi ikinci parametre kaç eleman alınacağını belirler.
     }
 }
                     </pre>
