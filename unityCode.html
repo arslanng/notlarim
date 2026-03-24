@@ -113,6 +113,7 @@
                   <a class="nav-link" href="#inputSystemUIToolkit">Unity 6 Giriş Sistemi UI Toolkit</a>
                   <a class="nav-link" href="#rebindInputSystemControls">Unity 6 Input Sistem Kontrollerini Yeniden Bağlama</a>
                   <a class="nav-link" href="#playerInputComponent">Unity 6 Input Sistem Player Input Component</a>
+                  <a class="nav-link" href="#localMultiplayer">Unity 6 Player Input Manager & local multiplayer</a>
                 </nav>
               </nav>
         </div>
@@ -3273,7 +3274,7 @@ if(!string.IsNullOrEmpty(rebinds)) //veri boş değilse
                 <div id="playerInputComponent">
                     <h1>Unity 6 Input Sistem Player Input Component</h1>
                     <p>
-                        Bu kısımda lokal multiplayer sistem için birden fazla player yönetmeyi öğreneceğiz. İki farklı gamepad kullanımı gibi.
+                        Bu kısımda bir karakteri yönetmek için "Player Input" u komponent olarak atamayı ve birden fazla şekilde yönetmeyi öğreneceğiz.
                     </p>
                     <p>
                         Kaynak video için <a href="https://youtu.be/beDfIBLfx4c?si=47m1c6KeLersXYdO">tıklayınız</a>.
@@ -3283,9 +3284,6 @@ if(!string.IsNullOrEmpty(rebinds)) //veri boş değilse
                     </p>
                     <p>
                         Bu örnek için kullanılan <b>InputSystemAssetPack.unitypackage (11.3 MB)</b> için <a href="https://discussions.unity.com/uploads/short-url/tORoBerTxoXUlv55rjWOC1fHye6.unitypacka">tıklayınız</a>
-                    </p>
-                    <p>
-                        <b>Player Input Manager</b> komponenti lokal multiplayerda birden fazla karakterin yönetilebilmesini sağlar. Kaç kontrolcü varsa o kadar da karakter olmasına izin verir.
                     </p>
                     <p>
                         Asset > Art > Prefab klasöründeki "Player1" prefabını ayarlayacağız. Alt elemanı olan PlayerArmature içine komponent olarak "Player Input" eklendi.
@@ -3363,6 +3361,168 @@ public void Move(InputAction.CallbackContext ctx) //Move eylemline eklenen callb
 }
                         </pre>
                         eklemeleri yapıldı.
+                    </p>
+                </div>
+                <div id="localMultiplayer">
+                    <h1>Unity 6 Player Input Manager & local multiplayer</h1>
+                    <p>
+                        Bu kısımda lokal multiplayer sistem için birden fazla player yönetmeyi öğreneceğiz. İki farklı gamepad kullanımı gibi.
+                    </p>
+                    <p>
+                        Kaynak video için <a href="https://youtu.be/lGxXQzE5Vu8?si=nK6SttsEPVkYYAEN">tıklayınız</a>.
+                    </p>
+                    <p>
+                        Bu örnek için Package Manager içinden <b>Cinemachine</b> eklentisi yüklendi.
+                    </p>
+                    <p>
+                        Bu örnek için kullanılan <b>InputSystemAssetPack.unitypackage (11.3 MB)</b> için <a href="https://discussions.unity.com/uploads/short-url/tORoBerTxoXUlv55rjWOC1fHye6.unitypacka">tıklayınız</a>
+                    </p>
+                    <p>
+                        <b>Player Input Manager</b> komponenti lokal multiplayerda birden fazla karakterin yönetilebilmesini sağlar. Kaç kontrolcü varsa o kadar da karakter olmasına izin verir.
+                    </p>
+                    <h2>Local Multiplayer Co-op</h2>
+                    <p>
+                        InputSystem_Actions asseti çift tıklanarak açıldı. İçindeki Player eylem haritası çoğaltıldı ve adı "Fly" olarak değiştirildi. Bu eylem haritası içinde "Fly" eylemi eklendi ve "sol shift" ve "Right Shoulder [Gamepad]" tuşuna bağlandı.
+                    </p>
+                    <p>
+                        "Fly" eylemi butona basılınca başlasın, buton bırakılınca sonlansın istiyoruz. Bu nedenle bağlantıların "Interactions" kısmından <b>Press</b> eklendi. "Press Behavior: Press and Release" yapıldı.
+                    </p>
+                    <p>
+                        Eylemi kodda karşılaması için InputSystemScripts > PlayerController.cs dosyasına
+                        <pre class="prettyprint ms-0">
+public void OnFly(InputValue button) //yeni
+{
+	if (button.isPressed)
+	{
+		StartFlying();
+	}
+	if(!button.isPressed)
+    {
+		StopFlying();
+    }
+}
+                        </pre>
+                        eklendi.
+                    </p>
+                    <p>
+                        Daha önce hem düzenlediğimiz scripti hem de Player Input'u komponent olarak atadığımız Prefabs > Player1 içindeki PlayerArmature nesnesinde Player Input komponentininde "Behavior: Send Messages", "Defaut Map: Fly" seçilir.
+                    </p>
+                    <h2>Player Input Manager</h2>
+                    <p>
+                        LocalMultiplayer sahnesi açıldı. Manager nesnesine "Player Input Manager" komponent olarak eklendi. Bu komponent giriş yapan tüm karakterler ile kontrolcüleri eşler. "Player Prefab" kısmına Player1 prefabı eklendi. "Limit Number of Players" aktif hale getirildi. "Max Player Count: 2" yapıldı.
+                    </p>
+                    <p>
+                        PlayerSpawnScript adında bir script oluşturuldu.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerSpawnScript : MonoBehaviour
+{
+    public Transform[] spawnPoints; // Spawn noktalarını tutacak dizi
+    private int m_playerCount; // Oyuna katılan oyuncu sayısını takip eder
+
+    public void OnPlayerJoined(PlayerInput playerInput) // Yeni bir oyuncu oyuna katıldığında tetiklenir
+    {
+        playerInput.transform.position = spawnPoints[m_playerCount].position; // Oyuncuyu sıradaki spawn noktasına yerleştirir
+        
+        if(m_playerCount == 0) // Eğer bu ilk oyuncuysa
+        {
+            playerInput.GetComponent&lt;PlayerController>().SwitchOnCamera(); // İlk oyuncunun kamerasını aktif eder
+        }
+        
+        m_playerCount++; // Oyuncu sayısını bir artırır
+    }
+}
+                        </pre>
+                        bu scripti de "Manager" nesnesine komponent olarak ekledik. Spawn Points içine hiyerarşiden "SpawnPoint1" ve "SpawnPoint2" eklendi.
+                    </p>
+                    <p>
+                        Prefab içindeki "Virtual Camera" aktif hale getirilir.
+                    </p>
+                    <h2>Split Screen</h2>
+                    <p>
+                        Player1 prefabı içinden "Player1 Camera" aktif hale getirilir. PlayerArmature içindeki PlayerInput komponentindeki Camera alanına da aynı kamera eklenir.
+                    </p>
+                    <p>
+                        Manager nesnesi içindeki "Player Input Manager" içinde Enable Split-Screen aktif hale getirilir.
+                    </p>
+                    <p>
+                        PlayerSpawnScript içinden aşağıdaki kod kaldırılır.
+                        <pre class="prettyprint ms-0">
+if(m_playerCount == 0) // Eğer bu ilk oyuncuysa
+{
+    playerInput.GetComponent&lt;PlayerController>().SwitchOnCamera(); // İlk oyuncunun kamerasını aktif eder
+}
+                        </pre>
+                    </p>
+                    <p>
+                        Bu haliyle split screen olsa da her iki ekranda da son aktif olan kamera görülür. Bunu engellemek için "CameraFocus.cs" oluşturuldu.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;                // Unity'nin temel sınıflarını kullanabilmek için gerekli namespace
+using Unity.Cinemachine;         // Cinemachine kamera sistemine erişim için gerekli namespace
+
+public class CameraFocus : MonoBehaviour   // Unity'de bir component oluşturuyoruz, MonoBehaviour'dan türetilir
+{
+    public CinemachineBrain Brain;         // Sahnedeki ana Cinemachine Brain referansı (kamera geçişlerini yönetir)
+    public ICinemachineCamera CamA;        // Birinci kamera (arayüz tipi olarak tutuluyor)
+    public ICinemachineCamera CamB;        // İkinci kamera (arayüz tipi olarak tutuluyor)
+
+    void Start()                          // Oyun başladığında bir kez çalışan metod
+    {
+        // Bu GameObject üzerinde bulunan CinemachineCamera componentini alır
+        CamA = GetComponent&lt;CinemachineCamera>();
+
+        // Aynı şekilde tekrar aynı componenti alır (şu an CamA ile aynı referansı alıyorsun!)
+        CamB = GetComponent&lt;CinemachineCamera>();
+
+        int layer = 1;                    // Override işlemi için kullanılacak layer ID
+        int priority = 1;                 // Kamera önceliği (hangi kamera baskın olacak)
+        float weight = 1f;                // Blend ağırlığı (1 = tamamen CamA → CamB etkisi)
+        float blendTime = 0f;             // Geçiş süresi (0 = anında geçiş)
+
+        // Cinemachine Brain'e manuel override veriyoruz
+        // CamA'dan CamB'ye geçiş yapılır
+        Brain.SetCameraOverride(layer, priority, CamA, CamB, weight, blendTime);
+    }
+}
+                        </pre>
+                        Bu scripti Prefab > Player1 içindeki "Virtual Camera" nesnesine komponent olarak eklendi. "Brain" alanına "Player1 Camera" eklendi. Bunun sonucunda spawn edilen her player için kendi kamerası aktif hale geldi.
+                    </p>
+                    <h2>Two Player Game</h2>
+                    <p>
+                        Dövüs oyunu gibi iki karakterin oyuna aynı anda başladığı ve belirlenmiş noktalardan başlangıçta çıktığı bir oyun düzeni hazırlayacağız
+                    </p>
+                    <p>
+                        Sahneye kamera ekledik ve pozisyonlandırdık.
+                    </p>
+                    <p>
+                        Player1 prefabındaki kameraları pasife aldık. PlayerArmature komponenti Player Input içinde Camera: none yapıldı. "Default Scheme: Gamepad" yapıldı. PLayer2 prefabına Player Input komponenti eklendi ve bileşen ayarları Player1 deki ile aynı yaptık.
+                    </p>
+                    <p>
+                        Manager nesnesinden "Player Spawn Script" bileşeni kaldırıldı. "Player Input Manager" içinde "Join Behavior: Join Player Manually" olarak ayarlandı. "Enable Split-Screen" pasife alındı. "Max Player Count: 2" yapıldı.
+                    </p>
+                    <p>
+                        PlayerJoinScript.cs oluşturuldu.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+
+public class PlayerJoinScript : MonoBehaviour
+{
+    public Transform SpawnPoint1, SpawnPoint2;
+    public GameObject Player1, Player2;
+
+    private void Awake()
+    {
+        Instantiate(Player1, SpawnPoint1.position, SpawnPoint1.rotation);
+        Instantiate(Player2, SpawnPoint2.position, SpawnPoint2.rotation);
+    }
+}
+                        </pre>
+                        Manager nesnesine eklendi. İlgili alanlar dolduruldu.
+                    </p>
+                    <p>
+                        "Spawn1" ve "Spawn2" nesneleri spawn pozisyonunu ve yönünü belirler. Buna uygun olarak sahnemizi düzenledik
                     </p>
                 </div>
             </div>
