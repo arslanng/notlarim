@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity VR</title>
+    <link rel="stylesheet" href="css/sql.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .menu ul{
+            list-style-position: inside;
+            list-style: none;
+        }
+        li a{
+            color: black;
+            text-decoration: none;
+        }
+        li:hover{
+            background-color: rgba(0, 0, 0, 0.103);
+        }
+        h1{
+            border-bottom: 1px solid black;
+        }
+        h3{
+            margin-top: 4px;
+            margin-bottom: -3px;
+            font-size: normal;
+        }
+        ul{
+            list-style-position: inside;
+        }
+        table, th ,td{
+            border: 1px black solid;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        nav{
+            background-color: white;
+        }
+        .nav-pills .nav-link.active {
+            background-color: rgba(0, 0, 0, 0.51);
+        }
+        .nav-pills .nav-link {
+            color: black
+        }
+        </style>
+</head>
+<body>
+    <div class="nav bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Unity Learn Codes</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Ana Sayfa</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Eğitim Notları
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="html_notları.html" target="_blank">HTML Notları</a></li>
+                          <li><a class="dropdown-item" href="CSS.html" target="_blank">CSS Notları</a></li>
+                          <li><a class="dropdown-item" href="bootstrap.html" target="_blank">Bootstrap Notları</a></li>
+                          <li><a class="dropdown-item" href="js.html" target="_blank">JavaScript Notları</a></li>
+                          <li><a class="dropdown-item" href="git.html" target="_blank">git notları</a></li>
+                          <li><a class="dropdown-item" href="sql.html" target="_blank">SQL notları</a></li>
+                          <li><a class="dropdown-item" href="nodejs.html" target="_blank">NodeJS notları</a></li>
+                          <li><a class="dropdown-item" href="restAPI.html" target="_blank">Rest Api notları</a></li>
+                          <li><a class="dropdown-item" href="react.html" target="_blank">React</a></li>
+                          <li><a class="dropdown-item" href="redux.html" target="_blank">Redux</a></li>
+                          <li><a class="dropdown-item" href="GraphQL.html" target="_blank">GraphQL</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- İçerik Start -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 mt-4 p-4 rounded-4 sticky-top menu d-none d-lg-block" style="height: fit-content;">
+            <!-- style="height:fit-content => yükseklik belirtmediğinde kolon en alta kadar indiğinden .sticky-top görünür bir etki yaratmıyor -->
+            <h2>Konu Listesi </h2>
+            <hr>
+            <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end " style="max-height: 400px; overflow: auto;">
+                <nav class="nav nav-pills flex-column ">
+                  <a class="nav-link" href="#setup">VR Proje Kurulumu</a>
+                  
+                </nav>
+              </nav>
+        </div>
+        <div class="col-sm-9">
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+            <div id="1">
+                <div id="setup">
+                    <h1>VR Proje Kurulumu</h1>
+                    <p>
+                        Meta Quest (1) cihazı hazırlamak ve meta kullanıcısı ile açmak ve developer hesabı almak için <a href="https://developers.meta.com/horizon/documentation/native/android/mobile-device-setup/?_sm_au_=iVV6kj5cn7HT7H0MB4C8NKHvQ2WLF">rehbere tıklayınız.</a>
+                    </p>
+                    <p>
+                        Hazır proje dosyasını indirmek için <a href="https://www.dropbox.com/scl/fi/mfs98uxvcm8yuaq9lhtfa/Create-with-VR_U6.zip?rlkey=33jhokjjfv8016nu2nn7yi4cs&e=1&dl=0">tıklayınız</a>
+                    </p>
+                    <p>
+                        VR projemizin düzgün çalışması için aşağıdaki paketler "packace manager" üzerinden kurulmalı.
+                        <ul>
+                            <li>XR Plugin Management</li>
+                            <li>XR Interaction Toolkit</li>
+                            <li>OpenXR Plugin</li>
+                            <li>Universal Render Pipeline</li>
+                        </ul>
+                    </p>
+                    <p>
+                        "Scenes" klasöründeki sahnenin adını "VR Room" yaptık ve açtık.
+                    </p>
+                    <p>
+                        Hiyerarşi penceresinden XR Origin (VR) GameObject'ini seçtik. XR Origin (VR) > Kamera Kaydırma > Ana Kamera'yı seçin ve Tracked Pose Driver bileşenini inceledik. "Tracked Pose Driver" bileşeni, bir GameObject'i VR başlığınızın veya kontrol cihazlarınızın gerçek dünyadaki konum ve dönüşüne uyacak şekilde otomatik olarak hareket ettirir.
+                    </p>
+                    <p>
+                        Kontrolcü GameObject'lerinin izlenebilmesi için bu bileşenlere de ihtiyaç vardır. LeftHand Controller GameObject'ini seçin ve bir Tracked Pose Driver (Input System) bileşeni ekledik. Ayarlar düğmesini seçtik ve ardından LeftTrackedPoseDriver ön ayarını seçtik. Bu, bileşenin çalışması için gerekli olan tüm Input Action References'ları ekledi. Aynısını RightHand Controller için de yaptık.
+                    </p>
+                    <p>
+                        "Tracked Pose Driver (Input System)" bileşeni "XR Interaction Toolkit" paketinden geldi.
+                    </p>
+                    <p>
+                        Hiyerarşi penceresinde, "Input Action Manager" GameObject'ini seçtik ve "Input Action Manager" bileşenini inceledik. "XRI Default Input Actions" varlığını çift tıklayarak Input Actions Editor penceresini açtık.
+                    </p>
+                    <p>
+                        Bu "XRI Default Input Actions" varlığı, VR başlığınızın ve kontrol cihazlarınızın oyuna nasıl giriş gönderdiğini tanımlar. Soldaki Eylem Haritaları, farklı giriş türlerini (baş izleme veya el hareketi gibi) gruplandırır. Sağdaki Eylemler ise neyin izlendiğini gösterir (başınızın konumu ve dönüşü gibi). Bu ayar, Unity'nin VR'da gerçekleştirdiğiniz eylemlere yanıt vermesini sağlar.
+                    </p>
+                    <p>
+                        "XRI Default Input Actions" bileşeni "XR Interaction Toolkit" paketinden geldi.
+                    </p>
+                    <p>
+                        "_Prefabs" klasöründeki oda ve çevre örnekleri ile sahnemizin başlangıcını oluşturduk.
+                    </p>
+                    <p>
+                        VR başlığınız bağlı değilse — ya da test sırasında başlık kullanmamayı tercih ediyorsanız — XR Interaction Toolkit'in bir parçası olan Cihaz Simülatörü'nü kullanabilirsiniz. Bu araç, sahnenizi fare ve klavyeyi kullanarak doğrudan Unity Editörü'nde test etmenizi sağlar. Bu özellik, başlık takmaya gerek kalmadan hızlı yinelemeler yapmak ve temel işlevleri test etmek için özellikle kullanışlıdır.
+                    </p>
+                    <p>
+                        Proje penceresinden Samples > XR Interaction Toolkit > [sürüm] > XR Device Simulator > XRDeviceSimulator klasörlerini açın. XR Device Simulator prefabını Hiyerarşi penceresine sürükleyin. Simülatörü test etmek için Oynatma moduna geçin.
+                    </p>
+                    <p>
+                        Not: Simülatörü etkili bir şekilde kullanmak için, tıklanabilir kaydırma tekerleği olan bir fare kullanılması önerilir.
+                    </p>
+                    <p>
+                        <ul>
+                            <li>Kamerayı kontrol etmek için: sağ tıklamayı basılı tutun.</li>
+                            <li>Sol kontrol cihazını kontrol etmek için: Sol Shift tuşunu basılı tutun veya T tuşuyla geçiş yapın.</li>
+                            <li>Sağ kontrol cihazını kontrol etmek için: Boşluk tuşunu basılı tutun veya Y tuşuyla geçiş yapın.</li>
+                            <li>Cihazla etrafta gezinmek için: fareyi hareket ettirin.</li>
+                            <li>Cihazı döndürmek için: farenin orta tuşunu basılı tutun.</li>
+                            <li>Cihazların konumunu ve dönüşünü sıfırlamak için: V tuşuna basın.</li>
+                        </ul>
+                    </p>
+                    <p>
+                        Kullanmayacağımız zaman simulatörü devre dışı bırakmayı unutmamalıyız. Deploy edilirse karışıklığa yol açar.
+                    </p>
+
+                    <h2>Unityden VR Headsete Test Yayını</h2>
+                    <p>
+                        Projeyi Unity aracılığıyla cihazınızda çalıştırmak için, geliştirme amaçlı doğru eklentiyi yüklemeniz gerekir. OpenXR, Unity’yi desteklenen VR donanım cihazlarına bağlayan açık kaynaklı bir API’dir. Tek bir standart API aracılığıyla birden fazla cihaza dağıtım yapmanıza olanak tanıdığından, bu eklentiyi kullanmanız önerilir.
+                    </p>
+                    <p>
+                        Ana menüden Edit > Project Settings’i seçin, ardından en soldaki panelden XR Plug-in Management sekmesini seçin. Windows, Mac, Linux sekmesinde, mevcut Eklenti Sağlayıcıları listesinden OpenXR'yi seçerek bu eklentiyi yükleyin.
+                    </p>
+                    <p>
+                        OpenXR eklentisini ekledikten sonra, eklenti adının yanında bir uyarı veya hata simgesi görünebilir.Herhangi bir uyarı veya hata yoksa, cihazınızı Quest Link Yazılımı aracılığıyla bağlamak için aşağıdaki adıma geçebilirsiniz. Bir uyarı varsa, uyarı simgesini seçerek "Project Validation" penceresini açın; bu pencere, kullandığınız cihaz için bir etkileşim profili eklemeniz gerektiğini size bildirecektir. Düzenle düğmesini seçerek OpenXR ayarları panelini açın. Windows, Mac, Linux sekmesinde, Oculus Touch Denetleyici Profilinin Etkileşim Profilleri listesinde göründüğünden emin olun, ardından mevcut tüm OpenXR Özellik Gruplarını etkinleştirin.
+                    </p>
+                    <p>
+                        Valve Index veya HTC Vive gibi farklı bir cihaz kullanıyorsanız, bunun yerine o cihazın etkileşim profilini ekleyin.
+                    </p>
+                    <p>
+                        XR Eklenti Yönetimi panelinde artık herhangi bir uyarı olmamalıdır. Varsa, bunları seçin ve önerilen adımları izleyerek sorunları giderin. Uyarıları veya hataları gidermede sorun yaşıyorsanız veya sorun giderme konusunda yardıma ihtiyacınız varsa, OpenXR eklentisini yapılandırma hakkındaki bu ayrıntılı belgelere <a href="https://docs.unity3d.com/Packages/com.unity.xr.openxr@1.10/manual/index.html">göz atın.</a>
+                    </p>
+                    <p>
+                        Cihaz Horizon link ile bağlıyken cihazın içinden Unity play moda alınınca vr sahnemizin içine giriyoruz :D
+                    </p>
+
+                    <h2>Cihaza Deploy Etmek</h2>
+                    <p>
+                        Ana menüden Edit > Project Settings'i seçtik, ardından en soldaki panelden XR Plug-in Management sekmesini seçtik.XR Plug-in Management ayarlarından Android sekmesini seçin, ardından mevcut Eklenti Sağlayıcıları listesinden OpenXR'yi seçerek bu eklentiyi yükleyin.
+                    </p>
+                    <p>
+                        Görünen yeni uyarı veya hata simgesini seçerek OpenXR Proje Doğrulama penceresini açtık. "Tümünü Düzelt" seçeneği varsa, bazı uyarıları gidermek için bu seçeneği seçtik.
+                    </p>
+                    <p>
+                        Muhtemelen, bir etkileşim profili eklemeniz gerektiğini belirten bir uyarı hala görünecektir. Düzenle düğmesini seçerek OpenXR ayarları panelini açın. "OpenXR" ayarları panelinde, Android sekmesinde, cihazınız için uygun profili eklemek üzere Ekle (+) düğmesini seçin. Quest modelleri için "Oculus Touch Controller Profile"ı seçin, ardından "Meta Quest Support" özellik gruplarını etkinleştirin. Herhangi bir ek hata veya uyarı görünürse, bunları gidermek için hata veya uyarı simgelerini seçin.
+                    </p>
+                    <p>
+                        Sahnenizdeki XR Cihaz Simülatörü GameObject'inin devre dışı bırakıldığından emin olun. Eğer etkinse, kafa izleme özelliği çalışmayacaktır.
+                    </p>
+                    <p>
+                        Ana menüden File > Build Profiles'i seçin. "Open Scene List"ı seçin. Sahnenizi eklemek için "Add Open Scenes"i seçin.
+                    </p>
+                    <p>
+                        Android platformunu seçin.
+                    </p>
+                    <p>
+                        VR cihazınızın açık ve prize takılı olduğundan emin olun. "Run Device" açılır menüsünün yanındaki "Refresh" seçeneğini seçin, ardından VR cihazınızı seçin. Cihazınız bir cihaz kimliği veya cihaz adı olarak görünebilir.
+                    </p>
+                    <p>
+                        "Build and Run"ı tıklayın.
+                    </p>
+                    <p>
+                        <b>Sorun giderme ipuçları:</b>
+                        <ul>
+                            <li>
+                                Uygulama çalışıyor ancak görüş alanının tamamını kaplamıyorsa, sorun büyük olasılıkla eklentilerle ilgilidir.
+                            </li>
+                            <li>
+                                Uygulama çalışıyor ancak tüm sahne başınızın hareketine göre kayıyorsa, bunun nedeni büyük olasılıkla XR Cihaz Simülatörü GameObject'inin etkin olması veya Giriş Eylem Yöneticisi'nin doğru şekilde yapılandırılmamış olmasıdır.
+                            </li>
+                        </ul>
+                    </p>
+                    <p>
+                        Minimum API Level 29 olmalı. Yoksa Meta Quest (1) e deploy edemez.
+                    </p>
+                    <p>
+                        Meta Quest (1) eski bir cihaz olduğundan Build Settings'de aşağıdaki ayaralar gerekti.
+                        <ul>
+                            <li>XR Plug-in Management te OpenXR yerine Oculus</li>
+                            <li>Player > Other Settingste Vulcan yerine OpenGLE3. (vulcanı tamamen kaldır)</li>
+                            <li>Multithreaded Rendering kapalı</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JS -->
+    
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=js&amp;skin=sunburst"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
