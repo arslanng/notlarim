@@ -95,6 +95,18 @@
             <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end " style="max-height: 400px; overflow: auto;">
                 <nav class="nav nav-pills flex-column ">
                   <a class="nav-link" href="#setup">VR Proje Kurulumu</a>
+                  <a class="nav-link" href="#locomotion">VR Hareket</a>
+                  <a class="nav-link" href="#grabbaleGameObjects">Tutulabilir GameObject'ler</a>
+                  <a class="nav-link" href="#sockets">Soketler</a>
+                  <a class="nav-link" href="#audioAndHaptic">Ses ve Dokunsal Geri Bildirim</a>
+                  <a class="nav-link" href="#activationEvents">Etkinleştirme olayları (Etkinleştirme - Kumanda, Işık kaynağı)</a>
+                  <a class="nav-link" href="#near-farAndRayInteractions">Yakın-Uzak ve Işın Etkileşimci</a>
+                  <a class="nav-link" href="#userInterface">Kullanıcı Arayüzü</a>
+                  <a class="nav-link" href="#bonus1">Ödev 2'de Kullandığım Yararlı Kodlar</a>
+                  <a class="nav-link" href="#comfortAndAccessibility">Konfor ve Erişilebilirlik</a>
+                  <a class="nav-link" href="#optimization">Optimizasyon</a>
+                  <a class="nav-link" href="#lighting">Aydınlatma</a>
+                  <a class="nav-link" href="#keepinUpXRTech">XR Teknolojisini Takip Etmek</a>
                   
                 </nav>
               </nav>
@@ -231,6 +243,1950 @@
                             <li>XR Plug-in Management te OpenXR yerine Oculus</li>
                             <li>Player > Other Settingste Vulcan yerine OpenGLE3. (vulcanı tamamen kaldır)</li>
                             <li>Multithreaded Rendering kapalı</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            <div id="2">
+                <div id="locomotion">
+                    <h1>VR Hareket</h1>
+                    <p>
+                        Bu örnekte VR sahnemizde ışınlanma yapmayı öğreneceğiz. Hocaya göre ışınlanma kumanda ile kontrolden daha az "VR rahatsızlığı" yapıyor.
+                    </p>
+                    <p>
+                        Odaya hazır prefablardan eşyalar ekledik. 
+                    </p>
+
+                    <h2>Snap Turn (ani dönüş) Ekle</h2>
+                    <p>
+                        Kontrolcüden gelen işaretle karakterin belirli bir derecede açıyı dönmesini sağladık.
+                    </p>
+                    <p>
+                        "XR Origin (VR)" GameObject'inin alt öğesi olarak yeni bir boş GameObject ekledik ve buna “Locomotion” adını verdik.
+                    </p>
+                    <p>
+                        Locomotion GameObject'e bir Locomotion Mediator bileşeni ekledik; bir XR Body Transformer bileşeni otomatik olarak eklendi.
+                    </p>
+                    <p>
+                        XR Body Transformer bileşeninde, XR Origin (VR) GameObject'e otomatik olarak bir Character Controller bileşeni eklemek için "Add Character Controller" düğmesini seçtik.
+                    </p>
+                    <p>
+                        Locomotion GameObject'inin alt öğesi olarak yeni bir boş GameObject oluşturduk ve buna “Snap Turn” adını verdik.
+                    </p>
+                    <p>
+                        Snap Turn GameObject'e bir Snap Turn Provider bileşeni ekledik. İlgili giriş eylemini seçerek, "Left Hand Turn Input" ve "Right Hand Turn Input" özelliklerine uygun "Giriş Eylemi" varlığını atayın: Left hand: XRI Left Locomotion/Snap Turn (Input Action Reference). Right Hand: XRI Right Locomotion/Snap Turn (Input Action Reference).
+                    </p>
+                    <p>
+                        Locomotion GameObject'ini Mediator özellik kutusuna sürükleyip bıraktık.
+                    </p>
+                    <p>
+                        <b>Hızlı dönüş deneyimini için ince ayarlar:</b>
+                        <ul>Beğendiğiniz bir ayar bulana kadar "Dönüş Miktarı" ve "Yankılanma Süresi" özellikleriyle denemeler yapın.
+                            <li>Dönüş Miktarı özelliği, bir snap dönüş tetiklendiğinde kullanıcının her seferinde ne kadar (derece cinsinden) döndüğünü tanımlar.</li>
+                            <li>Yankılanma Süresi özelliği, hızlı ve tekrarlanan dönüşleri önlemek ve yumuşak geçişler sağlamak için izin verilen snap dönüşler arasında minimum gecikmeyi ayarlar.</li>
+                        </ul>
+                        Kullanıcının joystick'i aşağı bastığında 180 derece dönmesini sağlamak için "Enable Turn Around" özelliğini etkinleştirin.
+                    </p>
+                    <p>
+                        <b>Önemli Not:</b> mevcut hiyerarşi locomotion sonrası sorun çıkardığı için yeniden düzenlendi.
+                        <ul>
+                            <li>XR Origin (VR)
+                                <ul>
+                                    <li>Main Camera</li>
+                                    <li>Right Hand Controller
+                                        <ul>
+                                            <li>RightSphere</li>
+                                            <li>Right Ray Interactor</li>
+                                        </ul>
+                                    </li>
+                                    <li>Left Hand Controller
+                                        <ul>
+                                            <li>Left Ray Interactor</li>
+                                            <li>LeftSphere</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>Locomotion
+                                <ul>
+                                    <li>Snap Turn</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+
+                    <h2>Sürekli Dönüş Ekle</h2>
+                    <p>
+                        "Sürekli Dönüş" eylemi, VR'da kullanıcının görüş açısını yumuşak bir şekilde döndürmenizi sağlayarak, ani dönüşler yerine akıcı bir dönüş deneyimi sunar.
+                    </p>
+                    <p>
+                        <b>Uyarı:</b> Bu tür hareketler, VR'a yeni başlayanlar için kafa karıştırıcı olabilir; bu nedenle "Ani Dönüş" genellikle daha güvenli bir seçenektir.
+                    </p>
+                    <p>
+                        Locomotion GameObject'inin alt öğesi olarak boş bir GameObject oluşturduk ve “Continuous Turn” adını verdik.
+                    </p>
+                    <p>
+                        "Continuous Turn" GameObject'ine "Continuous Turn Provider" bileşenini ekledik.
+                        <ul>
+                            <li>Left Hand: XRI Left Locomotion/Turn</li>
+                            <li>Right Hand: XRI Right Locomotion/Turn</li>
+                            <li>Locomotion GameObject'ini Mediator özellik kutusuna sürükleyip bırak</li>
+                        </ul>
+                    </p>
+                    <p>
+                        "Snap Turn" ve "Continuous Turn" özelliklerinin aynı anda etkin olmaması tavsiye edilir; bu nedenle, bundan sonra "Left Hand Controller" GameObject'inin sürekli dönüşü, "Right Hand Controller" GameObject'inin ise ani dönüş işlevlerini kontrol edecek şekilde ayarlayacağız.
+                    </p>
+                    <p>
+                        "Snap Turn" ve "Continuous Turn" hareket modlarını birleştirmek istiyorsanız, bir elin "Snap Turn" hareketini, diğer elin ise "Continuous Turn" hareketini gerçekleştirecek şekilde yapılandırabilirsiniz. Bunu, belirli eller için "Input Actions" öğelerini kaldırarak yapabilirsiniz.
+                        <ul>
+                            <li>"Snap Turn" GameObject'inin "Snap Turn Provider" bileşeninde, "Left Hand Turn Input" özelliğini "None" olarak ayarlayın.</li>
+                            <li>"Continuous Turn" GameObject'inin "Continuous Turn" bileşeninde, "Right Hand Turn Input" özelliğini "None" olarak ayarlayın.</li>
+                        </ul>
+                    </p>
+
+                    <h2>Teleport Alanı Ekle</h2>
+                    <p>
+                        Artık dönme işlevini kullanabildiğinize göre, belirlenen bir alan içindeki farklı noktalara anında taşınmayı sağlayan işlevi de ekleyeceğiz.
+                    </p>
+                    <p>
+                        Dönme veya serbest hareket etmenin aksine, anında taşınma işlevi kullanıcıyı seçilen bir noktaya anında götürür. Bu, özellikle hareket hassasiyeti olan kullanıcılar için VR ortamında dolaşmanın genellikle daha rahat bir yolu olabilir.
+                    </p>
+                    <p>
+                        Locomotion GameObject’ini seçtik, yeni bir boş alt GameObject ekledik ve adına “Teleport” adını verdik.Teleport GameObject’ine bir "Teleportation Provider" bileşeni ekledik. Locomotion GameObject’ini Mediator özellik kutusuna sürükleyip bıraktık.
+                    </p>
+                    <p>
+                        Rug GameObject'ini seçtik ve bir Teleportation Area bileşeni ekledik. Teleport GameObject'ini Teleportation Provider özelliğine sürükleyip bıraktık.
+                    </p>
+                    <p>
+                        Artık halının herhangi bir noktasına geldiğinizde, çizgi göstergesi beyaz renge döner ve kontrol cihazındaki tutma düğmesini kullanarak o noktaya anında gidebiliyoruz. Tutma düğmesi, kontrol cihazının iç kısmında en altta bulunan düğmedir ve genellikle orta parmakla basılır.
+                    </p>
+
+                    <h2>Teleport Noktaları Ekle</h2>
+                    <p>
+                        Bazen, kullanıcının belirli bir noktaya ışınlanmasını ve belirli bir yöne bakmasını istersiniz. Bu, Işınlanma Noktaları ile gerçekleştirilebilir.
+                    </p>
+                    <p>
+                        _Course Library > _Prefabs > Rugs klasörlerini açın, ardından odanın önemli noktalarına daha küçük Mat GameObject'leri ekledik. Bu GameObject'leri, yerel Z ekseni (mavi) okları, kullanıcının oraya ışınlandığında durmasını istediğiniz yöne bakacak şekilde döndürdük.
+                    </p>
+                    <p>
+                        Mat prefab'ına yeni bir "Teleportation Anchor" bileşeni ekleyin. Not: Teleportation Provider özelliğini atamanız aslında gerekli değildir; uygulama çalıştırıldığında bu özellik otomatik olarak atanır. Teleportation Anchor bileşeninde, "Match Orientation" özelliğini "Target Up And Forward" olarak ayarlayın.
+                    </p>
+                    <p>
+                        Artık odanın dört bir yanındaki matlara ışınlanabilmeli ve vardığınızda matın yönüne göre kendinizi yeniden konumlandırabilmelisiniz.
+                    </p>
+                    <p>
+                        <b>Test ederken XR Plug-in Management: OpenXR olmazsa hata veriyor. Deployda yine Oculus deneyeceğim.</b>
+                    </p>
+
+                    <h2>Işınlanma Nişan Çizgilerini Özelleştir</h2>
+                    <p>
+                        _Course Library > _Prefabs > VR > Reticles dosyasından tercih ettiğimiz nişangahı sahnede değişmesini istediğimiz "Teleportation Area" ve "Teleportation Anchor" bileşenlerinin "Custom Reticle" alanına ekliyoruz. Bu da ışınlanma alanlarını işaret ettiğimizde alan üzerinde görünüyor.
+                    </p>
+                </div>
+            </div>
+            <div id="3">
+                <div id="grabbaleGameObjects">
+                    <h1>Tutulabilir GameObject'ler</h1>
+                    <p>
+                        Bu derste, sanal gerçeklikte nesneleri temel düzeyde tutulabilir etkileşim için nasıl yapılandıracağınızı öğreniyoruz. Dersin sonunda, kullanıcılar sahnedeki nesneleri alıp etrafa fırlatabileceğiz.
+                    </p>
+                    <p>
+                        Gerçek hayatta 1 metre Unityde 1 birime karşılık geliyor.
+                    </p>
+
+                    <h2>El Modellerini Seçin</h2>
+                    <p>
+                        Kullanıcıların sanal gerçeklikte genellikle ilk yaptıkları şeylerden biri ellerini aramaktır; bu, kendilerini daha fazla o ortamda hissetmek ve sanal dünyadaki yerlerini anlamak için doğal bir yoldur.
+                    </p>
+                    <p>
+                        Elleri temsil etmek için basit küreler kullanmak yerine, görünüşü ve hareketleri gerçek ellere daha çok benzeyen özel 3B modeller seçebilirsiniz. Bu küçük değişiklik, sanal gerçeklik deneyimine dalma hissini önemli ölçüde artırabilir ve kullanıcıların deneyime daha bağlı hissetmelerine yardımcı olabilir.
+                    </p>
+                    <p>
+                        Proje penceresinde _Course Library > _Prefabs > VR > Hands klasörlerini açın, ardından hangi VR_Hand seçeneğini tercih ettiğinize karar verdik. Seçtiklerimizi hiyerarşide " XR Origin (VR)" altındaki Hand Controllerlara "RightSphere" ve "LeftSphere" yerine ekledik. "RightSphere" ve "LeftSphere" i pasife aldık.
+                    </p>
+                    <p>
+                        El modelleriniz yanlış konumda görünüyorsa, Inspector penceresinde Transform bileşenlerinin Position özelliğinin X = 0, Y = 0 ve Z = 0 olarak ayarlandığından emin olun.
+                    </p>
+
+                    <h2>Tutulabilir Bir GameObject Ekle</h2>
+                    <p>
+                         _Course Library > _Prefabs > Objects > Sports içinden bir "Ball" seçip alana ekledik.
+                    </p>
+                    <p>
+                        "Ball" GameObject'ine bir "XR Grab Interactable" bileşeni ekledik. XR Grab Interactable bileşeni, GameObject'lerin VR ortamında kaldırılıp hareket ettirilmesini sağlar. 
+                    </p>
+                    <p>
+                        Not: Bu işlem, Ball GameObject'ine de otomatik olarak bir Rigidbody bileşeni ekleyecektir. Rigidbody bileşeni, GameObject'lerin yerçekimi ve çarpışmalar gibi fiziksel etkenlerden etkilenmesini sağlar.
+                    </p>
+                    <p>
+                        VR'da uzaktaki GameObject'leri kendinize doğru çekerek bir "kuvvetle çekme" efekti simüle etme seçeneğiniz vardır. Right Hand Controller > Right Ray Interactor GameObject'ini seçin. "XR Ray Interactor" bileşeninde, "Force Grab" seçeneğini etkinleştirin. Aynı işlemi Sdiğer taraf ele de yapın. Artık VR'da uzaktaki GameObject'leri kendinize doğru çekebilir ve ışınınızı hedefleyip Grip düğmesine bastığınızda "kuvvet çekme" efektini simüle edebilirsiniz.
+                    </p>
+
+                    <h2>Tutulurken Nesne Elleri Gizle ve Tutulan Nesnenin Hareketini Devre Dışı Bırak</h2>
+                    <p>
+                        Şu anda sahnenizdeki tutma işlevinde iki temel sorun var: Birincisi, el modeli tuttuğunuz GameObject ile üst üste geliyor ve bu da sahneyle etkileşimi zorlaştırıyor; ikincisi ise, tutma işlevi etkinleştirildiğinde ve analog çubuğu hareket ettirdiğinizde, tutulan GameObject elinizde istem dışı bir şekilde dönüyor. Bunu düzelteceğiz
+                    </p>
+                    <p>
+                        Hiyerarşi penceresinde, Left Ray Interactor GameObject'ini seçtik. XR Ray Interactor bileşeninde, Manipulate Attach Transform özelliğini devre dışı bıraktık. Bu nesnenin tutulurken kendi kendine hareket etmesini engeller.
+                    </p>
+                    <p>
+                        Nesne tutulduğunda eli yok etmek için: XR Ray Interactor bileşeninde, açılır menüyü (üçgen simgesi) kullanarak Interactor Events bölümünü genişlettik. Select Entered Event özelliğinde, Add (+) düğmesini seçtik. Hierarchy penceresinden Hand_Left prefab'ını kutuya sürükledik ve açılır menüyü açtık ve GameObject > SetActive(Bool) seçeneğini seçerek, nesneyi kavradığınızda elin görünmemesini sağladık.
+                    </p>
+                    <p>
+                        Nesneyi bırakınca eli ortaya çıkarmak için: "Select Exited Event" özelliğinde, "Add (+)" düğmesini seçtik. "Hierarchy" penceresinden "Hand_Left" prefabını kutuya sürükledik ve açılır menüyü açın ve "GameObject > SetActive(Bool)" seçeneğini seçtik; elin tekrar görünmesi için onay kutusunun işaretli olduğundan emin olun.
+                    </p>
+                    <p>
+                        Diğer elde işlemleri tekrarladık.
+                    </p>
+
+                    <h2>Atış Deneyimini Daha Da İyileştirmek</h2>
+                    <p>
+                        <b>Topu zıplayabilir hale getirmek:</b> Ball GameObject’in Sphere Collider bileşeninde Material özelliğine sunulan Fizik Malzemelerinden birini seçtik.
+                    </p>
+                    <p>
+                        <b>Düşen bir GameObject'in zeminden geçmesini önlemek:</b> Ball GameObject'in Rigidbody bileşeninde, Collision Detection özelliğini Continuous Dynamic olarak ayarladık. <b>Dikkat</b> performans maliyeti var.
+                    </p>
+                    <p>
+                        Çarpışma Algılama özelliği, oyun sırasında çarpışmaların nasıl hesaplanıp çözüleceğini kontrol eder ve GameObject'lerin çarpışmaları ne kadar doğru algılayıp bunlara tepki vereceğini etkiler. Aşağıda farklı seçeneklerin açıklaması yer almaktadır:
+                        <ul>
+                            <li><b>Discrete:</b> Hızlı ve basittir, ancak hızlı hareket eden GameObject'lerle olan çarpışmaları gözden kaçırabilir.</li>
+                            <li><b>Continuous:</b> Hızlı hareket eden GameObject'lerin diğerlerinin içinden geçmesini engeller.</li>
+                            <li><b>Continuous Dynamic:</b> Sürekli seçeneğine benzer, ancak hızlı hareket eden GameObject'leri birbirleriyle de karşılaştırır.</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Topun Rigidbody bileşeninin fizik kurallarının elinizdeyken de çalışmasına izin vermek:</b> Ball GameObject’inin XRI Grab Interactable bileşeninde, Movement Type özelliğinin Kinematic olarak ayarlandığından emin olun." Movement Type" özelliği, bir GameObject’in VR’da yakalandığında nasıl hareket edeceğini belirler. Aşağıda farklı seçeneklerin açıklaması yer almaktadır:
+                        <ul>
+                            <li><b>Kinematic:</b> GameObject, istikrarlı ve öngörülebilir bir tutuş için fizik kuvvetlerini göz ardı ederek, etkileşimcinin konumuna doğrudan uyacak şekilde hareket ettirilir.</li>
+                            <li><b>Velocity Tracking:</b> GameObject'in Rigidbody bileşeni, hesaplanan kuvvetleri kullanarak onu etkileşimcinin konumuna doğru hareket ettirir ve fiziksel olarak daha doğru bir hareket oluşturur.</li>
+                            <li><b>Instantaneous:</b> GameObject, hareketin ne kadar hızlı veya yavaş olduğuna bakılmaksızın, etkileşimcinin konumuna anında yerleşir.</li>
+                        </ul>
+                        Bu adımda, hassas kontrol ve istikrarlı kavrama performansı için ayarı "Kinematik" olarak belirleyin.
+                    </p>
+                    <p>
+                        <b>GameObject'in hareketini yumuşatmak:</b> Ball GameObject'in XRI Grab Interactable bileşeninde, Smooth Position ve Smooth Rotation özelliklerini etkinleştirdik.
+                    </p>
+
+                    <h2>Tutma Kolu Olan Bir GameObject Eklemek</h2>
+                    <p>
+                        Sahneye bir "Racket" prefabı ekledik.
+                    </p>
+                    <p>
+                        <b>Yeni GameObject'i tutılabilir hale getirmek:</b> Yeni GameObject'i seçip ve üzerine bir "XR Grab Interactable" bileşeni ekledik. XR Grab Interactable bileşeninde, titremeyi azaltmak için hem "Smooth Position" hem de "Smooth Rotation" özelliklerini etkinleştirdik. (Otomatik olarak eklenen) Rigidbody bileşeninde, Collision Detection özelliğinin açılır menüsünü açın ve GameObject'in zeminden geçmesini önlemek için "Continuous Dynamic" seçeneğini seçtik.
+                    </p>
+                    <p>
+                        <b>GameObject için özel bir tutturma noktası oluşturmak:</b> Hierarchy penceresinde, yeni GameObject'e sağ tıklayın ve boş bir alt GameObject oluşturduk. Bu boş alt GameObject'in adını “Attach” olarak değiştirdik. Attach GameObject'i, yeni GameObject'i tuttuğunuzda el modelinizin olması gereken konum ve yönle uyumlu olacak şekilde yeniden konumlandırın ve döndürdük.
+                    </p>
+                    <p>
+                        <b>Bağlantı noktasını spor aletinize atamak:</b> Hiyerarşi penceresinde, üst spor GameObject'ini yeniden seçtik. XR Grab Interactable bileşeninde, Attach Transform özelliğine Attach GameObject'inizi sürükleyip bırakın.
+                    </p>
+
+                    <h2>Hiyerarşi Penceresini Düzenlemek</h2>
+                    <p>
+                        “XR,” “LIGHTING”, “STATIC,” ve “DYNAMIC,” adında boş ve pozisyonu 0,0,0 olan GameObjectler oluşturuldu. Diğer GameObjectler bunların altında organize edildi.
+                    </p>
+                </div>
+            </div>
+            <div id="4">
+                <div id="sockets">
+                    <h1>Soketler</h1>
+                    <p>
+                        Bazen kullanıcının GameObject'leri ekleyebilmesini veya önceden tanımlanmış konumlara yerleştirebilmesini istersiniz; işte bu noktada soketler işe yarar. Soketler, kullanıcıların GameObject'leri tutup yerleştirmelerine veya sanal ortam içinde belirli konumlara hizalamalarına olanak tanıyan önceden tanımlanmış bağlantı noktalarıdır.
+                    </p>
+                    <p>
+                        prefablardan iki adet şapka seçip sahnemize ekledik ve tutlabilir olmaları için bunlara bileşen olarak "XR Grab Interactable" ekleyip, titremeyi azaltmak için "Smooth Position" ve "Smooth Rotation" özelliklerini etkinleştirin.
+                    </p>
+
+                    <h2>Askılığı Soket Haline Getirmek</h2>
+                    <p>
+                        Hiyerarşi penceresinde, Hook GameObject'ine “Socket 1” adında boş bir alt GameObject oluşturduk. Socket 1 GameObject'ini, Hat GameObject'inin yerleştirileceği kancanın ucuna taşıdık.
+                    </p>
+                    <p>
+                        <b>Soket için tetikleme algılama alanını tanımlamak:</b> Tetikleme alanına giren GameObject'ler sokete yapışacaktır. Soket GameObject'ine bir Sphere Collider bileşeni ekledik. Edit Collider düğmesini seçip Radius özelliğini yaklaşık 0,1'e indirdik. Şapka GameObject'iyle çarpışmasını önlemek için Is Trigger özelliğini etkinleştirdik.
+                    </p>
+                    <p>
+                        <b>Soket gibi davranmasını sağlamak:</b> Socket 1 GameObject'ine bir XR Socket Interactor bileşeni ekledik.
+                    </p>
+                    <p>
+                        <b>Şapka GameObject'i sokete eklendiğinde aşağıya doğru bakacak şekilde ayarlamak:</b> Socket 1 GameObject'inin altında “Attach” adında boş bir alt GameObject oluşturduk. Attach GameObject'i aşağıya bakacak şekilde döndürdük. Attach GameObject'i, XR Socket Interactor bileşeninin Attach Transform özelliğine atadık. Not: Bağlantı noktasının yerel Z ekseni, şapkanın istenen ileri yönüyle, yerel Y ekseni ise istenen yukarı yönüyle aynı hizada olmalıdır.
+                    </p>
+
+                    <h2>Soketleri Çoğaltmak ve Başlangıçta Nesneleri Soketlere Yerleştirmek</h2>
+                    <p>
+                        Artık tam olarak çalışan bir yuva oluşturduğunuza göre, bunu kancadaki diğer asma noktaları için kopyalayabilir ve sahne yüklendiğinde şapkaların kancalara asılmasını sağlayabiliriz.
+                    </p>
+                    <p>
+                        Soketi çoğaltıp diğer kancalara da ekledik.
+                    </p>
+                    <p>
+                        <b>Şapkalarınızın varsayılan olarak kancalara takılı olmasını sağlamak:</b> Socket GameObject’in her bir XR Socket Interactor bileşeninde, şapkalarınızdan birini "Starting Selected Interactable“ özelliğine atayın. Not: Eğer sadece iki şapkanız varsa, yuvalardan birinin başlangıç etkileşim özelliği olarak “Yok” seçeneği belirtilmelidir.
+                    </p>
+
+                    <h2>Şapkalarınızı Başınıza Takmak</h2>
+                    <p>
+                        <b>Kafa soketi GameObject'ini doğru şekilde konumlandırmak:</b> Hiyerarşi penceresinde, XR Origin > Camera Offset > Main Camera GameObject'ine sağ tıklayıp “Socket” adında boş bir alt GameObject oluşturduk. Socket GameObject'inin Transform bileşenindeki Position özelliğinin Y değerini 0,1 olarak ayarladık; böylece Hat GameObject gözlerinizin üzerinde görünecektir.
+                    </p>
+                    <p>
+                        <b>Socket GameObject'i için bir tetikleyici algılama alanı eklemek:</b> Socket GameObject'e bir Sphere Collider bileşeni ekledik. Edit Collider düğmesini seçip Radius özelliğini yaklaşık 0,2 olarak ayarladık. Is Trigger özelliğini etkinleştirdik.
+                    </p>
+                    <p>
+                        <b>Şapkaların bu yuvaya oturmasına izin vermek:</b> Socket GameObject'ine bir XR Socket Interactor bileşeni ekledik.
+                    </p>
+                    
+                    <h2>Diğer GameObject'lerin Şapka Gibi Davranmasını Önlemek</h2>
+                    <p>
+                        Şu anda tüm GameObject'leri sanki şapka gibi kafanıza ya da kancalara takabilirsiniz. Etkileşim katmanlarını kullanarak hangi GameObject'lerin birbirleriyle etkileşime girebileceğini ve giremeyeceğini kontrol edebilirsiniz.
+                    </p>
+                    <p>
+                        <b>Yeni bir "Hats" katmanı eklemek:</b> Bir "Hat" GameObject'i seçip Inspector penceresinin sağ üst köşesindeki "Layer" açılır menüsünü açtık ve "Add Layer" seçeneğini seçtik. Mevcut ilk boş yuvaya yeni bir "Hats" katmanı ekledik.
+                    </p>
+                    <p>
+                        <b>Şapkaları yeni "Hats" katmanına yerleştirmek:</b> Hiyerarşi penceresinde, tüm "Hat" GameObject'lerini seçtik. XR Grab Interactable bileşeninde, "Interaction Layer Mask" açılır menüsünü açtık, katmanları temizlemek için "Nothing" seçeneğini seçtik, ardından yalnızca bu katmanı etkinleştirmek için "Hats" katmanını seçtik.
+                    </p>
+                    <p>
+                        <b>Kanca ve kafa yuvalarının yalnızca Şapkalar katmanındaki GameObject'lerle etkileşime girebildiğinden emin olun:</b> Kanca ve kafa yuvası GameObject'lerinin her birinin "Interaction Layer Mask" özelliğini "Hat" katmanına ayarladık.
+                    </p>
+                    <p>
+                        <b>Diğer GameObject'lerin şapka olarak kullanılamayacağından emin olun:</b> Tutulabilir diğer tüm GameObject'lerinizi seçip "Interaction Layer Mask" açılır menüsünü açın ve yalnızca "Default" katmanı etkinleştirdik.
+                    </p>
+                </div>
+            </div>
+            <div id="5">
+                <div id="audioAndHaptic">
+                    <h1>Ses ve Dokunsal Geri Bildirim</h1>
+                    <p>
+                        Bu derste, dokunma ve ses uyarıcıları aracılığıyla projenizin sürükleyiciliğini nasıl artıracağınızı öğreniyoruz. Dersin sonunda, kullanıcı bir nesnenin üzerine geldiğinde veya onu yakaladığında dokunsal ve işitsel geri bildirim alacak. Ayrıca sahnede 3 boyutlu uzamsal ortam sesi de bulunacak.
+                    </p>
+                    <h2>Hover ve Select Durumunda Dokunsal Geri Bildirim Eklemek</h2>
+                    <p>
+                        <b>Haptic Impulse Player bileşenini eklemek:</b> Right Hand Controller ve Left Hand Controller seçiliyken, Inspector penceresinde Add Component seçeneğini seçtik, ardından "Haptic Impulse Player" bileşenini arayıp ekledik.
+                    </p>
+                    <p>
+                        Haptic Impulse Player bileşeni, VR denetleyicilerinde titreşim geri bildirimi oluşturmanıza olanak tanır. Amplitude Controller özelliği, titreşimin gücünü ayarlar ve farklı etkileşimler için dokunsal geri bildirimin yoğunluğunu kontrol etmenizi sağlar.
+                    </p>
+                    <p>
+                        <b>Giriş varlıklarını eklemek:</b> Right Hand Controller GameObject'ini seçtik. Inspector penceresinde, "Haptic Impulse Player" bileşeninde "Haptic Output" seçiciyi (⊙) seçip "XRI Right/Haptic" Device ön ayarını ekledik. Aynı işlemi Left Hand Controller GameObject'i için tekrarladık ve "XRI Left/Haptic Device" ön ayarını ekledik.
+                    </p>
+                    <p>
+                        <b>Simple Haptic Feedback bileşenlerini eklemek:</b> Haptic Impulse Player bileşenlerini eklediğinize göre, artık Interactor'lara Simple Haptic Feedback bileşenlerini ekleyebiliriz. Bu bileşenler, Interactor'ların dokunsal geri bildirimi tetiklemesini sağlayacaktır. Hiyerarşi penceresinde, hem Right Ray Interactor hem de Left Ray Interactor GameObject'lerini seçtik. Bir "Simple Haptic Feedback" bileşeni ekledik. "Play Hover Entered" özelliğini etkinleştirdik. "Duration" değerini çok düşük bir değere ayarladık (örneğin, 0,1 saniye). Simple Haptic Feedback bileşenindeki Duration özelliği, tetiklendiğinde titreşimin ne kadar süreceğini belirler; doğal hissettiren ve kullanıcıyı aşırı geri bildirimle bunaltmayan bir ayar seçmelisiniz.
+                    </p>
+                    <p>
+                        <b>Kullanıcı bir GameObject'i tuttuğunda daha belirgin bir geri bildirim oluşturmak:</b> "Play Select Entered" özelliğini etkinleştirin."Amplitude" ve "Duration" özelliklerinin değerlerini biraz daha yüksek değerlere ayarlayın (örneğin, 0,25 saniye). Amplitude titreşimlerin şiddetini belirlerken, Duration ise titreşimlerin ne kadar süreceğini kontrol eder.
+                    </p>
+
+                    <h2>Hover veya Select Durumunda Ses Ekle</h2>
+                    <p>
+                        <b>Kullanmak istediğiniz sesi seçmek:</b> Proje penceresinde, _Course Library > Audio > FX klasörlerini açıp fareyi üzerine getirme veya seçme olayları için hangi ince UI ses efektini kullanmak istediğinize karar verdik. Sesi önizlemek için, Inspector penceresinin altından Önizleme panelini yukarı sürüklemeniz gerekebilir.
+                    </p>
+                    <p>
+                        <b>Bu ses efektini her iki kontrolcüye de uygulamak:</b> Hiyerarşi penceresinden "Right Hand Controller" GameObject'ini seçtik. Bir "Simple Audio Feedback" bileşeni ekledik. "Interactor Source" özellik kutusuna ilgili "Right Ray Interactor" GameObject'ini ekledik. "Play Select Entered" veya "Play Hover Entered" özelliğinden hangisini etkinleştireceğinize karar verdik. Seçtiğiniz ses efektini atadık. Bu işlemi "Left Hand Controller" GameObject'i için de tekrarladık.
+                    </p>
+
+                    <h2>Şömineye 3D Ses Eklemek</h2>
+                    <p>
+                        <b>Ateşe ses efekti eklemek:</b> "Particle" GameObject'ine bir "Audio Source" bileşeni ekledik. AudioResource özelliğine, _Course Library > Audio > FX klasöründen "SFX_Loop_Fire" ses efektini atadık.
+                    </p>
+                    <p>
+                        <b>Sesin otomatik olarak çalınmasını ve döngüye girmesini sağlamak:</b> Audio Source bileşeninde, hem "Play on Awake" hem de "Loop" özelliklerinin etkinleştirildik.
+                    </p>
+                    <p>
+                        <b>Bu bileşeni 3D ses olarak yapılandırmak:</b> Kaydırıcıyı en sağdaki 3D ayarına kadar sürükleyerek (veya kaydırıcıyı 1'e ayarlayarak) "Spatial Blend" özelliğini ayarlayın.
+                    </p>
+                    <p>
+                        <b>Şöminenin genel ses seviyesini ve ses azalmasını düzenlemek:</b> "Volume" özelliğini düzenledik. Açılır menüyü (üçgen simgesi) kullanarak "3D Sound Settings" bölümünü genişlettik, ardından Min Mesafe ve Maks Mesafe özelliklerinin değerlerini ayarladık.
+
+                    </p>
+                    <p>
+                        Şömine artık çıtırtı sesi çıkarmalıdır; bu sesin seviyesi ve sol/sağ dengesi, sahnede bulunduğunuz yere ve yönünüze göre değişmelidir.
+                    </p>
+
+                    <h2>Yankı Bölgesi Eklemek</h2>
+                    <p>
+                        <b>Room GameObject'inin alt öğesi olarak yeni bir Audio Reverb Zone eklemek:</b> Hierarchy penceresinde, Room_[style] GameObject'ine sağ tıkladık. "Audio > Audio Reverb Zone" seçeneğini seçtik.
+                    </p>
+                    <p>
+                        <b>Yankı bölgesinin odanızın tamamını kapsadığından emin olmak:</b> Audio Reverb Zone bileşeninde, "Min Distance" özelliğinin en azından odanızın genişliği kadar ayarlandığından emin olduk. Not: Bölgeyi görselleştirmek için gizmo'ları etkinleştirmeniz ve uzaklaştırmanız gerekebilir.
+                    </p>
+                    <p>
+                        <b>Yankı alanınızı odanıza uyarlamak:</b> "Reverb Presets" açılır menüsünü açtık ve farklı yankı stillerini denedik. Odanıza uygun bir ayar seçtik ("Room" veya "Living Room").
+                    </p>
+                    <p>
+                        <b>VR İçin Optimizasyon:</b> VR da daha gerçekçi bir his için "head-related transfer function (HRTF)" kullanılır. Biz Unityde yerleşik olan "Oculus Spatializer" kullandık. "Edit → Project Settings → Audio" içinden "Spatializer Plugin" kısmını bulduk. Listeden: "Oculus Spatializer"  seçtik. <b>Her 3D ses için:</b> Spatial Blend = 1 (3D), (Opsiyonel) Min/Max Distance ayarlı, (Oculus kullanıyorsan) “Enable Spatialization” şeklinde ayarladık.
+                    </p>
+                    <p>
+                        <ul>Alternatif Spatializer’lar
+                            <li>Steam Audio (daha gelişmiş, fiziksel akustik simülasyonu)</li>
+                            <li>Microsoft Spatial Sound</li>
+                            <li>Resonance Audio (Google)</li>
+                        </ul>
+                    </p>
+
+                    <h2>Gerçekçi zıplama sesleri ekleyin [Orta] [Programlama gerektirir]</h2>
+                    <p>
+                        İlk olarak, topun yere çarpma sesi için bir ses dosyası seçtik. Topa bir <b>Audio Source</b> bileşeni ekledik. <b>Play On Awake</b> seçeneğini kapattık.
+                    </p>
+                    <p>
+                        BallBounceSound.cs oluşturduk.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+
+[RequireComponent(typeof(AudioSource))] // Bu scriptin olduğu objede AudioSource yoksa otomatik ekler
+[RequireComponent(typeof(Rigidbody))] // Rigidbody yoksa otomatik ekler (çarpışma ve hız için gerekli)
+public class BallBounceSound : MonoBehaviour // Script sınıfını tanımlar
+{
+    [Header("Audio Settings")] // Inspector’da başlık oluşturur
+
+    public AudioClip bounceClip; // Zıplama sesi (Inspector’dan atanır)
+
+    public float minVolume = 0.2f; // Minimum ses seviyesi
+    public float maxVolume = 1.0f; // Maksimum ses seviyesi
+
+    public float minSpeed = 0f; // Minimum hız (sesin başlayacağı seviye)
+    public float maxSpeed = 10f; // Maksimum hız (sesin tam olacağı seviye)
+
+    private AudioSource audioSource; // AudioSource referansı
+    private Rigidbody rb; // Rigidbody referansı
+
+    void Start() // Oyun başladığında çalışır
+    {
+        audioSource = GetComponent<AudioSource>(); // AudioSource bileşenini alır
+        rb = GetComponent<Rigidbody>(); // Rigidbody bileşenini alır
+    }
+
+    void OnCollisionEnter(Collision collision) // Obje başka bir şeye çarptığında çalışır
+    {
+        float speed = rb.linearVelocity.magnitude; // Rigidbody'nin güncel hız vektörünün büyüklüğünü alır.
+
+        float normalizedSpeed = Mathf.InverseLerp(minSpeed, maxSpeed, speed); // Hızı 0-1 arasına çevirir
+
+        float volume = Mathf.Lerp(minVolume, maxVolume, normalizedSpeed); // Hıza göre ses seviyesini hesaplar
+
+        if (bounceClip != null) // Ses atanmış mı kontrol eder
+        {
+            audioSource.PlayOneShot(bounceClip, volume); // Çarpma sesini çalar
+        }
+    }
+}
+                        </pre>
+                        Bunu topa ekledik.
+                    </p>
+                    <p>
+                        <b>Sesi 3D yapmak için</b> "Spatial Blend = 1", "Spatialize = Enable" yaptık
+                    </p>
+                </div>
+            </div>
+            <div id="6">
+                <div id="activationEvents">
+                    <h1>Etkinleştirme olayları (Etkinleştirme - Kumanda, Işık kaynağı)</h1>
+                    <p>
+                        Bu derstte uzaktan kumanda ile tvyi açacağız.
+                    </p>
+                    <h2>Tutulabilir Bir Uzaktan Kumanda Eklemek</h2>
+                    <p>
+                        _Course Library > _Prefabs > Objects > Electronics içinden bir kumanda (Remote) ekledik. Ona "XR Grab Interactable" bileşeni ekledik. "Rigidbody" bileşeninde "Collision Detection = Continuous Dynamic" ayarını yaptık.
+                    </p>
+                    <p>
+                        <b>Uzaktan kumandayı kullanıcının elinde doğru şekilde konumlandırılmak:</b> "Remote" GameObject'inde yeni bir boş alt GameObject oluşturun ve adına “Attach” adını verdik. Attach GameObject'ini uygun şekilde konumlandırdık ve yönlendirdik. Attach GameObject'ini, "XR Grab Interactable" bileşenindeki "Attach Transform" özelliğine atadık.
+                    </p>
+
+                    <h2>Uzaktan Kumanda Etkinleştirildiğinde Ses Çal</h2>
+                    <p>
+                        <b>Uzaktan kumandanın ses çıkarmasına izin vermek:</b> Remote GameObject'e bir AudioSource bileşeni ekledik ve AudioSource bileşeninde, 3D ses özelliğini etkinleştirmek için "Spatial Blend" özelliğinin kaydırma çubuğunu tam 3D (1) konumuna getirin
+                    </p>
+                    <p>
+                        <b>Uzaktan Kumandaya Ses Çalma Scripti Eklemek:</b> Remote GameObject'e bir "Play Quick Sound" bileşeni ekledik. Sound özelliğine, _Course Library > Audio klasöründen istediğiniz bir ses klibini atadık. Volume özelliğini 5 civarında bir değere ayarladık; istediğiniz ses seviyesini bulmak için bu değeri değiştirerek denemeler yapabilirsiniz. (Play Quick Sound bileşeni eğitmenler tarafından yazılmış basit bir script dosyası. Bize hazır verildi)
+                    </p>
+                    <p>
+                        Play Quick Sound.cs bileşeninin içeriği
+                        <pre class="prettyprint ms-0">
+using UnityEngine; // Unity engine temel kütüphanesi (GameObject, AudioSource vb. için gerekli)
+
+/// &lt;summary>
+/// Play a simple sounds using Play one shot with volume, and pitch
+/// Basit bir sesi volume ve pitch kontrolüyle PlayOneShot kullanarak çalar
+/// &lt;/summary>
+
+[RequireComponent(typeof(AudioSource))] 
+// Bu scriptin bulunduğu objede AudioSource yoksa otomatik eklenmesini sağlar
+
+public class PlayQuickSound : MonoBehaviour 
+// MonoBehaviour: Unity component scripti olarak çalışmasını sağlar
+{
+    [Tooltip("The sound that is played")]
+    // Inspector’da açıklama gösterir
+    public AudioClip sound = null; 
+    // Çalınacak ses dosyası (Inspector’dan atanır)
+
+    [Tooltip("The volume of the sound")]
+    public float volume = 1.0f; 
+    // Sesin yüksekliği (0-1 arası genelde)
+
+    [Tooltip("The range of pitch the sound is played at (-pitch, pitch)")]
+    // Inspector açıklaması
+    [Range(0, 1)] public float randomPitchVariance = 0.0f; 
+    // Pitch için rastgele sapma aralığı (0 = sabit, 1 = çok değişken)
+
+    private AudioSource audioSource = null; 
+    // AudioSource bileşeni referansı (ses çalma işlemi için)
+
+    private float defaultPitch = 1.0f; 
+    // Varsayılan pitch değeri (normal hız/ses tonu)
+
+    private void Awake() 
+    // Oyun başlamadan hemen önce çalışır
+    {
+        audioSource = GetComponent&lt;AudioSource>(); 
+        // Bu objedeki AudioSource bileşenini alır ve değişkene atar
+    }
+
+    public void Play() 
+    // Dışarıdan çağrılarak sesi çalan fonksiyon
+    {
+        float randomVariance = Random.Range(-randomPitchVariance, randomPitchVariance); 
+        // -variance ile +variance arasında rastgele bir pitch sapması üretir
+
+        randomVariance += defaultPitch; 
+        // Rastgele değeri normal pitch seviyesine ekler
+
+        audioSource.pitch = randomVariance; 
+        // AudioSource’un pitch değerini geçici olarak değiştirir
+
+        audioSource.PlayOneShot(sound, volume); 
+        // Sesi volume değeriyle birlikte tek seferlik çalar
+
+        audioSource.pitch = defaultPitch; 
+        // Pitch’i tekrar varsayılan değere döndürür (başka sesleri etkilememesi için)
+    }
+
+    private void OnValidate() 
+    // Inspector’da değer değişince editör tarafında çalışır
+    {
+        AudioSource audioSource = GetComponent&lt;AudioSource>(); 
+        // AudioSource bileşenini tekrar alır (editör güvenliği için)
+
+        audioSource.playOnAwake = false; 
+        // Oyun başlar başlamaz otomatik ses çalmasını engeller
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        <b>Evente Fonksiyonu Eklemek:</b> Uzaktan kumandanın "XR Grab Interactable" bileşeninin alt kısmında, açılır menüyü (üçgen simgesi) kullanarak "Interactable Events" özelliğini genişlettik ve tüm olay seçeneklerini görüntüledik. "Activated" olayına, "Play Quick Sound > Play ()" fonksiyonun ekledik.
+                    </p>
+
+                    <h2>Uzaktan Kumanda Etkinleştirildiğinde Işık Yakmak</h2>
+                    <p>
+                        <b>Gösterge ışığının kırmızıya dönmesi özelliğini eklemek:</b> Hiyerarşi penceresinde, açılır menüyü (üçgen simgesi) kullanarak Remote GameObject öğesini genişletip Indicator_Light alt GameObject öğesini seçtik. Bir "Change Material" bileşeni ekledik (hazır verilmiş script). Other Material özelliğine kırmızı bir malzeme atadık.
+                    </p>
+                    <p>
+                        ChangeMaterial.cs
+                        <pre class="prettyprint ms-0">
+using UnityEngine; // Unity temel kütüphanesi (MeshRenderer, Material vb. için gerekli)
+
+/// &lt;summary>
+/// This script makes it easier to toggle between a new material, and the objects original material.
+/// Bu script, bir objenin orijinal materyali ile yeni materyal arasında geçiş yapmayı sağlar.
+/// &lt;/summary>
+
+public class ChangeMaterial : MonoBehaviour 
+// MonoBehaviour: Unity component olarak çalışmasını sağlar
+{
+    [Tooltip("The material that's switched to.")]
+    // Inspector’da açıklama gösterir (hangi materyale geçileceği)
+    public Material otherMaterial = null; 
+    // Değiştirilecek alternatif materyal
+
+    private bool usingOther = false; 
+    // Şu anda alternatif materyal kullanılıyor mu? (true/false)
+
+    private MeshRenderer meshRenderer = null; 
+    // Objeyi görsel olarak çizen MeshRenderer bileşeni
+
+    private Material originalMaterial = null; 
+    // Objeye başlangıçta atanmış orijinal materyal
+
+    private void Awake() 
+    // Oyun başlamadan hemen önce çalışır
+    {
+        meshRenderer = GetComponent&lt;MeshRenderer>(); 
+        // Objedeki MeshRenderer bileşenini alır
+
+        originalMaterial = meshRenderer.material; 
+        // Başlangıç materyalini kaydeder (geri dönmek için)
+    }
+
+    public void SetOtherMaterial() 
+    // Objeyi alternatif materyale geçirir
+    {
+        usingOther = true; 
+        // Durumu “alternatif kullanılıyor” olarak işaretler
+
+        meshRenderer.material = otherMaterial; 
+        // Objeye yeni materyali uygular
+    }
+
+    public void SetOriginalMaterial() 
+    // Objeyi orijinal materyaline geri döndürür
+    {
+        usingOther = false; 
+        // Durumu “orijinal kullanılıyor” olarak işaretler
+
+        meshRenderer.material = originalMaterial; 
+        // Orijinal materyali tekrar uygular
+    }
+
+    public void ToggleMaterial() 
+    // İki materyal arasında geçiş yapar
+    {
+        usingOther = !usingOther; 
+        // true ise false, false ise true yapar (toggle mantığı)
+
+        if(usingOther) 
+        // Eğer alternatif materyal aktifse
+        {
+            meshRenderer.material = otherMaterial; 
+            // Alternatif materyali uygula
+        }
+        else 
+        // Değilse
+        {
+            meshRenderer.material = originalMaterial; 
+            // Orijinal materyali geri yükle
+        }
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        <b>Tetikleyiciye basıldığında malzeme rengini kırmızıya değiştirmek:</b> Remote ana GameObject'inde, "XR Grab Interactable" bileşeninin alt kısmında "Interactable Events" özelliğini içinde diğer fonksiyonu eklediğimiz şekilde "Activated" olayına "Change Material > SetOtherMaterial ()" fonksiyonunu, "Deactivated" olayına da "Change Material > SetOriginalMaterial ()" olayını ekledik.
+                    </p>
+
+                    <h2>Televizyonun Videoyu Oynatmasına İzin Vermek</h2>
+                    <p>
+                        <b>TV'nin 3D ses yaymasına izin verin:</b> Hierarchy penceresinde, Television GameObject'inin "Screen" alt GameObject'ini seçip "Audio Source" bileşeni ekledik. Spatial Blend özelliğini full 3D (1) konumuna sürükleyerek uzamsal sesi etkinleştirdik.
+                    </p>
+                    <p>
+                        <b>TV'nin video oynatmasına izin verin:</b> "Screen" alt GameObject'ine bir "Video Player" bileşeni ekledik. "Material Property" özelliği "_BaseMap" olarak ayarlanmamışsa, "Auto-Select" özelliğini devre dışı bırakın ve ardından "Material Property"'yi "_MainTex" yerine "_BaseMap" olarak değiştirin; böylece video, dokusu yerine malzemesine yansıtılır.
+                    </p>
+                    <p>
+                        <b>Ek video kontrol işlevleri ekleyin:</b> "Screen" alt GameObject'ine "Play Video" bileşeni (hazır verilmiş script) ekledik. Bu, bir GameObject'in bir listeden veya tek bir klipten videoları oynatmasını sağlayan, isteğe bağlı olarak yükleme sırasında başlatma özelliğine sahip, görüntüleme için bir video malzemesi ve oynatma, duraklatma, durdurma ve gezinme kontrolleri kullanan, eğitim sağlanan özel bir komut dosyasıdır. Videonun otomatik olarak oynatılması için Play At Start özelliğini etkinleştirdik.
+                    </p>
+                    <p>
+                        PlayVideo.cs
+                        <pre class="prettyprint ms-0">
+using System.Collections.Generic; // List yapısını kullanabilmek için gerekli
+using UnityEngine; // Unity temel kütüphanesi
+using UnityEngine.Video; // VideoPlayer bileşeni için gerekli namespace
+
+/// &lt;summary>
+/// Play a single video or play from a list of videos 
+/// Tek bir video oynatır veya bir liste içinden video seçerek oynatır
+/// &lt;/summary>
+
+[RequireComponent(typeof(VideoPlayer))] 
+// Bu scriptin olduğu objede VideoPlayer yoksa otomatik ekler
+
+public class PlayVideo : MonoBehaviour 
+// Unity component scripti
+{
+    [Tooltip("Whether video should play on load")]
+    public bool playAtStart = false; 
+    // Oyun başlar başlamaz video oynasın mı?
+
+    [Tooltip("Material used for playing the video (Uses URP/Unlit by default)")]
+    public Material videoMaterial = null; 
+    // Videonun gösterileceği materyal (ekranda görünen yüzey)
+
+    [Tooltip("List of video clips to pull from")]
+    public List&lt;VideoClip> videoClips = new List&lt;VideoClip>(); 
+    // Oynatılabilecek video listesi
+
+    private VideoPlayer videoPlayer = null; 
+    // Video oynatıcı referansı
+
+    private MeshRenderer meshRenderer = null; 
+    // Objeyi render eden bileşen
+
+    private readonly string shaderUsed = "Universal Render Pipeline/Unlit"; 
+    // Kullanılacak shader (video için genelde Unlit gerekir)
+
+    private Material offMaterial = null; 
+    // Video kapalıyken kullanılacak materyal
+
+    private int index = 0; 
+    // Şu an oynatılan videonun index’i
+
+    private void Awake() 
+    // Oyun başlamadan önce çalışır
+    {
+        meshRenderer = GetComponent&lt;MeshRenderer>(); 
+        // MeshRenderer bileşenini al
+
+        videoPlayer = GetComponent&lt;VideoPlayer>(); 
+        // VideoPlayer bileşenini al
+
+        if (videoClips.Count > 0) 
+            videoPlayer.clip = videoClips[0]; 
+        // Eğer listede video varsa ilkini ata
+
+        offMaterial = meshRenderer.material; 
+        // Başlangıç materyalini kaydet (video kapalıyken geri dönmek için)
+    }
+
+    private void OnEnable() 
+    // Script aktif olduğunda çalışır
+    {
+        videoPlayer.prepareCompleted += ApplyVideoMaterial; 
+        // Video hazır olduğunda ApplyVideoMaterial fonksiyonunu çağır
+    }
+
+    private void OnDisable() 
+    // Script devre dışı kalınca çalışır
+    {
+        videoPlayer.prepareCompleted -= ApplyVideoMaterial; 
+        // Event aboneliğini kaldır (memory leak önlemek için)
+    }
+
+    private void Start() 
+    // Oyun başladığında çalışır
+    {
+        if (playAtStart) 
+        {
+            Play(); // Eğer işaretliyse videoyu başlat
+        }
+        else
+        {
+            Stop(); // Değilse durdurulmuş başlasın
+        }
+    }
+
+    public void NextClip() 
+    // Bir sonraki videoya geçer
+    {
+        index = ++index % videoClips.Count; 
+        // Index artırılır ve liste sonunu aşarsa başa döner (mod işlemi)
+
+        Play(); 
+        // Yeni videoyu oynat
+    }
+
+    public void PreviousClip() 
+    // Bir önceki videoya geçer
+    {
+        index = --index % videoClips.Count; 
+        // Index azaltılır (negatifte bug olabilir dikkat!)
+
+        Play(); 
+        // Videoyu oynat
+    }
+
+    public void RandomClip() 
+    // Rastgele video seçer
+    {
+        if (videoClips.Count > 0)
+        {
+            index = Random.Range(0, videoClips.Count); 
+            // Rastgele index seç
+
+            Play(); 
+            // Oynat
+        }
+    }
+
+    public void PlayAtIndex(int value) 
+    // Belirli index’teki videoyu oynatır
+    {
+        if (videoClips.Count > 0)
+        {
+            index = Mathf.Clamp(value, 0, videoClips.Count); 
+            // Index’i sınırlar (⚠️ burada aslında Count-1 olmalı)
+
+            Play(); 
+        }
+    }
+
+    public void Play() 
+    // Video oynatma fonksiyonu
+    {
+        ApplyVideoMaterial(videoPlayer); 
+        // Video materyalini uygula
+
+        videoPlayer.Play(); 
+        // Videoyu başlat
+    }
+
+    public void Stop() 
+    // Video durdurma fonksiyonu
+    {
+        meshRenderer.material = offMaterial; 
+        // Eski materyale geri dön
+
+        videoPlayer.Stop(); 
+        // Videoyu durdur
+    }
+
+    public void TogglePlayStop() 
+    // Play / Stop arasında geçiş yapar
+    {
+        bool isPlaying = !videoPlayer.isPlaying; 
+        // Şu an oynuyorsa durdur, oynamıyorsa başlat
+
+        SetPlay(isPlaying); 
+    }
+
+    public void TogglePlayPause() 
+    // Play / Pause arasında geçiş yapar
+    {
+        meshRenderer.material = videoMaterial; 
+        // Video materyalini aktif et
+
+        if (videoPlayer.isPlaying)
+            videoPlayer.Pause(); // Oynuyorsa pause
+        else
+            videoPlayer.Play(); // Değilse devam et
+    }
+
+    public void SetPlay(bool value) 
+    // Dışarıdan kontrol (true=play, false=stop)
+    {
+        if (value)
+        {
+            Play();
+        }
+        else
+        {
+            Stop();
+        }
+    }
+
+    private void ApplyVideoMaterial(VideoPlayer source) 
+    // Video hazır olduğunda çağrılır
+    {
+        meshRenderer.material = videoMaterial; 
+        // Video materyalini uygula
+
+        videoMaterial.color = Color.white; 
+        // Siyahsa video görünmez, beyaz yaparak görünmesini sağla
+    }
+
+    private void OnValidate() 
+    // Inspector’da değişiklik olunca çalışır
+    {
+        if (!videoMaterial) 
+        {
+            videoMaterial = new Material(Shader.Find(shaderUsed)); 
+            // Eğer materyal yoksa otomatik oluştur
+        }
+
+        if (TryGetComponent(out VideoPlayer videoPlayer))
+            videoPlayer.targetMaterialProperty = "_BaseMap"; 
+        // URP shader’da videonun hangi property’e yazılacağını belirler
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        _Course Library > Video klasöründeki videolardan birini Video Klip özellik kutusuna atadık.
+                    </p>
+
+                    <h2>TV'yi Uzaktan Kumandayla Etmek</h2>
+                    <p>
+                        <b>Videonun otomatik olarak oynatılmasını durdurmak:</b> Play Video bileşeninde, Play At Start özelliğini devre dışı bıraktık
+                    </p>
+                    <p>
+                        <b>Uzaktan kumanda etkinleştirildiğinde TV’yi tetikleyin:</b> "Remote GameObject" içinde "XR Grab Interactable" bileşeninde, Interactable Events özelliğini genişlettik ve "Activated" olayına PlayVideo > TogglePlayPause () fonksiyonunu ekledik.
+                    </p>
+                </div>
+            </div>
+            <div id="7">
+                <div id="near-farAndRayInteractions">
+                    <h1>Yakın-Uzak ve Işın Etkileşimci</h1>
+                    <p>
+                        Bu derste, Doğrudan Etkileşim Öğelerini nasıl uygulayacağınızı ve aynı denetleyicideki etkileşim öğeleri arasında nasıl geçiş yapacağınızı öğreneceğiz. Bu dersin sonunda, kullanıcı nesneleri doğrudan elleriyle tutabilecek ve gerektiğinde bir ışınla nesnelere işaret edebilecek.
+                    </p>
+
+                    <h2>Ray'in GameObject'leri seçmesini engelle</h2>
+                    <p>
+                        Şu anda, ışınlanma ışınınızla her şeyi kaldırabiliyoruz, bu da pek doğal gelmiyor. Işınlanma ışınınızla sadece ışınlanabilmeli, GameObject'leri ise doğrudan elinizle kaldırabilmeliyiz.
+                    </p>
+                    <p>
+                        <b>Işınlarınız için yeni bir katman eklemek:</b> Inspector penceresinde, her iki el bileşeninde yer alan "XR Ray Interactor" bileşenimizde "Interaction Layer Mask" özellik kutusunu bulduk, “Raycasts” katmanı ekledik ve bu katmanı atadık. Bunu yapmak için önce Nothing'i seçmeniz, ardından Raycasts katmanını yeniden seçmeniz daha güvenlidir.
+                    </p>
+                    <p>
+                        <b>Işının teleport GameObject'leriyle etkileşime girebildiğinden emin olmak:</b> Her bir Teleportation Anchor ve Teleportation Area GameObject'i için, "Interaction Layer Mask" özelliğinde "Raycasts" katmanının etkinleştirilmiş tek katman olduğundan emin olduk.
+                    </p>
+                    <p>
+                        <b>Teleportasyon sırasında el modelinizin kaybolmasını önlemek:</b> XR Ray Interactor bileşeninde, her bir Select ve Select Excited olayının yanındaki Kaldır (-) düğmesini seçerek bu olayları kaldırdık.
+                    </p>
+
+                    <h2>Her el için bir yakın-uzak etkileşim öğesi ekle</h2>
+                    <p>
+                        <b>"Near-Far Interactor" kurulumu:</b> Hierarchy penceresinde, "Right Hand Controller > Right Ray Interactor" GameObject'inin adını “Teleport interactor” olarak değiştirdik. "Right Hand Controller" GameObject'ine sağ tıkladık ve "XR > Near-Far Interactor"ı seçtik. Bu işlem, Right Hand Controller GameObject'inin alt öğesi olarak yeni bir Near-Far Interactor GameObject'i oluşturacaktır. Inspector penceresinde, yeni Near-Far Interactor GameObject'e eklenen bileşenlere dikkat edin: <br>
+                        <b>Near-Far Interactor bileşeni:</b> Doğrudan ve ışın etkileşim modlarını birleştirir, böylece hem yakın hem de uzak GameObject'leri yakalayabilir ve onlarla etkileşime girebilirsiniz. <br>
+                        <b>Interaction Attach Controller:</b> Bir GameObject yakalandığında elinize veya kontrol cihazınıza nasıl bağlanacağını tanımlar; ofsetini ve dönüşünü kontrol eder.<br>
+                        <b>Sphere Interaction Caster:</b> Etkileşim için yakındaki GameObject'leri algılamak üzere küre şeklinde bir hacim oluşturur. <br>
+                        <b>Curve Interaction Caster:</b> Uzak etkileşimler için eğri bir ışın yansıtır. <br>
+                        "Near-Far Interactor" bileşeni için "Input Actions"ı ayarlamanız gerekir. "Presets" menüsünü açın ve ardından <b>Right_NearFarInteractor.preset</b> varlığını seçtik.
+                    </p>
+                    <p>
+                        <b>Elleri gizleme ve gösterme:</b> Near-Far Interactor bileşeninde, Interactor Events bölümününden "Select Entered" özelliğinin altında, VR_Hand_Blue_Right nesnesinin GameObject > SetActive(bool) fonksiyonu ekledik. <br>
+                        "Select Exited" özelliğinin altında, VR_Hand_Blue_Right nesnesinin GameObject > SetActive(bool) fonksiyonu ekledik. Eli göstermek için kutuyu etkinleştirdik. <br>
+                        "Interaction Layer Mask" açılır menüsünü açın ve Near-Far Interactor GameObject'inizin oluşturduğunuz şapkalarla etkileşime girmesini sağlamak için GameObject'ler için eklediğimiz tüm katmanların olduğuna emin olduk. <br>
+                        Hierarchy penceresinde, "Near Far Interactor" GameObject'i genişlettik, ardından "Line Visual" alt GameObject'i seçtik ve inceledik. Bu GameObject, "Curve Interaction Caster" için ışını oluşturan tüm bileşenleri içerir. Ayarlarla denemeler yaparak beğendiğiniz bir görünüm bulduk. Örneğin, Line Dynamics Mode özelliğini Retract on Hit Loss olarak ayarlayarak, etkileşimli GameObject'ler algılanmadığında elinize geri çekilmesini sağlayabiliriz.
+                    </p>
+                    <p>
+                        Yukarıdaki adımları Left Hand Controller GameObject'i için de tekrarladık.
+                    </p>
+
+                    <h2>NearFar Interactor'a Dokunsal Geri Bildirim ve Ses Eklemek</h2>
+                    <p>
+                        Bir Haptic Impulse Player bileşeni eklemek: "Controller" GameObject’lerine zaten Haptic Impulse Player bileşenleri atanmış olduğundan bu adımı tekrarlamanıza gerek yoktur; ancak yeni etkileşim öğelerinizdeki dokunsal geri bildirimi etkinleştirmek için yine de bir "Simple Haptic Feedback" bileşeni atamanız gerekir. <br>
+                        Hiyerarşi penceresinde "Right Hand Controller" GameObject’inin altındaki "Near-Far Interactor GameObject"ine bir "Simple Haptic Feedback" bileşeni ekledik. "Play Select Entered" özelliğini etkinleştirdik. Duration özelliğinin değerini çok düşük bir değere ayarladık (örneğin, 0,1 saniye). Bunu "Left Hand Controller" "Near-Far Interactor" GameObject için de tekrarlayın.
+                    </p>
+
+                    <h2> Yakın ve Uzak Etkileşim Işınları Arasında Geçiş Yapmak</h2>
+                    <p>
+                        Şu anda, hem Yakın-Uzak Etkileşimcilerin hem de Işınlanma Etkileşimcisinin ışınları her iki elde de üst üste binmekte ve bu durum kullanıcı deneyimini kafa karıştırıcı hale getirebilir. Bu adımda, ışınlanma ışınının yalnızca belirli bir düğmeye basıldığında etkinleşecek şekilde ayarları değiştireceğiz.
+                    </p>
+                    <p>
+                        <b>Sol ışını açıp kapatma özelliğini eklemek:</b> "Left Hand Controller" GameObject'ine bir "Toggle Interactor Components" bileşeni ekledik. Bu, kullanıcı tarafından belirtilen bir GameObject'i devre dışı bırakacak şekilde oluşturulmuş (eğitim tarafından) özel bir komut dosyasıdır. <br>
+                        "Near Far Interactor" özelliğine, soldaki "Near-Far Interactor" GameObject'ini atadık. "Teleport Interactor" özelliğine, soldaki "Teleport Interactor" GameObject'ini atadık.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+
+public class ToggleInteractorComponents : MonoBehaviour
+{
+    [Tooltip("Assign the NearFarInteractor component from another GameObject.")]
+    public NearFarInteractor nearFarInteractor;
+
+    [Tooltip("The GameObject that holds the Teleport Interactor.")]
+    public GameObject teleportInteractor;
+
+    void Awake()
+    {
+        DisableTeleportRay();
+    }
+
+    /// &lt;summary>
+    /// Enables the Teleport Interactor GameObject and disables far casting on the NearFarInteractor.
+    /// &lt;/summary>
+    public void EnableTeleportRay()
+    {
+        if (teleportInteractor != null)
+            teleportInteractor.SetActive(true); // Fix here
+
+        if (nearFarInteractor != null)
+            nearFarInteractor.enableFarCasting = false;
+    }
+
+    /// &lt;summary>
+    /// Disables the Teleport Interactor GameObject and enables far casting on the NearFarInteractor.
+    /// &lt;/summary>
+    public void DisableTeleportRay()
+    {
+        if (teleportInteractor != null)
+            teleportInteractor.SetActive(false); // Fix here
+
+        if (nearFarInteractor != null)
+            nearFarInteractor.enableFarCasting = true;
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        <b>Bir düğmeye basılıp basılmadığını algılama özelliğini eklemek:</b> Left Hand Controller GameObject’ine bir "On Button Press" bileşeni ekledik (eğitim tarafından). On Button Press bileşeninde, Action özelliğinin altında Add (+) düğmesini seçtik ve Add Binding’i seçtik. <b>Not: Action özelliğini gözden kaçırmak çok kolaydır – dikkatlice bakın.</b> <br>
+                        Yeni &lt;No Binding> eylemine çift tıkladık. Path özelliğinin açılır menüsünü açtık, "XR Controller > XR Controller (Left Hand) > Optional Controls > primaryButton"ı seçtik. <br>
+                        <b>Not:</b> Farklı kontrolcülerde farklı düğmeler, tetikleyiciler ve pedler bulunur. Meta Quest kullanmıyorsanız, cihazınızla uyumlu farklı bir bağlama yolu seçmeniz gerekecektir. Örneğin, HTC Vive veya Valve Index için OpenXRI kontrolcü profillerine göz atın.
+                    </p>
+                    <p>
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+
+/// &lt;summary>
+/// Checks for button input on an input action
+/// &lt;/summary>
+public class OnButtonPress : MonoBehaviour
+{
+    [Tooltip("Actions to check")]
+    public InputAction action = null;
+
+    // When the button is pressed
+    public UnityEvent OnPress = new UnityEvent();
+
+    // When the button is released
+    public UnityEvent OnRelease = new UnityEvent();
+
+    private void Awake()
+    {
+        action.started += Pressed;
+        action.canceled += Released;
+    }
+
+    private void OnDestroy()
+    {
+        action.started -= Pressed;
+        action.canceled -= Released;
+    }
+
+    private void OnEnable()
+    {
+        action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        action.Disable();
+    }
+
+    private void Pressed(InputAction.CallbackContext context)
+    {
+        OnPress.Invoke();
+    }
+
+    private void Released(InputAction.CallbackContext context)
+    {
+        OnRelease.Invoke();
+    }
+}
+
+                        </pre>
+                    </p>
+                    <p>
+                        <b>Düğmeye basıldığında ışını etkinleştirmek:</b> On Press özelliğine Left Hand Controller GameObject'indeki ToggleInteractorComponents > EnableTeleportRay () foksiyonunu atadık. <br>
+                        <b>Düğme bırakıldığında ışını devre dışı bırakmak</b> On Release özelliğine Left Hand Controller GameObject'indeki ToggleInteractorComponents > DisableTeleportRay () foksiyonunu atadık.
+                    </p>
+                    <p>
+                        Right Hand Controller GameObject için yukarıdaki adımları tekrarladık. Eldeki ışın artık yalnızca birincil düğme basılıyken görünmeli ve düğme bırakıldığında kaybolmalıdır.
+                    </p>
+
+                    <h2>Bir Bağlam Daha Ekleyin</h2>
+                    <p>
+                        Thumbstick'i algılayan ek bir bağlama eklemek: Aynı yöntemle (Add Binding) bu sefer de "XR Controller > XR Controller (Left Hand) > Optional Controls > thumbstickTouched" bağlamı eklendi. Diğer kolda da tekrarlandı. 
+                    </p>
+                </div>
+            </div>
+            <div id="8">
+                <div id="userInterface">
+                    <h1>Kullanıcı Arayüzü</h1>
+                    <p>
+                        Bu derste, sanal gerçeklik ortamında dünya uzayında kullanıcı arayüzleri oluşturmayı öğreneceğiz.
+                    </p>
+                    
+                    <h2>Odaya World Space UI Eklemek</h2>
+                    <p>
+                        Hoş geldiniz ekranı metni oluşturmak için yapmamız gereken ilk şey, metin içeren bir tuval eklemek ve bunu odaya yerleştirmektir.
+                    </p>
+                    <p>
+                        <b>Sahnenize yeni bir Canvas eklemek:</b> Hierarchy pencerenize yeni bir boş GameObject ekledik, konumunu sıfırladık ve adını “INTERFACE” olarak değiştirdik. Bu düzenleyici GameObject içinde bir XR > UI Canvas GameObject oluşturduk.
+                    </p>
+                    <p>
+                        <b>Tuvalin odadaki konumunu uygun şekilde ayarlamak:</b> Canvas GameObject’in Rect Transform bileşeninde, Scale özelliğini X = 0,1, Y = 0,1 ve Z = 0,1 olarak ayarladık. Tuvalin odanın arkasında kalması için Pos Y ve Pos Z özelliklerini ayarladık.
+                    </p>
+                    <p>
+                        <b>Kullanıcı arayüzü için yarı saydam siyah bir arka plan eklemek:</b> Hierarchy penceresinde, Canvas GameObject’in alt öğesi olarak bir "UI > Image GameObject" oluşturup ve adını “Welcome_Background” olarak değiştirdik. Image bileşeninde, Color özelliğinin renk örneğini siyaha çevirdik. Rengin saydamlığını azaltmak için Alpha (A) kaydırma çubuğunu kullandık.
+                    </p>
+                    <p>
+                        <b>Pencerelerin metnin üstünde görüntülenmesini düzeltmek:</b> Canvas bileşeninin Order in Layer özelliği, Unity'de UI öğelerinin görüntüleme önceliğini belirler ve sahnedeki diğer tuvallerin üzerinde veya arkasında hangi tuvallerin ve öğelerin görüneceğini kontrol etmenizi sağlar. <br>
+                        Canvas bileşeninde, Order in Layer özelliğini 1 olarak ayarladık.
+                    </p>
+                    <p>
+                        <b>Panele alt GameObject olarak metin eklemek:</b> Hierarchy penceresinde, "Welcome_Background" öğesine alt GameObject olarak "UI > Text - TextMeshPro" öğesini oluşturduk. Yeni GameObject'in adını “Welcome Text” olarak değiştirdik. <br>
+                        Not: İstenirse, Import TMP Essentials seçeneğini seçin.
+                    </p>
+                    <p>
+                        Artık odada, “New Text” yazan büyük ve merkezden kaymış bir metin içeren yarı saydam bir kutu olmalıdır.
+                    </p>
+
+                    <h2>Karşılama metnini düzenle</h2>
+                    <p>
+                        <b>Arka plan görüntüsünün şeklini ve konumunu düzenlemek:</b> Image GameObject’in Rect Transform bileşeninde Width, Height, Pos X ve Pos Y özelliklerini düzenledik.
+                    </p>
+                    <p>
+                        <b>Metnin görünümünü düzenlemek:</b> Text GameObject’in TextMeshPro - Text (UI) bileşeninde, Font Asset, Font Size, Vertex Color ve Alignment özelliklerini değiştirdik.
+                    </p>
+                    <p>
+                        <b>Metnin içeriğini değiştirmek:</b> TextMeshPro - Text (UI) bileşeninde, “New Text” ifadesini sahneyle ilgili kısa ama bilgilendirici bir karşılama mesajıyla değiştirdik. <br>
+                        Not: Metinde satır sonu oluşturmak için “\n” kullanabilirsiniz.
+                    </p>
+                    <p>
+                        <b>Metin kutusunun boyutunu ve aralığını düzenlemek:</b> Rect Transform bileşeninde, metninizin Rect Transform bileşeninde konumlandırmak için Width, Height, Pos X ve Pos Y özelliklerini düzenledik. <br>
+                        Not: “OK” düğmesi için biraz kenar boşluğu ve alan bırakmayı unutmayın.
+                    </p>
+
+                    <h2>Panele Tamam Butonu Eklemek</h2>
+                    <p>
+                        <b>Panele bir alt GameObject olarak düğme eklemek:</b> Hierarchy penceresinde Welcome_Background öğesine alt öge olarak "UI > Button - TextMeshPro" seçeneğini ekledik.
+                    </p>
+                    <p>
+                        <b>Düğmenin metnini düzenlemek:</b> Button GameObject’inin Text (TMP) adlı alt GameObject’ini seçtik. Metni “OK” veya “Anladım!” olarak değiştirdik. Text ayarlarını diğer metinlerinizle uyumlu olacak şekilde düzenledik.
+                    </p>
+                    <p>
+                        Düğmeyi uygun bir konumlendırdık ve etkileşimde renk değiştirmesi için Normal, Highlighted, Pressed ve Selected Color özelliklerini düzenledik.
+                    </p>
+                    <p>
+                        <b>Işının arka plan panelinin üzerindeyken aktif görünmesini önlemek:</b> Welcome_Background GameObject'in Image bileşeninde, "Raycast Target" özelliğini devre dışı bıraktık. Welcome Text GameObject'in TextMeshPro bileşeninde, "Extra Settings" bölümünde, "Raycast Target" özelliğini devre dışı bıraktık. 
+                    </p>
+                    <p>Artık, vurgulandığında ve tetikleyiciyle tıklandığında rengi değişen bir “OK” düğmesine sahip olmalısınız.</p>
+
+                    <h2>Anladım Butonu İle Paneli Kapatmak</h2>
+                    <p>
+                        Butonun "Button" komponentinde "On Click" eventine "Welcome_Background: GameObject > Set Active (bool)" fonksiyonunu atadık.
+                    </p>
+
+                    <h2>Reset Arayüzü Kurmak</h2>
+                    <p>
+                        <b>Sıfırlama ekranınız için yeni bir metin oluşturmak:</b> Hiyerarşi penceresinde, "Welcome_Background GameObject"ini çoğalttık ve yeni GameObject'in adını “Reset_Background”, altındaki Welcome Text GameObject'inin adını ise “Reset Text” olarak değiştirdik. Welcome_Background GameObject'ini geçici olarak devre dışı bıraktık, böylece daha kolay düzenleyebiliriz. "Reset Text" özelliğini, sahneyi orijinal durumuna sıfırlamakla ilgili olacak şekilde düzenledik.
+                    </p>
+                    <p>
+                        <b>Sıfırlama ekranınız için ikinci bir düğme eklemek:</b> Düğmeyi çoğalttık, ardından orijinalinin yanına yeniden konumlandırdık. Düğmelerin adını değiştirdik ve metinlerini düzenleyerek birini “İptal” düğmesi, diğerini ise onaylayıcı “Evet” düğmesi yaptık.
+                    </p>
+                    <p>
+                        <b>Evet düğmesinin sahneyi gerçekten sıfırlamasını sağladık:</b> Evet düğmesi GameObject'ine bir "Load Scene" bileşeni (eğitim tarafından) ekledik. "On Click" olayında, "Load Scene" bileşenini atadık ve "Load Scene > ReloadCurrentScene ()" işlevini seçtik. Diğer fonksiyonu sildik. Reset tuvalinden artık paneli gizlemek için İptal'i veya mevcut sahneyi yeniden yüklemek için Evet'i seçebilmelisiniz.
+                    </p>
+                    <p>
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+/// &lt;summary>
+/// Load scene using name, or reload the active scene
+/// &lt;/summary>
+public class LoadScene : MonoBehaviour
+{
+    public void LoadSceneUsingName(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void ReloadCurrentScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+}
+
+                        </pre>
+                    </p>
+
+                    <h2>İkincil Düğmeye Basıldığında Reset Butonunu Göstermek</h2>
+                    <p>
+                        Öncelikle welcome panelini aktif reset panelini pasif hale getirdik.
+                    </p>
+                    <p>
+                        <b>Düğmeye basıldığında sıfırlama panelini göstermek:</b> "XR Origin (VR)" GameObject'ine bir "On Button Press" bileşeni ekledik. Yeni bir Eylem Bağlantısı eklemek için Ekle (+) düğmesini seçtik. Bağlantı yolunu "XR Controller > XR Controller (RightHand) > Optional Controls > secondaryButton" olarak atadık. <br>
+                        Not: Farklı kontrol cihazlarında farklı düğmeler, tetikleyiciler ve pedler bulunur. Oculus Quest kullanmıyorsanız, cihazınızla uyumlu farklı bir bağlama yolu seçmeniz gerekecektir. Örneğin, HTC Vive veya Valve Index için OpenXR denetleyici profillerine göz atın. <br>
+                        "On Press" özelliğinde, yeni bir eylem eklemek için "Add (+)" düğmesini seçtik. "Reset_Background: GameObject > Set Active (bool)" seçeneğini seçtik ve onay kutusunun etkinleştirildiğinden emin olduk.
+                    </p>
+                    <p>
+                        <b>Düğmeye basıldığında karşılama panelini gizlemek:</b> Yeni bir eylem eklemek için Add (+) düğmesini seçtik. "Welcome_Background: GameObject > Set Active (bool)" seçeneğini seçtik ve onay kutusunun devre dışı bırakıldığından emin olduk.
+                    </p>
+
+                    <h2>Kullanıcı Arayüzünü Sıfırlamak İçin Başlangıç Konumuna Teleport</h2>
+                    <p>
+                        Kullanıcı ikincil düğmeye bastığında başlangıç konumunda değilse, Sıfırla panelini görüntüleyebilmesi için başlangıç konumuna geri ışınlanması gerekir.
+                    </p>
+                    <p>
+                        <b>Sahnenizin başlangıcında bir ışınlanma bağlantı noktası olduğundan emin olmak:</b> Henüz yoksa, bir ışınlanma bağlantı noktasını kopyalayıp kullanıcının odada başlamasını istediğiniz konuma yerleştirmek gerekiyor.
+                    </p>
+                    <p>
+                        <b>Oyuncunuzun doğru konumdan başlamasını sağlamak:</b> XR Origin (VR) GameObject’inin konumunu ve dönüşünü başlangıç bağlantı noktasının konum ve dönüşüyle eşleştirdik.
+                    </p>
+                    <p>
+                        <b>XR Origin (VR) nesnesine yeni bir ışınlanma davranışı eklemek:</b> XR Origin (VR) GameObject üzerinde bir "Teleport Player" bileşeni ekledik. "Teleport Anchor" özelliği için, sahnenizin başlangıcındaki ışınlanma bağlantı noktasını atadık. "Provider" özelliği için, "Teleportation Provider" bileşeninizi atadık.
+                    </p>
+                    <p>
+                        <b>Işınlanma eylemini düğme tıklamasına bağlamak:</b> XR Origin (VR) GameObject’in "On Button Press" bileşeninde, On Press özelliği için Add (+) düğmesini seçerek yeni bir işlev ekledik ve "XR Origin (VR): TeleportPlayer > Teleport ()" fonksiyonunu atadık.
+                    </p>
+                    <p>
+                        İkincil düğmeye bastığınızda, oyuncu artık Reset UI’yi görüntülemek için sahnenin başlangıç konumuna ışınlanmalıdır.
+                    </p>
+
+                    <h2>Poke Interactor Eklemek</h2>
+                    <p>
+                        Poke Interactor, ışın atma ve düğmeye basma yerine, dokunma yoluyla etkileşimli öğelerle etkileşim kurmak için kullanılan bir Interactor'dur.
+                    </p>
+                    <p>
+                        "Right Hand Controller" GameObject'inin alt öğesi olarak yeni bir GameObject oluşturduk ve adına "Poke Interactor" adını verdik. "Poke Interactor" GameObject'ine XR Poke Interactor bileşenini ekledik. "Poke Interactor" GameObject'inin Katmanını UI olarak ayarladık. (İsteğe bağlı) "Poke Width" ve "Poke Depth" özelliklerini tercihinize göre ayarladık. Artık düğmelere dokunarak onlarla etkileşime girebilirsiniz. Bu adımları Left Hand Controller GameObject için tekrarladık.
+                    </p>
+                    <p>
+                        <b>XR Ray Interactor'un UI'ı algılaması için:</b> bileşen içindeki UI Interaction seçeneği enable olmalı.
+                    </p>
+                </div>
+            </div>
+            <div id="bonus1">
+                    <h1>Ödev 2'de Kullandığım Yararlı Kodlar</h1>
+
+                    <h2>Çekmeceleri Hafifçe Açıp Kapatmak</h2>
+                    <p>
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using System.Collections;
+
+public class ChangeLocalPosition : MonoBehaviour
+{
+    // Başlangıç (kapalı) pozisyonu
+    private Vector3 _initialLocalPosition;
+
+    // Çekmecenin açık olacağı pozisyon (Inspector’dan verilecek)
+    [SerializeField] private Vector3 _newLocalPosition;
+
+    // Hareket hızı (büyüdükçe daha hızlı açılır/kapanır)
+    [SerializeField] private float _speed = 2f;
+
+    // Şu an açık mı kapalı mı bilgisini tutar
+    private bool _hasBeenChanged = false;
+
+    // Aynı anda birden fazla coroutine çalışmasın diye referans tutuyoruz
+    private Coroutine _moveCoroutine;
+
+    void Start()
+    {
+        // Oyunun başındaki local pozisyonu kaydet
+        _initialLocalPosition = transform.localPosition;
+    }
+
+    // XR event’ine bağlayacağın fonksiyon (tıklayınca çağrılır)
+    public void ChangePosition()
+    {
+        // Eğer obje hâlâ hareket ediyorsa, önce durdur (çakışmayı önler)
+        if (_moveCoroutine != null)
+            StopCoroutine(_moveCoroutine);
+
+        // Hedef pozisyonu belirle (açık mı kapalı mı)
+        Vector3 target = _hasBeenChanged ? _initialLocalPosition : _newLocalPosition;
+
+        // Yumuşak hareket coroutine’ini başlat
+        _moveCoroutine = StartCoroutine(MoveToPosition(target));
+
+        // Durumu tersine çevir (toggle mantığı)
+        _hasBeenChanged = !_hasBeenChanged;
+    }
+
+    // Objeyi zaman içinde hedef pozisyona götüren coroutine
+    private IEnumerator MoveToPosition(Vector3 target)
+    {
+        Vector3 startPos = transform.localPosition;
+        float time = 0f;
+
+        // time 0 → 1 arası ilerler
+        while (time &lt; 1f)
+        {
+            // Frame’e göre zamanı arttır (frame-rate bağımsız hareket)
+            time += Time.deltaTime * _speed;
+
+            // Smoothstep (ease in - ease out)
+            // Başta yavaş → ortada hızlı → sonda tekrar yavaş
+            float t = time * time * (3f - 2f * time);
+
+            // Pozisyonu yumuşak şekilde güncelle
+            transform.localPosition = Vector3.Lerp(startPos, target, t);
+
+            yield return null; // bir sonraki frame’i bekle
+        }
+
+        // En sonda tam hedefe oturt (floating point hatalarını önler)
+        transform.localPosition = target;
+    }
+}
+                        </pre>
+                        bu kodu dolabın içindeki çekmecelere attık.
+                    </p>
+
+                    <h2>Grip Tuşuna Basmadan Sadece Trigger İle Kod Tetiklemek</h2>
+                    <p>
+                        Tetiklenecek nesneye scripti ekledik. Olmasını istediğimiz lokal pozisyonu Inspector’dan yazdık.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.InputSystem;
+using UnityEngine.Events; // Dışarıdan atama yapabilmek için gerekli
+
+[RequireComponent(typeof(XRSimpleInteractable))]
+public class SingleObjectTrigger : MonoBehaviour
+{
+    [Header("Input Ayarları")]
+    public InputActionReference triggerAction;
+
+    [Header("Tetiklendiğinde Çalışacaklar")]
+    // Bu satır, Inspector panelinde bir liste (OnTriggerPress) oluşturur
+    public UnityEvent OnTriggerPress;
+
+    private XRSimpleInteractable _interactable;
+    private bool _isHovered = false;
+
+    void Awake()
+    {
+        _interactable = GetComponent&lt;XRSimpleInteractable>();
+    }
+
+    void OnEnable()
+    {
+        _interactable.hoverEntered.AddListener(OnHoverEnter);
+        _interactable.hoverExited.AddListener(OnHoverExit);
+    }
+
+    void OnDisable()
+    {
+        _interactable.hoverEntered.RemoveListener(OnHoverEnter);
+        _interactable.hoverExited.RemoveListener(OnHoverExit);
+    }
+
+    private void OnHoverEnter(HoverEnterEventArgs args) => _isHovered = true;
+    private void OnHoverExit(HoverExitEventArgs args) => _isHovered = false;
+
+    void Update()
+    {
+        // Eğer Ray objenin üzerindeyse VE tetiğe basıldıysa
+        if (_isHovered && triggerAction.action.WasPressedThisFrame())
+        {
+            // Inspector üzerinden listeye eklediğin her şeyi sırayla çalıştırır
+            OnTriggerPress.Invoke();
+        }
+    }
+}
+                        </pre>
+                        Çalışmasını istediğimiz kodu Inspector’dan ekledik.
+                    </p>
+            </div>
+            <div id="9">
+                <div id="comfortAndAccessibility">
+                    <h1>Konfor ve Erişilebilirlik</h1>
+
+                    <h2>Solma Efekti İçin Siyah Bir Tuval Oluşturmak</h2>
+                    <p>
+                        Sahne yüklendiğinde, birdenbire yeni bir dünyada bulmak biraz sarsıcı olabilir. Genellikle yeni ortamlara yavaş yavaş geçiş yapmak daha iyidir.
+                    </p>
+                    <p>
+                        <b>Efektin başlayacağı yeni bir Screen Space Canvas GameObject oluşturmak:</b> Hierarchy penceresinde "UI > Canvas"ı oluşturduk. Adını “Fade_Canvas” olarak değiştirdik.
+                    </p>
+                    <p>
+                        <b>Canvas'ın doğrudan kameranın önünde görüntülenmesini sağlamak:</b> Fade_Canvas GameObject'inde, Canvas bileşeninde "Render Mode" özelliğini "Screen Space - Camera" olarak ayarladık. "Render Camera" özelliğini "Main Camera" GameObject olarak ayarladık.
+                    </p>
+                    <p>
+                        <b>Tuvalin rengini siyah yapmak:</b> Fade_Canvas GameObject'inize sağ tıkladık ve "UI > Image"ı seçtik. Image GameObject'in Image bileşeninde, "Color" özelliğini "siyah" olarak ayarladık. "Rect Transform" bileşeninde, "Scale" özelliğinin X ve Y değerlerini büyük bir sayıya (örneğin, 100) ayarladık, böylece tuval tüm görüş alanınızı kaplayacaktır.
+                    </p>
+                    <p>
+                        <b>Tuvali, Main Camera GameObject'in hemen önünde ve diğer tüm GameObject'lerin önünde görünür hale getirmek:</b> Canvas bileşeninde, "Plane Distance" özelliğini "0,1" olarak ayarladık. "Order in Layer" özelliğini "1" olarak ayarladık.
+                    </p>
+                    <p>
+                        Programı çalıştırdığınızda siyah tuval artık görüş alanını tamamen kaplamalıdır.
+                    </p>
+
+                    <h2>Sahne Yüklendiğinde Yavaşça Görüntüye Geçmek</h2>
+                    <p>
+                        <b>Tuvalin ve tüm öğelerinin solmasını sağlamak:</b> "Fade_Canvas" GameObject’ine bir "Canvas Group" bileşeni ve bir "Fade Canvas" (eğitim tarafından) bileşeni ekledik.
+                        <pre class="prettyprint ms-0">
+using System.Collections;
+using UnityEngine;
+
+/// &lt;summary>
+/// Fades a canvas over time using a coroutine and a canvas group
+/// &lt;/summary>
+[RequireComponent(typeof(CanvasGroup))]
+public class FadeCanvas : MonoBehaviour
+{
+    [Tooltip("The speed at which the canvas fades")]
+    public float defaultDuration = 1.0f;
+
+    public Coroutine CurrentRoutine { private set; get; } = null;
+
+    private CanvasGroup canvasGroup = null;
+    private float alpha = 0.0f;
+
+    private float quickFadeDuration = 0.25f;
+
+    private void Awake()
+    {
+        canvasGroup = GetComponent&lt;CanvasGroup>();
+    }
+
+    public void StartFadeIn()
+    {
+        StopAllCoroutines();
+        CurrentRoutine = StartCoroutine(FadeIn(defaultDuration));
+    }
+
+    public void StartFadeOut()
+    {
+        StopAllCoroutines();
+        CurrentRoutine = StartCoroutine(FadeOut(defaultDuration));
+    }
+
+    public void QuickFadeIn()
+    {
+        StopAllCoroutines();
+        CurrentRoutine = StartCoroutine(FadeIn(quickFadeDuration));
+    }
+
+    public void QuickFadeOut()
+    {
+        StopAllCoroutines();
+        CurrentRoutine = StartCoroutine(FadeOut(quickFadeDuration));
+    }
+
+    private IEnumerator FadeIn(float duration)
+    {
+        float elapsedTime = 0.0f;
+
+        while (alpha &lt;= 1.0f)
+        {
+            SetAlpha(elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeOut(float duration)
+    {
+        float elapsedTime = 0.0f;
+
+        while (alpha >= 0.0f)
+        {
+            SetAlpha(1 - (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void SetAlpha(float value)
+    {
+        alpha = value;
+        canvasGroup.alpha = alpha;
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        <b>Sahnenin ne zaman yüklendiğini algılayan bir olay oluşturmak:</b> Hierarchy penceresinde boş bir GameObject ekledik ve adını “Scene Loader” olarak değiştirdik. Bu, sahne yükleme olaylarınızı barındıracaktır. Scene Loader GameObject'e bir "On Scene Load" (eğitim tarafından) bileşeni ekledik.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+
+/// &lt;summary>
+/// When the scene is played, run some specific functionality
+/// &lt;/summary>
+public class OnSceneLoad : MonoBehaviour
+{
+    // When scene is loaded and play begins
+    public UnityEvent OnLoad = new UnityEvent();
+
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += PlayEvent;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= PlayEvent;
+    }
+
+    private void PlayEvent(Scene scene, LoadSceneMode mode)
+    {
+        OnLoad.Invoke();
+    }
+}
+
+                        </pre>
+                    </p>
+                    <p>
+                        <b>Sahne yüklendiğinde siyah arka plandan yavaşça belirginleştirmek:</b> Scene Loader GameObject'te, On Load olayında, yeni bir işlev eklemek için Add (+) düğmesini seçtik. Fade_Canvas GameObject'ini atadık. FadeCanvas > StartFadeOut () işlevini seçtik.
+                    </p>
+                    <p>
+                        <b>Varsayılan olarak Scene görünümünde siyah görüntüyü gizlemek:</b> Canvas Group bileşeninin Alpha özellik değerini 0 olarak ayarladık. Artık sahne yüklendiğinde siyah arka plandan yavaşça görünmeye başlamalıdır. Bunu, oluşturduğunuz sahneyi sıfırla kullanıcı arayüzü ekranını kullanarak test edebiliriz.
+                    </p>
+
+                    <h2>Ayarlar Paneli Eklemek</h2>
+                    <p>
+                        <b>Yeni bir ayarlar düğmesi eklemek:</b> Hiyerarşi penceresinde, "Welcome Background GameObject" öğesine sağ tıkladık ve UI > Button - TextMeshPro seçeneğini belirleyerek bir düğme ekledik. Düğmenin adını “Settings Button” olarak değiştirdik. Image bileşeninde, Source Image özelliğini "Icon_Gear" olarak ayarladık. Inspector penceresindeki varsayılan metni sildik, böylece düğmede herhangi bir metin kalmadı. Düğmeyi menüye tam olarak sığacak şekilde boyutunu değiştirdik ve konumunu ayarladık.
+                    </p>
+                    <p>
+                         <b>Yeni bir ayarlar ekranı oluşturmak:</b> Hiyerarşi penceresinde, "Welcome Background GameObject"ini çoğalttık. Kopyalanan GameObject’in adını “Settings Background” olarak değiştirdik. Düzenlemeyi kolaylaştırmak için Welcome Background GameObject’ini geçici olarak devre dışı bıraktık; böylece sadece "Settings Background GameObject"ini görebiliriz.
+                    </p>
+                    <p>
+                        <b>Ayarlar ekranına yer tutucu içerik eklemek:</b> Settings Background GameObject’inden "Button" ve "Welcome Text GameObject"lerini sildik. Panelin içeriğini üç yer tutucu Text GameObject'iyle değiştirdik (“Setting 1” / “Setting 2” / “Setting 3”). Her ayarın yanına bir UI > Toggle GameObject ekledik ve toggle tarafından oluşturulan varsayılan metni sildik. Her Toggle'ı ilgili Text GameObject'ine bağlayarak bunları bir grup halinde toplayabiliriz. Not: Etiketler için, toggle ile birlikte gelen varsayılan Text etiketi yerine TextMeshPro Text'i kullandık.
+                    </p>
+                    <p>
+                        <b>Ayarlar düğmelerini güncellemek:</b> Settings Background GameObject'inde, Settings Button'ın adını “Close Button” olarak değiştirdik. Gear simgesinin Image bileşeninde, Source Image özelliğini "Icon_Gear"dan "Icon_Close"a değiştirdik.
+                    </p>
+                    <p>
+                        <b>Kullanıcının bu menüler arasında gidip gelmesine izin vermek:</b> Settings Düğmesi GameObject’inin Düğme bileşenindeki On Click özelliğinde, ayarlar ekranını etkinleştirdik ve karşılama ekranını devre dışı bıraktık. Close düğmesinin On Click olayında, ayarlar ekranını etkinleştirdik ve karşılama ekranını devre dışı bıraktık.
+                    </p>
+                    <p>
+                        <b>Sıfırlama menüsü görüntülendiğinde ayarlar menüsünü gizlemek:</b> XR Origin (VR) GameObject'in On Button Press bileşeninde, ayarlar ekranını devre dışı bırakan yeni bir eylem ekledik. Karşılama ekranını etkinleştirdik ve ayarlar ekranını devre dışı bıraktık.
+                    </p>
+                    <p>
+                        Artık ana menüdeki dişli simgesinden Ayarlar menüsüne erişebilmeliyiz; bu menüde üç adet yer tutucu açma/kapama seçeneği bulunmaktadır. Ayrıca, Ayarlar menüsünden Kapat düğmesine basarak karşılama paneline geri dönebilmeliyiz.
+                    </p>
+
+                    <h2>Hızlı Döndürme Ayarı Eklemek</h2>
+                    <p>
+                        Erişilebilirliği artırmanın en kolay yollarından biri, ortamda gezinmek için daha fazla seçenek sunmaktır. Bunu yapmak için, kullanıcının "hızlı dönüş" özelliğini etkinleştirip devre dışı bırakmasına olanak tanıyacağız.
+                    </p>
+                    <p>
+                        <b>Yer tutucu ayarını değiştirmek:</b> İlk ayar metnini “Snap Turning” olarak düzenledik. Toggle bileşeninde, “Is On” özelliğinin etkinleştirildiğinden emin olun; zira “Snap Turning” varsayılan olarak etkindir. 
+                    </p>
+                    <p>
+                        <b>Toggle bileşenini Snap Turn bileşenine bağlamak:</b> Toggle bileşeninde, “On Value Changed” olayı için yeni bir eylem eklemek üzere Ekle (+) düğmesini seçtik. Snap Turn Provider bileşenini içerdiğinden, Snap Turn Provider'ı Object yuvasına atadık. No Function açılır menüsünü açın ve GameObject > SetActive'i seçtik. Not: Dinamik bir bool (boolean) olan enabled özelliğini seçtiğinizden emin oldık; bu, toggle'ın durumundan dinamik olarak etkileneceği anlamına gelir.
+                    </p>
+                    <p>
+                        Artık, hizalama özelliğini etkinleştirip devre dışı bırakan, düzgün çalışan bir onay kutusu elimizde olmalı.
+                    </p>
+
+                    <h2>Mesafe Yakalama Ayarı Eklemek</h2>
+                    <p>
+                        Erişilebilirliği önemli ölçüde artırabilecek bir diğer ayar, NearFarInteractor kullanarak uzaktan GameObject'leri yakalama özelliğidir.
+                    </p>
+                    <p>
+                        <b>Anahtarın varsayılan olarak nasıl görüneceğini ayarlamak:</b> Toggle bileşeninde, uzaktan yakalama özelliğinin varsayılan olarak etkin olmasını isteyip istemediğinize bağlı olarak "Is On" özelliğini etkinleştirin veya devre dışı bıraktık. Kullanıcılara ayarın ne olduğunu net bir şekilde göstermek için anahtardaki metni "Distance Grab" olarak değiştirdik.
+                    </p>
+                    <p>
+                        <b>GameObject'lerinizin yakalanabilir olduğundan emin olmak:</b> XR Grab Interactable bileşenine sahip her GameObject'te, Interaction Layer Mask'ın Default katmanını içerdiğini ve böylece yakalanabilir olduklarını doğruladık.
+                    </p>
+                    <p>
+                        <b>NearFarInteractor'ınızı atamak:</b> Hierarchy penceresinde, Near-Far Interactor bileşenini içeren GameObject'i seçtik (genellikle hand/controller kurulumunun bir parçasıdır). "ToggleNearFarAttach" komut dosyasını (eğitimden gelen) bir GameObject'e ekledik (örneğin, aynı GameObject'e veya bir düzenleyici GameObject'e). Komut dosyasının Near Far Interactor kutusuna NearFarInteractor referansını sürükleyip bıraktık.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+
+public class ToggleNearFarAttach : MonoBehaviour
+{
+    [Header("Near-Far Interactor")]
+    // Unity 6'nın gerçek NearFarInteractor component'i
+    public NearFarInteractor nearFarInteractor;
+
+    /// &lt;summary>
+    /// Toggle tarafından çağrılır
+    /// true  = Distance Grab (Far) açık
+    /// false = Distance Grab kapalı
+    /// &lt;/summary>
+    public void SetFarAttachMode(bool isOn)
+    {
+        // Referans kontrolü
+        if (nearFarInteractor == null)
+        {
+            Debug.LogWarning("NearFarInteractor atanmadı!");
+            return;
+        }
+
+        // 🔥 UZAKTAN GRAB'I AÇ/KAPAT
+        nearFarInteractor.enableFarCasting = isOn;
+
+        // (Opsiyonel) Yakın grab hep açık kalsın istiyorsan dokunma
+        // nearFarInteractor.enableNearCasting = true;
+
+        Debug.Log("Distance Grab (Far): " + (isOn ? "AÇIK" : "KAPALI"));
+    }
+}
+                        </pre>
+                    </p>
+                    <p>
+                        <b>Modları değiştirmek için Distance Grab anahtarını bağlamak:</b> Toggle bileşeninde, On Value Changed özelliğinde, yeni bir eylem eklemek için Add (+) düğmesini seçtik. "NearFarModeToggle" komut dosyasını barındıran GameObject'i Object kutusuna atadık. No Function açılır menüsünü açtık ve NearFarModeToggle > SetFarAttachMode(bool) seçeneğini seçtik. Toggle'ın değerinin aktarılması için Dynamic bool altındaki sürümü seçtiğinizden emin olduk. Artık uzaktan ışınlarla GameObject'leri yakalama özelliğini etkinleştiren ve devre dışı bırakan bir toggle'a sahip olmalıyız.
+                    </p>
+                </div>
+            </div>
+            <div id="10">
+                <div id="optimization">
+                    <h1>Optimizasyon</h1>
+                    <p>
+                        Bu derste, VR için temel performans ölçütlerinin her birini (fps, poligon sayısı ve çizim çağrıları) ve bu ölçütlerin nasıl optimize edileceğini öğreneceğiz. Bu dersin sonunda, uygulamanızın performansı daha da optimize edilmiş olacak.
+                    </p>
+
+                    <h2>Mevcut Kare Hızını Kontrol Etmek</h2>
+                    <p>
+                        <b>Cihazınızın hedef kare hızını (fps) belirlemek:</b> Aşağıdaki bağlantıları referans olarak kullanın ve hedef fps değerinizi not alın.
+                        <ul>
+                            <li><a href="https://developers.meta.com/horizon/documentation/unity/unity-perf/">Meta Quest</a> <ul>
+                                <li>Medya uygulamaları 60 FPS'yi hedefleyebilir.</li>
+                                <li>Etkileşimli uygulamalar en az 72 FPS'ye ulaşmalıdır.</li>
+                            </ul></li>
+                            <li><a href="https://hub.vive.com/storage/app/doc/en-us/MobileVRperformancechecklist.html#:~:text=The%20target%20framerate%20for%20Vive,as%20Desktop%20PCs%20and%20Laptops.">HTC Vive</a> <ul>
+                                <li>Vive Focus Plus uygulamaları için hedef kare hızı 75 FPS'dir. Bu, her karenin 1/75 = 13,3 ms içinde işlenmesi gerektiği anlamına gelir.</li>
+                                <li>Mobil VR, bağımsız başlıklar masaüstü bilgisayarlar ve dizüstü bilgisayarlar kadar güçlü olmadığından, PC tabanlı VR'ye kıyasla oldukça yüksek performans gerektirir.</li>
+                            </ul></li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Cihazınızda çalışan kare hızını (fps) belirlemek:</b> _Course Library > _Prefabs > Testing klasöründen FPS Overlay UI prefabını Hierarchy pencerenize sürükledik. "Main Camera" GameObject'i, "FPS Overlay UI prefab"ının "Canvas" bileşeninin "Render Camera" özelliğine atadık. Uygulamanızı çalıştırarak fps değerinizi gördük. Not: Uygulamayı Unity Editor üzerinden çalıştırıyorsanız, bu fps için doğru bir tahmin olmayacaktır.
+                    </p>
+                    <p>
+                        <b>Unity Stats penceresinde fps değerini görüntülemek:</b> Game görünümünün sağ üst köşesindeki Stats sekmesini seçtik ve fps değerini bulduk.
+                    </p>
+                    <p>
+                        <b>Unity Profiler'ı incelemek:</b> Play düğmesini seçtik. Ana menüden Window > Analysis > Profiler'ı seçtik. Profiler penceresi kayıt yapmıyorsa, Profiler penceresindeki dairesel kayıt düğmesini seçeriz. 
+                    </p>
+                    <p>
+                        <b>Mobil bir başlıkta çalışan gerçek saniye başına kare sayısını test etmek için:</b> Uygulamayı derleyip bilgisayarınıza bağlı olmadan cihazınızda çalıştırın. Artık cihazınız için hedef metrikleri nerede bulacağınızı ve cihazınızda saniye başına kare sayısını nasıl bulacağınızı biliyoruz.
+                    </p>
+
+                    <h2>Çizim Çağrılarını Optimize Etmek</h2>
+                    <p>
+                        Tek bir kareyi görüntülemek için Unity, öğeleri GameObject grupları halinde ekrana çizer. Unity'nin motoru ekrana bir şey çizmesi için her çağrısı, bir çizim çağrısı olarak adlandırılır. Çizim çağrılarını en aza indirirseniz, performansı artırabilirsiniz.
+                    </p>
+                    <p>
+                        <b>Cihazınızın hedef çizim çağrılarını (batches) belirlemek:</b> Hedef çizim çağrısı ölçütünü öğrenmek için platformunuzun web sitesine bakın.Meta Quest için VR Performans Optimizasyonu Kılavuzuna bakarsanız, örneğin Meta Quest 3 için hedef çizim çağrılarının 500 - 1000 arasında olduğunu göreceksiniz.
+                    </p>
+                    <p>
+                        <b>Toplu işleme ve çizim çağrılarının kare hızını nasıl etkileyebileceğini görselleştirmek:</b> Ana menüden "Window > Analysis > Frame Debugger"ı seçtik. Etkinleştir'i seçtik. Kare Hata Ayıklayıcı penceresindeki sol/sağ oklarını kullandık ve Oyun görünümünde tek bir karenin adım adım oluşturulmasını izledik.
+                    </p>
+                    <p>
+                        <b>Statik Toplu İşleme'nin etkinleştirildiğinden emin olmak:</b> Ana menüden "Edit > Project Settings"i seçtik. En soldaki panelden "Player"ı seçtik. Açılır menüyü (üçgen) kullanarak "Other Settings" bölümünü genişletin, ardından "Static Batching"in etkinleştirildiğinden emin olduk.
+                    </p>
+                    <p>
+                        <b>Hareket etmeyen GameObject'leri Statik olarak işaretleyerek toplu işlemeyi iyileştirmek:</b> Hiyerarşi pencerenizin, tüm statik GameObject'lerin kolayca seçilebileceği şekilde düzenlendiğinden emin olduk. Tüm statik GameObject'leri (lambalar ve avizeler gibi aydınlatma GameObject'leri dahil) seçtik. Inspector penceresinin üst kısmında Static özelliğini etkinleştirdik. İstenildiğinde "Yes, change children" seçeneğini seçtik. Play düğmesini seçtiğinizde bunun "Batches" üzerinde yarattığı etkiye dikkat edin. 
+                    </p>
+                    <p>
+                        <b>Batches sayınız hala çok yüksekse (175'in üzerinde):</b> Mirror GameObject'i sahneden kaldırmayı düşünün.
+                    </p>
+                    <p>
+                        Ortak malzemelere sahip GameObject'leri gruplandırarak, artık çizim çağrılarının sayısını azaltmış olmalısınız.
+                    </p>
+                    <p>
+                        <a href="https://docs.unity3d.com/Manual/DrawCallBatching.html">Detay okuma için tıklayınız</a>
+                    </p>
+
+                    <h2>Poligon Sayısını Optimize Etmek</h2>
+                    <p>
+                        En basit performans ölçütü, poligon sayısıdır. Poligon sayısı genellikle üçgen sayısı (Tris) veya köşe sayısı (Verts) olarak ölçülür.
+                    </p>
+                    <p>
+                        <b>Cihazınızın hedef poligon sayısını (üçgen) belirlemek:</b> Hedef üçgen sayısını öğrenmek için platformunuzun web sitesine bakın.
+                    </p>
+                    <p>
+                        <b>Sahnenizdeki üçgen sayısını bulmak:</b> Game Stats penceresini açın ve “tris” (üçgen) değerini bulduk.
+                    </p>
+                    <p>
+                        <b>Üçgenlerinizi daha net bir şekilde görüntülemek:</b> "Scene" görünümünden, "Shaded" çizim modundan "Wireframe" çizim moduna geçtik.
+                    </p>
+                    <p>
+                        <b>Tek bir GameObject için üçgen sayısını belirlemek:</b> Bir GameObject seçtik. Mesh Filter bileşeninde, Mesh özelliğini seçtik. "Project" penceresinde o Mesh'i seçerek "Inspector" penceresinde üçgen sayısını görüntüledik. Not: 1.000 tris'in altındaki her şey düşük poligonlu olarak kabul edilir.
+                    </p>
+                    <p>
+                        <b>Karedeki GameObject'lere bağlı olarak üçgen sayınızın nasıl değiştiğine dikkat etmek:</b> XR Origin (VR) GameObject'ini döndürürken istatistik penceresini takip edin.
+                    </p>
+                    <p>
+                        <b>Önerilen üçgen hedefine ulaşamıyorsanız:</b> Hedefinize ulaşana kadar yüksek poligon sayısına sahip varlıkları kaldırın veya değiştirin. Ayrıca sahneden aynayı kaldırmayı da deneyebilirsiniz. Artık Tris hedefinize ulaşmış olmalısınız ve üçgen bütçenizi nereye harcadığınızı anlamış olmalısınız.
+                    </p>
+                    <p>
+                        <a href="https://docs.unity3d.com/Manual/OcclusionCulling.html">Unity Occlusion culling sayfası</a>
+                    </p>
+
+                    <h2>Dokuları Optimize Etmek</h2>
+                    <p>
+                        Unity'nin yaptığı çizim çağrılarını değerlendirmenin yanı sıra, sahnenizde kullanılan dokuların boyutunu da göz önünde bulundurmak önemlidir.
+                    </p>
+                    <p>
+                        <b>Doku ayarlarının etkisini daha iyi analiz etmek için sahneye bir tablo ekleyin:</b> _Course Library > _Prefabs > Art klasöründen sahnenizdeki bir duvara bir sanat eseri ekleyin.
+                    </p>
+                    <p>
+                        <b>Sahnenizdeki GameObject’lerin malzemesine erişmek:</b> Tablonun "Mesh Renderer" bileşeninde, açılır menüyü (üçgen) kullanarak "Material" bölümünü genişlettik. Project penceresinde malzemeyi seçin.
+                    </p>
+                    <p>
+                        <b>Malzeme için kullanılan doku atlasını bulmak:</b> Açılır menüyü (üçgen) kullanarak malzemenin "Surface Inputs" bölümünü genişlettik, ardından "Base Map" özelliğinin yanındaki küçük resmi seçerek "Project" penceresinde dokuyu bulduk. Bu dokuyu seçerek dokunun "Import Settings" (İçe Aktarma Ayarları) bölümünü görüntüledik.
+                    </p>
+                    <p>
+                        <b>Doku ayarlarıyla denemeler yapmak:</b> Dokunun "Default" (Varsayılan) sekmesi altında "Max Size" (Maksimum Boyut), "Resize Algorithm" (Yeniden Boyutlandırma Algoritması), "Format" (Biçim) ve "Compression" (Sıkıştırma) özelliklerini ayarladık. "Apply" (Uygula) seçeneğini seçerek her ayarın sahnenizdeki görseller üzerinde yarattığı etkiyi gördük. Farkı gözlemledikten sonra orijinal ayarlara geri döndük.
+                    </p>
+                    <p>
+                        <b>Uzaktan görülen dokuların çözünürlüğünü otomatik olarak düşürmek için mipmap'leri etkinleştirmek:</b> Proje penceresinde "InteriorColorSwatch" dokusunu bulduk ve seçtik. Denetçi penceresinde, açılır menüyü (üçgen simgesi) kullanarak "Advanced" bölümünü genişlettik ve "Generate Mip Maps" seçeneğini seçtik. Apply'ı seçtik. Bu, daha uzaktaki GameObject'lerde daha düşük kaliteli dokular oluşturup uygulayacaktır.
+                    </p>
+                    <p>
+                        <b>Düşük açılardan bakıldığında dokuların görselliğini iyileştirmek için "Anisotropic Filtering"i etkinleştirmek:</b> Project penceresinde "WoodFloor_Texture"ı bulduk ve seçtik. Inspector penceresinde, "Aniso Level" kaydırıcısını sürükleyerek artırdık. "Apply"ı seçtik. Bu, düşük açılardan bakıldığında doku görselliğini iyileştirmek için "Anisotropic Filtering"i artıracaktır.
+                    </p>
+
+                    <h2>Parçacıkları (particles) ve Son İşlem (post-processing) Adımlarını Optimize Etmek</h2>
+                    <p>
+                        <b>Parçacığın gölgelendiricisini, dinamik ışıklara tepki vermeyecek şekilde optimize etmek:</b> "Particle_Fire" GameObject’ini seçtik. Inspector penceresinin altındaki "Shader" özelliği açılır menüsünü açtık. Parçacığınızın "Universal Render Pipeline > Particles > Unlit" gölgelendiricisini kullandığından emin olduk.
+                    </p>
+                    <p>
+                        <b>Son işlemlerle denemeler yapmak:</b> "XR Origin (VR) > Camera Offset > Main Camera" GameObject’inizin "Camera" bileşeninde, açılır menüyü (üçgen) kullanarak "Rendering" bölümünü genişlettik, ardından "Post-processing" özelliğini etkinleştirdik. Bir "Volume" bileşeni ekledik. Yeni bir "Post-Processing" profili oluşturmak için "New" düğmesini seçtik. Ardından "Add Override" düğmesini seçip yeni efektleri etkinleştirerek denemeler yapabiliriz.
+                    </p>
+                    <p>
+                        <b>Uyarı:</b> Herhangi bir post-processing efekti ekleyecekseniz, renk ayarlamaları (color adjustments) iyi bir seçenektir. Lens distorsiyonları (Lens distortions) ve hareket bulanıklıkları (motion blurs) siber hastalığa neden olur; bu efektleri kullanmaktan kaçının.
+                    </p>
+                    <p>
+                        <ul>
+                            <li><a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.1/manual/shaders-in-universalrp.html">Shader türleri hakkında bilgi almak için tıklayınız.</a></li>
+                            <li><a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.1/manual/integration-with-post-processing.html">Post-Processing hakkında bilgi almak için tıklayınız.</a></li>
+                        </ul>
+                    </p>
+
+                    <h2>Anti-Aliasing (Yumuşatma) Özelliğini Etkinleştirmek</h2>
+                    <p>
+                        Bazı 3B GameObject'lerin kenarlarının pürüzlü göründüğünü fark etmiş olabilirsiniz. Bu durum VR deneyiminde gerçekçiliği bozabilir. Anti-aliasing özelliğini kullanarak bu pürüzlü kenarları yumuşatabilirsiniz.
+                    </p>
+                    <p>
+                        <b>Render boru hattı ayarlarına erişmek:</b> Proje penceresinde “UniversalRenderPipelineAsset” öğesini aradık ve seçerek Inspector penceresinde özelliklerini görüntüledik.
+                    </p>
+                    <p>
+                        <b>Universal Render Pipeline (URP) varlığında anti-aliasing (kenar yumuşatmayı) etkinleştirmek:</b> Açılır menüyü (üçgen) kullanarak "Quality" bölümünü genişlettik, ardından Anti-Aliasing (Kenar Yumuşatma) özelliğini Devre Dışı konumundan 4x olarak değiştirdik.
+                    </p>
+                    <p>
+                        <b>Ana Kameraya ek anti-aliasing eklemek:</b> "XR Origin (VR) > Camera Offset > Main Camera" GameObject öğesini seçtik ve Camera bileşeninde açılır menüyü (üçgen) kullanarak "Rendering" bölümünü genişlettik. "Anti-Aliasing" özelliğini "Fast Approximate Anti-Aliasing (FXAA)" olarak değiştirdik. Efekti görebilmek için Post-Processing ayarının etkinleştirildiğinden emin olduk. 
+                    </p>
+                    <p>
+                        <b>Not:</b> Bu, fps üzerinde önemli bir etkiye sahip olabilir.
+                    </p>
+                    <p>
+                        <b>Mirror GameObject'e anti-aliasing uygulamak:</b> Projenizde "Mirror_Texture"ı bulduk. Anti-Aliasing özelliğini "None"dan 4 samples'a değiştirdik. Main Camera GameObject'iniz ve Mirror GameObject'iniz artık eskisinden çok daha pürüzsüz kenarlara sahip olmalıdır.
+                    </p>
+                    <p>
+                        <a href="https://docs.unity3d.com/Packages/com.unity.postprocessing@2.3/manual/Anti-aliasing.html">Anti-Aliasing için Unity sayfası.</a>
+                    </p>
+
+                    <h2>Bonus İçerik</h2>
+                    <p>
+                        <ul>VR Optimizasyonu
+                            <li><a href="https://learn.unity.com/tutorial/optimizing-your-vr-ar-experiences">Unity Learn VR/AR Deneyimlerinizi Optimize Etme Dersi</a></li>
+                            <li><a href="https://docs.unity3d.com/Manual/OptimizingGraphicsPerformance.html">Unity Grafik Optimizasyon Sayfası</a></li>
+                        </ul>
+                        <ul>Platforma özgü optimizasyon araçlar
+                            <li><a href="https://developers.meta.com/horizon/documentation/unity/ts-ovrmetricstool/">Oculus - OVR Metrics Tool</a></li>
+                            <li><a href="https://hub.vive.com/storage/app/doc/en-us/PerformanceProfiling.html">HTC Vive - Android Systrace</a></li>
+                            <li><a href="https://developer.valvesoftware.com/wiki/SteamVR/Frame_Timing">Valve / SteamVR - Frame Timing Tool</a></li>
+                        </ul>
+                        <ul>Unity Profiler penceresi
+                            <li><a href="https://docs.unity3d.com/Manual/ProfilerWindow.html">Unity Profiler Penceresi kılavuzu</a></li>
+                            <li><a href="https://docs.unity3d.com/Manual/analysis.html">Profiler'ı kullanarak optimizasyon rehberi</a></li>
+                            <li><a href="https://learn.unity.com/tutorial/diagnosing-performance-problems-2019-3?uv=2022.2">Performans sorunlarını teşhis etme</a></li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            <div id="11">
+                <div id="lighting">
+                    <h1>Aydınlatma</h1>
+
+                    <h2>Aydınlatma Ayarlarınızla Denemeler Yapmak</h2>
+                    <p>
+                        <b>Render boru hattı ayarlarına erişmek:</b> Proje penceresinde UniversalRenderPipelineAsset dosyasını aradık ve seçtik. UniversalRenderPipelineAsset, grafiklerin Universal Render Pipeline kullanılarak nasıl render edileceğini tanımlayan ve kalite, ışıklandırma, gölgeler ve performans ayarlarını kontrol etmenizi sağlayan bir Unity yapılandırma dosyasıdır.
+                    </p>
+                    <p>
+                        <b>Render boru hattı ayarlarıyla denemeler yapmak:</b> URP Asset'in Inspector penceresinde, açılır menüyü (üçgen) kullanarak Lighting bölümünü genişlettik, ardından ayarlarla denemeler yaptık.
+                    </p>
+                    <p>
+                        Karmaşık aydınlatmaya getirdiği sınırlamaları anlamak için <b>Per Object Limit</b> özellik kaydırıcısını mutlaka deneyin. Bu ayar, her bir GameObject'i ayrı ayrı etkileyebilecek ışık sayısını kontrol eder. Per Object Limit özellik kaydırıcısını denemek, Unity'nin aydınlatma karmaşıklığını nasıl sınırladığını görmenize yardımcı olur; GameObject başına daha az ışık performansı artırabilir, ancak karmaşık sahnelerde görsel kaliteyi düşürebilir.
+                    </p>
+                    <p>
+                        Açılır menüyü (üçgen) kullanarak <b>Shadow</b> bölümünü genişletin, ardından sahnedeki gölge kalitesinden memnun kalana kadar <b>Max Distance</b> özellik değerini azaltın. Bu ayar, performansı artırmak için kameradan gölge oluşturma mesafesini sınırlar. Daha yüksek değerler, hassasiyetin azalması nedeniyle gölge yayılmasına ve kalite sorunlarına neden olabilir.
+                    </p>
+                    <p>
+                        <b>Sahneniz için yeni Aydınlatma Ayarları oluşturmak:</b> Ana menüden "Window > Rendering > Lighting" seçeneğini seçerek "Lighting" penceresini açtık. Lighting penceresini Inspector penceresinin yanına yerleştirdik. Açılır menüyü (üçgen simgesi) kullanarak "Lighting Settings" bölümünü genişlettik, ardından "New" düğmesini seçerek yeni bir profil oluşturduk.
+                    </p>
+                    <p>
+                        <b>Sahnenizdeki ortam aydınlatmasıyla denemeler yapmak:</b> "Lighting" penceresinin üst kısmında "Environment" sekmesini seçtik. Ayarlarla denemeler yaparak bunların sahnenize etkisini gördik. Bu ayarlar hakkında daha fazla bilgiyi <a href="https://docs.unity3d.com/6000.0/Documentation/Manual/lighting-window.html#Environment">"Lighting window reference documentation"e tıklayarak</a> bulabilirsiniz.
+                    </p>
+                    <p>
+                        <ul>İleri Okuma
+                            <li><a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.0/manual/universalrp-asset.html">Universal Render Pipeline Asset</a></li>
+                            <li><a href="https://docs.unity3d.com/6000.0/Documentation/Manual/lighting-window.html#Environment">Lighting window reference</a></li>
+                        </ul>
+                    </p>
+
+                    <h2>Basit Bir Işık Haritası (Lightmap) Hazırlamak ve Pişirmek (Bake)</h2>
+                    <p>
+                        İlk ışık haritası pişirme işleminizi gerçekleştirmenin zamanı geldi. Öncesinde atmanız gereken birkaç adım var.
+                    </p>
+                    <p>
+                        <b>Tüm ışıklarınızın pişirilmesine izin vermek:</b> Sahnede hareket etmeyecek veya açılıp kapanmayacak her bir ışığı bulduk ve seçtik. Bunu, Hiyerarşi penceresinin arama çubuğunda <b>“t:light”</b> ifadesini arayarak yapabilirsiniz. Her ışığın Light bileşeninde, Mode özelliğini Baked olarak ayarladık.
+                    </p>
+                    <p>
+                        <b>Sahnenizdeki GameObject'lere ışık pişirilmesine izin vermek:</b> Hierarchy penceresinde, hareket etmeyen, statik tüm GameObject'leri seçtik. Inspector penceresinin üst kısmında, Static özelliğinin etkinleştirildiğinden emin olduk. <b>Not:</b> Aydınlatma bölümünüzdeki GameObject'leri (örneğin, lambalar, aplikler, avizeler vb.) seçmeyi unutmayın.
+                    </p>
+                    <p>
+                        <b>Fırınlama sürelerini kısaltmak için ışık haritanızdan arka plan (background) ve ön plan (foreground) GameObject'lerini kaldırmak:</b> Her bir büyük arka plan GameObject'ini seçtik. Mesh Renderer bileşeninde, açılır menüyü (üçgen) kullanarak Lightmapping bölümünü genişlettik, ardından "Scale in Lightmap" özelliğini 0 olarak ayarladık.
+                    </p>
+                    <p>
+                        <b>Işıklarınızı pişirmeyi denemek:</b> "Lighting" penceresine gittik. "Scene" sekmesinin alt kısmında "Generate Lighting" seçeneğini seçtik.
+                    </p>
+                    <p>
+                        <b>Işık haritasını oluşturma süresini geçici olarak kısaltmak:</b> "Lighting" penceresinde, üst kısımdaki "Scene" düğmesini seçtik ve "Lightmap Resolution" özelliğini 5 ile 10 arasında bir değere ayarladık. Işık haritasının kalitesini etkileyen diğer bazı değerleri (samples, bounces, vb.) azalttık. Bu ayarlar ve pişirme süreleri üzerindeki etkileri hakkında daha fazla bilgiyi, <a href="https://docs.unity3d.com/Manual/Lightmaps-reference.html">Aydınlatma Ayarları Varlık referans belgelerindeki Işık Haritalama ayarlarında</a> bulabilirsiniz.
+                    </p>
+                    <p>
+                        <ul>İleri Okuma
+                            <li><a href="https://docs.unity3d.com/Manual/LightModes.html">Light modes: Baked, Mixed, Realtime</a></li>
+                            <li><a href="https://docs.unity3d.com/Manual/lighting-mode.html">Lighting Mode</a></li>
+                            <li><a href="https://docs.unity3d.com/Manual/Lightmaps-reference.html">Lightmapping settings in the Lighting Settings Asset reference</a></li>
+                        </ul>
+                    </p>
+
+                    <h2>Sahne Aydınlatmasını Ayarlamak ve Yeniden İşleme Almak</h2>
+                    <p>
+                        <b>Işık haritanızı temizlemek ve aydınlatma değişikliklerini gerçek zamanlı olarak görüntülemek:</b> "Lighting" penceresinin alt kısmında, "Generate Lighting" açılır menüsünü açtık. "Clear Baked Data" seçeneğini seçtik. 
+                    </p>
+                    <p>
+                        <b>Mümkün olduğunca çok sayıda ışığın etkisini görüntülemek:</b> "UniversalRenderPipelineAsset" öğesini seçtik. "Additional Lights Per Object Limit" özelliğini geçici olarak maksimuma çıkardık.
+                    </p>
+                    <p>
+                        <b>Room prefab'iyle birlikte gelen varsayılan ışıkları kaldırmak:</b> Hierarchy penceresinde, açılır menüyü (üçgen) kullanarak "Room_[style]" prefab'ini genişlettik. İki "Point Lights" alt GameObject'ini sildik. Not: Işıkları silmek için Room prefab'ini açmanız gerekir.
+                    </p>
+                    <p>
+                        <b>Sahnenize gerçek ışık kaynaklarından daha gerçekçi bir aydınlatma eklemek:</b> "_Course Library > _Prefabs > Lighting" klasöründen, sahnenizi aydınlatmak için yeterli sayıda ışık yayan GameObject'iniz olduğundan emin olduk. Bu aydınlatma öğelerine Light alt GameObject'leri eklemek için, Hiyerarşi penceresinde üzerlerine sağ tıklayın ve "Light > Point Light" veya "Spot Light'ı seçin.
+                    </p>
+                    <p>
+                        <b>Odada daha eşit ve dengeli bir aydınlatma elde etmek:</b> "Directional Light" GameObject’in Light bileşeninde, açılır menüyü (üçgen) kullanarak "Emission" bölümünü genişlettik, ardından "Intensity" ve "Indirect Multiplier" özellik değerlerini artırdık. "Lighting" penceresinde, "Lighting" ayarlarınızı seçtik ve "Indirect Intensity" özellik değerini artırdık. Not: Bu ayarların etkisi hakkında daha fazla bilgiyi, <a href="https://docs.unity3d.com/Manual/Lightmaps-reference.html">Lighting Settings Asset referans belgelerindeki Lightmapping ayarlarında</a> bulabilirsiniz.
+                    </p>
+                    <p>
+                        <b>Aydınlatmanın nasıl göründüğünü kontrol etmek:</b> Tekrar "Generate Lighting" seçeneğini seçtik. Vaktiniz varsa, "Lightmap Resolution" ve diğer aydınlatma ayarlarının değerlerini artırarak son haliyle nasıl görüneceğini kontrol edin. Not: Lekeli veya pikselli gölgeler görüyorsanız, "Lighting" penceresinde "Lightmap Compression" özelliğini "None" olarak ayarlayın. 
+                    </p>
+                    <p>
+                        <ul>İleri Okuma
+                            <li><a href="https://learn.unity.com/course/creative-core-lighting/tutorial/bake-a-lightmap-for-your-scene">Unity Learn: Bake a lightmap for your scene</a></li>
+                            <li><a href="https://docs.unity3d.com/Manual/Lightmaps-reference.html">Lightmapping settings in the Lighting Settings Asset reference</a></li>
+                        </ul>
+                    </p>
+
+                    <h2>Mixed Lighting Eklemek</h2>
+                    <p>
+                        GameObject'lerinizin gerçek zamanlı olarak gölge oluşturmasını, ancak aynı zamanda önceden hesaplanmış ışık haritalarının performans avantajlarından da yararlanmasını istiyorsanız, Mixed Lighting özelliğini kullanabilirsiniz.
+                    </p>
+                    <p>
+                        <b>Önceden işlenmiş ışık haritalarınızın üzerine gerçek zamanlı gölgeler eklemek:</b> "Directional Light" GameObject'inin "Light" bileşeninde, açılır menüyü (üçgen simgesi) kullanarak "General" bölümünü genişlettik. "Mode" özelliğinin açılır menüsünü açtık ve "Mixed"ı seçtik.
+                    </p>
+                    <p>
+                        <b>Yeni karışık aydınlatmanın etkisini görmek:</b> Lighting penceresinde, "Generate Lighting"i seçerek aydınlatmanızı yeniden pişirdik. Karışık ışığın dinamik GameObject'lerinizin aydınlatması ve gölgeleri üzerinde ne gibi bir etki yarattığına dikkat edin. Artık dinamik GameObject'lerinizde Directional Light GameObject'inizden gelen gerçek zamanlı gölgeler görmelisiniz.
+                    </p>
+                    <p>
+                        <ul>İleri Okuma
+                            <li><a href="https://docs.unity3d.com/Manual/LightModes-introduction.html#mixed">Light Modes</a></li>
+                        </ul>
+                    </p>
+
+                    <h2>Işık Sensörleri (Light Prob) Eklemek</h2>
+                    <p>
+                        Sahnedeki tüm önceden hesaplanmış ışıklandırmalardan daha gerçekçi gerçek zamanlı ışıklandırma elde etmek için Işık Problarına ihtiyacınız var.
+                    </p>
+                    <p>
+                        <b>Room GameObject'inin alt öğesi olarak yeni bir Işık Probu Grubu eklemek:</b> Hiyerarşi penceresinde, "Room_[style]" GameObject'ine sağ tıkladık ve "Light > Light Probe Group"u seçtik.
+                    </p>
+                    <p>
+                        <b>Işık problarını düzenleyebilmek için:</b> Sahne görünümünün sağ üst köşesinde 3B Simgeli Gizmo'lar seçeneğinin etkinleştirildiğinden emin olduk. "Light Probe Group" seçiliyken, "Tools" katmanındaki "Edit Light Probe Group" düğmesini seçtik.
+                    </p>
+                    <p>
+                        <b>Işık problarını çoğaltın ve odanın etrafında yeniden konumlandırmak:</b> Probların etrafındaki seçim kutularını sürükleyerek probları seçtik. Probu konumlandırmak için "Move" aracını kullandık. Seçili probları çoğaltmak için Ctrl+D (macOS: Cmd+D) tuşlarını kullandık. Not: Sahne görünümünün sağ üst köşesindeki eksen gizmosunun altındaki simgeyi seçerek İzometrik görünüme geçmek faydalı olabilir.
+                    </p>
+                    <p>
+                        <b>Işık problarınızı doğru şekilde konumlandırmak için:</b> Problarınızı, ışığın rengi veya yoğunluğu açısından önemli değişikliklerin olduğu alanlara yerleştirdiğinizden emin olun. Problarınızın GameObject'lerin içinde olmadığından emin olun.
+                    </p>
+                    <p>
+                        <b>Işık problarınızın etkisini görün:</b> "Lighting" penceresinden ışıklandırmanızı yeniden oluşturun ve dinamik GameObject'lerinizdeki ışıklandırmayı test edin.
+                    </p>
+
+                    <h2>Aydınlatmayı Tamamlamak</h2>
+                    <p>
+                        Aydınlatma ayarlarınızı kabaca istediğiniz gibi yapılandırdıktan sonra, artık daha kesin ve yüksek çözünürlüklü bir ışık haritası hazırlayabilirsiniz.
+                    </p>
+                    <p>
+                        <b>Aydınlatma ayarlarınızın hedef cihazınız için uygun şekilde optimize edildiğinden emin olmak:</b> Uygulamanızı, kullanıcıların kullanmasını beklediğiniz şekilde test edin (diğer bir deyişle, hedef kitleniz mobil cihazlarsa, uygulamayı bilgisayarınıza bağlı olmayan bağımsız bir cihazda test edin). Hedef kare hızına ulaştığınızdan emin olun. Uygulamanızı gerçek cihazda derleme ve çalıştırma talimatları için VR Proje Kurulumu öğreticisindeki talimatlara bakın.
+                    </p>
+                    <p>
+                        <b>Birkaç küçük dosya yerine tek bir ışık haritası dosyası oluşturmak:</b> "Lighting" penceresinde, açılır menüyü (üçgen) kullanarak "Lightmapping Settings" bölümünü genişlettik. "Max Lightmap Size" Boyutu özelliğini 4096 olarak ayarladık. Birkaç küçük dosya yerine tek bir ışık haritası dosyasına sahip olmanız önerilir.
+                    </p>
+                    <p>
+                        <b>Lekeli veya pikselli gölgeler alıyorsanız:</b> "Lightmap Compression" özelliğini "None" olarak ayarlayın.
+                    </p>
+                    <p>
+                        <b>Işıklandırmanızın genel görünümünden memnunsanız ve son ışık haritanızı oluşturmaya hazırsanız:</b> "Lightmap Resolution" özelliğini 20 ile 80 arasında bir değere yükseltin. İsterseniz, istediğiniz sonucu elde etmek için diğer ışıklandırma ayarlarını (örnekler, yansımalar vb.) ayarlamaya devam edin. 
+                    </p>
+                    <p>
+                        Işıklandırmanız artık istediğiniz gibi görünmeli ve performans açısından optimize edilmiş olmalıdır.
+                    </p>
+                    <p>
+                        <ul>İleri Okuma
+                            <li><a href="https://docs.unity3d.com/Manual/choose-a-lighting-setup.html">Global illumination</a></li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            <div id="12">
+                <h1>Oluşturma (Building) ve Paylaşma (Sharing)</h1>
+                <p>
+                    Bu derste, sanal gerçeklik (VR) alanında en iyi uygulamalara ilişkin yönergeleri takip edecek ve çalışmalarınızı paylaşma seçeneklerini keşfedeceksiniz. Dersin sonunda, uygulamanızı uygun şekilde yapılandıracak ve paylaşmaya hazır bir sürümünü oluşturacaksınız.
+                </p>
+
+                <h2>Uygulamanın Adını ve Sürüm Numarasını Girme</h2>
+                <p>
+                    <b>Player Settings'e erişmek:</b> "Edit > Project Settings"i seçtik. En soldaki panelde "Player"i seçtik.
+                </p>
+                <p>
+                    <b>Varsayılan uygulama bilgilerini değiştirmek:</b> Şirket Adı (Company Name), Ürün Adı (Product Name) ve Sürüm Numarası (Version Number) özelliklerini uygulamanızın mevcut durumuna uygun şekilde değiştirdik.
+                </p>
+                <p>
+                    <b>Uygulama başlatıldığında görünen açılış ekranını düzenlemek istiyorsanız:</b> Açılır menüyü (üçgen simgesi) kullanarak Açılış Ekranı (Splash Image) bölümünü genişlettik ve ayarlarını düzenledik. Açılış görüntüsünü devre dışı bırakmak için en az bir Pro lisansına ihtiyacınız olacaktır (Unity 6 da gerek olmayabilir). Uygulamanız artık cihazınızda doğru adıyla görüntülenmeli ve istediğiniz açılış görüntüsüyle yüklenmelidir.
+                </p>
+                <p>
+                    ı<l>
+                        <li><a href="https://beta.developers.meta.com/horizon/resources/publish-asset-design-bp/">App Name and Asset Best Practices</a></li>
+                        <li><a href="https://beta.developers.meta.com/horizon/resources/asset-guidelines/">Meta Horizon Store asset design guidelines</a></li>
+                    </l>
+                </p>
+
+                <h2>Önerilen Yayın Ayarlarını Onaylama</h2>
+                <p>
+                    Uygulamanızın performansını optimize etmenin yanı sıra, genel olarak uygulamanızın en iyi şekilde derlenmesini ve çalışmasını sağlayacak birkaç platforma özgü öneri de bulunmaktadır.
+                </p>
+                <p>
+                    Öneriler platforma göre değişiklik gösterdiği ve sürekli güncellendiği için, güncel ve doğru bilgilere ulaşmanın en iyi yolu internette arama yapmaktır.
+                </p>
+                <p>
+                    <b>VR yayını için önerilen ayarlar hakkında rehberlik bulmak:</b> Spesifik önerileri bulmak için aşağıdaki "İlgili kaynaklar" bölümündeki bağlantıları inceleyin. İnternette "Recommended Unity settings for [insert_device]" ifadesini arayın.
+                </p>
+                <p>
+                    <b>Oynatıcı Ayarlarını Yapılandırmak:</b> "Edit > Project Settings"i seçin, ardından en soldaki panelden "Player"i seçin. Açılır menüyü (üçgen) kullanarak "Other Settings" bölümünü genişletin.
+                </p>
+                <p>
+                    <b>Kalite ayarlarını yapılandırmak:</b> "Project Settings" penceresinin en soldaki panelinden "Quality"i seçin ve ayarlarınızı hedef platformunuz için önerilen ayarlarla karşılaştırın.
+                </p>
+                <p>
+                    <b>XR ayarlarını yapılandırmak:</b> "Project Settings" penceresinin en soldaki panelinden "XR Plug-in Management"i seçin ve ayarlarınızı hedef platformunuzun önerilen yapılandırmasıyla karşılaştırın. 
+                </p>
+                <p>
+                    <b>Oluşturma ayarlarını yapılandırmak:</b> "Project" penceresinden "UniversalRenderPipelineAsset" öğesini bulun ve seçin, ardından ayarlarınızı hedef platformunuz için önerilen yapılandırmayla karşılaştırın.
+                </p>
+                <p>
+                    <b>Gölge ayarlarını onaylamak:</b> Herhangi bir Gerçek Zamanlı veya Karışık Işık için uygun gölgeleri kullandığınızdan emin olun.
+                </p>
+                <p>
+                    <b>Derleme Ayarlarını onaylamak için:</b> "File > Build Profiles"ı seçin. 
+                </p>
+                <p>
+                    Uygulamanız artık hedef platformunuza yayınlamak için önerilen tüm ayarlara uymalıdır.
+                </p>
+                <p>
+                    <ul>
+                        <li><a href="https://developers.meta.com/horizon/blog/tech-note-unity-settings-for-mobile-vr/">Teknik Not: Mobil VR için Unity Ayarları</a></li>
+                        <li><a href="https://learn.unity.com/tutorial/optimizing-your-vr-ar-experiences">Unity Learn: Optimizing your VR/AR Experiences</a></li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>Değiştirdiğim ayarlar
+                        <li>"Oculus" içinde "Sterio Rendering Mode: Multiview yapıldı". "Symmetric Projection" kapatıldı. FPS ye etkisi olmadı</li>
+                        <li>"Player" içinde "Prebake Collision Meshes" açıldı. FPS ye etkisi olmadı</li>
+                        <li>"Quality" içinde "Medium" harici seçenekler devre dışı bırakıldı. FPS ye etkisi olmadı</li>
+                        <li>Geçici deneme: "Quality" içinde "Low" harici seçenekler devre dışı bırakıldı. FPS ye etkisi olmadı</li>
+                        <li>"Quality" içinde "Anisotropic Textures" devre dışı bırakıldı. FPS ye etkisi az oldu</li>
+                        <li>"Build Settings" içinde "Texture Compression: ASTC" yapıldı. FPS ye etkisi az oldu</li>
+                    </ul>
+                </p>
+                <p>
+                    Bizdeki performans darboğazı büyük ölçüde cihazın kapasitesinden gibi duruyor. En büyük sıkıntıyı batches sayısından alıyoruz. Bunun da nedeni çok fazla dinamik nesnemiz olması. Dinamik nesnenin az olduğu alanda 60fps civarını görebiliyoruz.
+                </p>
+            </div>
+            <div id="13">
+                <div id="keepinUpXRTech">
+                    <h1>XR Teknolojisini Takip Etmek</h1>
+                    <p>
+                        Güncel kalmak için aşağıdaki kaynaklardan en az ikisini takip etmek önerilir.
+                        <ul>
+                            <li><a href="https://www.uploadvr.com/">UploadVR:</a> XR sektörüne ilişkin incelemeler, kılavuzlar ve analizler dahil olmak üzere VR ve AR haberleri.</li>
+                            <li><a href="https://www.scouthouse.com/">VRScout:</a> VR haberleri, projeleri ve videoları.</li>
+                            <li><a href="https://skarredghost.com/amp/">The Ghost Howls:</a> Sektör uzmanı tarafından hazırlanan, röportajlar, incelemeler, haberler ve eğitim yazıları içeren bir VR ve AR blogu.</li>
+                            <li><a href="https://www.roadtovr.com/road-vr-virtual-reality-news-mobile/">Road to VR:</a> VR haberleri: en son gelişmeler, incelemeler ve kılavuzlar.</li>
+                            <li><a href="https://www.theinformation.com/features/reality-check">Reality Check by Mathew Olson — The Information:</a> VR ve AR alanındaki en son gelişmeleri içeren günlük bülten.</li>
+                            <li><a href="https://x.com/kentbye">Kent Bye VoicesOfVR (@kentbye) / Twitter:</a> Sektörün geleceğine dair görüşlerini paylaşan VR öncüleriyle yapılan röportaj podcast'i.</li>
                         </ul>
                     </p>
                 </div>
