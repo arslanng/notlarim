@@ -107,6 +107,7 @@
                   <a class="nav-link" href="#optimization">Optimizasyon</a>
                   <a class="nav-link" href="#lighting">Aydınlatma</a>
                   <a class="nav-link" href="#keepinUpXRTech">XR Teknolojisini Takip Etmek</a>
+                  <a class="nav-link" href="#customScripts">Projeye Özel Scriptler</a>
                   
                 </nav>
               </nav>
@@ -2188,6 +2189,259 @@ public class ToggleNearFarAttach : MonoBehaviour
                             <li><a href="https://www.theinformation.com/features/reality-check">Reality Check by Mathew Olson — The Information:</a> VR ve AR alanındaki en son gelişmeleri içeren günlük bülten.</li>
                             <li><a href="https://x.com/kentbye">Kent Bye VoicesOfVR (@kentbye) / Twitter:</a> Sektörün geleceğine dair görüşlerini paylaşan VR öncüleriyle yapılan röportaj podcast'i.</li>
                         </ul>
+                    </p>
+                </div>
+            </div>
+            <div id="14">
+                <div id="customScripts">
+                    <h1>Projeye Özel Scriptler</h1>
+
+                    <h2>Scanner</h2>
+                    <p>
+                        XR Interaction Toolkit içinde yer alan bir scripti miras alan kendi kodumuzu uygulamada yer alan nesnelerin adlarını ve konumlarını tarayan bir tarayıcı (scanner) gameobject kurmak için kullanacağız.
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit; // XRGrabInteractable, SelectEnterEventArgs, SelectExitEventArgs, ActivateEventArgs, DeactivateEventArgs, HoverEnterEventArgs, HoverExitEventArgs
+using UnityEngine.XR.Interaction.Toolkit.Interactables;// miras aldığımız sınıf için gerekli
+using TMPro;
+
+public class Scanner : XRGrabInteractable // XRGrabInteractable sınıfından miras alarak, bu sınıfın özelliklerini kullanarak bir tarayıcı oluşturuyoruz
+{
+    [Header("Scanner Settings")]
+    public Animator animator;
+    public LineRenderer laserRenderer;
+    public GameObject body;
+    private Color originalBodyColor;
+    public TextMeshProUGUI targetName;
+    public TextMeshProUGUI targetPosition;
+    private bool isSelect;
+    private bool isActivated;
+    private GameObject lastHitObject;
+    private Color lastColor;
+    protected override void Awake() // Awake() metodu, nesne oluşturulduğunda bir kez çağrılır. Bu metotta, tarayıcının başlangıç durumunu ayarlıyoruz.
+    {
+        base.Awake(); // base.Awake() çağrısı, XRGrabInteractable sınıfının Awake() metodunu çağırarak, bu sınıfın özelliklerini kullanmamızı sağlar. bunu kullanmazsak overrade ettiğimiz metodun içindeki orijinal kodlar çalışmaz.
+        ScanerActiveted(false);
+    }
+    private void Start()
+    {
+        Renderer renderer = body.GetComponent&lt;Renderer>();
+        originalBodyColor = renderer.material.color;
+        isSelect = false;
+    }
+    protected override void OnSelectEntered(SelectEnterEventArgs args) // OnSelectEntered() metodu, nesne seçildiğinde çağrılır.
+    {
+        base.OnSelectEntered(args);
+        animator.SetBool("Opened", true); 
+        isSelect = true;
+        ChangeHoverColor(false);
+    }
+    protected override void OnSelectExited(SelectExitEventArgs args) // OnSelectExited() metodu, nesne seçimi bırakıldığında çağrılır.
+    {
+        base.OnSelectExited(args);
+        animator.SetBool("Opened", false);
+    }
+
+    protected override void OnActivated(ActivateEventArgs args) // OnActivated() metodu, nesne etkinleştirildiğinde çağrılır. Bu metotta, tarayıcının lazerini ve hedef bilgilerini gösteriyoruz.
+    {
+        base.OnActivated(args);
+        ScanerActiveted(true);
+    }
+    protected override void OnDeactivated(DeactivateEventArgs args) // OnDeactivated() metodu, nesne devre dışı bırakıldığında çağrılır. Bu metotta, tarayıcının lazerini ve hedef bilgilerini gizliyoruz.
+    {
+        base.OnDeactivated(args);
+        ScanerActiveted(false);
+        OldMaterial();
+    }
+    protected override void OnHoverEntered(HoverEnterEventArgs args) // OnHoverEntered() metodu, nesne üzerine gelindiğinde çağrılır. Bu metotta, tarayıcının rengini değiştiriyoruz.
+    {
+        base.OnHoverEntered(args);
+        if (!isSelect)
+            ChangeHoverColor(true);
+    }
+    protected override void OnHoverExited(HoverExitEventArgs args) // OnHoverExited() metodu, nesne üzerinden ayrıldığında çağrılır. Bu metotta, tarayıcının rengini eski haline getiriyoruz.
+    {
+        base.OnHoverExited(args);
+        if (!isSelect)
+            ChangeHoverColor(false);
+    }
+    private void ChangeHoverColor(bool isOriginal) // ChangeHoverColor() metodu, tarayıcının rengini değiştirmek için kullanılır. isOriginal parametresi, rengin orijinal mi yoksa yeni mi olduğunu belirtir.
+    {
+        Renderer renderer = body.GetComponent&lt;Renderer>();
+        if (isOriginal)
+            renderer.material.color = Color.red;
+        else
+            renderer.material.color = originalBodyColor;
+    }
+    private void ScanerActiveted(bool isActivated) // ScanerActiveted() metodu, tarayıcının lazerini ve hedef bilgilerini göstermek veya gizlemek için kullanılır. isActivated parametresi, tarayıcının etkinleştirilip etkinleştirilmediğini belirtir.
+    {
+        laserRenderer.gameObject.SetActive(isActivated);
+        targetName.gameObject.SetActive(isActivated);
+        targetPosition.gameObject.SetActive(isActivated);
+        this.isActivated = isActivated;
+    }
+    private void ScanForObject() // ScanForObject() metodu, tarayıcının lazerini kullanarak bir nesne taramak için kullanılır. Raycast kullanarak, lazerin yönünde bir nesne olup olmadığını kontrol ederiz ve eğer varsa, hedef bilgilerini güncelleriz.
+    {
+        RaycastHit hit;
+
+        Vector3 worldHit = laserRenderer.transform.position + laserRenderer.transform.forward * 1000f;
+
+        OldMaterial();
+
+
+        // Raycast kontrolü
+        if (Physics.Raycast(laserRenderer.transform.position, laserRenderer.transform.forward, out hit))
+        {
+            worldHit = hit.point;
+
+            targetName.SetText(hit.collider.name);
+            targetPosition.SetText(hit.collider.transform.position.ToString());
+
+            Renderer newRenderer = hit.collider.GetComponentInParent&lt;Renderer>();
+
+            if (newRenderer != null)
+            {
+                lastHitObject = newRenderer.gameObject;
+                lastColor = newRenderer.material.color;
+
+                newRenderer.material.color = Color.green;
+            }
+        }
+
+        // Lazer ucu çizimi (local space dönüşüm)
+        laserRenderer.SetPosition(
+            1,
+            laserRenderer.transform.InverseTransformPoint(worldHit)
+        );
+    }
+    public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase) // ProcessInteractable() metodu, her frame çağrılır. Bu metotta, tarayıcının lazerini sürekli olarak güncelliyoruz.
+    {
+        base.ProcessInteractable(updatePhase);
+        if (isActivated)
+        {
+            ScanForObject();
+        }
+    }
+
+    void OldMaterial() // Önce eski objeyi eski rengine döndür
+    {
+        if (lastHitObject != null)
+        {
+            Renderer oldRenderer = lastHitObject.GetComponentInParent&lt;Renderer>();
+
+            if (oldRenderer != null)
+            {
+                oldRenderer.material.color = lastColor;
+            }
+
+            lastHitObject = null;
+        }
+    }
+}
+
+                        </pre>
+                    </p>
+
+                    <h2>Trigger Value Okumak</h2>
+                    <p>
+                        <pre class="prettyprint ms-0">
+using UnityEngine;
+
+// XR Interaction Toolkit ana namespace
+using UnityEngine.XR.Interaction.Toolkit;
+
+// Interactor sınıfları burada
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+
+/// &lt;summary>
+/// Trigger değerini her frame okuyup konsola yazdırır.
+/// XRGrabInteractable'dan inherit aldığı için
+/// obje grab edilebilir hale gelir.
+/// &lt;/summary>
+public class TriggerValue : XRGrabInteractable
+{
+    [Header("Debug")]
+
+    // Inspector üzerinden anlık trigger değerini görmek için
+    public float currentTriggerValue;
+
+    // Objeyi şu an hangi interactor'ın tuttuğunu saklar
+    // (sağ el / sol el / simulator controller)
+    private XRBaseInputInteractor m_InputInteractor;
+
+    /// &lt;summary>
+    /// Obje grab edildiğinde otomatik çalışır.
+    /// &lt;/summary>
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        // Parent class'ın kendi grab işlemlerini çalıştır
+        base.OnSelectEntered(args);
+
+        // Objeyi grab eden interactor'ı al
+        // "as" kullanımı güvenli cast sağlar
+        m_InputInteractor = args.interactorObject as XRBaseInputInteractor;
+
+        // Debug bilgisi
+        Debug.Log("Grab başladı: " + m_InputInteractor?.gameObject.name);
+    }
+
+    /// &lt;summary>
+    /// Obje bırakıldığında otomatik çalışır.
+    /// &lt;/summary>
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        // Parent class'ın kendi bırakma işlemlerini çalıştır
+        base.OnSelectExited(args);
+
+        Debug.Log("Grab bitti");
+
+        // Referansı temizle
+        // Böylece artık input okumaya çalışmaz
+        m_InputInteractor = null;
+    }
+
+    /// &lt;summary>
+    /// XR sisteminde her frame çağrılır.
+    /// Input okumak için en uygun yerlerden biridir.
+    /// &lt;/summary>
+    public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
+    {
+        // Parent class'ın kendi update işlemleri çalışsın
+        base.ProcessInteractable(updatePhase);
+
+        // Eğer obje tutulmuyorsa çık
+        if (!isSelected)
+            return;
+
+        // Eğer interactor yoksa çık
+        if (m_InputInteractor == null)
+            return;
+
+        // activateInput null mı kontrol et
+        // Bazı XR setup'larında eksik olabilir
+        if (m_InputInteractor.activateInput == null)
+        {
+            Debug.LogWarning("activateInput NULL!");
+            return;
+        }
+
+        // Trigger değerini oku
+        // Analog controller:
+        // 0.0 → 1.0 arası değer verir
+        //
+        // Mouse/klavye:
+        // genelde sadece 0 veya 1 verir
+        float triggerValue =
+            m_InputInteractor.activateInput.ReadValue();
+
+        // Inspector'da görmek için kaydet
+        currentTriggerValue = triggerValue;
+
+        // Konsola anlık yazdır
+        Debug.Log("Trigger Value: " + triggerValue);
+    }
+}
+                        </pre>
                     </p>
                 </div>
             </div>
